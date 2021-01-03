@@ -89,6 +89,7 @@ namespace Grand.Web.Features.Handlers.Products
             {
                 { "Products.CallForPrice", _localizationService.GetResource("Products.CallForPrice", _workContext.WorkingLanguage.Id) },
                 { "Products.PriceRangeFrom", _localizationService.GetResource("Products.PriceRangeFrom", _workContext.WorkingLanguage.Id)},
+                { "Products.PriceRangeFromTo", _localizationService.GetResource("Products.PriceRangeFromTo", _workContext.WorkingLanguage.Id)},
                 { "Media.Product.ImageLinkTitleFormat", _localizationService.GetResource("Media.Product.ImageLinkTitleFormat", _workContext.WorkingLanguage.Id) },
                 { "Media.Product.ImageAlternateTextFormat", _localizationService.GetResource("Media.Product.ImageAlternateTextFormat", _workContext.WorkingLanguage.Id) }
             };
@@ -216,6 +217,8 @@ namespace Grand.Web.Features.Handlers.Products
                                         //find a minimum possible price
                                         decimal? minPossiblePrice = null;
                                         Product minPriceProduct = null;
+                                        var maxPrice = default(decimal);
+                                        Product maxPriceProduct = null;
                                         foreach (var associatedProduct in associatedProducts)
                                         {
                                             //calculate for the maximum quantity (in case if we have tier prices)
@@ -225,6 +228,11 @@ namespace Grand.Web.Features.Handlers.Products
                                             {
                                                 minPriceProduct = associatedProduct;
                                                 minPossiblePrice = tmpPrice;
+                                            }
+                                            if (maxPrice < tmpPrice)
+                                            {
+                                                maxPrice = tmpPrice;
+                                                maxPriceProduct = associatedProduct;
                                             }
                                         }
                                         if (minPriceProduct != null && !minPriceProduct.CustomerEntersPrice)
@@ -240,8 +248,13 @@ namespace Grand.Web.Features.Handlers.Products
                                                 decimal finalPriceBase = (await _taxService.GetProductPrice(minPriceProduct, minPossiblePrice.Value, priceIncludesTax, _workContext.CurrentCustomer)).productprice;
                                                 decimal finalPrice = await _currencyService.ConvertFromPrimaryStoreCurrency(finalPriceBase, _workContext.WorkingCurrency);
 
+                                                var maxPriceBase = (await _taxService.GetProductPrice(maxPriceProduct, maxPrice, priceIncludesTax, _workContext.CurrentCustomer)).productprice;
+                                                var finalMaxPrice = await _currencyService.ConvertFromPrimaryStoreCurrency(maxPriceBase, _workContext.WorkingCurrency);
+
                                                 priceModel.OldPrice = null;
-                                                priceModel.Price = String.Format(res["Products.PriceRangeFrom"], _priceFormatter.FormatPrice(finalPrice, true, _workContext.WorkingCurrency, _workContext.WorkingLanguage, priceIncludesTax));
+                                                priceModel.Price = String.Format(res["Products.PriceRangeFromTo"],
+                                                    _priceFormatter.FormatPrice(finalPrice, true, _workContext.WorkingCurrency, _workContext.WorkingLanguage, priceIncludesTax),
+                                                    _priceFormatter.FormatPrice(finalMaxPrice, true, _workContext.WorkingCurrency, _workContext.WorkingLanguage, priceIncludesTax));
                                                 priceModel.PriceValue = finalPrice;
 
                                                 //PAngV baseprice (used in Germany)
