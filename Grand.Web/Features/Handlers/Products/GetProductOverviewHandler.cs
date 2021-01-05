@@ -10,6 +10,7 @@ using Grand.Services.Media;
 using Grand.Services.Security;
 using Grand.Services.Seo;
 using Grand.Services.Tax;
+using Grand.Services.Vendors;
 using Grand.Web.Features.Models.Catalog;
 using Grand.Web.Features.Models.Products;
 using Grand.Web.Models.Catalog;
@@ -38,6 +39,7 @@ namespace Grand.Web.Features.Handlers.Products
         private readonly IPictureService _pictureService;
         private readonly IDateTimeHelper _dateTimeHelper;
         private readonly IMediator _mediator;
+        private readonly IVendorService _vendorService;
 
         private readonly MediaSettings _mediaSettings;
         private readonly CatalogSettings _catalogSettings;
@@ -55,6 +57,7 @@ namespace Grand.Web.Features.Handlers.Products
             IPictureService pictureService,
             IDateTimeHelper dateTimeHelper,
             IMediator mediator,
+            IVendorService vendorService,
             MediaSettings mediaSettings,
             CatalogSettings catalogSettings)
         {
@@ -72,6 +75,7 @@ namespace Grand.Web.Features.Handlers.Products
             _mediator = mediator;
             _mediaSettings = mediaSettings;
             _catalogSettings = catalogSettings;
+            _vendorService = vendorService;
         }
 
         public async Task<IEnumerable<ProductOverviewModel>> Handle(GetProductOverview request, CancellationToken cancellationToken)
@@ -108,13 +112,30 @@ namespace Grand.Web.Features.Handlers.Products
         private async Task<ProductOverviewModel> GetProductOverviewModel(Product product, GetProductOverview request,
             bool displayPrices, bool enableShoppingCart, bool enableWishlist, int pictureSize, bool priceIncludesTax, Dictionary<string, string> res)
         {
-            var model = PrepareProductOverviewModel(product);
+            var model = await PrepareProductOverviewModel(product);
             //price
             if (request.PreparePriceModel)
             {
                 model.ProductPrice = await PreparePriceModel(product, res, request.ForceRedirectionAfterAddingToCart,
                       enableShoppingCart, displayPrices, enableWishlist, priceIncludesTax);
             }
+
+
+            #region Associated products
+
+            if (product.ProductType == ProductType.GroupedProduct)
+            {
+                var associatedProducts = await _productService.GetAssociatedProducts(product.Id, _storeContext.CurrentStore.Id);
+                foreach (var associatedProduct in associatedProducts)
+                {
+                    var associatedProductOverview = await PrepareProductOverviewModel(associatedProduct, true);
+                    associatedProductOverview.ProductPrice = await PreparePriceModel(associatedProduct, res, request.ForceRedirectionAfterAddingToCart,
+                      enableShoppingCart, displayPrices, enableWishlist, priceIncludesTax);
+                    model.AssociatedProducts.Add(associatedProductOverview);
+
+                }
+            }
+            #endregion
 
             //picture
             if (request.PreparePictureModel)
@@ -139,8 +160,28 @@ namespace Grand.Web.Features.Handlers.Products
             return model;
         }
 
-        private ProductOverviewModel PrepareProductOverviewModel(Product product)
+ 
+
+        private async Task<VendorBriefInfoModel> PrepareVendorBriefInfoModel(Product product)
         {
+            if (!string.IsNullOrEmpty(product.VendorId))
+            {
+                var vendor = await _vendorService.GetVendorById(product.VendorId);
+                if (vendor != null && !vendor.Deleted && vendor.Active)
+                {
+                    return new VendorBriefInfoModel {
+                        Id = vendor.Id,
+                        Name = vendor.GetLocalized(x => x.Name, _workContext.WorkingLanguage.Id),
+                        SeName = vendor.GetSeName(_workContext.WorkingLanguage.Id),
+                    };
+                }
+            }
+            return null;
+        }
+
+        private async Task<ProductOverviewModel> PrepareProductOverviewModel(Product product, bool isAssociatedProduct = false)
+        {
+
             var model = new ProductOverviewModel {
                 Id = product.Id,
                 Name = product.GetLocalized(x => x.Name, _workContext.WorkingLanguage.Id),
@@ -159,10 +200,17 @@ namespace Grand.Web.Features.Handlers.Products
                 EndTimeLocalTime = product.AvailableEndDateTimeUtc.HasValue ? _dateTimeHelper.ConvertToUserTime(product.AvailableEndDateTimeUtc.Value, DateTimeKind.Utc) : new DateTime?(),
                 ShowQty = _catalogSettings.DisplayQuantityOnCatalogPages,
                 GenericAttributes = product.GenericAttributes,
+                VendorId = product.VendorId,
                 MarkAsNew = product.MarkAsNew &&
                         (!product.MarkAsNewStartDateTimeUtc.HasValue || product.MarkAsNewStartDateTimeUtc.Value < DateTime.UtcNow) &&
                         (!product.MarkAsNewEndDateTimeUtc.HasValue || product.MarkAsNewEndDateTimeUtc.Value > DateTime.UtcNow)
             };
+
+            if (isAssociatedProduct)
+            {
+                model.Vendor = await PrepareVendorBriefInfoModel(product);
+            }
+
             return model;
         }
 
@@ -528,3 +576,4 @@ namespace Grand.Web.Features.Handlers.Products
     }
 
 }
+

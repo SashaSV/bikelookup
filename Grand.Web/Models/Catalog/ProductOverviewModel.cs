@@ -18,11 +18,19 @@ namespace Grand.Web.Models.Catalog
             SpecificationAttributeModels = new List<ProductSpecificationModel>();
             ProductAttributeModels = new List<ProductAttributeModel>();
             ReviewOverviewModel = new ProductReviewOverviewModel();
+            AssociatedProducts = new List<ProductOverviewModel>();
         }
         public string Name { get; set; }
         public string ShortDescription { get; set; }
         public string FullDescription { get; set; }
         public string SeName { get; set; }
+        /// <summary>
+        /// Gets or sets a vendor identifier
+        /// </summary>
+        public string VendorId { get; set; }
+
+        public VendorBriefInfoModel Vendor {get; set;}
+
         public ProductType ProductType { get; set; }
         public bool MarkAsNew { get; set; }
         public string Sku { get; set; }
@@ -35,6 +43,7 @@ namespace Grand.Web.Models.Catalog
         public DateTime? EndTime { get; set; }
         public DateTime? EndTimeLocalTime { get; set; }
         public TaxDisplayType TaxDisplayType { get; set; }
+        public IList<ProductOverviewModel> AssociatedProducts { get; set; }
 
         //price
         public ProductPriceModel ProductPrice { get; set; }
