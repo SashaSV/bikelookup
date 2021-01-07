@@ -39,7 +39,8 @@ namespace Grand.Web.Features.Handlers.Catalog
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly CatalogSettings _catalogSettings;
         private readonly MediaSettings _mediaSettings;
-
+        private readonly IProductService _productService;
+        
         public GetCategoryHandler(
             IMediator mediator,
             IWebHelper webHelper,
@@ -52,7 +53,8 @@ namespace Grand.Web.Features.Handlers.Catalog
             ISpecificationAttributeService specificationAttributeService,
             IHttpContextAccessor httpContextAccessor,
             CatalogSettings catalogSettings,
-            MediaSettings mediaSettings)
+            MediaSettings mediaSettings,
+            IProductService productService)
         {
             _mediator = mediator;
             _webHelper = webHelper;
@@ -66,6 +68,7 @@ namespace Grand.Web.Features.Handlers.Catalog
             _httpContextAccessor = httpContextAccessor;
             _catalogSettings = catalogSettings;
             _mediaSettings = mediaSettings;
+            _productService = productService;
         }
 
         public async Task<CategoryModel> Handle(GetCategory request, CancellationToken cancellationToken)
@@ -89,21 +92,6 @@ namespace Grand.Web.Features.Handlers.Catalog
                 PageSize = request.Category.PageSize
             });
             model.PagingFilteringContext = options.command;
-
-            //price ranges
-            model.PagingFilteringContext.PriceRangeFilter.LoadPriceRangeFilters(request.Category.PriceRanges, _webHelper, _priceFormatter);
-            var selectedPriceRange = model.PagingFilteringContext.PriceRangeFilter.GetSelectedPriceRange(_webHelper, request.Category.PriceRanges);
-            decimal? minPriceConverted = null;
-            decimal? maxPriceConverted = null;
-            if (selectedPriceRange != null)
-            {
-                if (selectedPriceRange.From.HasValue)
-                    minPriceConverted = await _currencyService.ConvertToPrimaryStoreCurrency(selectedPriceRange.From.Value, currency);
-
-                if (selectedPriceRange.To.HasValue)
-                    maxPriceConverted = await _currencyService.ConvertToPrimaryStoreCurrency(selectedPriceRange.To.Value, currency);
-            }
-
 
             //category breadcrumb
             if (_catalogSettings.CategoryBreadcrumbEnabled)
@@ -201,8 +189,29 @@ namespace Grand.Web.Features.Handlers.Catalog
                 //include subcategories
                 categoryIds.AddRange(await _mediator.Send(new GetChildCategoryIds() { ParentCategoryId = request.Category.Id, Customer = request.Customer, Store = request.Store }));
             }
+
+            var priceRange = await _productService.SearchProductsPriceRange(categoryIds);
+            
+            //price ranges
+            //model.PagingFilteringContext.PriceRangeFilter.LoadPriceRangeFilters(request.Category.PriceRanges, _webHelper, _priceFormatter);
+
+            model.PagingFilteringContext.PriceRangeFilter.LoadPriceRangeFilter(priceRange, _webHelper, _priceFormatter);
+            var selectedPriceRange = model.PagingFilteringContext.PriceRangeFilter.GetSelectedPriceRange(_webHelper);
+            
+            decimal? minPriceConverted = null;
+            decimal? maxPriceConverted = null;
+            if (selectedPriceRange != null)
+            {
+                if (selectedPriceRange.From.HasValue)
+                    minPriceConverted = await _currencyService.ConvertToPrimaryStoreCurrency(selectedPriceRange.From.Value, currency);
+
+                if (selectedPriceRange.To.HasValue)
+                    maxPriceConverted = await _currencyService.ConvertToPrimaryStoreCurrency(selectedPriceRange.To.Value, currency);
+            }
+
             //products
             IList<string> alreadyFilteredSpecOptionIds = await model.PagingFilteringContext.SpecificationFilter.GetAlreadyFilteredSpecOptionIds(_httpContextAccessor, _specificationAttributeService);
+            
             var products = (await _mediator.Send(new GetSearchProductsQuery() {
                 LoadFilterableSpecificationAttributeOptionIds = !_catalogSettings.IgnoreFilterableSpecAttributeOption,
                 CategoryIds = categoryIds,

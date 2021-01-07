@@ -771,6 +771,29 @@ namespace Grand.Services.Catalog
 
         }
 
+        public virtual async Task<PriceRange> SearchProductsPriceRange(IList<string> categoryIds)
+        {
+            var allProducts =
+                _productRepository.Collection.Find(pr =>
+                    pr.ProductCategories.Any(cat => categoryIds.Contains((cat.CategoryId))));
+
+            var maxPriced = await allProducts.SortByDescending(pr => pr.Price).FirstOrDefaultAsync();
+
+            if (maxPriced == null)
+            {
+                return new PriceRange();
+            }
+
+            var minPriced = await allProducts.SortBy(pr => pr.Price).FirstOrDefaultAsync();
+            
+            if (minPriced == null)
+            {
+                return new PriceRange();
+            }
+
+            return new PriceRange() {From = minPriced.Price,To =  maxPriced.Price};
+        }
+
         #endregion
 
         #region Inventory management methods

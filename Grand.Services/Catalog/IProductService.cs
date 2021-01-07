@@ -215,7 +215,11 @@ namespace Grand.Services.Catalog
         /// <param name="includeBothDates">Include both dates</param>
         Task UpdateIntervalProperties(string productId, int interval, IntervalUnit intervalUnit, bool includeBothDates);
 
-
+        /// <summary>
+        /// Find Products price range
+        /// </summary>
+        Task<PriceRange> SearchProductsPriceRange(IList<string> categoryIds);
+         
         #endregion
 
         #region Inventory management methods

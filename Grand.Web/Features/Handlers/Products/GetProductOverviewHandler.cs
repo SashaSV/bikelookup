@@ -113,29 +113,34 @@ namespace Grand.Web.Features.Handlers.Products
             bool displayPrices, bool enableShoppingCart, bool enableWishlist, int pictureSize, bool priceIncludesTax, Dictionary<string, string> res)
         {
             var model = await PrepareProductOverviewModel(product);
+            
+             #region Associated products
+
+             IEnumerable<Product> associatedProducts = new List<Product>();
+             
+             if (product.ProductType == ProductType.GroupedProduct)
+             {
+                 associatedProducts =
+                     await _productService.GetAssociatedProducts(product.Id, _storeContext.CurrentStore.Id);
+                 foreach (var associatedProduct in associatedProducts)
+                 {
+                     var associatedProductOverview =
+                         await PrepareProductOverviewModel(associatedProduct, true);
+                     associatedProductOverview.ProductPrice = await PreparePriceModel(associatedProduct, res,
+                         request.ForceRedirectionAfterAddingToCart,
+                         enableShoppingCart, displayPrices, enableWishlist, priceIncludesTax,
+                         new List<Product>());
+                     model.AssociatedProducts.Add(associatedProductOverview);
+                 }
+             }
+             #endregion
+                        
             //price
             if (request.PreparePriceModel)
             {
                 model.ProductPrice = await PreparePriceModel(product, res, request.ForceRedirectionAfterAddingToCart,
-                      enableShoppingCart, displayPrices, enableWishlist, priceIncludesTax);
+                      enableShoppingCart, displayPrices, enableWishlist, priceIncludesTax, associatedProducts);
             }
-
-
-            #region Associated products
-
-            if (product.ProductType == ProductType.GroupedProduct)
-            {
-                var associatedProducts = await _productService.GetAssociatedProducts(product.Id, _storeContext.CurrentStore.Id);
-                foreach (var associatedProduct in associatedProducts)
-                {
-                    var associatedProductOverview = await PrepareProductOverviewModel(associatedProduct, true);
-                    associatedProductOverview.ProductPrice = await PreparePriceModel(associatedProduct, res, request.ForceRedirectionAfterAddingToCart,
-                      enableShoppingCart, displayPrices, enableWishlist, priceIncludesTax);
-                    model.AssociatedProducts.Add(associatedProductOverview);
-
-                }
-            }
-            #endregion
 
             //picture
             if (request.PreparePictureModel)
@@ -216,7 +221,7 @@ namespace Grand.Web.Features.Handlers.Products
 
         private async Task<ProductOverviewModel.ProductPriceModel> PreparePriceModel(Product product, Dictionary<string, string> res,
             bool forceRedirectionAfterAddingToCart, bool enableShoppingCart, bool displayPrices, bool enableWishlist,
-            bool priceIncludesTax)
+            bool priceIncludesTax, IEnumerable<Product> associatedProducts)
         {
             #region Prepare product price
 
@@ -230,8 +235,7 @@ namespace Grand.Web.Features.Handlers.Products
                     {
                         #region Grouped product
 
-                        var associatedProducts = await _productService.GetAssociatedProducts(product.Id, _storeContext.CurrentStore.Id);
-
+                       
                         //add to cart button (ignore "DisableBuyButton" property for grouped products)
                         priceModel.DisableBuyButton = !enableShoppingCart || !displayPrices;
 
@@ -248,15 +252,8 @@ namespace Grand.Web.Features.Handlers.Products
                             priceModel.CatalogPrice = _priceFormatter.FormatPrice(catalogPrice, true, _workContext.WorkingCurrency, _workContext.WorkingLanguage, priceIncludesTax);
                         }
 
-                        switch (associatedProducts.Count)
-                        {
-                            case 0:
-                                {
-
-                                }
-                                break;
-                            default:
-                                {
+                        if(associatedProducts.Any())
+                          {
                                     //we have at least one associated product
                                     //compare products
                                     priceModel.DisableAddToCompareListButton = !_catalogSettings.CompareProductsEnabled;
@@ -324,8 +321,8 @@ namespace Grand.Web.Features.Handlers.Products
                                         priceModel.Price = null;
                                     }
                                 }
-                                break;
-                        }
+                           
+                        
 
                         #endregion
                     }
