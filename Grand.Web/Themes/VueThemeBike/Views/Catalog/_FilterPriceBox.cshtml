@@ -1,6 +1,9 @@
-﻿@model CatalogPagingFilteringModel.PriceRangeFilterModel
+﻿@using NPOI.SS.Formula.Functions
+@model CatalogPagingFilteringModel.PriceRangeFilterModel
 @{
     var selectedItem = Model.Items.FirstOrDefault(x => x.Selected);
+    var rangeMinValue = @Model.SelectedRange.FromValue != 0 ? Model.SelectedRange.FromValue : Model.AvalibleRange.FromValue;
+    var rangeMaxValue = @Model.SelectedRange.ToValue != 0 ? Model.SelectedRange.ToValue : Model.AvalibleRange.ToValue;
 }
 
 @functions {
@@ -30,12 +33,24 @@
             <h2 class="h5">
                 <strong>@T("Filtering.PriceRangeFilter")</strong>
             </h2>
-            <div class="d-inline-flex flex-wrap viewBox">
-                @foreach (var item in Model.Items)
-                {
-                    <b-button size="sm" variant="light" class="mb-2 mr-2" href="@item.FilterUrl"><h6 class="mb-0">@Html.Raw(FormatPriceRangeText(item))</h6></b-button>
-                }
+            <div class='range-slider'>
+               <script>
+               var minPrice = '@rangeMinValue';
+               var maxPrice = '@rangeMaxValue';
+               var minAv = '@Model.AvalibleRange.FromValue';
+               var maxAv = '@Model.AvalibleRange.ToValue';
+               
+               </script>
+               
+                <input type="range" min="@Model.AvalibleRange.FromValue" max="@Model.AvalibleRange.ToValue" step="1" value = '@Model.SelectedRange.FromValue' v-model="sliderMin">
+                <input type="number" min="@Model.AvalibleRange.FromValue" max="@Model.AvalibleRange.ToValue"  value = '@Model.SelectedRange.FromValue' step="1" v-model="sliderMin" v-on:change="onPriceFilter()">
+                <input type="range" min="@Model.AvalibleRange.FromValue" max="@Model.AvalibleRange.ToValue" value = '@Model.SelectedRange.ToValue' step="1" v-model="sliderMax">
+                -
+                <input type="number" min="@Model.AvalibleRange.FromValue" max="@Model.AvalibleRange.ToValue" value = '@Model.SelectedRange.ToValue' v-model="sliderMax" v-on:change="onPriceFilter()">
+                
+               <b-button size="sm" variant="light" class="mb-2 mr-2" v-on:click="applyPriceFilter()"><h6 class="mb-0">OK</h6></b-button>
             </div>
+            
         </div>
 
     }

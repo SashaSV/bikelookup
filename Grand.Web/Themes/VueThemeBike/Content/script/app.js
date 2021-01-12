@@ -1,4 +1,11 @@
-﻿var vm = new Vue({
+﻿if (typeof minPrice === "undefined") 
+{
+    var minPrice = 0;
+    var maxPrice = 0;
+    var maxAv = 0;
+    var minAv = 0;
+}
+var vm = new Vue({
     el: '#app',
     data() {
         return {
@@ -13,6 +20,8 @@
             searchmanufacturers: null,
             searchblog: null,
             searchproducts: null,
+            minAngle: minPrice,
+            maxAngle: maxPrice,
         }
     },
     props: {
@@ -31,7 +40,60 @@
             localStorage.fluid = newName;
         },
     },
+    computed: {
+        sliderMin: {
+            get: function () {
+                var val = parseInt(this.minAngle);
+                return val;
+            },
+            set: function (val) {
+                val = parseInt(val);
+                if (val > this.maxAngle) {
+                    this.maxAngle = val;
+                }
+                this.minAngle = val;
+            }
+        },
+        sliderMax: {
+            get: function () {
+                var val = parseInt(this.maxAngle);
+                return val;
+            },
+            set: function (val) {
+                val = parseInt(val);
+                if (val < this.minAngle) {
+                    this.minAngle = val;
+                }
+                this.maxAngle = val;
+            }
+        }
+    },
     methods: {
+        applyPriceFilter()
+        {
+            let params = new URLSearchParams(window.location.search);
+            params.set("price",this.minAngle + '-'+ this.maxAngle);
+            window.location.search = params;
+        },
+        onPriceFilter()
+        {
+            if(parseInt(this.maxAngle) > parseInt(maxAv))
+            {
+                this.maxAngle = parseInt(maxAv);
+            }
+            if(parseInt(this.minAngle) < parseInt(minAv))
+            {
+                this.minAngle = parseInt(minAv);
+            }
+            if(parseInt(this.minAngle) > parseInt(maxAv))
+            {
+                this.minAngle = parseInt(maxAv);
+            }
+            if(parseInt(this.maxAngle )< parseInt(minAv))
+            {
+                this.maxAngle = parseInt( minAv);
+            }
+        },
         updateFly() {
             axios({
                 baseURL: '/Component/Index?Name=FlyoutShoppingCart',

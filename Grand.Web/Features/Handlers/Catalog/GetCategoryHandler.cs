@@ -195,7 +195,7 @@ namespace Grand.Web.Features.Handlers.Catalog
             //price ranges
             //model.PagingFilteringContext.PriceRangeFilter.LoadPriceRangeFilters(request.Category.PriceRanges, _webHelper, _priceFormatter);
 
-            model.PagingFilteringContext.PriceRangeFilter.LoadPriceRangeFilter(priceRange, _webHelper, _priceFormatter);
+            model.PagingFilteringContext.PriceRangeFilter.LoadPriceRangeFilter(priceRange, _webHelper, _priceFormatter, currency);
             var selectedPriceRange = model.PagingFilteringContext.PriceRangeFilter.GetSelectedPriceRange(_webHelper);
             
             decimal? minPriceConverted = null;

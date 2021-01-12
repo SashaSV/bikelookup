@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Grand.Domain.Directory;
 
 namespace Grand.Web.Models.Catalog
 {
@@ -180,7 +181,7 @@ namespace Grand.Web.Models.Catalog
             }
 
 
-            private PriceRangeFilterItem rangeToFilter(PriceRange priceRange, IPriceFormatter priceFormatter, IWebHelper webHelper)
+            private PriceRangeFilterItem rangeToFilter(PriceRange priceRange, IPriceFormatter priceFormatter, IWebHelper webHelper, Currency currency)
             {
                 
                var item = new PriceRangeFilterItem();
@@ -190,11 +191,20 @@ namespace Grand.Web.Models.Catalog
                    return item;
                }
 
+               item.Currency = currency.CurrencyCode;
+
                if (priceRange.From.HasValue)
-                    item.From = priceFormatter.FormatPrice(priceRange.From.Value, true, false);
-                if (priceRange.To.HasValue)
-                    item.To = priceFormatter.FormatPrice(priceRange.To.Value, true, false);
-                
+               {
+                   item.From = priceFormatter.FormatPrice(priceRange.From.Value, true, false);
+                   item.FromValue = priceRange.From.Value;
+               }
+
+               if (priceRange.To.HasValue)
+               {
+                         item.To = priceFormatter.FormatPrice(priceRange.To.Value, true, false);
+                         item.ToValue = priceRange.To.Value;
+               }
+
                 string fromQuery = string.Empty;
                 if (priceRange.From.HasValue)
                     fromQuery = priceRange.From.Value.ToString(new CultureInfo("en-US"));
@@ -205,11 +215,12 @@ namespace Grand.Web.Models.Catalog
                 string url = webHelper.ModifyQueryString(webHelper.GetThisPageUrl(true), QUERYSTRINGPARAM, $"{fromQuery}-{toQuery}");
                 url = ExcludeQueryStringParams(url, webHelper);
                 item.FilterUrl = url;
-            
+               
+               
                 return item;
             }
 
-            public virtual void LoadPriceRangeFilter(PriceRange priceRange, IWebHelper webHelper, IPriceFormatter priceFormatter)
+            public virtual void LoadPriceRangeFilter(PriceRange priceRange, IWebHelper webHelper, IPriceFormatter priceFormatter, Currency currency)
             {
                 if (priceRange == null || priceRange.From == null || priceRange.To == null)
                 {
@@ -219,9 +230,14 @@ namespace Grand.Web.Models.Catalog
 
                 //from&to
               
-                AvalibleRange = rangeToFilter(priceRange, priceFormatter, webHelper);
+                AvalibleRange = rangeToFilter(priceRange, priceFormatter, webHelper, currency);
                 var selectedRange = GetSelectedPriceRange(webHelper);
-                SelectedRange = rangeToFilter(selectedRange, priceFormatter, webHelper);
+                SelectedRange = rangeToFilter(selectedRange, priceFormatter, webHelper, currency);
+             
+                //remove filter URL
+                string url = webHelper.ModifyQueryString(webHelper.GetThisPageUrl(true), QUERYSTRINGPARAM, null);
+                url = ExcludeQueryStringParams(url, webHelper);
+                this.RemoveFilterUrl = url;
                 this.Enabled = true;
             }
 
@@ -295,9 +311,16 @@ namespace Grand.Web.Models.Catalog
         public partial class PriceRangeFilterItem : BaseModel
         {
             public string From { get; set; }
+
+            public decimal FromValue { get; set; }
+
+            public decimal ToValue { get; set; }
+
             public string To { get; set; }
             public string FilterUrl { get; set; }
             public bool Selected { get; set; }
+
+            public string Currency { get; set; }
         }
 
         public partial class SpecificationFilterModel : BaseModel
