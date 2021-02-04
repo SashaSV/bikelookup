@@ -1,4 +1,231 @@
-﻿.b-icon {
+﻿.footer {
+    background-color: rgba(51, 51, 51, 1);
+    padding: 15px 0px 15px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-top: 5px solid rgba(241, 90, 36, 1);
+    margin-left: auto;
+    margin-right: auto;
+}
+.label-copyright {
+    width: 182px;
+    font-family: "Montserrat";
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.95);
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+.login_area
+{
+    cursor: pointer;
+}
+.login_area:hover .login
+{
+    fill: rgba(241, 90, 36, 1);
+}
+.login {
+    width: 30px;
+    height: 32px;
+}
+.service-buttons {
+    display: flex;
+    align-items: flex-start;
+}
+.chat {
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+}
+
+.chat:hover .chat_icon
+{
+    fill: rgba(241, 90, 36, 1);
+}
+
+.heart {
+    width: 25px;
+    height: 24px;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.heart:hover .heart_icon
+{
+    fill: rgba(241, 90, 36, 1);
+}
+
+.swap {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+.swap:hover .swap_icon
+{
+    fill: rgba(241, 90, 36, 1);
+}
+
+.my-location {
+    align-items: center;
+    display: flex;
+    margin-right: 30px;
+}
+.location {
+    height: 28px;
+    width: 24px ;
+    background-image: url("https://static.overlay-tech.com/assets/1f37f57e-2aa2-4c2e-b7ae-e9d0aa72a3ab.svg");
+}
+
+.location-text {
+    font-family: "Montserrat";
+    padding: 5px;
+    font-size: 18px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 1);
+}
+.find-mini {
+    display: flex;
+    align-items: center;
+}
+.search-box {
+    margin-right: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.autocomplete-results {
+    padding: 10px;
+    margin-top: 45px;
+    overflow: auto;
+    width: 300px;
+    margin-left: 0;
+    position: absolute;
+    line-height: 30px;
+    height: 400px;
+    text-align: left;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 1);
+    /* needed styles for the overlay */
+    z-index: 10; /* keep on top of other elements on the page */
+}
+
+.overlay
+{
+    top: 0;
+    left: 0;
+    width: 9999px;
+    height: 9999px;
+    position: fixed;
+    z-index: 9;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.search-input
+{
+    background: none;
+    text-align: center;
+    width: 300px;
+    border: none;
+    font-family: "Montserrat";
+    font-size: 18px;
+    font-weight: 400;
+    z-index: 11;
+    color: rgba(255, 255, 255, 1);
+    text-align: center;
+}
+.search-input:focus::placeholder
+{
+    color: transparent;
+}
+.search-input::placeholder
+{
+    color: rgba(255, 255, 255, 1);
+}
+.search-input:focus
+{
+    outline:0;
+}
+
+.search-underline {
+    width: 100%;
+    height: 2px;
+    background-color: #ffffff;
+    z-index: 11;
+}
+.magnifying-glass-1 {
+    box-shadow: 0 4px 4px 0 $trans-p;
+    display: flex;
+    align-items: flex-start;
+    z-index: 11;
+}
+.group {
+    width: 20px;
+    height: 20px;
+    background-image: url("https://static.overlay-tech.com/assets/c459b7c0-8287-42dd-aa87-3a595cc691ac.svg");
+}
+.button-ad {
+    background-color: rgba(241, 90, 36, 1);
+    padding: 11px 18px 11px 18px;
+    border: 0px;
+    border-radius: 0px;
+    text-align: center;
+    width: 250px;
+}
+.button-ad:focus{
+    outline:0;
+}
+.button-ad:hover {
+    filter: brightness(150%);
+}
+
+.button-addtext {
+    display: inline;
+    font-family: "Montserrat";
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 1);
+}
+.header-up1 {
+    background-color: rgba(34, 34, 34, 1);
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    height: 70px;
+}
+.header-up-inner {
+    width: 60%;
+    height: 100% ;
+    display: flex;
+    margin: 0 auto;
+    align-items: center;
+}
+.lang-select {
+    margin-top: 9px;
+    margin-right: auto;
+}
+.button-add {
+    margin-right: auto;
+}
+.find-mini {
+    margin-top: 6px;
+    margin-right: auto;
+}
+.buttonbar {
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+}
+.service-buttons {
+    margin-right: 25px;
+}
+.b-icon {
     outline: none;
 }
 .header-nav {

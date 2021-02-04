@@ -53,4 +53,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Themes\VueThemeBike\Content\script\components" />
+    <Folder Include="wwwroot\components" />
+  </ItemGroup>
 </Project>

@@ -197,12 +197,12 @@
                         </span>
                     }
                 </b-col>
-                <b-col md="6" cols="12" class="pb-1 pt-1 text-center text-lg-right">
-                    <span>Shopping cart software by </span><a class="pr-1 text-success" href="https://grandnode.com/">GrandNode</a>™
-                </b-col>
                 @await Component.InvokeAsync("StoreThemeSelector")
             </b-row>
         </div>
+       
     </b-container>
     @await Component.InvokeAsync("Widget", new { widgetZone = "footer" })
+   
 </footer>
+ <footer-component></footer-component>

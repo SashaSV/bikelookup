@@ -51,82 +51,12 @@
             </a>
         </div>
         <b-card-body>
-            <h5 class="card-title mb-0">
-                <a href="@Url.RouteUrl("Product", new { SeName = Model.SeName })">
-                    @Model.Name
-                </a>
-            </h5>
+          
             @if (Model.ShowSku && !string.IsNullOrEmpty(Model.Sku))
             {
                 <span class="sku">@Model.Sku</span>
             }
-            <div class="prices-rating">
-                @if (Model.ReviewOverviewModel.AllowCustomerReviews)
-                {
-                    decimal ratingValue = 0;
-                    if (Model.ReviewOverviewModel.TotalReviews != 0)
-                    {
-                        ratingValue = Convert.ToDecimal(((Model.ReviewOverviewModel.RatingSum * (double)100) / Model.ReviewOverviewModel.TotalReviews) / (double)100);
-                    }
-                    <template>
-                        <div class="rating">
-                            <b-form-rating id="rating-inline-list-@Model.Id" class="p-0" variant="warning" no-border size="sm" show-value precision="2" readonly inline value="@(ratingValue)"></b-form-rating>
-                            <b-link href="@Url.RouteUrl("Product", new { SeName = Model.SeName })">@Model.ReviewOverviewModel.TotalReviews @T("Reviews.Overview.Reviews")</b-link>
-                        </div>
-                    </template>
-                }
-                @if (Model.ProductType == ProductType.Auction)
-                {
-
-                    @if (Model.EndTime.HasValue)
-                    {
-                        <div class="countdown-box alert alert-info d-table mb-1">
-                            @if (Model.EndTime > DateTime.UtcNow)
-                            {
-                                <countdown :end-time="@Model.EndTime.Value.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds">
-                                    <template v-slot:process="{ timeObj }">
-                                        <span class="col-form-label">@T("AddToCart.Timeleft"):</span>
-                                        <span>{{ `${timeObj.d}` }} : </span>
-                                        <span>{{ `${timeObj.h}` }} : </span>
-                                        <span>{{ `${timeObj.m}` }} : </span>
-                                        <span>{{ `${timeObj.s}` }}</span>
-                                    </template>
-                                    <template v-slot:finish>
-                                        <span>@T("ShoppingCart.Auctionends")</span>
-                                    </template>
-                                </countdown>
-                            }
-                            else
-                            {
-                                <div class="d-inline-flex flex-wrap justify-content-center">
-                                    <label class="ended-label">@T("ShoppingCart.Auctionends"):</label>
-                                    <div class="count-date">@Model.EndTimeLocalTime.Value.ToString()</div>
-                                </div>
-                            }
-                        </div>
-                    }
-                }
-            <div class="prices @if (Model.ProductType == ProductType.Reservation) { <text>reservation-price</text> } ">
-                @if (Model.ProductType != ProductType.Auction)
-                {
-                    <div class="actual-price price">
-                        @Model.ProductPrice.Price
-                    </div>
-                }
-                else
-                {
-                    <div class="actual-price price">
-                        @(Model.ProductPrice.HighestBidValue > 0 ? Model.ProductPrice.HighestBid : Model.ProductPrice.StartPrice)
-                    </div>
-                }
-                @if (!String.IsNullOrEmpty(Model.ProductPrice.OldPrice))
-                {
-                    <div class="old-price price">
-                        @Model.ProductPrice.OldPrice
-                    </div>
-                }
-            </div>
-            </div>
+          
             @if (Model.ProductPrice.DisplayTaxShippingInfo)
             {
                 var inclTax = Model.TaxDisplayType == TaxDisplayType.IncludingTax;
@@ -134,41 +64,16 @@
                     @T(inclTax ? "Products.Price.TaxShipping.InclTax" : "Products.Price.TaxShipping.ExclTax", Url.RouteUrl("Topic", new { SeName = TopicSeNameConstants.Shippinginfo }))
                 </div>
             }
-            @if (Model.AssociatedProducts.Any())
-            {
-                <div>
-                    <table>
-                        <tbody>
-                            @foreach (var assocProduct in Model.AssociatedProducts)
-                            {
-                                @if (assocProduct.Vendor == null)
-                                {
-                                    continue;
-                                }
-                                <tr class="spec">
-                                    <td>
-                                        <div class="spec-name">
-                                            @assocProduct.Vendor.Name
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <a href="@Url.RouteUrl("Product", new { SeName = assocProduct.SeName })">
-                                            <div class="actual-price price">
-                                                @assocProduct.ProductPrice.Price
-                                            </div>
-                                        </a>
-                                       
-                                    </td>
-
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            }
-            @if (Model.SpecificationAttributeModels.Any())
-            {
-                <div class="spec-container">
+            <div class="row">
+             <div class="col-md-7">
+                 <h5 class="card-title mb-0">
+                               <a href="@Url.RouteUrl("Product", new { SeName = Model.SeName })">
+                                   @Model.Name
+                               </a>
+                           </h5>
+                @if (Model.SpecificationAttributeModels.Any())
+                {
+                 <div class="spec-container">
                     @{
                         var group = Model.SpecificationAttributeModels.GroupBy(x => x.SpecificationAttributeName);
                     }
@@ -204,78 +109,179 @@
                         </tbody>
                     </table>
                 </div>
-            }               
-            @if (Model.ProductAttributeModels.Any())
-            {
-                <div class="attr-container">
-                    <table>
-                        <tbody>
-                            @foreach (var item in Model.ProductAttributeModels)
-                            {
-                                <tr class="attr">
-                                    <td>
-                                        <div class="attr-name">
-                                            @item.Name
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="attr-value">
-                                            @foreach (var spec in item.Values)
-                                            {
-                                                switch (item.AttributeControlType)
+                 }   
+                @if (Model.ProductAttributeModels.Any())
+                                    {
+                                        <div class="attr-container">
+                                            <table>
+                                                <tbody>
+                                                @foreach (var item in Model.ProductAttributeModels)
                                                 {
-                                                    case AttributeControlType.DropdownList:
-                                                    case AttributeControlType.RadioList:
-                                                    case AttributeControlType.Checkboxes:
-                                                    case AttributeControlType.ReadonlyCheckboxes:
-                                                        <b-button variant="light" size="sm" class="name" href="@Url.RouteUrl("Product", new { SeName = Model.SeName })?@item.Name=@Html.Raw(spec.Name)">
-                                                            @Html.Raw(spec.Name)
-                                                        </b-button>
-                                                        break;
-                                                    case AttributeControlType.ColorSquares:
-                                                        if ((spec.PictureModel.FullSizeImageUrl).Length > 0)
-                                                        {
-                                                            <b-button variant="light" size="sm" class="name color-container" title="@spec.Name" v-on:click='productImage' data-href="@spec.PictureModel.FullSizeImageUrl">
-                                                                <span class="color" style="background-color:@spec.ColorSquaresRgb;">&nbsp;</span>
-                                                            </b-button>
-                                                        }
-                                                        else
-                                                        {
-                                                            <b-button variant="light" size="sm" class="name color-container" title="@spec.Name" href="@Url.RouteUrl("Product", new { SeName = Model.SeName })?@item.Name=@Html.Raw(spec.Name)">
-                                                                <span class="color" style="background-color:@spec.ColorSquaresRgb;">&nbsp;</span>
-                                                            </b-button>
-                                                        }
-                                                        break;
-                                                    case AttributeControlType.ImageSquares:
-                                                        if ((spec.PictureModel.FullSizeImageUrl).Length > 0)
-                                                        {
-                                                            <b-button variant="light" size="sm" class="p-1 name image-container" v-on:click='productImage' data-href="@spec.PictureModel.FullSizeImageUrl">
-                                                                <img src="@spec.ImageSquaresPictureModel?.ImageUrl" alt="@spec.Name" />
-                                                            </b-button>
-                                                        }
-                                                        else
-                                                        {
-                                                            <b-button variant="light" size="sm" class="p-1 name image-container" href="@Url.RouteUrl("Product", new { SeName = Model.SeName })?@item.Name=@Html.Raw(spec.Name)">
-                                                                <img src="@spec.ImageSquaresPictureModel?.ImageUrl" alt="@spec.Name" />
-                                                            </b-button>
-                                                        }
-                                                        break;
-                                                    default:
-                                                        break;
+                                                    <tr class="attr">
+                                                        <td>
+                                                            <div class="attr-name">
+                                                                @item.Name
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="attr-value">
+                                                                @foreach (var spec in item.Values)
+                                                                {
+                                                                    switch (item.AttributeControlType)
+                                                                    {
+                                                                        case AttributeControlType.DropdownList:
+                                                                        case AttributeControlType.RadioList:
+                                                                        case AttributeControlType.Checkboxes:
+                                                                        case AttributeControlType.ReadonlyCheckboxes:
+                                                                            <b-button variant="light" size="sm" class="name" href="@Url.RouteUrl("Product", new {SeName = Model.SeName})?@item.Name=@Html.Raw(spec.Name)">
+                                                                                @Html.Raw(spec.Name)
+                                                                            </b-button>
+                                                                            break;
+                                                                        case AttributeControlType.ColorSquares:
+                                                                            if ((spec.PictureModel.FullSizeImageUrl).Length > 0)
+                                                                            {
+                                                                                <b-button variant="light" size="sm" class="name color-container" title="@spec.Name" v-on:click='productImage' data-href="@spec.PictureModel.FullSizeImageUrl">
+                                                                                    <span class="color" style="background-color:@spec.ColorSquaresRgb;">&nbsp;</span>
+                                                                                </b-button>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <b-button variant="light" size="sm" class="name color-container" title="@spec.Name" href="@Url.RouteUrl("Product", new {SeName = Model.SeName})?@item.Name=@Html.Raw(spec.Name)">
+                                                                                    <span class="color" style="background-color:@spec.ColorSquaresRgb;">&nbsp;</span>
+                                                                                </b-button>
+                                                                            }
+                                                                            break;
+                                                                        case AttributeControlType.ImageSquares:
+                                                                            if ((spec.PictureModel.FullSizeImageUrl).Length > 0)
+                                                                            {
+                                                                                <b-button variant="light" size="sm" class="p-1 name image-container" v-on:click='productImage' data-href="@spec.PictureModel.FullSizeImageUrl">
+                                                                                    <img src="@spec.ImageSquaresPictureModel?.ImageUrl" alt="@spec.Name"/>
+                                                                                </b-button>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <b-button variant="light" size="sm" class="p-1 name image-container" href="@Url.RouteUrl("Product", new {SeName = Model.SeName})?@item.Name=@Html.Raw(spec.Name)">
+                                                                                    <img src="@spec.ImageSquaresPictureModel?.ImageUrl" alt="@spec.Name"/>
+                                                                                </b-button>
+                                                                            }
+                                                                            break;
+                                                                        default:
+                                                                            break;
+                                                                    }
+                                                                }
+                                                            </div>
+                                                        </td>
+                
+                                                    </tr>
                                                 }
-                                            }
+                                                </tbody>
+                                            </table>
                                         </div>
-                                    </td>
+                                    }
+             </div>     
+                <div class="col-md-7">
+                      <div class="prices-rating">
+                                    @if (Model.ReviewOverviewModel.AllowCustomerReviews)
+                                    {
+                                        decimal ratingValue = 0;
+                                        if (Model.ReviewOverviewModel.TotalReviews != 0)
+                                        {
+                                            ratingValue = Convert.ToDecimal(((Model.ReviewOverviewModel.RatingSum * (double)100) / Model.ReviewOverviewModel.TotalReviews) / (double)100);
+                                        }
+                                        <template>
+                                            <div class="rating">
+                                                <b-form-rating id="rating-inline-list-@Model.Id" class="p-0" variant="warning" no-border size="sm" show-value precision="2" readonly inline value="@(ratingValue)"></b-form-rating>
+                                                <b-link href="@Url.RouteUrl("Product", new { SeName = Model.SeName })">@Model.ReviewOverviewModel.TotalReviews @T("Reviews.Overview.Reviews")</b-link>
+                                            </div>
+                                        </template>
+                                    }
+                                    @if (Model.ProductType == ProductType.Auction)
+                                    {
+                    
+                                        @if (Model.EndTime.HasValue)
+                                        {
+                                            <div class="countdown-box alert alert-info d-table mb-1">
+                                                @if (Model.EndTime > DateTime.UtcNow)
+                                                {
+                                                    <countdown :end-time="@Model.EndTime.Value.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds">
+                                                        <template v-slot:process="{ timeObj }">
+                                                            <span class="col-form-label">@T("AddToCart.Timeleft"):</span>
+                                                            <span>{{ `${timeObj.d}` }} : </span>
+                                                            <span>{{ `${timeObj.h}` }} : </span>
+                                                            <span>{{ `${timeObj.m}` }} : </span>
+                                                            <span>{{ `${timeObj.s}` }}</span>
+                                                        </template>
+                                                        <template v-slot:finish>
+                                                            <span>@T("ShoppingCart.Auctionends")</span>
+                                                        </template>
+                                                    </countdown>
+                                                }
+                                                else
+                                                {
+                                                    <div class="d-inline-flex flex-wrap justify-content-center">
+                                                        <label class="ended-label">@T("ShoppingCart.Auctionends"):</label>
+                                                        <div class="count-date">@Model.EndTimeLocalTime.Value.ToString()</div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        }
+                                    }
+                                <div class="prices @if (Model.ProductType == ProductType.Reservation) { <text>reservation-price</text> } ">
+                                    @if (Model.ProductType != ProductType.Auction)
+                                    {
+                                        <div class="actual-price price">
+                                            @Model.ProductPrice.Price
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="actual-price price">
+                                            @(Model.ProductPrice.HighestBidValue > 0 ? Model.ProductPrice.HighestBid : Model.ProductPrice.StartPrice)
+                                        </div>
+                                    }
+                                    @if (!String.IsNullOrEmpty(Model.ProductPrice.OldPrice))
+                                    {
+                                        <div class="old-price price">
+                                            @Model.ProductPrice.OldPrice
+                                        </div>
+                                    }
+                                </div>
+                                </div>
+                    @if (Model.AssociatedProducts.Any())
+                    {
+                        <div>
+                            <table>
+                                <tbody>
+                                @foreach (var assocProduct in Model.AssociatedProducts)
+                                {
+                                    @if (assocProduct.Vendor == null)
+                                    {
+                                        continue;
+                                    }
+                                    <tr class="spec">
+                                        <td>
+                                            <div class="spec-name">
+                                                @assocProduct.Vendor.Name
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <a href="@Url.RouteUrl("Product", new {SeName = assocProduct.SeName})">
+                                                <div class="actual-price price">
+                                                    @assocProduct.ProductPrice.Price
+                                                </div>
+                                            </a>
 
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            }
-            <div class="desc">
-                @Html.Raw(Model.ShortDescription)
+                                        </td>
+
+                                    </tr>
+                                }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                </div>   
             </div>
+       
             @if (Model.ShowQty)
             {
                 var qtyId = "addtocart_" + @Model.Id + "_EnteredQuantity";

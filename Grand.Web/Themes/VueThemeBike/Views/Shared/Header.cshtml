@@ -14,6 +14,7 @@
         pagebuilder.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/css/header/header.css", themeName));
     }
 }
+<div id="HeaderUp"><header-up></header-up></div>
 <div class="header-nav">
     <b-navbar type="light">
         <b-container :fluid="fluid" id="header-container">
@@ -36,7 +37,7 @@
                     <b-icon icon="search" variant="dark" v-b-modal.search-box></b-icon>
                 </b-nav-item>
                 <b-modal id="search-box"
-                     hide-footer hide-header size="xl">
+                         hide-footer hide-header size="xl">
                     @await Component.InvokeAsync("SearchBox")
                 </b-modal>
                 <b-nav-item>
