@@ -101,7 +101,7 @@
     align-items: flex-start;
 }
 .autocomplete-results {
-    padding: 10px;
+    padding: 0px;
     margin-top: 45px;
     overflow: auto;
     width: 300px;
@@ -115,7 +115,16 @@
     /* needed styles for the overlay */
     z-index: 10; /* keep on top of other elements on the page */
 }
-
+.autocomplete-result
+{
+    padding: 10px;
+    color: rgba(51, 51, 51, 1);
+}
+.autocomplete-result:hover
+{
+    background-color: rgba(229,229,229,0.8);
+    cursor: pointer;
+}
 .overlay
 {
     top: 0;

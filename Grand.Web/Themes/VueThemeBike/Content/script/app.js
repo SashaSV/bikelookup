@@ -49,13 +49,14 @@ Vue.component('findmini', {
             template: 
             ` <div id="searchbar">  
                 <div class="find-mini">
-                   <div class="search-box">
+                   <a class="search-box">
                       <input class="search-input" type="text" v-bind:placeholder="Placeholder" v-model="TextToSearch" v-on:input="lookup()">
                       <div class="search-underline"> </div>
                       <ul v-if="showResults" class="autocomplete-results">
-                        <li v-for="item in Items" :key="item.Label">{{item.Label}}</li>
+                        <li class="autocomplete-result" v-for="item in Items" :key="item.Label">
+                            <div v-on:click="window.location=item.Url">{{item.Label}}</div>
+                        </li>
                      </ul>
-                   </div>
                 </div>
                 <div class="magnifying-glass-1">
                    <div class="group"> </div>
