@@ -20484,6 +20484,7 @@
   </LocaleResource>
   <LocaleResource Name="Products.PriceRangeFrom">
     <Value>From {0}</Value>
+  </LocaleResource>
   <LocaleResource Name="Products.PriceRangeFromTo">
     <Value>From {0} to {1}</Value>
   </LocaleResource>
