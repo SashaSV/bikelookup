@@ -18950,7 +18950,7 @@
     <Value>Personalized products for you</Value>
   </LocaleResource>
   <LocaleResource Name="HomePage.Products">
-    <Value>Featured products</Value>
+    <Value>Top products</Value>
   </LocaleResource>
   <LocaleResource Name="HomePage.Recommended.Products">
     <Value>Recommended products for you</Value>

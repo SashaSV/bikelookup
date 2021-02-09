@@ -1,0 +1,24 @@
+@model TopMenuModel
+@{
+    var rootCategories = Model.Categories.ToList();
+}
+<div class="header-menu">
+    <logo-big></logo-big>
+   <div class="header-menu-inner">
+    @foreach (var category in rootCategories)
+    {
+        @if(!category.IncludeInTopMenu)
+        {
+            continue;
+        }
+            
+        var categoryLineModel = new TopMenuModel.CategoryLineModel
+        {
+            Category = category
+        };
+        <a class="menu_item" href="@Url.RouteUrl("Category", new {SeName = category.SeName})">
+               <span>@category.Name</span>
+        </a>
+    }
+    </div>
+</div>
