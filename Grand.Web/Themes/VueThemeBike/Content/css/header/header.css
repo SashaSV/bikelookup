@@ -288,6 +288,28 @@
     width: 100%;
     background-color: rgba(51, 51, 51, 1);
 }
+.header-menu-inner{
+    display: flex;
+    width: 90%;
+    margin: 0 auto;
+    align-items: flex-start;
+}
+
+.menu_item
+{
+    width: 200px;
+    font-family: "Montserrat";
+    font-size: 20px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 1);
+    padding: 5px;
+}
+
+.menu_item:hover
+{
+    color: rgba(241, 90, 36, 1);
+}
+
 .logobox
 {
     display: flex;
@@ -303,9 +325,10 @@
 .logo-bike
 {
     position: relative;
+    box-sizing: content-box;
     z-index: 2;
     left: 160px;
-    margin-bottom: 25px;
+    padding-bottom: 25px;
 }
 
 .logo_letters

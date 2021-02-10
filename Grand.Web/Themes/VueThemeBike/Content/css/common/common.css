@@ -576,6 +576,7 @@ input:checked ~ .color-container .color::before {
     z-index: 3;
 }
 .product-box *,
+.product-box *,
 .product-box .card-footer * {
     z-index: 2;
 }
@@ -639,6 +640,7 @@ input:checked ~ .color-container .color::before {
 }
 .product-box .card-body {
     padding: 10px 0;
+    align-items: center;
 }
 .product-box .quick-view-button {
     position: absolute;
@@ -660,41 +662,54 @@ input:checked ~ .color-container .color::before {
 }
 .product-box .card-title {
     line-height: 1;
+    margin: 0 auto;
+    text-align: center;
 }
 .product-box .card-title a {
-    color: #212529;
-    margin: 0;
-    font-size: 16px;
-    font-weight: 500;
+    font-family: "Montserrat";
+    font-size: 13px;
+    font-weight: 400;
+    color: #000000;
+    text-align: center;
 }
+
+.product-box .prices-rating
+{
+    align-items: center;
+    margin: 0 auto;
+    width: fit-content;
+}
+
 .product-box .rating {
     display: inline-flex;
     align-items: center;
     white-space: nowrap;
+    margin: 0 auto;
     width: 100%;
 }
 .product-box .b-rating .b-rating-star {
     padding: 0 2px;
 }
 .product-box .rating .b-rating + a {
-    color: #212529;
+    color: #F15A24;
     position: relative;
-    font-size: 14px;
-    font-weight: 500;
-}
-.product-box .rating .b-rating + a::before {
-    content: "/";
-    margin: 0 3px;
+    font-family: "Montserrat";
+    font-size: 10px;
+    font-weight: 400;
+    line-height: normal;
 }
 .product-box .prices {
-    display: inline-flex;
-    align-items: flex-end;
     flex-wrap: wrap;
+    margin: 0 auto;
+    align-items: center;
+    padding: 15px;
 }
 .product-box .actual-price {
-    color: #000000;
+    font-family: "Montserrat";
     font-size: 18px;
-    font-weight: 500;
+    font-weight: 700;
+    color: #000000;
+    text-align: center;
     line-height: 1;
 }
 .product-box .old-price {
