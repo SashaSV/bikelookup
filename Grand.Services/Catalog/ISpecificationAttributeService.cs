@@ -63,10 +63,24 @@ namespace Grand.Services.Catalog
         Task<SpecificationAttribute> GetSpecificationAttributeByOptionId(string specificationAttributeOption);
 
         /// <summary>
+        /// Gets a specification attribute option 
+        /// </summary>
+        /// <param name="specificationAttributeId">The specification attribute option Id</param>
+        /// <param name="specificationAttributeOptionName">The specification attribute option name</param>
+        /// <returns>Specification attribute option</returns>
+        Task<SpecificationAttributeOption> GetSpecificationAttributeByOptionName(string specificationAttributeId, string specificationAttributeOptionName);
+        
+        /// <summary>
         /// Deletes a specification attribute option
         /// </summary>
         /// <param name="specificationAttributeOption">The specification attribute option</param>
         Task DeleteSpecificationAttributeOption(SpecificationAttributeOption specificationAttributeOption);
+
+        /// <summary>
+        /// Inserts a specification attribute option
+        /// </summary>
+        /// <param name="specificationAttributeOption">The specification attribute option</param>
+        Task UpdateSpecificationAttributeOption(SpecificationAttribute specificationAttribute, SpecificationAttributeOption specificationAttributeOption);
 
         #endregion
 

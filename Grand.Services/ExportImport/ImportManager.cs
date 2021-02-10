@@ -35,6 +35,7 @@ namespace Grand.Services.ExportImport
 
         private readonly IProductService _productService;
         private readonly ICategoryService _categoryService;
+        private readonly ISpecificationAttributeService _specificationAttributeService;
         private readonly IManufacturerService _manufacturerService;
         private readonly IPictureService _pictureService;
         private readonly IUrlRecordService _urlRecordService;
@@ -61,6 +62,7 @@ namespace Grand.Services.ExportImport
         public ImportManager(IProductService productService,
             ICategoryService categoryService,
             IManufacturerService manufacturerService,
+            ISpecificationAttributeService specificationAttributeService,
             IPictureService pictureService,
             IUrlRecordService urlRecordService,
             IStoreContext storeContext,
@@ -82,6 +84,7 @@ namespace Grand.Services.ExportImport
             _productService = productService;
             _categoryService = categoryService;
             _manufacturerService = manufacturerService;
+            _specificationAttributeService = specificationAttributeService;
             _pictureService = pictureService;
             _urlRecordService = urlRecordService;
             _storeContext = storeContext;
@@ -157,6 +160,9 @@ namespace Grand.Services.ExportImport
                         break;
                     case "shortdescription":
                         product.ShortDescription = property.StringValue;
+                        break;
+                    case "url":
+                        product.Url = property.StringValue;
                         break;
                     case "fulldescription":
                         product.FullDescription = property.StringValue;
@@ -452,6 +458,78 @@ namespace Grand.Services.ExportImport
             }
         }
 
+        protected virtual async Task PrepareProductCategoriesByName(Product product, string categoryName, IList<CategoryTemplate> templatesCategory)
+        {
+            if (string.IsNullOrWhiteSpace(categoryName))
+                return;
+
+            var categorys = await _categoryService.GetAllCategories(categoryName);
+            var category = categorys.FirstOrDefault();
+
+            if (category == null)
+            {
+                //add new category
+                category ??= new Category();
+                category.Name = categoryName;
+                category.CreatedOnUtc = DateTime.UtcNow;
+                category.CategoryTemplateId = templatesCategory.FirstOrDefault()?.Id;
+
+                category.UpdatedOnUtc = DateTime.UtcNow;
+                category.ShowOnHomePage = false;
+                category.FeaturedProductsOnHomaPage = false;
+                category.IncludeInTopMenu = true;
+                category.ShowOnSearchBox = false;
+                category.AllowCustomersToSelectPageSize = false;
+                category.PageSize = 20;
+                //category.DefaultSort = 
+                category.Published = true;
+                category.HideOnCatalog = true;
+
+                var sename = category.Name;
+                sename = await category.ValidateSeName(sename, category.Name, true, _seoSetting, _urlRecordService, _languageService);
+                category.SeName = sename;
+
+                await _categoryService.InsertCategory(category);
+
+                await _urlRecordService.SaveSlug(category, sename, "");
+
+            }
+            await PrepareProductCategories(product, category.Id);
+        }
+
+        protected virtual async Task PrepareProductManufacturersByName(Product product, string manufacturerName, IList<ManufacturerTemplate> templatesManufacturer)
+        {
+            if (string.IsNullOrEmpty(manufacturerName))
+                return;
+            var manufacturers = await _manufacturerService.GetAllManufacturers(manufacturerName);
+            var manufacturer = manufacturers.FirstOrDefault();
+            if (manufacturer == null)
+            {
+                manufacturer ??= new Manufacturer();
+                manufacturer.Name = manufacturerName;
+
+                manufacturer.CreatedOnUtc = DateTime.UtcNow;
+                manufacturer.ManufacturerTemplateId = templatesManufacturer.FirstOrDefault()?.Id;
+                manufacturer.UpdatedOnUtc = DateTime.UtcNow;
+                manufacturer.ShowOnHomePage = false;
+                manufacturer.FeaturedProductsOnHomaPage = false;
+                manufacturer.IncludeInTopMenu = false;
+                manufacturer.AllowCustomersToSelectPageSize = false;
+                manufacturer.PageSize = 20;
+                manufacturer.Published = true;
+
+                var sename = manufacturer.Name;
+                sename = await manufacturer.ValidateSeName(sename, manufacturer.Name, true, _seoSetting, _urlRecordService, _languageService);
+                manufacturer.SeName = sename;
+
+                await _manufacturerService.InsertManufacturer(manufacturer);
+
+                await _urlRecordService.SaveSlug(manufacturer, manufacturer.SeName, "");
+
+            }
+            await PrepareProductManufacturers(product, manufacturer.Id);
+        }
+
         protected virtual async Task PrepareProductManufacturers(Product product, string manufacturerIds)
         {
             foreach (var id in manufacturerIds.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()))
@@ -665,6 +743,8 @@ namespace Grand.Services.ExportImport
             }
         }
 
+
+
         protected virtual async Task ImportSubscription(string email, string storeId, bool isActive, bool iscategories, List<string> categories)
         {
             var subscription = await _newsLetterSubscriptionService.GetNewsLetterSubscriptionByEmailAndStoreId(email, storeId);
@@ -747,7 +827,159 @@ namespace Grand.Services.ExportImport
         #endregion
 
         #region Methods
+        /// <summary>
+        /// Set default property for new object Product 
+        /// </summary>
+        /// <param name="product">Product object</param>
+        /// <param name="isNew"> if new Product</param>
+        /// <param name="manager"> object XLS</param>
+        public virtual void SetDefaultProductProp(Product product, bool isNew, PropertyManager<Product> manager)
+        {
+            if (isNew && manager.GetProperties.All(p => p.PropertyName.ToLower() != "producttypeid"))
+                if (!string.IsNullOrEmpty(product.Url))
+                    product.ProductType = ProductType.SimpleProduct;
+                else
+                    product.ProductType = ProductType.GroupedProduct;
 
+            if (isNew && manager.GetProperties.All(p => p.PropertyName.ToLower() != "shortdescription"))
+                product.ShortDescription = product.Url;
+
+            product.Name = product.Name + " (" + product.Sku.Trim() + ") ";
+            product.LowStock = product.MinStockQuantity > 0 && product.MinStockQuantity >= product.StockQuantity;
+            product.UpdatedOnUtc = DateTime.UtcNow;
+
+            if (isNew && manager.GetProperties.All(p => p.PropertyName.ToLower() != "showonhomepage"))
+                product.ShowOnHomePage = false;
+
+            if (isNew && manager.GetProperties.All(p => p.PropertyName.ToLower() != "allowcustomerreviews"))
+                product.AllowCustomerReviews = true;
+
+            if (isNew && manager.GetProperties.All(p => p.PropertyName.ToLower() != "visibleindividually"))
+                product.VisibleIndividually = true;
+
+            if (isNew && manager.GetProperties.All(p => p.PropertyName.ToLower() != "published"))
+                product.Published = true;
+
+            if (isNew && manager.GetProperties.All(p => p.PropertyName.ToLower() != "unlimiteddownloads"))
+                product.UnlimitedDownloads = true;
+
+            if (isNew && manager.GetProperties.All(p => p.PropertyName.ToLower() != "maxnumberofdownloads"))
+                product.MaxNumberOfDownloads = 10;
+
+            if (isNew && manager.GetProperties.All(p => p.PropertyName.ToLower() != "recurringcyclelength"))
+                product.RecurringCycleLength = 100;
+
+            if (isNew && manager.GetProperties.All(p => p.PropertyName.ToLower() != "recurringtotalcycles"))
+                product.RecurringTotalCycles = 10;
+
+            if (isNew && manager.GetProperties.All(p => p.PropertyName.ToLower() != "recurringtotalcycles"))
+                product.RecurringTotalCycles = 10;
+
+            if (isNew && manager.GetProperties.All(p => p.PropertyName.ToLower() != "notifyadminforquantitybelow"))
+                product.NotifyAdminForQuantityBelow = 1;
+
+            if (isNew && manager.GetProperties.All(p => p.PropertyName.ToLower() != "orderminimumquantity"))
+                product.OrderMinimumQuantity = 1;
+
+            if (isNew && manager.GetProperties.All(p => p.PropertyName.ToLower() != "ordermaximumquantity"))
+                product.OrderMaximumQuantity = 1000;
+
+            if (isNew && manager.GetProperties.All(p => p.PropertyName.ToLower() != "maximumcustomerenteredprice"))
+                product.MaximumCustomerEnteredPrice = 1000;
+
+            if (isNew && manager.GetProperties.All(p => p.PropertyName.ToLower() != "markasnew"))
+                product.MarkAsNew = true;
+
+            if (isNew && manager.GetProperties.All(p => p.PropertyName.ToLower() != "markasnewstartdatetimeutc"))
+                product.MarkAsNewStartDateTimeUtc = DateTime.UtcNow;
+
+            if (isNew && manager.GetProperties.All(p => p.PropertyName.ToLower() != "markasnewEnddatetimeutc"))
+                product.MarkAsNewEndDateTimeUtc = DateTime.UtcNow.AddDays(30);
+
+        }
+
+        public virtual async Task<Product> CheckMainProducts(
+            Product product,
+            PropertyManager<Product> manager,
+            IList<ProductTemplate> templates,
+            IList<DeliveryDate> deliveryDates,
+            IList<Warehouse> warehouses,
+            IList<MeasureUnit> units,
+            IList<TaxCategory> taxes,
+            IList<CategoryTemplate> templatesCategory,
+            IList<ManufacturerTemplate> templatesManufacturer)
+        {
+            Product productMain = null;
+
+            if (!string.IsNullOrEmpty(product.Sku))
+                productMain = await _productService.GetProductBySkuAndVendor(product.Sku, "");
+
+            var isNew = productMain == null;
+
+
+            if (isNew)
+            {
+                productMain ??= new Product();
+
+                productMain.CreatedOnUtc = DateTime.UtcNow;
+                productMain.ProductTemplateId = templates.FirstOrDefault()?.Id;
+                productMain.DeliveryDateId = deliveryDates.FirstOrDefault()?.Id;
+                productMain.TaxCategoryId = taxes.FirstOrDefault()?.Id;
+                productMain.WarehouseId = warehouses.FirstOrDefault()?.Id;
+                productMain.UnitId = units.FirstOrDefault().Id;
+                productMain.VendorId = string.Empty;
+                PrepareProductMapping(productMain, manager, templates, deliveryDates, warehouses, units, taxes);
+                productMain.Url = string.Empty;
+                SetDefaultProductProp(productMain, isNew, manager);
+
+                var templateName = "Grouped product (with variants)";
+                var template = templates.FirstOrDefault(x => x.Name == templateName);
+                productMain.ProductTemplateId = template.Id;
+
+                await InsertOrUpdateProduct(productMain, manager, isNew, templatesCategory, templatesManufacturer);
+            }
+
+            return productMain;
+        }
+        protected virtual async Task PrepareSpecficationAtributeMapping(Product product, PropertyManager<Product> manager)
+        {
+            foreach (var property in manager.GetProperties)
+            {
+                
+                if (property.PropertyName.ToLower().Substring(0,3) == "sp_")
+                {
+                    var specificationAttribute = await _specificationAttributeService.GetSpecificationAttributeBySeName(property.PropertyName);
+                    if (specificationAttribute == null)
+                    {
+                        specificationAttribute = new SpecificationAttribute
+                        {
+                            Name = property.PropertyName,
+                            SeName = property.PropertyName
+                        };
+                        await _specificationAttributeService.InsertSpecificationAttribute(specificationAttribute);
+                    }
+                    //var spec1 = await _specificationAttributeService.GetSpecificationAttributeByOptionId(property.StringValue);
+                    var specificationAttributeOption = await _specificationAttributeService.GetSpecificationAttributeByOptionName(specificationAttribute.Id, property.StringValue);
+
+                    if (specificationAttributeOption == null) 
+                    {
+                        specificationAttributeOption ??= new SpecificationAttributeOption();
+                        specificationAttributeOption.Name = property.StringValue;
+                        specificationAttributeOption.SeName = SeoExtensions.GetSeName(property.StringValue, false, false);
+
+                        
+                        await _specificationAttributeService.UpdateSpecificationAttributeOption(specificationAttribute, specificationAttributeOption);
+                    }
+                    
+                    //var productSpecificationAttribute = await _specificationAttributeService.GetProductSpecificationAttributeCount
+                    //property.StringValue
+
+                    //specificationAttribute.Get
+
+                    //_specificationAttributeService.Get
+                }
+            }
+        }
         /// <summary>
         /// Import products from XLSX file
         /// </summary>
@@ -758,7 +990,7 @@ namespace Grand.Services.ExportImport
             var worksheet = workbook.GetSheetAt(0);
             if (worksheet == null)
                 throw new GrandException("No worksheet found");
-            
+
             var manager = GetPropertyManager<Product>(worksheet);
 
             var templates = await _productTemplateService.GetAllProductTemplates();
@@ -766,6 +998,8 @@ namespace Grand.Services.ExportImport
             var taxes = await _taxService.GetAllTaxCategories();
             var warehouses = await _shippingService.GetAllWarehouses();
             var units = await _measureService.GetAllMeasureUnits();
+            var templatesCategory = await _categoryTemplateService.GetAllCategoryTemplates();
+            var templatesManufacturer = await _manufacturerTemplateService.GetAllManufacturerTemplates();
 
             for (var iRow = 1; iRow < worksheet.PhysicalNumberOfRows; iRow++)
             {
@@ -774,10 +1008,21 @@ namespace Grand.Services.ExportImport
                 var sku = manager.GetProperty("sku") != null ? manager.GetProperty("sku").StringValue : string.Empty;
                 var productid = manager.GetProperty("id") != null ? manager.GetProperty("id").StringValue : string.Empty;
 
+                var vendorName = string.Empty;
+                var vendorId = manager.GetProperty("vendorid") != null ? manager.GetProperty("vendorid").StringValue : string.Empty;
+                if (string.IsNullOrEmpty(vendorId))
+                {
+                    vendorName = manager.GetProperty("vendor") != null ? manager.GetProperty("vendor").StringValue : string.Empty;
+                    var vendor = await _vendorService.GetVendorByName(vendorName);
+                    vendorId = vendor.Id;
+                }
+
                 Product product = null;
 
+                ////product = await _productService.GetProductBySku(sku);
+
                 if (!string.IsNullOrEmpty(sku))
-                    product = await _productService.GetProductBySku(sku);
+                    product = await _productService.GetProductBySkuAndVendor(sku, vendorId);
 
                 if (!string.IsNullOrEmpty(productid))
                     product = await _productService.GetProductById(productid);
@@ -796,54 +1041,76 @@ namespace Grand.Services.ExportImport
                     product.UnitId = units.FirstOrDefault().Id;
                     if (!string.IsNullOrEmpty(productid))
                         product.Id = productid;
+                    if (!string.IsNullOrEmpty(vendorId))
+                        product.VendorId = vendorId;
+
                 }
 
                 PrepareProductMapping(product, manager, templates, deliveryDates, warehouses, units, taxes);
+                SetDefaultProductProp(product, isNew, manager);
+                await PrepareSpecficationAtributeMapping(product, manager);
 
-                if (isNew && manager.GetProperties.All(p => p.PropertyName.ToLower() != "producttypeid"))
-                    product.ProductType = ProductType.SimpleProduct;
+                var mainProduct = await CheckMainProducts(product, manager, templates, deliveryDates, warehouses, units, taxes, templatesCategory, templatesManufacturer);
 
-                product.LowStock = product.MinStockQuantity > 0 && product.MinStockQuantity >= product.StockQuantity;
+                if (mainProduct != null)
+                    product.ParentGroupedProductId = mainProduct.Id;
 
-                product.UpdatedOnUtc = DateTime.UtcNow;
+                product.Name += " - " + vendorName.Trim();
+                product.VisibleIndividually = false;
 
-                if (isNew)
-                {
-                    await _productService.InsertProduct(product);
-                }
-                else
-                {
-                    await _productService.UpdateProduct(product);
-                }
-
-                //search engine name
-                var seName = manager.GetProperty("sename") != null ? manager.GetProperty("sename").StringValue : product.Name;
-                await _urlRecordService.SaveSlug(product, await product.ValidateSeName(seName, product.Name, true, _seoSetting, _urlRecordService, _languageService), "");
-                var _seName = await product.ValidateSeName(seName, product.Name, true, _seoSetting, _urlRecordService, _languageService);
-                //search engine name
-                await _urlRecordService.SaveSlug(product, _seName, "");
-                product.SeName = _seName;
-                await _productService.UpdateProduct(product);
-
-                //category mappings
-                var categoryIds = manager.GetProperty("categoryids") != null ? manager.GetProperty("categoryids").StringValue : string.Empty;
-                if (!string.IsNullOrEmpty(categoryIds))
-                {
-                    await PrepareProductCategories(product, categoryIds);
-                }
-
-                //manufacturer mappings
-                var manufacturerIds = manager.GetProperty("manufacturerids") != null ? manager.GetProperty("manufacturerids").StringValue : string.Empty;
-                if (!string.IsNullOrEmpty(manufacturerIds))
-                {
-                    await PrepareProductManufacturers(product, manufacturerIds);
-                }
-
-                //pictures
-                await PrepareProductPictures(product, manager, isNew);
+                await InsertOrUpdateProduct(product, manager, isNew, templatesCategory, templatesManufacturer);
 
             }
 
+        }
+
+        public virtual async Task InsertOrUpdateProduct(
+            Product product,
+            PropertyManager<Product> manager,
+            bool isNew,
+            IList<CategoryTemplate> templatesCategory,
+            IList<ManufacturerTemplate> templatesManufacturer)
+        {
+
+            if (isNew)
+            {
+                await _productService.InsertProduct(product);
+            }
+            else
+            {
+                await _productService.UpdateProduct(product);
+            }
+
+            //search engine name
+            var seName = manager.GetProperty("sename") != null ? manager.GetProperty("sename").StringValue : product.Name;
+            await _urlRecordService.SaveSlug(product, await product.ValidateSeName(seName, product.Name, true, _seoSetting, _urlRecordService, _languageService), "");
+            var _seName = await product.ValidateSeName(seName, product.Name, true, _seoSetting, _urlRecordService, _languageService);
+
+            //search engine name
+            await _urlRecordService.SaveSlug(product, _seName, "");
+            product.SeName = _seName;
+            await _productService.UpdateProduct(product);
+
+            //category mappings
+            var categoryIds = manager.GetProperty("categoryids") != null ? manager.GetProperty("categoryids").StringValue : string.Empty;
+            if (!string.IsNullOrEmpty(categoryIds))
+                await PrepareProductCategories(product, categoryIds);
+
+            var categoryName = manager.GetProperty("category") != null ? manager.GetProperty("category").StringValue : string.Empty;
+            if (!string.IsNullOrEmpty(categoryName))
+                await PrepareProductCategoriesByName(product, categoryName, templatesCategory);
+
+            //manufacturer mappings
+            var manufacturerIds = manager.GetProperty("manufacturerids") != null ? manager.GetProperty("manufacturerids").StringValue : string.Empty;
+            if (!string.IsNullOrEmpty(manufacturerIds))
+                await PrepareProductManufacturers(product, manufacturerIds);
+
+            var manufacturerName = manager.GetProperty("manufacturer") != null ? manager.GetProperty("manufacturer").StringValue : string.Empty;
+            if (!string.IsNullOrEmpty(manufacturerName))
+                await PrepareProductManufacturersByName(product, manufacturerName, templatesManufacturer);
+
+            //pictures
+            await PrepareProductPictures(product, manager, isNew);
         }
 
         /// <summary>

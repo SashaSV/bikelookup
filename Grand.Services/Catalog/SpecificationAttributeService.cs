@@ -59,6 +59,14 @@ namespace Grand.Services.Catalog
         private const string SPECIFICATION_BY_OPTIONID_KEY = "Grand.specification.optionid-{0}";
 
         /// <summary>
+        /// Key for caching
+        /// </summary>
+        /// <remarks>
+        /// {0} : specification option ID
+        /// </remarks>
+        private const string OPTIONID_PATTERN_KEY = "Grand.specification.optionid";
+
+        /// <summary>
         /// Key pattern to clear cache
         /// </summary>
         private const string SPECIFICATION_PATTERN_KEY = "Grand.specification.";
@@ -226,6 +234,22 @@ namespace Grand.Services.Catalog
         }
 
         /// <summary>
+        /// Gets a specification attribute option
+        /// </summary>
+        /// <param name="specificationAttributeOptionId">The specification attribute option identifier</param>
+        /// <returns>Specification attribute option</returns>
+        public virtual async Task<SpecificationAttributeOption> GetSpecificationAttributeByOptionName(string specificationAttributeId, string specificationAttributeOptionName)
+        {
+            if (string.IsNullOrEmpty(specificationAttributeOptionName))
+                return await Task.FromResult<SpecificationAttributeOption>(null);
+
+            string key = string.Format(SPECIFICATION_BY_ID_KEY, specificationAttributeId);
+            var specificationAttribute = await _cacheManager.GetAsync(key, () => _specificationAttributeRepository.GetByIdAsync(specificationAttributeId));
+            return specificationAttribute.SpecificationAttributeOptions.Where(x => x.Name == specificationAttributeOptionName).FirstOrDefault();
+        }
+
+        
+        /// <summary>
         /// Deletes a specification attribute option
         /// </summary>
         /// <param name="specificationAttributeOption">The specification attribute option</param>
@@ -278,6 +302,25 @@ namespace Grand.Services.Catalog
 
             //event notification
             await _mediator.EntityDeleted(productSpecificationAttribute);
+        }
+
+        public virtual async Task UpdateSpecificationAttributeOption(SpecificationAttribute specificationAttribute, SpecificationAttributeOption specificationAttributeOption)
+        {
+
+            if (specificationAttributeOption == null)
+                throw new ArgumentNullException("specificationAttributeOption");
+
+            if (specificationAttribute == null)
+                throw new ArgumentNullException("specificationAttribute");
+
+            //await _specificationAttributeRepository.InsertAsync(specificationAttribute);
+            specificationAttribute.SpecificationAttributeOptions.Add(specificationAttributeOption);
+            await UpdateSpecificationAttribute(specificationAttribute);
+            //cache
+            await _cacheManager.RemoveAsync(OPTIONID_PATTERN_KEY);
+
+            //event notification
+            await _mediator.EntityInserted(specificationAttributeOption);
         }
 
         /// <summary>
@@ -347,6 +390,28 @@ namespace Grand.Services.Catalog
 
             return query.Count();
         }
+
+        /// <summary>
+        /// Gets a count of product specification attribute mapping records
+        /// </summary>
+        /// <param name="productId">Product identifier; "" to load all records</param>
+        /// <param name="specificationAttributeOptionName">The specification attribute option identifier; "" to load all records</param>
+        /// <returns>Count</returns>
+        
+        /*
+        public virtual int GetProductSpecificationAttributeByName(string productId = "", string specificationAttributeOptionName = "")
+        {
+            var query = _productRepository.Table;
+
+            if (!string.IsNullOrEmpty(productId))
+                query = query.Where(psa => psa.Id == productId);
+            if (!string.IsNullOrEmpty(specificationAttributeOptionName))
+                //var specificationAttributeOption = GetSpe
+                //query = query.Where(psa => psa.ProductSpecificationAttributes.Any(x => x.SpecificationAttributeOptionId == specificationAttributeOptionId));
+            return query.Count();
+        }
+
+        */
 
         #endregion
 

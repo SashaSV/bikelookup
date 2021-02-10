@@ -57,10 +57,17 @@ namespace Grand.Domain.Catalog
         /// Gets or sets the sename
         /// </summary>
         public string SeName { get; set; }
+
         /// <summary>
         /// Gets or sets the short description
         /// </summary>
         public string ShortDescription { get; set; }
+
+        /// <summary>
+        /// Gets or sets the URL
+        /// </summary>
+        public string Url { get; set; }
+
         /// <summary>
         /// Gets or sets the full description
         /// </summary>

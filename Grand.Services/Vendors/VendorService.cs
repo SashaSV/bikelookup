@@ -1,7 +1,10 @@
 using Grand.Domain;
 using Grand.Domain.Data;
+using Grand.Domain.Seo;
 using Grand.Domain.Vendors;
 using Grand.Services.Events;
+using Grand.Services.Localization;
+using Grand.Services.Seo;
 using MediatR;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -23,7 +26,9 @@ namespace Grand.Services.Vendors
         private readonly IRepository<Vendor> _vendorRepository;
         private readonly IRepository<VendorReview> _vendorReviewRepository;
         private readonly IMediator _mediator;
-
+        private readonly IUrlRecordService _urlRecordService;
+        private readonly SeoSettings _seoSetting;
+        private readonly ILanguageService _languageService;
         #endregion
 
         #region Ctor
@@ -33,12 +38,20 @@ namespace Grand.Services.Vendors
         /// </summary>
         /// <param name="vendorRepository">Vendor repository</param>
         /// <param name="mediator">Mediator</param>
-        public VendorService(IRepository<Vendor> vendorRepository, IRepository<VendorReview> vendorReviewRepository,
-            IMediator mediator)
+        public VendorService(
+            IRepository<Vendor> vendorRepository,
+            IRepository<VendorReview> vendorReviewRepository,
+            IMediator mediator,
+            IUrlRecordService urlRecordService,
+            SeoSettings seoSetting,
+            ILanguageService languageService)
         {
             _vendorRepository = vendorRepository;
             _vendorReviewRepository = vendorReviewRepository;
             _mediator = mediator;
+            _urlRecordService = urlRecordService;
+            _seoSetting = seoSetting;
+            _languageService = languageService;
         }
 
         #endregion
@@ -53,6 +66,43 @@ namespace Grand.Services.Vendors
         public virtual Task<Vendor> GetVendorById(string vendorId)
         {
             return _vendorRepository.GetByIdAsync(vendorId);
+        }
+
+        /// <summary>
+        /// Gets a vendor by vendor name
+        /// </summary>
+        /// <param name="vendorName"></param>
+        /// <returns>vendor</returns>
+        public virtual async Task<Vendor> GetVendorByName(string vendorName)
+        {
+
+            if (string.IsNullOrEmpty(vendorName))
+                return null;
+
+            var vendors = await GetAllVendors(name: vendorName.Trim());
+            var vendor = vendors.FirstOrDefault();
+
+            var isNew = vendor == null;
+            if (isNew)
+            {
+                vendor ??= new Vendor();
+                vendor.Name = vendorName.Trim();
+                vendor.Active = true;
+                vendor.PageSize = 20;
+                vendor.AllowCustomersToSelectPageSize = true;
+                vendor.AllowCustomerReviews = true;
+
+                var seName = vendor.Name;
+                await _urlRecordService.SaveSlug(vendor, await vendor.ValidateSeName(seName, vendor.Name, true, _seoSetting, _urlRecordService, _languageService), "");
+                var _seName = await vendor.ValidateSeName(seName, vendor.Name, true, _seoSetting, _urlRecordService, _languageService);
+
+                //search engine name
+                await _urlRecordService.SaveSlug(vendor, _seName, "");
+                vendor.SeName = _seName;
+
+                await InsertVendor(vendor);
+            }
+            return vendor;
         }
 
         /// <summary>

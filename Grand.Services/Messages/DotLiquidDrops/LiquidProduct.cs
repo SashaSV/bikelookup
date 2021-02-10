@@ -42,6 +42,9 @@ namespace Grand.Services.Messages.DotLiquidDrops
         {
             get { return _product.Sku; }
         }
+        public string Url {
+            get { return _product.Url; }
+        }
 
         public string StockQuantity
         {
