@@ -77,6 +77,7 @@ namespace Grand.Services.Catalog
 
         private readonly IRepository<Product> _productRepository;
         private readonly IRepository<SpecificationAttribute> _specificationAttributeRepository;
+        private readonly IRepository<ProductSpecificationAttribute> _productSpecificationAttributeRepository;
         private readonly ICacheManager _cacheManager;
         private readonly IMediator _mediator;
 
@@ -93,10 +94,12 @@ namespace Grand.Services.Catalog
         public SpecificationAttributeService(ICacheManager cacheManager,
             IRepository<SpecificationAttribute> specificationAttributeRepository,
             IRepository<Product> productRepository,
+            IRepository<ProductSpecificationAttribute> productSpecificationAttribute,
             IMediator mediator)
         {
             _cacheManager = cacheManager;
             _specificationAttributeRepository = specificationAttributeRepository;
+            _productSpecificationAttributeRepository = productSpecificationAttribute;
             _mediator = mediator;
             _productRepository = productRepository;
         }
@@ -396,22 +399,30 @@ namespace Grand.Services.Catalog
         /// </summary>
         /// <param name="productId">Product identifier; "" to load all records</param>
         /// <param name="specificationAttributeOptionName">The specification attribute option identifier; "" to load all records</param>
-        /// <returns>Count</returns>
-        
-        /*
-        public virtual int GetProductSpecificationAttributeByName(string productId = "", string specificationAttributeOptionName = "")
+        /// <returns>Count</returns>       
+        public virtual ProductSpecificationAttribute GetProductSpecificationAttributeByOptionId(
+            string productId = "", 
+            string specificationAttributeId = "", 
+            string specificationAttributeOptionId = "")
         {
-            var query = _productRepository.Table;
+            if (productId == null)
+                throw new ArgumentNullException("productId");
 
+            if (specificationAttributeId == null)
+                throw new ArgumentNullException("specificationAttributeId");
+
+            if (specificationAttributeOptionId == null)
+                throw new ArgumentNullException("specificationAttributeOptionId");
+
+            var query = _productSpecificationAttributeRepository.Table;
+            
             if (!string.IsNullOrEmpty(productId))
-                query = query.Where(psa => psa.Id == productId);
-            if (!string.IsNullOrEmpty(specificationAttributeOptionName))
-                //var specificationAttributeOption = GetSpe
-                //query = query.Where(psa => psa.ProductSpecificationAttributes.Any(x => x.SpecificationAttributeOptionId == specificationAttributeOptionId));
-            return query.Count();
+                query = query.Where(psa => psa.ProductId == productId && psa.SpecificationAttributeId == specificationAttributeId && psa.SpecificationAttributeOptionId == specificationAttributeOptionId);
+            
+            return query.FirstOrDefault();
         }
 
-        */
+        
 
         #endregion
 

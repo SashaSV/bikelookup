@@ -970,13 +970,24 @@ namespace Grand.Services.ExportImport
                         
                         await _specificationAttributeService.UpdateSpecificationAttributeOption(specificationAttribute, specificationAttributeOption);
                     }
-                    
-                    //var productSpecificationAttribute = await _specificationAttributeService.GetProductSpecificationAttributeCount
-                    //property.StringValue
 
-                    //specificationAttribute.Get
+                    if (product.ProductSpecificationAttributes.Where(s => 
+                        s.ProductId == product.Id &&
+                        s.SpecificationAttributeId == specificationAttribute.Id &&
+                        s.SpecificationAttributeOptionId == specificationAttributeOption.Id).FirstOrDefault() == null)
+                    {
+                        var productSpecificationAttribute = new ProductSpecificationAttribute {
 
-                    //_specificationAttributeService.Get
+                            ProductId = product.Id,
+                            SpecificationAttributeId = specificationAttribute.Id,
+                            SpecificationAttributeOptionId = specificationAttributeOption.Id,
+                            AllowFiltering = true,
+                            ShowOnProductPage = true
+                        };
+
+                        await _specificationAttributeService.InsertProductSpecificationAttribute(productSpecificationAttribute);
+                    }
+
                 }
             }
         }
@@ -1048,9 +1059,10 @@ namespace Grand.Services.ExportImport
 
                 PrepareProductMapping(product, manager, templates, deliveryDates, warehouses, units, taxes);
                 SetDefaultProductProp(product, isNew, manager);
-                await PrepareSpecficationAtributeMapping(product, manager);
 
                 var mainProduct = await CheckMainProducts(product, manager, templates, deliveryDates, warehouses, units, taxes, templatesCategory, templatesManufacturer);
+
+                await PrepareSpecficationAtributeMapping(mainProduct, manager);
 
                 if (mainProduct != null)
                     product.ParentGroupedProductId = mainProduct.Id;

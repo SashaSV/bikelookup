@@ -1,10 +1,18 @@
+using Grand.Domain.Localization;
+using System.Collections.Generic;
+
 namespace Grand.Domain.Catalog
 {
     /// <summary>
     /// Represents a product specification attribute
     /// </summary>
-    public partial class ProductSpecificationAttribute : SubBaseEntity
+    public partial class ProductSpecificationAttribute : BaseEntity, ILocalizedEntity
     {
+        public ProductSpecificationAttribute()
+        {
+            Locales = new List<LocalizedProperty>();
+        }
+
         /// <summary>
         /// Gets or sets the product identifier
         /// </summary>
@@ -44,7 +52,11 @@ namespace Grand.Domain.Catalog
         /// Gets or sets the display order
         /// </summary>
         public int DisplayOrder { get; set; }
-        
+
+        /// <summary>
+        /// Gets or sets the collection of locales
+        /// </summary>
+        public IList<LocalizedProperty> Locales { get; set; }
 
         /// <summary>
         /// Gets the attribute control type
