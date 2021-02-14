@@ -844,7 +844,7 @@ namespace Grand.Services.ExportImport
             if (isNew && manager.GetProperties.All(p => p.PropertyName.ToLower() != "shortdescription"))
                 product.ShortDescription = product.Url;
 
-            product.Name = product.Name + " (" + product.Sku.Trim() + ") ";
+            //product.Name = product.Name + " (" + product.Sku.Trim() + ") ";
             product.LowStock = product.MinStockQuantity > 0 && product.MinStockQuantity >= product.StockQuantity;
             product.UpdatedOnUtc = DateTime.UtcNow;
 
@@ -958,16 +958,16 @@ namespace Grand.Services.ExportImport
                         };
                         await _specificationAttributeService.InsertSpecificationAttribute(specificationAttribute);
                     }
+                    var nameSpecification = property.StringValue.Trim();
                     //var spec1 = await _specificationAttributeService.GetSpecificationAttributeByOptionId(property.StringValue);
-                    var specificationAttributeOption = await _specificationAttributeService.GetSpecificationAttributeByOptionName(specificationAttribute.Id, property.StringValue);
+                    var specificationAttributeOption = await _specificationAttributeService.GetSpecificationAttributeByOptionName(specificationAttribute.Id, nameSpecification);
 
                     if (specificationAttributeOption == null) 
                     {
                         specificationAttributeOption ??= new SpecificationAttributeOption();
-                        specificationAttributeOption.Name = property.StringValue;
-                        specificationAttributeOption.SeName = SeoExtensions.GetSeName(property.StringValue, false, false);
+                        specificationAttributeOption.Name = nameSpecification;
+                        specificationAttributeOption.SeName = SeoExtensions.GetSeName(nameSpecification, true, true, nameSpecification);
 
-                        
                         await _specificationAttributeService.UpdateSpecificationAttributeOption(specificationAttribute, specificationAttributeOption);
                     }
 
@@ -1378,6 +1378,7 @@ namespace Grand.Services.ExportImport
                 var sename = manager.GetProperty("sename") != null ? manager.GetProperty("sename").StringValue : category.Name;
                 sename = await category.ValidateSeName(sename, category.Name, true, _seoSetting, _urlRecordService, _languageService);
                 category.SeName = sename;
+                category.HideOnCatalog = true;
                 await _categoryService.UpdateCategory(category);
                 await _urlRecordService.SaveSlug(category, sename, "");
 
