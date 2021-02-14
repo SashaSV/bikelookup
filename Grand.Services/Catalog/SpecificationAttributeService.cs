@@ -134,7 +134,7 @@ namespace Grand.Services.Catalog
             sename = sename.ToLowerInvariant();
 
             var key = string.Format(SPECIFICATION_BY_SENAME, sename);
-            return await _cacheManager.GetAsync(key, async () => await _specificationAttributeRepository.Table.Where(x => x.SeName == sename).FirstOrDefaultAsync());
+            return await _cacheManager.GetAsync(key, async () => await _specificationAttributeRepository.Table.Where(x => x.SeName.ToLower() == sename.ToLower()).FirstOrDefaultAsync());
         }
 
 
@@ -400,10 +400,10 @@ namespace Grand.Services.Catalog
         /// <param name="productId">Product identifier; "" to load all records</param>
         /// <param name="specificationAttributeOptionName">The specification attribute option identifier; "" to load all records</param>
         /// <returns>Count</returns>       
-        public virtual ProductSpecificationAttribute GetProductSpecificationAttributeByOptionId(
-            string productId = "", 
-            string specificationAttributeId = "", 
-            string specificationAttributeOptionId = "")
+        public virtual async Task<ProductSpecificationAttribute> GetProductSpecificationAttributeByOptionId(
+            string productId, 
+            string specificationAttributeId, 
+            string specificationAttributeOptionId)
         {
             if (productId == null)
                 throw new ArgumentNullException("productId");
@@ -414,15 +414,14 @@ namespace Grand.Services.Catalog
             if (specificationAttributeOptionId == null)
                 throw new ArgumentNullException("specificationAttributeOptionId");
 
-            var query = _productSpecificationAttributeRepository.Table;
-            
-            if (!string.IsNullOrEmpty(productId))
-                query = query.Where(psa => psa.ProductId == productId && psa.SpecificationAttributeId == specificationAttributeId && psa.SpecificationAttributeOptionId == specificationAttributeOptionId);
-            
-            return query.FirstOrDefault();
-        }
+            var query = from psa in _productSpecificationAttributeRepository.Table
+                        where psa.ProductId == productId && psa.SpecificationAttributeId == specificationAttributeId && psa.SpecificationAttributeOptionId == specificationAttributeOptionId
+                        select psa;
 
-        
+
+            return await query.FirstOrDefaultAsync();
+        }
+     
 
         #endregion
 

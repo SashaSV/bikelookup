@@ -1,5 +1,5 @@
 ﻿.footer {
-    background-color: rgba(51, 51, 51, 1);
+    background-color: #333333;
     padding: 15px 0px 15px;
     display: flex;
     align-items: flex-start;
@@ -286,13 +286,15 @@
 .header-menu {
     display: block;
     width: 100%;
-    background-color: rgba(51, 51, 51, 1);
+    background-color:#333333;
 }
 .header-menu-inner{
     display: flex;
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
-    align-items: flex-start;
+    align-items: center;
+    text-align: center;
+    max-width: 1140px;
 }
 
 .menu_item
@@ -319,7 +321,7 @@
 .head-logo {
     align-items: center;
     margin: 0 auto;
-    width: 300px;
+    width: 212px;
 }
 
 .logo-bike

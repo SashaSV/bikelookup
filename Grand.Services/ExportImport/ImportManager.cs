@@ -937,60 +937,79 @@ namespace Grand.Services.ExportImport
                 productMain.ProductTemplateId = template.Id;
 
                 await InsertOrUpdateProduct(productMain, manager, isNew, templatesCategory, templatesManufacturer);
+
+
             }
 
             return productMain;
+        }
+
+        protected virtual async Task UpdateSpecficationAtribute(Product product, string specAtrName, string specValue)
+        {
+            var specificationAttribute = await _specificationAttributeService.GetSpecificationAttributeBySeName(specAtrName);
+
+            if (specificationAttribute == null)
+            {
+                specificationAttribute = new SpecificationAttribute {
+                    Name = specAtrName,
+                    SeName = specAtrName
+                };
+                await _specificationAttributeService.InsertSpecificationAttribute(specificationAttribute);
+            }
+
+            var props = specValue.Trim().Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            foreach (var prop in props)
+            {
+
+                var nameSpecification = prop.Trim();
+
+                var specificationAttributeOption = await _specificationAttributeService.GetSpecificationAttributeByOptionName(specificationAttribute.Id, nameSpecification);
+
+                if (specificationAttributeOption == null)
+                {
+                    specificationAttributeOption ??= new SpecificationAttributeOption();
+                    specificationAttributeOption.Name = nameSpecification;
+                    specificationAttributeOption.SeName = SeoExtensions.GetSeName(nameSpecification, true, true, nameSpecification);
+
+                    await _specificationAttributeService.UpdateSpecificationAttributeOption(specificationAttribute, specificationAttributeOption);
+                }
+
+                var productId = product.Id;
+                var productSpecificationAttribute = product.ProductSpecificationAttributes.Where(s =>
+                     s.SpecificationAttributeId == specificationAttribute.Id &&
+                     s.SpecificationAttributeOptionId == specificationAttributeOption.Id).FirstOrDefault();
+
+                if (productSpecificationAttribute == null)
+                {
+                    productSpecificationAttribute = new ProductSpecificationAttribute {
+
+                        ProductId = productId,
+                        SpecificationAttributeId = specificationAttribute.Id,
+                        SpecificationAttributeOptionId = specificationAttributeOption.Id,
+                        AllowFiltering = true,
+                        ShowOnProductPage = true
+                    };
+
+                    await _specificationAttributeService.InsertProductSpecificationAttribute(productSpecificationAttribute);
+                }
+            }
         }
         protected virtual async Task PrepareSpecficationAtributeMapping(Product product, PropertyManager<Product> manager)
         {
             foreach (var property in manager.GetProperties)
             {
-                
-                if (property.PropertyName.ToLower().Substring(0,3) == "sp_")
+
+                if (property.PropertyName.ToLower().Substring(0, 3) == "sp_")
                 {
-                    var specificationAttribute = await _specificationAttributeService.GetSpecificationAttributeBySeName(property.PropertyName);
-                    if (specificationAttribute == null)
-                    {
-                        specificationAttribute = new SpecificationAttribute
-                        {
-                            Name = property.PropertyName,
-                            SeName = property.PropertyName
-                        };
-                        await _specificationAttributeService.InsertSpecificationAttribute(specificationAttribute);
-                    }
-                    var nameSpecification = property.StringValue.Trim();
-                    //var spec1 = await _specificationAttributeService.GetSpecificationAttributeByOptionId(property.StringValue);
-                    var specificationAttributeOption = await _specificationAttributeService.GetSpecificationAttributeByOptionName(specificationAttribute.Id, nameSpecification);
-
-                    if (specificationAttributeOption == null) 
-                    {
-                        specificationAttributeOption ??= new SpecificationAttributeOption();
-                        specificationAttributeOption.Name = nameSpecification;
-                        specificationAttributeOption.SeName = SeoExtensions.GetSeName(nameSpecification, true, true, nameSpecification);
-
-                        await _specificationAttributeService.UpdateSpecificationAttributeOption(specificationAttribute, specificationAttributeOption);
-                    }
-
-                    if (product.ProductSpecificationAttributes.Where(s => 
-                        s.ProductId == product.Id &&
-                        s.SpecificationAttributeId == specificationAttribute.Id &&
-                        s.SpecificationAttributeOptionId == specificationAttributeOption.Id).FirstOrDefault() == null)
-                    {
-                        var productSpecificationAttribute = new ProductSpecificationAttribute {
-
-                            ProductId = product.Id,
-                            SpecificationAttributeId = specificationAttribute.Id,
-                            SpecificationAttributeOptionId = specificationAttributeOption.Id,
-                            AllowFiltering = true,
-                            ShowOnProductPage = true
-                        };
-
-                        await _specificationAttributeService.InsertProductSpecificationAttribute(productSpecificationAttribute);
-                    }
-
+                    var specAtrName = property.PropertyName;
+                    var specValue = property.StringValue;
+                    await UpdateSpecficationAtribute(product, specAtrName, specValue);
+                    
                 }
             }
         }
+
+
         /// <summary>
         /// Import products from XLSX file
         /// </summary>
@@ -1061,8 +1080,10 @@ namespace Grand.Services.ExportImport
                 SetDefaultProductProp(product, isNew, manager);
 
                 var mainProduct = await CheckMainProducts(product, manager, templates, deliveryDates, warehouses, units, taxes, templatesCategory, templatesManufacturer);
-
-                await PrepareSpecficationAtributeMapping(mainProduct, manager);
+                
+                if (mainProduct != null) {
+                    await PrepareSpecficationAtributeMapping(mainProduct, manager); 
+                }
 
                 if (mainProduct != null)
                     product.ParentGroupedProductId = mainProduct.Id;
@@ -1119,8 +1140,12 @@ namespace Grand.Services.ExportImport
 
             var manufacturerName = manager.GetProperty("manufacturer") != null ? manager.GetProperty("manufacturer").StringValue : string.Empty;
             if (!string.IsNullOrEmpty(manufacturerName))
+            {
+                await UpdateSpecficationAtribute(product, "manufacturer", manufacturerName);
                 await PrepareProductManufacturersByName(product, manufacturerName, templatesManufacturer);
-
+            }
+            
+            await _productService.UpdateProduct(product);
             //pictures
             await PrepareProductPictures(product, manager, isNew);
         }

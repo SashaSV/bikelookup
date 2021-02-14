@@ -124,7 +124,7 @@
                 {
                     <li class="list-group-item facebook">
                         <a title="facebook" href="@Model.FacebookLink" rel="noopener" target="_blank">
-                            <img height="32" width="32" src="/Themes/VueTheme/Content/images/facebook.svg" alt="facebook" />
+                            <img height="32" width="32" src="/Themes/VueThemeBike/Content/images/facebook.svg" alt="facebook" />
                             <span class="sr-only">Facebook</span>
 
                         </a>
@@ -134,7 +134,7 @@
                 {
                     <li class="list-group-item twitter">
                         <a title="twitter" href="@Model.TwitterLink" rel="noopener" target="_blank">
-                            <img height="32" width="32" src="/Themes/VueTheme/Content/images/twitter.svg" alt="twitter" />
+                            <img height="32" width="32" src="/Themes/VueThemeBike/Content/images/twitter.svg" alt="twitter" />
                             <span class="sr-only">twitter</span>
                         </a>
                     </li>
@@ -143,7 +143,7 @@
                 {
                     <li class="list-group-item rss">
                         <a title="rss" href="@Url.RouteUrl("NewsRSS", new {languageId = Model.WorkingLanguageId})" rel="noopener" target="_blank">
-                            <img height="32" width="32" src="/Themes/VueTheme/Content/images/rss.svg" alt="news" />
+                            <img height="32" width="32" src="/Themes/VueThemeBike/Content/images/rss.svg" alt="news" />
                             <span class="sr-only">@T("NewsRSS")</span>
                         </a>
                     </li>
@@ -152,7 +152,7 @@
                 {
                     <li class="list-group-item youtube">
                         <a title="youtube" href="@Model.YoutubeLink" rel="noopener" target="_blank">
-                            <img height="32" width="32" src="/Themes/VueTheme/Content/images/youtube.svg" alt="youtube" />
+                            <img height="32" width="32" src="/Themes/VueThemeBike/Content/images/youtube.svg" alt="youtube" />
                             <span class="sr-only">youtube</span>
                         </a>
                     </li>
@@ -161,7 +161,7 @@
                 {
                     <li class="list-group-item instagram">
                         <a href="@Model.InstagramLink" rel="noopener" target="_blank">
-                            <img height="32" width="32" src="/Themes/VueTheme/Content/images/instagram.svg" alt="instagram" />
+                            <img height="32" width="32" src="/Themes/VueThemeBike/Content/images/instagram.svg" alt="instagram" />
                             <span class="sr-only">instagram</span>
                         </a>
                     </li>
@@ -170,7 +170,7 @@
                 {
                     <li class="list-group-item linkedin">
                         <a href="@Model.LinkedInLink" rel="noopener" target="_blank">
-                            <img height="32" width="32" src="/Themes/VueTheme/Content/images/linkedin.svg" alt="linkedin" />
+                            <img height="32" width="32" src="/Themes/VueThemeBike/Content/images/linkedin.svg" alt="linkedin" />
                             <span class="sr-only">linkedin</span>
                         </a>
                     </li>
@@ -179,14 +179,14 @@
                 {
                     <li class="list-group-item pinterest">
                         <a href="@Model.PinterestLink" rel="noopener" target="_blank">
-                            <img height="32" width="32" src="/Themes/VueTheme/Content/images/pinterest.svg" alt="pinterest" />
+                            <img height="32" width="32" src="/Themes/VueThemeBike/Content/images/pinterest.svg" alt="pinterest" />
                             <span class="sr-only">pinterest</span>
                         </a>
                     </li>
                 }
             </ol>
         </b-form-row>
-        <div class="footer-lower small py-3 border-top">
+        @*<div class="footer-lower small py-3 border-top">
             <b-row>
                 <b-col md="6" cols="12" class="pb-1 pt-1 flex-column text-lg-left text-center copyright">
                     <span class="footer-disclaimer">@T("Content.CopyrightNotice", DateTime.Now.Year, Model.StoreName)</span>
@@ -199,7 +199,7 @@
                 </b-col>
                 @await Component.InvokeAsync("StoreThemeSelector")
             </b-row>
-        </div>
+        </div>*@
        
     </b-container>
     @await Component.InvokeAsync("Widget", new { widgetZone = "footer" })

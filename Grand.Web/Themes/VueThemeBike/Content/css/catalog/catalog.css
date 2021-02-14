@@ -70,6 +70,8 @@ input[type=range]::-webkit-slider-thumb {
     padding-left: 0;
     list-style-type: none;
 }
+
+
 .generalLeftSide .viewBox > .list > li.active {
     position: relative;
 }
@@ -90,7 +92,7 @@ input[type=range]::-webkit-slider-thumb {
     font-weight: 400;
 }
 .generalLeftSide li.active.last > a {
-    color: #17a2b8;
+    color: #F15A24;
 }
 .generalLeftSide li a .total {
     position: relative;
@@ -100,7 +102,7 @@ input[type=range]::-webkit-slider-thumb {
     opacity: .5;
 }
 .generalLeftSide .block-category-navigation li.active .sublist > li.last > a {
-    color: #17a2b8;
+    color: #F15A24;
     font-weight: 500;
 }
 .generalLeftSide li {
@@ -171,7 +173,7 @@ input[type=range]::-webkit-slider-thumb {
 }
 .pagination .current-page.page-item .page-link {
     color: #fff;
-    background-color: #17a2b8;
+    background-color: #F15A24;
 }
 
 @media (max-width: 575px) {
