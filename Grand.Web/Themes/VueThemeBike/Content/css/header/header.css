@@ -36,7 +36,7 @@
     display: flex;
     align-items: flex-start;
 }
-.chat {
+.chat * {
     cursor: pointer;
     width: 24px;
     height: 24px;
@@ -48,7 +48,7 @@
     fill: rgba(241, 90, 36, 1);
 }
 
-.heart {
+.heart * {
     width: 25px;
     height: 24px;
     margin-right: 8px;
@@ -60,7 +60,7 @@
     fill: rgba(241, 90, 36, 1);
 }
 
-.swap {
+.swap * {
     width: 24px;
     height: 24px;
     cursor: pointer;
@@ -167,14 +167,15 @@
     background-color: #ffffff;
     z-index: 11;
 }
+
 .magnifying-glass-1 {
     width: 40px;
     height: 40px;
-    box-shadow: 0 4px 4px 0 $trans-p;
     display: flex;
     align-items: center;
     z-index: 11;
 }
+
 .glass {
     width: 20px;
     height: 20px;
