@@ -14,5 +14,6 @@
         pagebuilder.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/css/header/header.css", themeName));
     }
 }
+@await Component.InvokeAsync("LanguageSelector")
 <div id="HeaderUp"><header-up></header-up></div>
 @await Component.InvokeAsync("HeaderCategories")
