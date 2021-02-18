@@ -3936,6 +3936,12 @@
   <LocaleResource Name="Admin.Catalog.Products.Fields.ShortDescription.Hint">
     <Value>The short description of the product. This is the text that displays in product lists i.e. category / manufacturer pages</Value>
   </LocaleResource>
+  <LocaleResource Name="Admin.Affiliates.Fields.URL">
+	<Value>Affiliate URL</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Affiliates.Fields.URL.Hint">
+   	<Value>When this hyperlink is clicked from the affiliate site, this site looks for an Affiliate ID query string parameter. If one exists, the customer is tagged with that affiliate.</Value>
+  </LocaleResource>
   <LocaleResource Name="Admin.Catalog.Products.Fields.ShowOnHomePage">
     <Value>Show on home page</Value>
   </LocaleResource>

@@ -63,10 +63,24 @@ namespace Grand.Services.Catalog
         Task<SpecificationAttribute> GetSpecificationAttributeByOptionId(string specificationAttributeOption);
 
         /// <summary>
+        /// Gets a specification attribute option 
+        /// </summary>
+        /// <param name="specificationAttributeId">The specification attribute option Id</param>
+        /// <param name="specificationAttributeOptionName">The specification attribute option name</param>
+        /// <returns>Specification attribute option</returns>
+        Task<SpecificationAttributeOption> GetSpecificationAttributeByOptionName(string specificationAttributeId, string specificationAttributeOptionName);
+        
+        /// <summary>
         /// Deletes a specification attribute option
         /// </summary>
         /// <param name="specificationAttributeOption">The specification attribute option</param>
         Task DeleteSpecificationAttributeOption(SpecificationAttributeOption specificationAttributeOption);
+
+        /// <summary>
+        /// Inserts a specification attribute option
+        /// </summary>
+        /// <param name="specificationAttributeOption">The specification attribute option</param>
+        Task UpdateSpecificationAttributeOption(SpecificationAttribute specificationAttribute, SpecificationAttributeOption specificationAttributeOption);
 
         #endregion
 
@@ -98,6 +112,16 @@ namespace Grand.Services.Catalog
         /// <returns>Count</returns>
         int GetProductSpecificationAttributeCount(string productId = "", string specificationAttributeOptionId = "");
 
+        /// <summary>
+        /// Gets a product specification attribute mapping records
+        /// </summary>
+        /// <param name="productId">Product identifier; "" to load all records</param>
+        /// <param name="specificationAttributeOptionId">The specification attribute option identifier; "" to load all records</param>
+        /// <returns>Count</returns>
+        Task<ProductSpecificationAttribute> GetProductSpecificationAttributeByOptionId(
+            string productId = "",
+            string specificationAttributeId = "",
+            string specificationAttributeOptionId = "");
         #endregion
     }
 }

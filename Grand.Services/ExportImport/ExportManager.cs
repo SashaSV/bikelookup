@@ -321,6 +321,7 @@ namespace Grand.Services.ExportImport
                 xmlWriter.WriteElementString("VisibleIndividually", null, product.VisibleIndividually.ToString());
                 xmlWriter.WriteElementString("Name", null, product.Name);
                 xmlWriter.WriteElementString("ShortDescription", null, product.ShortDescription);
+                xmlWriter.WriteElementString("Url", null, product.Url);
                 xmlWriter.WriteElementString("FullDescription", null, product.FullDescription);
                 xmlWriter.WriteElementString("Flag", null, product.Flag);
                 xmlWriter.WriteElementString("AdminComment", null, product.AdminComment);

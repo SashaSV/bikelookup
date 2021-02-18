@@ -19,6 +19,12 @@ namespace Grand.Services.Vendors
         Task<Vendor> GetVendorById(string vendorId);
 
         /// <summary>
+        /// Gets a vendor by vendor name
+        /// </summary>
+        /// <param name="vendorName"></param>
+        /// <returns>vendor</returns>
+        Task<Vendor> GetVendorByName(string vendorName);
+        /// <summary>
         /// Delete a vendor
         /// </summary>
         /// <param name="vendor">Vendor</param>

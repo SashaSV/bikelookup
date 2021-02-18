@@ -207,6 +207,14 @@ namespace Grand.Services.Catalog
         Task<Product> GetProductBySku(string sku);
 
         /// <summary>
+        /// Gets a product by SKU and VendorId
+        /// </summary>
+        /// <param name="sku">SKU</param>
+        /// <param name="vendorId">vendorId</param>
+        /// <returns>Product</returns>
+        Task<Product> GetProductBySkuAndVendor(string sku, string vendorId);
+
+        /// <summary>
         /// Update Interval properties
         /// </summary>
         /// <param name="productId">Product Id</param>
@@ -219,7 +227,7 @@ namespace Grand.Services.Catalog
         /// Find Products price range
         /// </summary>
         Task<PriceRange> SearchProductsPriceRange(IList<string> categoryIds);
-         
+
         #endregion
 
         #region Inventory management methods

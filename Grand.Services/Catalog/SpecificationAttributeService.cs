@@ -59,6 +59,14 @@ namespace Grand.Services.Catalog
         private const string SPECIFICATION_BY_OPTIONID_KEY = "Grand.specification.optionid-{0}";
 
         /// <summary>
+        /// Key for caching
+        /// </summary>
+        /// <remarks>
+        /// {0} : specification option ID
+        /// </remarks>
+        private const string OPTIONID_PATTERN_KEY = "Grand.specification.optionid";
+
+        /// <summary>
         /// Key pattern to clear cache
         /// </summary>
         private const string SPECIFICATION_PATTERN_KEY = "Grand.specification.";
@@ -69,6 +77,7 @@ namespace Grand.Services.Catalog
 
         private readonly IRepository<Product> _productRepository;
         private readonly IRepository<SpecificationAttribute> _specificationAttributeRepository;
+        private readonly IRepository<ProductSpecificationAttribute> _productSpecificationAttributeRepository;
         private readonly ICacheManager _cacheManager;
         private readonly IMediator _mediator;
 
@@ -85,10 +94,12 @@ namespace Grand.Services.Catalog
         public SpecificationAttributeService(ICacheManager cacheManager,
             IRepository<SpecificationAttribute> specificationAttributeRepository,
             IRepository<Product> productRepository,
+            IRepository<ProductSpecificationAttribute> productSpecificationAttribute,
             IMediator mediator)
         {
             _cacheManager = cacheManager;
             _specificationAttributeRepository = specificationAttributeRepository;
+            _productSpecificationAttributeRepository = productSpecificationAttribute;
             _mediator = mediator;
             _productRepository = productRepository;
         }
@@ -123,7 +134,7 @@ namespace Grand.Services.Catalog
             sename = sename.ToLowerInvariant();
 
             var key = string.Format(SPECIFICATION_BY_SENAME, sename);
-            return await _cacheManager.GetAsync(key, async () => await _specificationAttributeRepository.Table.Where(x => x.SeName == sename).FirstOrDefaultAsync());
+            return await _cacheManager.GetAsync(key, async () => await _specificationAttributeRepository.Table.Where(x => x.SeName.ToLower() == sename.ToLower()).FirstOrDefaultAsync());
         }
 
 
@@ -226,6 +237,22 @@ namespace Grand.Services.Catalog
         }
 
         /// <summary>
+        /// Gets a specification attribute option
+        /// </summary>
+        /// <param name="specificationAttributeOptionId">The specification attribute option identifier</param>
+        /// <returns>Specification attribute option</returns>
+        public virtual async Task<SpecificationAttributeOption> GetSpecificationAttributeByOptionName(string specificationAttributeId, string specificationAttributeOptionName)
+        {
+            if (string.IsNullOrEmpty(specificationAttributeOptionName))
+                return await Task.FromResult<SpecificationAttributeOption>(null);
+
+            string key = string.Format(SPECIFICATION_BY_ID_KEY, specificationAttributeId);
+            var specificationAttribute = await _cacheManager.GetAsync(key, () => _specificationAttributeRepository.GetByIdAsync(specificationAttributeId));
+            return specificationAttribute.SpecificationAttributeOptions.Where(x => x.Name == specificationAttributeOptionName).FirstOrDefault();
+        }
+
+        
+        /// <summary>
         /// Deletes a specification attribute option
         /// </summary>
         /// <param name="specificationAttributeOption">The specification attribute option</param>
@@ -278,6 +305,25 @@ namespace Grand.Services.Catalog
 
             //event notification
             await _mediator.EntityDeleted(productSpecificationAttribute);
+        }
+
+        public virtual async Task UpdateSpecificationAttributeOption(SpecificationAttribute specificationAttribute, SpecificationAttributeOption specificationAttributeOption)
+        {
+
+            if (specificationAttributeOption == null)
+                throw new ArgumentNullException("specificationAttributeOption");
+
+            if (specificationAttribute == null)
+                throw new ArgumentNullException("specificationAttribute");
+
+            //await _specificationAttributeRepository.InsertAsync(specificationAttribute);
+            specificationAttribute.SpecificationAttributeOptions.Add(specificationAttributeOption);
+            await UpdateSpecificationAttribute(specificationAttribute);
+            //cache
+            await _cacheManager.RemoveAsync(OPTIONID_PATTERN_KEY);
+
+            //event notification
+            await _mediator.EntityInserted(specificationAttributeOption);
         }
 
         /// <summary>
@@ -347,6 +393,35 @@ namespace Grand.Services.Catalog
 
             return query.Count();
         }
+
+        /// <summary>
+        /// Gets a count of product specification attribute mapping records
+        /// </summary>
+        /// <param name="productId">Product identifier; "" to load all records</param>
+        /// <param name="specificationAttributeOptionName">The specification attribute option identifier; "" to load all records</param>
+        /// <returns>Count</returns>       
+        public virtual async Task<ProductSpecificationAttribute> GetProductSpecificationAttributeByOptionId(
+            string productId, 
+            string specificationAttributeId, 
+            string specificationAttributeOptionId)
+        {
+            if (productId == null)
+                throw new ArgumentNullException("productId");
+
+            if (specificationAttributeId == null)
+                throw new ArgumentNullException("specificationAttributeId");
+
+            if (specificationAttributeOptionId == null)
+                throw new ArgumentNullException("specificationAttributeOptionId");
+
+            var query = from psa in _productSpecificationAttributeRepository.Table
+                        where psa.ProductId == productId && psa.SpecificationAttributeId == specificationAttributeId && psa.SpecificationAttributeOptionId == specificationAttributeOptionId
+                        select psa;
+
+
+            return await query.FirstOrDefaultAsync();
+        }
+     
 
         #endregion
 
