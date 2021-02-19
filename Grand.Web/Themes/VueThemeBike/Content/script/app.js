@@ -1,4 +1,5 @@
-﻿Vue.component('footer-component', {
+﻿var  languages = [];
+Vue.component('footer-component', {
     data: function () {
         return {
             labelCopyright: "Copyright © 2021 BikeLookUp<br /> Все права защищены"
@@ -13,10 +14,14 @@ Vue.component('langsellector',{
     data: function ()
     {
         return {
-            AvLanguages: ["Рус","Eng", "Укр"] ,
-            selectedLang:'Рус',
+            AvLanguages: langnames,
+            selectedLang: selectedLang,
+            langUrls: langurls,
             showoptions: false
         }
+    },
+    mounted() {
+        console.log("langmounted");
     },
     methods: {
       onOptionClick: function () {
@@ -32,6 +37,11 @@ Vue.component('langsellector',{
         }  ,
         onoption :function (lang)
         {
+            var langIndex = this.AvLanguages.indexOf(lang)
+            axios.get(this.langUrls[langIndex]);
+            window.location.reload();
+            
+            
             this.selectedLang = lang;
             this.showoptions = false;
         }
@@ -273,7 +283,7 @@ var vm = new Vue({
         if (localStorage.fluid == "true") this.fluid = "fluid";
         if (localStorage.fluid == "fluid") this.fluid = "fluid";
         if (localStorage.fluid == "") this.fluid = "false";
-        this.updateFly();
+        //this.updateFly();
     },
     watch: {
         fluid(newName) {
