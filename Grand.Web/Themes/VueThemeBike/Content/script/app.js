@@ -38,10 +38,10 @@ Vue.component('langsellector',{
         onoption :function (lang)
         {
             var langIndex = this.AvLanguages.indexOf(lang)
-            axios.get(this.langUrls[langIndex]);
-            window.location.reload();
-            
-            
+            axios.get(this.langUrls[langIndex]).then( function (){
+                window.location.reload();
+            });
+ 
             this.selectedLang = lang;
             this.showoptions = false;
         }
