@@ -11,6 +11,7 @@ using Grand.Services.Seo;
 using Grand.Web.Areas.Admin.Extensions;
 using Grand.Web.Areas.Admin.Models.Catalog;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -256,6 +257,26 @@ namespace Grand.Web.Areas.Admin.Controllers
 
             return View(model);
         }
+        protected virtual async Task PrepareAllCategoriesModel(SpecificationAttributeOptionModel model, string id)
+        {
+            if (model == null)
+                throw new ArgumentNullException("model");
+
+            var sao = (await _specificationAttributeService.GetSpecificationAttributeByOptionId(id)).SpecificationAttributeOptions;
+            
+            model.AvailableOptions.Add(new SelectListItem {
+                Text = "[None]",
+                Value = ""
+            });
+            foreach (var c in sao)
+            {
+                model.AvailableOptions.Add(new SelectListItem {
+                    Text = _categoryService.GetFormattedBreadCrumb(c, categories),
+                    Value = c.Id.ToString()
+                });
+            }
+        }
+                    
 
         [HttpPost]
         [PermissionAuthorizeAction(PermissionActionName.Edit)]

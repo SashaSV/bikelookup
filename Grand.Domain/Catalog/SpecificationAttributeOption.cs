@@ -32,7 +32,12 @@ namespace Grand.Domain.Catalog
         /// Gets or sets the display order
         /// </summary>
         public int DisplayOrder { get; set; }
-        
+
+        /// <summary>
+        /// Gets or sets the BaseOptionId
+        /// </summary>
+        public string ParentSpecificationAttrOptionId { get; set; }
+
         /// <summary>
         /// Gets or sets the collection of locales
         /// </summary>

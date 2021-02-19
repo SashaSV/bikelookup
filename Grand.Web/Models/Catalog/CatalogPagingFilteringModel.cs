@@ -416,6 +416,7 @@ namespace Grand.Web.Models.Catalog
                                 SpecificationAttributeOptionName = sa.SpecificationAttributeOptions.FirstOrDefault(x => x.Id == sao).GetLocalized(x => x.Name, langId),
                                 SpecificationAttributeOptionSeName = sa.SpecificationAttributeOptions.FirstOrDefault(x => x.Id == sao).SeName,
                                 SpecificationAttributeOptionDisplayOrder = sa.SpecificationAttributeOptions.FirstOrDefault(x => x.Id == sao).DisplayOrder,
+                                SpecificationAttributeOptionParentSpecificationAttrOptionId = sa.SpecificationAttributeOptions.FirstOrDefault(x => x.Id == sao).ParentSpecificationAttrOptionId,
                                 SpecificationAttributeOptionColorRgb = sa.SpecificationAttributeOptions.FirstOrDefault(x => x.Id == sao).ColorSquaresRgb,
                             });
                         }

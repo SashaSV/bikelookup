@@ -961,36 +961,45 @@ namespace Grand.Services.ExportImport
             foreach (var prop in props)
             {
 
-                var nameSpecification = prop.Trim();
+                //var nameSpecification = prop.Trim();
+                //var ñ = (specAtrName == "sp_model") ? ' ' : '^';
 
-                var specificationAttributeOption = await _specificationAttributeService.GetSpecificationAttributeByOptionName(specificationAttribute.Id, nameSpecification);
-
-                if (specificationAttributeOption == null)
+                var nameSpecificationTree = prop.Trim().Split(new[] { (specAtrName == "sp_model") ? ' ' : '^' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                var parantSpecAttrOptionId = "";
+                
+                foreach (var nameSpecification in nameSpecificationTree)
                 {
-                    specificationAttributeOption ??= new SpecificationAttributeOption();
-                    specificationAttributeOption.Name = nameSpecification;
-                    specificationAttributeOption.SeName = SeoExtensions.GetSeName(nameSpecification, true, true, nameSpecification);
+                    var specificationAttributeOption = await _specificationAttributeService.GetSpecificationAttributeByOptionName(specificationAttribute.Id, nameSpecification);
 
-                    await _specificationAttributeService.UpdateSpecificationAttributeOption(specificationAttribute, specificationAttributeOption);
-                }
+                    if (specificationAttributeOption == null)
+                    {
+                        specificationAttributeOption ??= new SpecificationAttributeOption();
+                        specificationAttributeOption.Name = nameSpecification;
+                        specificationAttributeOption.SeName = SeoExtensions.GetSeName(nameSpecification, true, true, nameSpecification);
+                        specificationAttributeOption.ParentSpecificationAttrOptionId = parantSpecAttrOptionId;
+                        await _specificationAttributeService.UpdateSpecificationAttributeOption(specificationAttribute, specificationAttributeOption);
+                    }
+                    
+                    parantSpecAttrOptionId = specificationAttributeOption.Id;
 
-                var productId = product.Id;
-                var productSpecificationAttribute = product.ProductSpecificationAttributes.Where(s =>
-                     s.SpecificationAttributeId == specificationAttribute.Id &&
-                     s.SpecificationAttributeOptionId == specificationAttributeOption.Id).FirstOrDefault();
+                    var productId = product.Id;
+                    var productSpecificationAttribute = product.ProductSpecificationAttributes.Where(s =>
+                         s.SpecificationAttributeId == specificationAttribute.Id &&
+                         s.SpecificationAttributeOptionId == specificationAttributeOption.Id).FirstOrDefault();
 
-                if (productSpecificationAttribute == null)
-                {
-                    productSpecificationAttribute = new ProductSpecificationAttribute {
+                    if (productSpecificationAttribute == null)
+                    {
+                        productSpecificationAttribute = new ProductSpecificationAttribute {
 
-                        ProductId = productId,
-                        SpecificationAttributeId = specificationAttribute.Id,
-                        SpecificationAttributeOptionId = specificationAttributeOption.Id,
-                        AllowFiltering = true,
-                        ShowOnProductPage = true
-                    };
+                            ProductId = productId,
+                            SpecificationAttributeId = specificationAttribute.Id,
+                            SpecificationAttributeOptionId = specificationAttributeOption.Id,
+                            AllowFiltering = true,
+                            ShowOnProductPage = true
+                        };
 
-                    await _specificationAttributeService.InsertProductSpecificationAttribute(productSpecificationAttribute);
+                        await _specificationAttributeService.InsertProductSpecificationAttribute(productSpecificationAttribute);
+                    }
                 }
             }
         }
