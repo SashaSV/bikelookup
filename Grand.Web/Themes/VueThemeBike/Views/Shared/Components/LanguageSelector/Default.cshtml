@@ -3,6 +3,6 @@
 
  <script>
         var selectedLang = '@Model.AvailableLanguages.Where(ln=>@Model.CurrentLanguageId == ln.Id).Select( ln => ln.Name).FirstOrDefault()'
-        var langurls = @Json.Serialize(Model.AvailableLanguages.Select( lang =>  Url.RouteUrl("ChangeLanguage", new {langid = lang.Id})).ToList())   
-        var langnames = @Json.Serialize(Model.AvailableLanguages.Select(ln => ln.Name).ToList())
+        var langurls = @Json.Serialize(Model.AvailableLanguages.OrderBy(lang => lang.DisplayOrder).Select( lang =>  Url.RouteUrl("ChangeLanguage", new {langid = lang.Id})).ToList())   
+        var langnames = @Json.Serialize(Model.AvailableLanguages.OrderBy(lang => lang.DisplayOrder).Select(ln => ln.Name).ToList())
 </script>

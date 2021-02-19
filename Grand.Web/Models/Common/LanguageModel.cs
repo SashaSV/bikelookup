@@ -8,5 +8,7 @@ namespace Grand.Web.Models.Common
 
         public string FlagImageFileName { get; set; }
 
+        public int DisplayOrder { get; set; }
+
     }
 }
