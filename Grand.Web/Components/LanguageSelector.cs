@@ -6,6 +6,7 @@ using Grand.Web.Models.Common;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
+using MailKit.Search;
 
 namespace Grand.Web.ViewComponents
 {
@@ -42,16 +43,19 @@ namespace Grand.Web.ViewComponents
         {
             var availableLanguages = (await _languageService
                      .GetAllLanguages(storeId: _storeContext.CurrentStore.Id))
+                     .OrderBy(x => x.DisplayOrder)
                      .Select(x => new LanguageModel {
                          Id = x.Id,
                          Name = x.Name,
                          FlagImageFileName = x.FlagImageFileName,
+                         DisplayOrder = x.DisplayOrder
                      }).ToList();
 
             var model = new LanguageSelectorModel {
                 CurrentLanguageId = _workContext.WorkingLanguage.Id,
                 AvailableLanguages = availableLanguages,
-                UseImages = _localizationSettings.UseImagesForLanguageSelection
+                UseImages = _localizationSettings.UseImagesForLanguageSelection,
+                
             };
 
             return model;
