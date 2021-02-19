@@ -270,8 +270,9 @@ namespace Grand.Web.Areas.Admin.Controllers
             });
             foreach (var c in sao)
             {
+                //_categoryService.GetFormattedBreadCrumb(c, categories)
                 model.AvailableOptions.Add(new SelectListItem {
-                    Text = _categoryService.GetFormattedBreadCrumb(c, categories),
+                    Text = c.Name,
                     Value = c.Id.ToString()
                 });
             }
