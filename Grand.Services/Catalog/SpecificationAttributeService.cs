@@ -437,7 +437,7 @@ namespace Grand.Services.Catalog
         /// <param name="storeMappingService">Store mapping service</param>
         /// <param name="showHidden">A value indicating whether to load hidden records</param>
         /// <returns>Category breadcrumb </returns>
-        public virtual async Task<IList<SpecificationAttributeOption>> GetCategoryBreadCrumb(SpecificationAttributeOption spo)
+        public virtual async Task<IList<SpecificationAttributeOption>> GetOptionBreadCrumb(SpecificationAttributeOption spo)
         {
             var result = new List<SpecificationAttributeOption>();
 
@@ -463,90 +463,92 @@ namespace Grand.Services.Catalog
             result.Reverse();
             return result;
         }
+        /// <summary>
+        /// Get formatted category breadcrumb 
+        /// Note: ACL and store mapping is ignored
+        /// </summary>
+        /// <param name="category">Category</param>
+        /// <param name="separator">Separator</param>
+        /// <param name="languageId">Language identifier for localization</param>
+        /// <returns>Formatted breadcrumb</returns>
+        public virtual async Task<string> GetFormattedOptionBreadCrumb(SpecificationAttributeOption spo, string separator = ">>", string languageId = "")
+        {
+            string result = string.Empty;
 
-        ///// <summary>
-        ///// Get category breadcrumb 
-        ///// </summary>
-        ///// <param name="category">Category</param>
-        ///// <param name="allCategories">All categories</param>
-        ///// <param name="showHidden">A value indicating whether to load hidden records</param>
-        ///// <returns>Category breadcrumb </returns>
-        //public virtual IList<Category> GetCategoryBreadCrumb(Category category, IList<Category> allCategories, bool showHidden = false)
-        //{
-        //    var result = new List<Category>();
+            var breadcrumb = await GetOptionBreadCrumb(spo);
+            for (int i = 0; i <= breadcrumb.Count - 1; i++)
+            {
+                var categoryName = breadcrumb[i].Name;
+                result = String.IsNullOrEmpty(result)
+                    ? categoryName
+                    : string.Format("{0} {1} {2}", result, separator, categoryName);
+            }
+            return result;
+        }
 
-        //    //used to prevent circular references
-        //    var alreadyProcessedCategoryIds = new List<string>();
+            ///// <summary>
+            ///// Get category breadcrumb 
+            ///// </summary>
+            ///// <param name="category">Category</param>
+            ///// <param name="allCategories">All categories</param>
+            ///// <param name="showHidden">A value indicating whether to load hidden records</param>
+            ///// <returns>Category breadcrumb </returns>
+            //public virtual IList<Category> GetCategoryBreadCrumb(Category category, IList<Category> allCategories, bool showHidden = false)
+            //{
+            //    var result = new List<Category>();
 
-        //    while (category != null && //not null                
-        //        (showHidden || category.Published) && //published
-        //        (showHidden || _aclService.Authorize(category)) && //ACL
-        //        (showHidden || _storeMappingService.Authorize(category)) && //Store mapping
-        //        !alreadyProcessedCategoryIds.Contains(category.Id)) //prevent circular references
-        //    {
-        //        result.Add(category);
+            //    //used to prevent circular references
+            //    var alreadyProcessedCategoryIds = new List<string>();
 
-        //        alreadyProcessedCategoryIds.Add(category.Id);
+            //    while (category != null && //not null                
+            //        (showHidden || category.Published) && //published
+            //        (showHidden || _aclService.Authorize(category)) && //ACL
+            //        (showHidden || _storeMappingService.Authorize(category)) && //Store mapping
+            //        !alreadyProcessedCategoryIds.Contains(category.Id)) //prevent circular references
+            //    {
+            //        result.Add(category);
 
-        //        category = (from c in allCategories
-        //                    where c.Id == category.ParentCategoryId
-        //                    select c).FirstOrDefault();
-        //    }
-        //    result.Reverse();
-        //    return result;
-        //}
+            //        alreadyProcessedCategoryIds.Add(category.Id);
 
-        ///// <summary>
-        ///// Get formatted category breadcrumb 
-        ///// Note: ACL and store mapping is ignored
-        ///// </summary>
-        ///// <param name="category">Category</param>
-        ///// <param name="separator">Separator</param>
-        ///// <param name="languageId">Language identifier for localization</param>
-        ///// <returns>Formatted breadcrumb</returns>
-        //public virtual async Task<string> GetFormattedBreadCrumb(Category category, string separator = ">>", string languageId = "")
-        //{
-        //    string result = string.Empty;
+            //        category = (from c in allCategories
+            //                    where c.Id == category.ParentCategoryId
+            //                    select c).FirstOrDefault();
+            //    }
+            //    result.Reverse();
+            //    return result;
+            //}
 
-        //    var breadcrumb = await GetCategoryBreadCrumb(category, true);
-        //    for (int i = 0; i <= breadcrumb.Count - 1; i++)
-        //    {
-        //        var categoryName = breadcrumb[i].GetLocalized(x => x.Name, languageId);
-        //        result = String.IsNullOrEmpty(result)
-        //            ? categoryName
-        //            : string.Format("{0} {1} {2}", result, separator, categoryName);
-        //    }
 
-        //    return result;
-        //}
-        ///// <summary>
-        ///// Get formatted category breadcrumb 
-        ///// Note: ACL and store mapping is ignored
-        ///// </summary>
-        ///// <param name="category">Category</param>
-        ///// <param name="allCategories">All categories</param>
-        ///// <param name="separator">Separator</param>
-        ///// <param name="languageId">Language identifier for localization</param>
-        ///// <returns>Formatted breadcrumb</returns>
-        //public virtual string GetFormattedBreadCrumb(Category category,
-        //    IList<Category> allCategories, string separator = ">>", string languageId = "")
-        //{
-        //    string result = string.Empty;
 
-        //    var breadcrumb = GetCategoryBreadCrumb(category, allCategories, true);
-        //    for (int i = 0; i <= breadcrumb.Count - 1; i++)
-        //    {
-        //        var categoryName = breadcrumb[i].GetLocalized(x => x.Name, languageId);
-        //        result = String.IsNullOrEmpty(result)
-        //            ? categoryName
-        //            : string.Format("{0} {1} {2}", result, separator, categoryName);
-        //    }
 
-        //    return result;
-        //}
+            ///// <summary>
+            ///// Get formatted category breadcrumb 
+            ///// Note: ACL and store mapping is ignored
+            ///// </summary>
+            ///// <param name="category">Category</param>
+            ///// <param name="allCategories">All categories</param>
+            ///// <param name="separator">Separator</param>
+            ///// <param name="languageId">Language identifier for localization</param>
+            ///// <returns>Formatted breadcrumb</returns>
+            //public virtual string GetFormattedBreadCrumb(Category category,
+            //    IList<Category> allCategories, string separator = ">>", string languageId = "")
+            //{
+            //    string result = string.Empty;
 
-        #endregion
+            //    var breadcrumb = GetCategoryBreadCrumb(category, allCategories, true);
+            //    for (int i = 0; i <= breadcrumb.Count - 1; i++)
+            //    {
+            //        var categoryName = breadcrumb[i].GetLocalized(x => x.Name, languageId);
+            //        result = String.IsNullOrEmpty(result)
+            //            ? categoryName
+            //            : string.Format("{0} {1} {2}", result, separator, categoryName);
+            //    }
 
-        #endregion
+            //    return result;
+            //}
+
+            #endregion
+
+            #endregion
+        }
     }
-}

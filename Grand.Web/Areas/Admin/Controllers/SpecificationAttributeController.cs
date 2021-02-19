@@ -254,7 +254,7 @@ namespace Grand.Web.Areas.Admin.Controllers
             {
                 locale.Name = sao.GetLocalized(x => x.Name, languageId, false, false);
             });
-
+            await PrepareAllCategoriesModel(model, id);
             return View(model);
         }
         protected virtual async Task PrepareAllCategoriesModel(SpecificationAttributeOptionModel model, string id)
