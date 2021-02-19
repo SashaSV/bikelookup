@@ -2382,6 +2382,12 @@
   <LocaleResource Name="Admin.Catalog.Attributes.SpecificationAttributes.Options.Fields.SeName.Hint">
     <Value>Set a search engine friendly page name. Leave empty to generate it automatically based on the name of the options.</Value>
   </LocaleResource>
+  <LocaleResource Name="Admin.Catalog.Attributes.SpecificationAttributes.Options.Fields.ParentSpecificationAttrOptionId">
+    <Value>Search engine friendly page name</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Catalog.Attributes.SpecificationAttributes.Options.Fields.ParentSpecificationAttrOptionId.Hint">
+    <Value>Set a search engine friendly page name. Leave empty to generate it automatically based on the name of the options.</Value>
+  </LocaleResource>
   <LocaleResource Name="Admin.Catalog.Attributes.SpecificationAttributes.Options.SaveBeforeEdit">
     <Value>You need to save the specification attribute before you can add options for this specification attribute page.</Value>
   </LocaleResource>

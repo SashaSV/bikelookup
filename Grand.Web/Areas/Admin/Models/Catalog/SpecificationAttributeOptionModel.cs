@@ -2,6 +2,7 @@
 using Grand.Core.ModelBinding;
 using Grand.Core.Models;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Grand.Web.Areas.Admin.Models.Catalog
 {
@@ -10,6 +11,7 @@ namespace Grand.Web.Areas.Admin.Models.Catalog
         public SpecificationAttributeOptionModel()
         {
             Locales = new List<SpecificationAttributeOptionLocalizedModel>();
+            AvailableOptions = new List<SelectListItem>();
         }
 
         public string SpecificationAttributeId { get; set; }
@@ -19,6 +21,9 @@ namespace Grand.Web.Areas.Admin.Models.Catalog
 
         [GrandResourceDisplayName("Admin.Catalog.Attributes.SpecificationAttributes.Options.Fields.SeName")]
         public string SeName { get; set; }
+
+        [GrandResourceDisplayName("Admin.Catalog.Attributes.SpecificationAttributes.Options.Fields.ParentSpecificationAttrOptionId")]
+        public string ParentSpecificationAttrOptionId { get; set; }
 
         [GrandResourceDisplayName("Admin.Catalog.Attributes.SpecificationAttributes.Options.Fields.ColorSquaresRgb")]
         public string ColorSquaresRgb { get; set; }
@@ -30,6 +35,8 @@ namespace Grand.Web.Areas.Admin.Models.Catalog
 
         [GrandResourceDisplayName("Admin.Catalog.Attributes.SpecificationAttributes.Options.Fields.NumberOfAssociatedProducts")]
         public int NumberOfAssociatedProducts { get; set; }
+
+        public IList<SelectListItem> AvailableOptions { get; set; }
 
         public IList<SpecificationAttributeOptionLocalizedModel> Locales { get; set; }
 

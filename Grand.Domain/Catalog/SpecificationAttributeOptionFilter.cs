@@ -46,6 +46,10 @@
         public string SpecificationAttributeOptionSeName { get; set; }
 
         /// <summary>
+        /// Gets or sets the parent specification attribute option Id
+        /// </summary>
+        public string SpecificationAttributeOptionParentSpecificationAttrOptionId { get; set; }
+        /// <summary>
         /// Gets or sets the specification attribute option display order
         /// </summary>
         public int SpecificationAttributeOptionDisplayOrder { get; set; }

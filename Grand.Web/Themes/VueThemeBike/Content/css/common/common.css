@@ -3,10 +3,15 @@ a {
     color: rgb(241, 90, 36);
 }
 
+h6{
+    font-weight: bold;
+}
+
 a:hover {
     color: #dc3545;
     text-decoration: none;
 }
+
 .date-text {
     color: #4C5357;
 }
