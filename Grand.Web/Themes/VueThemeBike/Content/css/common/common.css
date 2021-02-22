@@ -7,6 +7,40 @@ h6{
     font-weight: bold;
 }
 
+.prod-controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 5px;
+}
+
+.swap_prod * {
+    width: 25px;
+    height: 24px;
+    cursor: pointer;
+    align-self: flex-end;
+    margin-right: 0px;
+}
+
+.swap_prod:hover .swap_icon_prod
+{
+    filter: brightness(150%);
+}
+
+.heart_prod * {
+    width: 25px;
+    height: 24px;
+    margin-right: 8px;
+    margin-left: 0px;
+    cursor: pointer;
+    align-self: flex-start;
+}
+
+.heart_prod:hover .heart_icon_prod
+{
+    filter: brightness(150%);
+}
+
 a:hover {
     color: #dc3545;
     text-decoration: none;
@@ -834,21 +868,27 @@ z-index: 3;
 	line-height: 1;
 }
 .product-box .spec:not(:last-child) {
-	border-bottom: 1px dashed #dfdfdf;
+	border-bottom: 0;
 }
 .product-box .spec-name {
-	color: #292929;
-	font-size: 14px;
-	font-weight: 500;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    color: #999999;
 	border: 0;
 }
 .product-box .spec-value {
 	position: relative;
     margin: 0 0 0 5px;
-	color: #777;
-	font-size: 14px;
-	font-weight: 400;
-	border: 0;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+	border: 0; 
+    color: #000000;
 }
 .product-box .spec-value span:not(:first-child):not(:last-child)::after,
 .product-box .spec-value span:not(:last-child)::after {
