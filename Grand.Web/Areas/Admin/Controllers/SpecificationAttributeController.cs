@@ -182,7 +182,10 @@ namespace Grand.Web.Areas.Admin.Controllers
         [PermissionAuthorizeAction(PermissionActionName.Preview)]
         public async Task<IActionResult> OptionList(string specificationAttributeId, DataSourceRequest command)
         {
-            var options = (await _specificationAttributeService.GetSpecificationAttributeById(specificationAttributeId)).SpecificationAttributeOptions.OrderBy(x => x.DisplayOrder);
+            var sa = await _specificationAttributeService.GetSpecificationAttributeById(specificationAttributeId);
+            var options = sa.SpecificationAttributeOptions.OrderBy(x => x.ParentSpecificationAttrOptionId)
+                .ThenBy(x => x.DisplayOrder);
+
             var gridModel = new DataSourceResult {
                 Data = options.Select(x =>
                     {
@@ -190,6 +193,7 @@ namespace Grand.Web.Areas.Admin.Controllers
                         //in order to save performance to do not check whether a product is deleted, etc
                         model.NumberOfAssociatedProducts = _specificationAttributeService
                             .GetProductSpecificationAttributeCount("", x.Id);
+                        model.Breadcrumb = _specificationAttributeService.GetFormattedOptionBreadCrumb(x, sa.SpecificationAttributeOptions);
                         return model;
                     }),
                 Total = options.Count()
@@ -268,11 +272,15 @@ namespace Grand.Web.Areas.Admin.Controllers
                 Text = "[None]",
                 Value = ""
             });
+            
+            sao = sao.OrderBy(saof => saof.ParentSpecificationAttrOptionId)
+                .ThenBy(saof => saof.DisplayOrder).ToList();
+
             foreach (var c in sao)
             {
                 //_categoryService.GetFormattedBreadCrumb(c, categories)
                 model.AvailableOptions.Add(new SelectListItem {
-                    Text = c.Name,
+                    Text = _specificationAttributeService.GetFormattedOptionBreadCrumb(c, sao),
                     Value = c.Id.ToString()
                 });
             }

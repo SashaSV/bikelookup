@@ -208,18 +208,21 @@ Vue.component('header-up', {
             count: 0
         }
     },
-    template: '<div class="header-up1">\n' +
-        '    <div class="header-up-inner">\n' +
-        '<langsellector></langsellector>' +
-        '<button-add class="button-add"></button-add>' +
-        '<findmini class="find-mini"></findmini>' +
-        '<mylocation class="my-location"></mylocation>'+
-        '      <div class="buttonbar">\n' +
-        '        <service-buttons class="service-buttons"></service-buttons>' +
-        '        <login class="service-buttons"><login/>\n' +
-        '      </div>\n' +
-        '    </div>\n' +
-        '  </div>'})
+    template: `
+        <div class="header-up1">
+        <div class="header-up-inner"> 
+        <langsellector></langsellector>                
+        <button-add class="button-add"></button-add>
+        <findmini class="find-mini"></findmini>
+        <mylocation class="my-location"></mylocation>
+        <div class="buttonbar">
+            <service-buttons class="service-buttons"></service-buttons>
+        <login class="service-buttons"><login/>
+        </div>
+        </div>
+        </div>
+`
+})
 
 Vue.component('logo-big', {
     template: `

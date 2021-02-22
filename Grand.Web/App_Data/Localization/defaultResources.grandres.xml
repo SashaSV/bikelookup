@@ -2328,6 +2328,15 @@
   <LocaleResource Name="Admin.Catalog.Attributes.SpecificationAttributes.Fields.Name.Required">
     <Value>Please provide a name.</Value>
   </LocaleResource>
+  <LocaleResource Name="Admin.Catalog.Attributes.SpecificationAttributes.Fields.ParentSpecificationAttrOptionId">
+	<Value>Id parent option</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Catalog.Attributes.SpecificationAttributes.Fields.ParentSpecificationAttrOptionId.Hint">
+	<Value>The id of Parent Option.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Catalog.Attributes.SpecificationAttributes.Fields.ParentSpecificationAttrOptionId.Required">
+	<Value>Please provide a parent id option.</Value>
+  </LocaleResource>	
   <LocaleResource Name="Admin.Catalog.Attributes.SpecificationAttributes.Fields.SeName">
     <Value>Search engine friendly page name</Value>
   </LocaleResource>
@@ -2375,6 +2384,9 @@
   </LocaleResource>
   <LocaleResource Name="Admin.Catalog.Attributes.SpecificationAttributes.Options.Fields.NumberOfAssociatedProducts">
     <Value>Number of associated products</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Catalog.Attributes.SpecificationAttributes.Options.Fields.ParentSpecificationAttrOptionId">
+	<Value>Id Parent Option</Value>
   </LocaleResource>
   <LocaleResource Name="Admin.Catalog.Attributes.SpecificationAttributes.Options.Fields.SeName">
     <Value>Search engine friendly page name</Value>

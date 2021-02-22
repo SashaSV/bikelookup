@@ -1,5 +1,6 @@
 using Grand.Domain;
 using Grand.Domain.Catalog;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Grand.Services.Catalog
@@ -111,6 +112,50 @@ namespace Grand.Services.Catalog
         /// <param name="specificationAttributeOptionId">The specification attribute option identifier; "" to load all records</param>
         /// <returns>Count</returns>
         int GetProductSpecificationAttributeCount(string productId = "", string specificationAttributeOptionId = "");
+
+        /// <summary>
+        /// Get formatted category breadcrumb 
+        /// Note: ACL and store mapping is ignored
+        /// </summary>
+        /// <param name="spo">Category</param>
+        /// <param name="allOptions">Category</param>
+        /// <param name="separator">Separator</param>
+        /// <param name="languageId">Language identifier for localization</param>
+        /// <returns>Formatted breadcrumb</returns>
+        string GetFormattedOptionBreadCrumb(SpecificationAttributeOption spo, ICollection<SpecificationAttributeOption> allOptions, string separator = ">>", string languageId = "");
+
+        /// <summary>
+        /// Get category breadcrumb 
+        /// </summary>
+        /// <param name="SpecificationAttributeOption">Category</param>
+        /// <param name="allOptions">Category service</param>
+        /// <returns>Category breadcrumb </returns>
+        IList<SpecificationAttributeOption> GetOptionBreadCrumb(SpecificationAttributeOption spo, ICollection<SpecificationAttributeOption> allOptions);
+
+        /// <summary>
+        /// Get all Child Option
+        /// </summary>
+        /// <param name="SpecificationAttributeOption">Category</param>
+        /// <param name="allOptions">Category service</param>
+        /// <returns>Category breadcrumb </returns>
+        IList<SpecificationAttributeOption> GetOptionAllChild(SpecificationAttributeOption spo, ICollection<SpecificationAttributeOption> allOptions);
+
+        /// <summary>
+        /// Get category breadcrumb 
+        /// </summary>
+        /// <param name="SpecificationAttributeOption">Category</param>
+        /// <returns>Category breadcrumb </returns>
+        Task<IList<SpecificationAttributeOption>> GetOptionBreadCrumb(SpecificationAttributeOption spo);
+
+        /// <summary>
+        /// Get formatted category breadcrumb 
+        /// Note: ACL and store mapping is ignored
+        /// </summary>
+        /// <param name="category">Category</param>
+        /// <param name="separator">Separator</param>
+        /// <param name="languageId">Language identifier for localization</param>
+        /// <returns>Formatted breadcrumb</returns>
+        Task<string> GetFormattedOptionBreadCrumb(SpecificationAttributeOption spo, string separator = ">>", string languageId = "");
 
         /// <summary>
         /// Gets a product specification attribute mapping records

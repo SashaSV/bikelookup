@@ -2145,7 +2145,10 @@
   <LocaleResource Name="Admin.Catalog.Attributes.SpecificationAttributes.Options.Fields.NumberOfAssociatedProducts">
     <Value>Количество сопутствующих товаров</Value>
   </LocaleResource>
-  <LocaleResource Name="Admin.Catalog.Attributes.SpecificationAttributes.Options.SaveBeforeEdit">
+	<LocaleResource Name="Admin.Catalog.Attributes.SpecificationAttributes.Options.Fields.ParentSpecificationAttrOptionId">
+		<Value>Опция предок</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.Catalog.Attributes.SpecificationAttributes.Options.SaveBeforeEdit">
     <Value>Вам нужно сохранить атрибут спецификации, прежде чем вы сможете добавить опции для этой страницы атрибута спецификации.</Value>
   </LocaleResource>
   <LocaleResource Name="Admin.Catalog.Attributes.SpecificationAttributes.Updated">

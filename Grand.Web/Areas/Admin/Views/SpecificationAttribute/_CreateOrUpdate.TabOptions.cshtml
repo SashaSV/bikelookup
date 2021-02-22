@@ -62,17 +62,17 @@
                     },
                     scrollable: false,
                     columns: [{
-                        field: "Name",
+                        field: "Breadcrumb",
                         title: "@T("Admin.Catalog.Attributes.SpecificationAttributes.Options.Fields.Name")",
-                        template: "<a class='k-link' onclick=\"javascript:OpenWindow('@Url.Action("OptionEditPopup", "SpecificationAttribute")/#=Id#?btnId=btnRefresh&formId=specificationattribute-form', 800, 450, true); return false;\">#=kendo.htmlEncode(Name)#</a>"
+                        template: "<a class='k-link' onclick=\"javascript:OpenWindow('@Url.Action("OptionEditPopup", "SpecificationAttribute")/#=Id#?btnId=btnRefresh&formId=specificationattribute-form', 800, 450, true); return false;\">#=kendo.htmlEncode(Breadcrumb)#</a>"
                     }, {
                         field: "DisplayOrder",
                         title: "@T("Admin.Catalog.Attributes.SpecificationAttributes.Options.Fields.DisplayOrder")",
-                        width: 100
+                        width: 50
                     }, {
                         field: "NumberOfAssociatedProducts",
                         title: "@T("Admin.Catalog.Attributes.SpecificationAttributes.Options.Fields.NumberOfAssociatedProducts")",
-                        width: 150
+                        width: 50
                     }, {
                         command: {name: "destroy", text: "@T("Admin.Common.Delete")"},
                         title: "@T("Admin.Common.Delete")",

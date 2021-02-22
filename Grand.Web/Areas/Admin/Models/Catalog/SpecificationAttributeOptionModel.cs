@@ -36,6 +36,8 @@ namespace Grand.Web.Areas.Admin.Models.Catalog
         [GrandResourceDisplayName("Admin.Catalog.Attributes.SpecificationAttributes.Options.Fields.NumberOfAssociatedProducts")]
         public int NumberOfAssociatedProducts { get; set; }
 
+        public string Breadcrumb { get; set; }
+
         public IList<SelectListItem> AvailableOptions { get; set; }
 
         public IList<SpecificationAttributeOptionLocalizedModel> Locales { get; set; }

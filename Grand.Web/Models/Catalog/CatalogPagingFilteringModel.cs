@@ -375,8 +375,17 @@ namespace Grand.Web.Models.Catalog
                             foreach (var option in value.Split(","))
                             {
                                 var opt = spec.SpecificationAttributeOptions.FirstOrDefault(x => x.SeName == option.ToLowerInvariant());
+                                
                                 if (opt != null)
                                 {
+                                    //select all child opt
+                                    var allChildren = specificationAttributeService.GetOptionAllChild(opt, spec.SpecificationAttributeOptions);
+                                    foreach (var childO in allChildren) 
+                                    {
+                                        if (!result.Contains(childO.Id))
+                                            result.Add(childO.Id);
+                                    }
+
                                     if (!result.Contains(opt.Id))
                                         result.Add(opt.Id);
                                 }
@@ -407,22 +416,50 @@ namespace Grand.Web.Models.Catalog
                         var sa = await specificationAttributeService.GetSpecificationAttributeByOptionId(sao);
                         if (sa != null)
                         {
-                            _allFilters.Add(new SpecificationAttributeOptionFilter {
-                                SpecificationAttributeId = sa.Id,
-                                SpecificationAttributeName = sa.GetLocalized(x => x.Name, langId),
-                                SpecificationAttributeSeName = sa.SeName,
-                                SpecificationAttributeDisplayOrder = sa.DisplayOrder,
-                                SpecificationAttributeOptionId = sao,
-                                SpecificationAttributeOptionName = sa.SpecificationAttributeOptions.FirstOrDefault(x => x.Id == sao).GetLocalized(x => x.Name, langId),
-                                SpecificationAttributeOptionSeName = sa.SpecificationAttributeOptions.FirstOrDefault(x => x.Id == sao).SeName,
-                                SpecificationAttributeOptionDisplayOrder = sa.SpecificationAttributeOptions.FirstOrDefault(x => x.Id == sao).DisplayOrder,
-                                SpecificationAttributeOptionParentSpecificationAttrOptionId = sa.SpecificationAttributeOptions.FirstOrDefault(x => x.Id == sao).ParentSpecificationAttrOptionId,
-                                SpecificationAttributeOptionColorRgb = sa.SpecificationAttributeOptions.FirstOrDefault(x => x.Id == sao).ColorSquaresRgb,
-                            });
+                            var saOption = sa.SpecificationAttributeOptions.FirstOrDefault(x => x.Id == sao);
+
+                            if (string.IsNullOrEmpty(saOption.ParentSpecificationAttrOptionId) && !_allFilters.Any(s => s.SpecificationAttributeOptionId == sao))
+                            {
+                                _allFilters.Add(new SpecificationAttributeOptionFilter {
+                                    SpecificationAttributeId = sa.Id,
+                                    SpecificationAttributeName = sa.GetLocalized(x => x.Name, langId),
+                                    SpecificationAttributeSeName = sa.SeName,
+                                    SpecificationAttributeDisplayOrder = sa.DisplayOrder,
+                                    SpecificationAttributeOptionId = sao,
+                                    SpecificationAttributeOptionName = saOption.GetLocalized(x => x.Name, langId),
+                                    SpecificationAttributeOptionSeName = saOption.SeName,
+                                    SpecificationAttributeOptionDisplayOrder = saOption.DisplayOrder,
+                                    SpecificationAttributeOptionParentSpecificationAttrOptionId = saOption.ParentSpecificationAttrOptionId,
+                                    SpecificationAttributeOptionColorRgb = saOption.ColorSquaresRgb,
+                                });
+                            }
+                            else 
+                            {
+                                var saParentOptions = specificationAttributeService.GetOptionBreadCrumb(saOption,sa.SpecificationAttributeOptions);
+                                foreach (var saoP in saParentOptions) 
+                                {
+                                    if (string.IsNullOrEmpty(saoP.ParentSpecificationAttrOptionId) && !_allFilters.Any(s=>s.SpecificationAttributeOptionId == saoP.Id)) 
+                                    {
+                                        _allFilters.Add(new SpecificationAttributeOptionFilter {
+                                            SpecificationAttributeId = sa.Id,
+                                            SpecificationAttributeName = sa.GetLocalized(x => x.Name, langId),
+                                            SpecificationAttributeSeName = sa.SeName,
+                                            SpecificationAttributeDisplayOrder = sa.DisplayOrder,
+                                            SpecificationAttributeOptionId = saoP.Id,
+                                            SpecificationAttributeOptionName = saoP.GetLocalized(x => x.Name, langId),
+                                            SpecificationAttributeOptionSeName = saoP.SeName,
+                                            SpecificationAttributeOptionDisplayOrder = saoP.DisplayOrder,
+                                            SpecificationAttributeOptionParentSpecificationAttrOptionId = saoP.ParentSpecificationAttrOptionId,
+                                            SpecificationAttributeOptionColorRgb = saoP.ColorSquaresRgb,
+                                        });
+                                    }
+                                }
+                            }
                         }
                     }
                     return _allFilters.ToList();
                 });
+
                 if (!allFilters.Any())
                     return;
 
