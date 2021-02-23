@@ -264,8 +264,8 @@ namespace Grand.Services.Orders
                 warnings.Add(_localizationService.GetResource("ShoppingCart.ProductUnpublished"));
             }
 
-            //we can't add grouped product
-            if (product.ProductType == ProductType.GroupedProduct)
+            //we can't add grouped product  
+            if (product.ProductType == ProductType.GroupedProduct && shoppingCartItem.ShoppingCartType != ShoppingCartType.Wishlist)
             {
                 warnings.Add("You can't add grouped product");
             }
