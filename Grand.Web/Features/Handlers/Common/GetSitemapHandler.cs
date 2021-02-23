@@ -110,6 +110,7 @@ namespace Grand.Web.Features.Handlers.Common
                         ShortDescription = product.GetLocalized(x => x.ShortDescription, request.Language.Id),
                         FullDescription = product.GetLocalized(x => x.FullDescription, request.Language.Id),
                         SeName = product.GetSeName(request.Language.Id),
+                        Url = product.Url,
                     }).ToList();
                 }
 

@@ -69,7 +69,7 @@ namespace Grand.Domain.Catalog
         public string Url { get; set; }
 
         /// <summary>
-        /// Gets or sets the full description
+        /// Gets or sets the full dUrlescription
         /// </summary>
         public string FullDescription { get; set; }
 

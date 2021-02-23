@@ -192,6 +192,7 @@ namespace Grand.Web.Features.Handlers.Products
                 Name = product.GetLocalized(x => x.Name, _workContext.WorkingLanguage.Id),
                 ShortDescription = product.GetLocalized(x => x.ShortDescription, _workContext.WorkingLanguage.Id),
                 FullDescription = product.GetLocalized(x => x.FullDescription, _workContext.WorkingLanguage.Id),
+                Url = product.Url,
                 SeName = product.GetSeName(_workContext.WorkingLanguage.Id),
                 ProductType = product.ProductType,
                 Sku = product.Sku,

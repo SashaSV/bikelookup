@@ -872,15 +872,16 @@ z-index: 3;
 	display: inline-flex;
 	justify-content: flex-end;
 }
-.product-box .spec {
+.product-box .proposal {
 	display: inline-flex;
 	width: 100%;
 	line-height: 1;
+    justify-content: space-between;
 }
-.product-box .spec:not(:last-child) {
+.product-box .proposal:not(:last-child) {
 	border-bottom: 0;
 }
-.product-box .spec-name {
+.product-box .proposal-name {
     font-family: Montserrat;
     font-style: normal;
     font-weight: 600;
@@ -889,7 +890,7 @@ z-index: 3;
     color: #F15A24;
 	border: 0;
 }
-.product-box .spec-value {
+.product-box .proposal-value {
 	position: relative;
     margin: 0 0 0 5px;
     font-family: Montserrat;

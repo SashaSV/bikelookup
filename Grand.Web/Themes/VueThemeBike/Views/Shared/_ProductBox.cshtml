@@ -156,37 +156,32 @@
             var qtyId = "addtocart_" + @Model.Id + "_EnteredQuantity";
             <input class="form-control input-group-addon catalog-quantity" type="number" id="@qtyId" name="@qtyId" value="1">
         }
-        @if (Model.AssociatedProducts.Any()){
-                                <div>
-                                    <table>
-                                        <tbody>
-                                        @foreach (var assocProduct in Model.AssociatedProducts)
-                                        {
-                                            @if (assocProduct.Vendor == null)
-                                            {
-                                                continue;
-                                            }
-                                            <tr class="spec">
-                                                <td>
-                                                    <div class="spec-name">
-                                                        @assocProduct.Vendor.Name
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <a href="@Url.RouteUrl("Product", new {SeName = assocProduct.SeName})">
-                                                        <div class="spec-value">
-                                                            @assocProduct.ProductPrice.Price
-                                                        </div>
-                                                    </a>
-        
-                                                </td>
-        
-                                            </tr>
-                                        }
-                                        </tbody>
-                                    </table>
-                                </div>
-                            }
+        @if (Model.AssociatedProducts.Any())
+        {
+             <div class="proposals">
+                    @foreach (var assocProduct in Model.AssociatedProducts)
+                    {
+                        @if (assocProduct.Vendor == null)
+                        {
+                          continue;
+                        }
+                     
+                         
+                          <div class="proposal">
+                             <a href="@assocProduct.Url">
+                                 <div class="proposal-name">
+                                      @assocProduct.Vendor.Name
+                                 </div>
+                             </a>
+                              <a href="@assocProduct.Url">
+                                  <div class="proposal-value">
+                                      @assocProduct.ProductPrice.Price
+                                  </div>
+                              </a>
+                              </div>
+                        }
+             </div>
+        }
 
     </template>
 </b-card> 
