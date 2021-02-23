@@ -14,33 +14,6 @@ h6{
     padding-bottom: 5px;
 }
 
-.swap_prod * {
-    width: 25px;
-    height: 24px;
-    cursor: pointer;
-    align-self: flex-end;
-    margin-right: 0px;
-}
-
-.swap_prod:hover .swap_icon_prod
-{
-    filter: brightness(150%);
-}
-
-.heart_prod * {
-    width: 25px;
-    height: 24px;
-    margin-right: 8px;
-    margin-left: 0px;
-    cursor: pointer;
-    align-self: flex-start;
-}
-
-.heart_prod:hover .heart_icon_prod
-{
-    filter: brightness(150%);
-}
-
 a:hover {
     color: #dc3545;
     text-decoration: none;
@@ -712,6 +685,43 @@ z-index: 3;
     transform: translateY(0);
     -webkit-transform: translateY(0);
 }
+
+.heart_prod * {
+    width: 25px;
+    height: 24px;
+    margin-right: 8px;
+    margin-left: 0px;
+    cursor: pointer;
+    align-self: flex-start;
+    visibility: hidden;
+}
+
+.product-box:hover .heart_prod * {
+    visibility: visible;
+}
+
+.swap_prod * {
+    width: 25px;
+    height: 24px;
+    cursor: pointer;
+    align-self: flex-end;
+    margin-right: 0px;
+    visibility: hidden;
+}
+
+.heart_prod:hover .heart_icon_prod
+{
+    filter: brightness(150%);
+}
+.product-box:hover  .swap_prod * {
+    visibility: visible;
+}
+
+.swap_prod:hover .swap_icon_prod
+{
+    filter: brightness(150%);
+}
+
 .product-box .card-title {
     font-size: 1rem;
     line-height: 1;
@@ -873,10 +883,10 @@ z-index: 3;
 .product-box .spec-name {
     font-family: Montserrat;
     font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
+    font-weight: 600;
+    font-size: 18px;
     line-height: 17px;
-    color: #999999;
+    color: #F15A24;
 	border: 0;
 }
 .product-box .spec-value {
@@ -884,8 +894,8 @@ z-index: 3;
     margin: 0 0 0 5px;
     font-family: Montserrat;
     font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
+    font-weight: 600;
+    font-size: 16px;
     line-height: 17px;
 	border: 0; 
     color: #000000;
