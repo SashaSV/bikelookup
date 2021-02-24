@@ -85,7 +85,7 @@ namespace Grand.Web.Controllers
                 });
 
             //we can add only simple products and 
-            if (product.ProductType != ProductType.SimpleProduct || _shoppingCartSettings.AllowToSelectWarehouse)
+            if (_shoppingCartSettings.AllowToSelectWarehouse)
             {
                 return Json(new
                 {
