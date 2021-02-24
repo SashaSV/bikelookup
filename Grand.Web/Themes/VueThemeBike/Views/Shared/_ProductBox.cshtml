@@ -73,10 +73,23 @@
                         {
                             ratingValue = Convert.ToDecimal(((Model.ReviewOverviewModel.RatingSum * (double)100) / Model.ReviewOverviewModel.TotalReviews) / (double)100);
                         }
+                        
                         <template>
-                            <div class="rating">
-                                <b-form-rating id="rating-inline-grid-@Model.Id" aria-label="Rating" class="p-0" variant="warning" no-border size="sm" readonly inline value="@(ratingValue)" color="#F15A24"></b-form-rating>
-                                <b-link href="@Url.RouteUrl("Product", new { SeName = Model.SeName })">@string.Format("(0)",Model.ReviewOverviewModel.TotalReviews)</b-link>
+                            <div class = "rating-block">
+                                
+                                    <svg class = "line" width="70" height="1" viewBox="0 0 70 1" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M0 1H70" stroke="#444444"/>
+                                    </svg>
+
+                                    <div class="rating">
+                                        <b-form-rating id="rating-inline-grid-@Model.Id" aria-label="Rating" class="p-0" variant="warning" no-border size="sm" readonly inline value="@(ratingValue)" color="#F15A24"></b-form-rating>
+                                        <b-link href="@Url.RouteUrl("Product", new {SeName = Model.SeName})">@string.Format("(0)", Model.ReviewOverviewModel.TotalReviews)</b-link>
+                                    </div>
+                                
+                                    <svg class = "line" width="70" height="1" viewBox="0 0 70 1" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M0 1H70" stroke="#444444"/>
+                                    </svg>
+
                             </div>
                         </template>
                     }
