@@ -64,8 +64,8 @@
                     @T(inclTax ? "Products.Price.TaxShipping.InclTax" : "Products.Price.TaxShipping.ExclTax", Url.RouteUrl("Topic", new { SeName = TopicSeNameConstants.Shippinginfo }))
                 </div>
             }
-            <div class="row">
-             <div class="col-md-7">
+            <div class="listbox">
+             <div class="listbox-left">
                  <h5 class="card-title mb-0">
                                <a href="@Url.RouteUrl("Product", new { SeName = Model.SeName })">
                                    @Model.Name
@@ -179,8 +179,8 @@
                                         </div>
                                     }
              </div>     
-                <div class="col-md-7">
-                      <div class="prices-rating">
+             <div class="listbox-right">
+                    <div class="prices-rating">
                                     @if (Model.ReviewOverviewModel.AllowCustomerReviews)
                                     {
                                         decimal ratingValue = 0;
