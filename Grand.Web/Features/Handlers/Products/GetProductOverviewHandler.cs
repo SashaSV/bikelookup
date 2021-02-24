@@ -297,9 +297,20 @@ namespace Grand.Web.Features.Handlers.Products
                                                 var finalMaxPrice = await _currencyService.ConvertFromPrimaryStoreCurrency(maxPriceBase, _workContext.WorkingCurrency);
 
                                                 priceModel.OldPrice = null;
-                                                priceModel.Price = String.Format(res["Products.PriceRangeFromTo"],
-                                                    _priceFormatter.FormatPrice(finalPrice, true, _workContext.WorkingCurrency, _workContext.WorkingLanguage, priceIncludesTax),
-                                                    _priceFormatter.FormatPrice(finalMaxPrice, true, _workContext.WorkingCurrency, _workContext.WorkingLanguage, priceIncludesTax));
+
+                                                var diffPrice = finalPrice != finalMaxPrice;
+                                        
+                                                if (diffPrice)
+                                                {
+                                                    priceModel.Price = String.Format(res["Products.PriceRangeFromTo"],
+                                                              _priceFormatter.FormatPrice(finalPrice, true, _workContext.WorkingCurrency, _workContext.WorkingLanguage, priceIncludesTax),
+                                                              _priceFormatter.FormatPrice(finalMaxPrice, true, _workContext.WorkingCurrency, _workContext.WorkingLanguage, priceIncludesTax));
+                                                }
+                                                else
+                                                {
+                                                    priceModel.Price = String.Format(res["Products.PriceRangeFrom"],
+                                                              _priceFormatter.FormatPrice(finalPrice, true, _workContext.WorkingCurrency, _workContext.WorkingLanguage, priceIncludesTax));
+                                                }
                                                 priceModel.PriceValue = finalPrice;
 
                                                 //PAngV baseprice (used in Germany)
