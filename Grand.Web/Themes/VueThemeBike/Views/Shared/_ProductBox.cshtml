@@ -77,7 +77,7 @@
                         <template>
                             <div class = "rating-block">
                                 
-                                    <svg class = "line" width="50" height="1" viewBox="0 0 50 1" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <svg width="50" height="1" viewBox="0 0 50 1" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M0 1H50" stroke="#444444"/>
                                     </svg>
 
@@ -86,7 +86,7 @@
                                         <b-link href="@Url.RouteUrl("Product", new {SeName = Model.SeName})">@string.Format("(0)", Model.ReviewOverviewModel.TotalReviews)</b-link>
                                     </div>
                                 
-                                    <svg class = "line" width="50" height="1" viewBox="0 0 50 1" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <svg width="50" height="1" viewBox="0 0 50 1" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M0 1H50" stroke="#444444"/>
                                     </svg>
 
@@ -163,7 +163,9 @@
         }
     </b-card-body>
     <template v-slot:footer>
-
+         <svg class = "line" width="268" height="3" viewBox="0 0 268 3" fill="none" xmlns="http://www.w3.org/2000/svg">
+                   <path d="M0 3H268" stroke="#444444"/>
+          </svg>
         @if (Model.ShowQty)
         {
             var qtyId = "addtocart_" + @Model.Id + "_EnteredQuantity";
