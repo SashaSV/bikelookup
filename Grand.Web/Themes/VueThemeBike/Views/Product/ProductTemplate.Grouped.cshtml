@@ -67,115 +67,174 @@
     @await Component.InvokeAsync("Widget", new { widgetZone = "productdetails_top", additionalData = Model.Id })
     <form asp-route="Product" asp-route-sename="@Model.SeName" method="post" id="product-details-form">
         <div itemscope itemtype="http://schema.org/Product" data-productid="@Model.Id">
-            <div class="product-essential">
-                <b-container>
-                <div class="product-name">
-                    <h2 class="generalTitle mb-3" itemprop="name" align="left">@Model.Name</h2>
-                </div>
+            <b-container class="product-essential">
+              
+                    <div class="product-name">
+                        <h2 class="generalTitle mb-3" itemprop="name" align="left">@Model.Name</h2>
+                    </div>
                     <b-row>
                         <b-col cols="12" class="px-0 my-3">
-                           <div>
-                               <b-tabs content-class="mt-3" align="left">
-                                     <b-tab title="@T("Products.Sellers")" active>
-                                         <div class="product-collateral">
-                                                         <div>
-                                                             <!--associated products-->
-                                                             @foreach (var variant in Model.AssociatedProducts)
-                                                             {
-                                                                     <b-card no-body class="overflow-hidden associatedItem mb-3">
-                                                                         <b-row no-gutters>
-                                                                             <div class="product-name"><h3 class="generalTitle mb-3" itemprop="name" align="center">@variant.VendorModel.Name</h3></div>
-                                                                             <b-col lg="3" md="4">
-                                                                                 <b-card-img id="main-product-img-@variant.Id" alt="@variant.DefaultPictureModel.AlternateText" src="@variant.DefaultPictureModel.ImageUrl" class="rounded-0"></b-card-img>
-                                                                             </b-col>
-                                                                             <b-col lg="9" md="8">
-                                                                                 <b-card-body class="overview">
-                                                                                     <!--delivery-->
-                                                                                     @if ((variant.FreeShippingNotificationEnabled && Model.IsFreeShipping) || !string.IsNullOrWhiteSpace(variant.DeliveryDate)
-                                                                                          || variant.NotReturnable || variant.AdditionalShippingCharge > 0)
-                                                                                     {
-                                                                                         <partial name="_DeliveryInfo" model="variant"/>
-                                                                                     }
-                                                                                     <!--sample download-->
-                                                                                     @if (variant.HasSampleDownload)
-                                                                                     {
-                                                                                         <partial name="_DownloadSample" model="variant"/>
-                                                                                     }
-                                                                                     <!--attributes-->
-                                                                                     @{
-                                                                                         if (variant.ProductAttributes.Any())
-                                                                                         {
-                                                                                             var dataDictAttributes = new ViewDataDictionary(ViewData);
-                                                                                             dataDictAttributes.TemplateInfo.HtmlFieldPrefix = string.Format("attributes_{0}", variant.Id);
-                                                                                             <partial name="VueProductAttributes" model="variant.ProductAttributes" view-data="dataDictAttributes"/>
-                                                                                         }
-                                                                                     }
-                                                                                     <!--gift card-->
-                                                                                     @{
-                                                                                         if (variant.GiftCard.IsGiftCard)
-                                                                                         {
-                                                                                             var dataDictGiftCard = new ViewDataDictionary(ViewData);
-                                                                                             dataDictGiftCard.TemplateInfo.HtmlFieldPrefix = string.Format("giftcard_{0}", variant.Id);
-                                                                                             <partial name="_GiftCardInfo" model="variant.GiftCard" view-data="dataDictGiftCard"/>
-                                                                                         }
-                                                                                     }
-                                                                                     <!--price breaks-->
-                                                                                     @if (variant.TierPrices.Any() && !(variant.TierPrices.Count == 1))
-                                                                                     {
-                                                                                         <partial name="_ProductTierPrices" model="variant.TierPrices"/>
-                                                                                     }
-                                                                                     @{
-                                                                                         var dataDictAddToCart = new ViewDataDictionary(ViewData);
-                                                                                         dataDictAddToCart.TemplateInfo.HtmlFieldPrefix = string.Format("addtocart_{0}", variant.Id);
-                                                                                     }
-                                                                                     <!--price & add to cart-->
-                                                                                     @{
-                                                                                         var dataDictPrice = new ViewDataDictionary(ViewData);
-                                                                                         dataDictPrice.TemplateInfo.HtmlFieldPrefix = string.Format("price_{0}", variant.Id);
-                                                                                         <partial name="_ProductPrice" model="variant.ProductPrice" view-data="dataDictPrice"/>
-                                                                                     }
-                                                                                 </b-card-body>
-                                                                             </b-col>
-                                                                         </b-row>
-                                                                     </b-card>
-                                                             }
-                                         
-                                                             @if (Model.AssociatedProducts.Count == 0)
-                                                             {
-                                                                 <div class="no-associated-products">
-                                                                     @T("Products.NoAssociatedProducts")
-                                                                 </div>
-                                                             }
-                                                         </div>
-                                                     </div>
-                                          </b-tab>
-                                   <b-tab title="@T("Products.Description")" active>
-                                       @Html.Raw(Model.FullDescription)
-                                   </b-tab>
-                                   <b-tab title="@T("Products.Specs")">
-                                       <partial name="ProductDescBox" model="Model"/>
-                                   </b-tab>
-                                   @if (Model.ProductTags.Any())
-                                   {
-                                       <b-tab title="@T("Products.Tags")">
-                                           <partial name="_ProductTags" model="Model.ProductTags"/>
-                                       </b-tab>
-                                   }
-                                   <b-tab title="@T("Products.ContactUs")">
-                                       <partial name="_AskQuestionOnProduct" model="Model.ProductAskQuestion"/>
-                                   </b-tab>
-                                   <b-tab id="review-tab" title="@T("Products.Reviews")" :active="active ? true : false">
-                                       @await Component.InvokeAsync("ProductReviews", new {productId = Model.Id})
-                                   </b-tab>
-                               </b-tabs>
+                            <b-row>
+                                <b-tabs content-class="mt-3" align="left">
+                                    <b-tab title="@T("Products.Sellers")" active>
+                                        <b-container class="position-relative">
+                                            <b-row>
+                                                <b-col>
+                                                    <partial name="_ProductDetailsPictures" model="Model"/>
+                                                </b-col>
+                                                <b-col>
+                                                    <div class="actual-price price">
+                                                        @Model.ProductPrice.Price
                                                     </div>
+                                                         @if (Model.ProductSpecifications.Any())
+                                                          {
+                                                           <div class="spec-container">
+                                                             @{
+                                                                var group = Model.ProductSpecifications.GroupBy(x => x.SpecificationAttributeName);
+                                                              }
+                                                               <table>
+                                                                            <tbody>
+                                                                                @foreach (var item in group)
+                                                                                {
+                                                                                    <tr class="spec">
+                                                                                        <td>
+                                                                                            <div class="spec-name">
+                                                                                                @{
+                                                                                                    var groupList = item.ToList();
+                                                                                                }
+                                                                                                @groupList[0].SpecificationAttributeName:
+                                                                                            </div>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            @{
+                                                                                                var groupList2 = item.ToList();
+                                                                                            }
+                                                                                            <div class="spec-value">
+                                                                                                @foreach (var spec in groupList)
+                                                                                                {
+                                                                                                    <span>
+                                                                                                        @Html.Raw(spec.ValueRaw)
+                                                                                                    </span>
+                                                                                                }
+                                                                                            </div>
+                                                                                        </td>
+                                                    
+                                                                                    </tr>
+                                                                                }
+                                                                            </tbody>
+                                                                        </table>
+                                                           </div>
+                                                          }   
+                                                           @{
+                                                                var dataDictAddToWishlist = new ViewDataDictionary(ViewData);
+                                                               dataDictAddToWishlist.TemplateInfo.HtmlFieldPrefix = string.Format("addtocart_{0}", Model.Id);
+                                                           }
+                                                         <partial name="_AddToWishlist" model="Model.AddToCart" view-data="dataDictAddToWishlist" />
+                                                           
+                                                         <partial name="_CompareProductsButton" model="Model" />
+                                                </b-col>
+                                            </b-row>
+                                        </b-container>
+                                        <div class="product-collateral">
+                                            <div>
+                                                <!--associated products-->
+                                                @foreach (var variant in Model.AssociatedProducts)
+                                                {
+                                                    <b-card no-body class="overflow-hidden associatedItem mb-3">
+                                                        <div class="vendor-name">
+                                                                                                                        <h3 class="vendor-name" itemprop="name" align="center">@variant.VendorModel.Name</h3>
+                                                                                                                    </div>
+                                                        <b-row no-gutters>
+                                                            
+                                                            <b-col lg="3" md="4">
+                                                                <b-card-img id="main-product-img-@variant.Id" alt="@variant.VendorModel.PictureModel.AlternateText" src="@variant.VendorModel.PictureModel.ImageUrl" class="rounded-0"></b-card-img>
+                                                            </b-col>
+                                                            <b-col lg="9" md="8">
+                                                                <b-card-body class="overview">
+                                                                    <!--delivery-->
+                                                                    @if ((variant.FreeShippingNotificationEnabled && Model.IsFreeShipping) || !string.IsNullOrWhiteSpace(variant.DeliveryDate)
+                                                                         || variant.NotReturnable || variant.AdditionalShippingCharge > 0)
+                                                                    {
+                                                                        <partial name="_DeliveryInfo" model="variant"/>
+                                                                    }
+                                                                    <!--sample download-->
+                                                                    @if (variant.HasSampleDownload)
+                                                                    {
+                                                                        <partial name="_DownloadSample" model="variant"/>
+                                                                    }
+                                                                    <!--attributes-->
+                                                                    @{
+                                                                        if (variant.ProductAttributes.Any())
+                                                                        {
+                                                                            var dataDictAttributes = new ViewDataDictionary(ViewData);
+                                                                            dataDictAttributes.TemplateInfo.HtmlFieldPrefix = string.Format("attributes_{0}", variant.Id);
+                                                                            <partial name="VueProductAttributes" model="variant.ProductAttributes" view-data="dataDictAttributes"/>
+                                                                        }
+                                                                    }
+                                                                    <!--gift card-->
+                                                                    @{
+                                                                        if (variant.GiftCard.IsGiftCard)
+                                                                        {
+                                                                            var dataDictGiftCard = new ViewDataDictionary(ViewData);
+                                                                            dataDictGiftCard.TemplateInfo.HtmlFieldPrefix = string.Format("giftcard_{0}", variant.Id);
+                                                                            <partial name="_GiftCardInfo" model="variant.GiftCard" view-data="dataDictGiftCard"/>
+                                                                        }
+                                                                    }
+                                                                    <!--price breaks-->
+                                                                    @if (variant.TierPrices.Any() && !(variant.TierPrices.Count == 1))
+                                                                    {
+                                                                        <partial name="_ProductTierPrices" model="variant.TierPrices"/>
+                                                                    }
+                                                                    @{
+                                                                        var dataDictAddToCart = new ViewDataDictionary(ViewData);
+                                                                        dataDictAddToCart.TemplateInfo.HtmlFieldPrefix = string.Format("addtocart_{0}", variant.Id);
+                                                                    }
+                                                                    <!--price & add to cart-->
+                                                                    @{
+                                                                        var dataDictPrice = new ViewDataDictionary(ViewData);
+                                                                        dataDictPrice.TemplateInfo.HtmlFieldPrefix = string.Format("price_{0}", variant.Id);
+                                                                        <partial name="_ProductPrice" model="variant.ProductPrice" view-data="dataDictPrice"/>
+                                                                    }
+                                                                </b-card-body>
+                                                            </b-col>
+                                                        </b-row>
+                                                    </b-card>
+                                                }
+
+                                                @if (Model.AssociatedProducts.Count == 0)
+                                                {
+                                                    <div class="no-associated-products">
+                                                        @T("Products.NoAssociatedProducts")
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+      
+                                    </b-tab>
+                                    <b-tab title="@T("Products.Description")" active>
+                                        @Html.Raw(Model.FullDescription)
+                                    </b-tab>
+                                    <b-tab title="@T("Products.Specs")">
+                                        <partial name="ProductDescBox" model="Model"/>
+                                    </b-tab>
+                                    @if (Model.ProductTags.Any())
+                                    {
+                                        <b-tab title="@T("Products.Tags")">
+                                            <partial name="_ProductTags" model="Model.ProductTags"/>
+                                        </b-tab>
+                                    }
+                                    <b-tab title="@T("Products.ContactUs")">
+                                        <partial name="_AskQuestionOnProduct" model="Model.ProductAskQuestion"/>
+                                    </b-tab>
+                                    <b-tab id="review-tab" title="@T("Products.Reviews")" :active="active ? true : false">
+                                        @await Component.InvokeAsync("ProductReviews", new {productId = Model.Id})
+                                    </b-tab>
+                                </b-tabs>
+                            </b-row>
                         </b-col>
                     </b-row>
-                </b-container>
-            </div>
-
-         
-            @await Component.InvokeAsync("Widget", new { widgetZone = "productdetails_before_collateral", additionalData = Model.Id })
+             
+            </b-container>
         </div>
         @await Component.InvokeAsync("RelatedProducts", new { productId = Model.Id })
     </form>

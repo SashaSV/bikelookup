@@ -11,6 +11,7 @@ using Grand.Services.Vendors;
 using Grand.Web.Features.Models.Catalog;
 using Grand.Web.Infrastructure.Cache;
 using Grand.Web.Models.Catalog;
+using Grand.Web.Models.Media;
 using MediatR;
 
 namespace Grand.Web.Features.Handlers.Catalog
@@ -38,12 +39,14 @@ namespace Grand.Web.Features.Handlers.Catalog
                     TotalVendors = vendors.TotalCount
                 };
 
+                   //prepare picture model
+                   
                 foreach (var vendor in vendors)
                 {
                     model.Vendors.Add(new VendorBriefInfoModel {
                         Id = vendor.Id,
                         Name = vendor.GetLocalized(x => x.Name, request.Language.Id),
-                        SeName = vendor.GetSeName(request.Language.Id),
+                        SeName = vendor.GetSeName(request.Language.Id)
                     });
                 }
                 return model;

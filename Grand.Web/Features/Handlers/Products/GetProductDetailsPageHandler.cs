@@ -462,10 +462,18 @@ namespace Grand.Web.Features.Handlers.Products
                 var vendor = await _vendorService.GetVendorById(product.VendorId);
                 if (vendor != null && !vendor.Deleted && vendor.Active)
                 {
+                     var pictureModel = new PictureModel {
+                                                        Id = vendor.PictureId,
+                                                        FullSizeImageUrl = await _pictureService.GetPictureUrl(vendor.PictureId),
+                                                        ImageUrl = await _pictureService.GetPictureUrl(vendor.PictureId, _mediaSettings.VendorThumbPictureSize),
+                                                        Title = string.Format(_localizationService.GetResource("Media.Vendor.ImageLinkTitleFormat"), vendorModel.Name),
+                                                        AlternateText = string.Format(_localizationService.GetResource("Media.Vendor.ImageAlternateTextFormat"), vendorModel.Name)
+                                                    };
                     return new VendorBriefInfoModel {
                         Id = vendor.Id,
                         Name = vendor.GetLocalized(x => x.Name, _workContext.WorkingLanguage.Id),
                         SeName = vendor.GetSeName(_workContext.WorkingLanguage.Id),
+                        PictureModel = pictureModel
                     };
                 }
             }
