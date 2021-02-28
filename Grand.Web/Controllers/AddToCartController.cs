@@ -94,7 +94,7 @@ namespace Grand.Web.Controllers
             }
 
             //products with "minimum order quantity" more than a specified qty
-            if (product.OrderMinimumQuantity > quantity)
+            if (product.OrderMinimumQuantity > quantity && cartType != ShoppingCartType.Wishlist)
             {
                 //we cannot add to the cart such products from category pages
                 //it can confuse customers. That's why we redirect customers to the product details page

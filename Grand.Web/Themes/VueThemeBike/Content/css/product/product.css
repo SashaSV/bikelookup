@@ -82,9 +82,12 @@
 /* product price */
 
 .product-details-page .overview .actual-price {
-    color: #17a2b8;
-    font-size: 24px;
+    font-family: "Montserrat";
+    font-size: 18px;
     font-weight: 700;
+    color: #000000;
+    text-align: center;
+    line-height: 1;
 }
 .product-details-page .overview .old-price {
     color: #999;
@@ -92,6 +95,49 @@
     font-weight: 400;
     line-height: 1;
     text-decoration: line-through;
+}
+
+.product-details-page .prices {
+    flex-wrap: wrap;
+    margin: 0 auto;
+    align-items: center;
+    padding: 15px;
+}
+
+.prod-controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 5px;
+}
+
+.heart_prod * {
+    width: 25px;
+    height: 24px;
+    margin-right: 8px;
+    margin-left: 0px;
+    cursor: pointer;
+    align-self: flex-start;
+    visibility: visible;
+}
+
+.swap_prod * {
+    width: 25px;
+    height: 24px;
+    cursor: pointer;
+    align-self: flex-end;
+    margin-right: 0px;
+    visibility: visible;
+}
+
+.heart_prod:hover .heart_icon_prod
+{
+    filter: brightness(150%);
+}
+
+.swap_prod:hover .swap_icon_prod
+{
+    filter: brightness(150%);
 }
 
 /* product add to cart */

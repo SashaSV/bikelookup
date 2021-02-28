@@ -945,6 +945,11 @@ z-index: 3;
     visibility: hidden;
 }
 
+.vendor-name
+{
+    text-align: center;
+}
+
 .rating-block
 {
     width: 100%;
