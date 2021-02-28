@@ -348,6 +348,7 @@ namespace Grand.Web.Features.Handlers.Products
 
             var model = new ProductDetailsModel {
                 Id = product.Id,
+                Url = product.Url,
                 Name = product.GetLocalized(x => x.Name, _workContext.WorkingLanguage.Id),
                 ShortDescription = product.GetLocalized(x => x.ShortDescription, _workContext.WorkingLanguage.Id),
                 FullDescription = product.GetLocalized(x => x.FullDescription, _workContext.WorkingLanguage.Id),
@@ -466,14 +467,18 @@ namespace Grand.Web.Features.Handlers.Products
                                                         Id = vendor.PictureId,
                                                         FullSizeImageUrl = await _pictureService.GetPictureUrl(vendor.PictureId),
                                                         ImageUrl = await _pictureService.GetPictureUrl(vendor.PictureId, _mediaSettings.VendorThumbPictureSize),
-                                                        Title = string.Format(_localizationService.GetResource("Media.Vendor.ImageLinkTitleFormat"), vendorModel.Name),
-                                                        AlternateText = string.Format(_localizationService.GetResource("Media.Vendor.ImageAlternateTextFormat"), vendorModel.Name)
+                                                        Title = string.Format(_localizationService.GetResource("Media.Vendor.ImageLinkTitleFormat"), vendor.Name),
+                                                        AlternateText = string.Format(_localizationService.GetResource("Media.Vendor.ImageAlternateTextFormat"), vendor.Name)
                                                     };
                     return new VendorBriefInfoModel {
                         Id = vendor.Id,
                         Name = vendor.GetLocalized(x => x.Name, _workContext.WorkingLanguage.Id),
                         SeName = vendor.GetSeName(_workContext.WorkingLanguage.Id),
-                        PictureModel = pictureModel
+                        PictureModel = pictureModel,
+                        ApprovedRatingSum = vendor.ApprovedRatingSum,
+                        NotApprovedRatingSum = vendor.NotApprovedRatingSum,
+                        ApprovedTotalReviews = vendor.ApprovedTotalReviews,
+                        NotApprovedTotalReviews = vendor.NotApprovedTotalReviews
                     };
                 }
             }

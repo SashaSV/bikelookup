@@ -58,7 +58,9 @@
                     }
 
                     @if (string.IsNullOrEmpty(Model.PriceWithDiscount)) {
-                        <span class="actual-price">@Html.Raw(Model.Price)</span>
+                       
+                            
+                      
                     } else
                     {
                         <strong>@Html.Raw(Model.Price)</strong>
