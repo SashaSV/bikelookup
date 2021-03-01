@@ -223,12 +223,7 @@ namespace Grand.Web.Features.Handlers.Products
 
             #endregion
 
-            #region Product price
-
-            model.ProductPrice = await PrepareProductPriceModel(product);
-
-            #endregion
-
+           
             #region 'Add to cart' model
 
             model.AddToCart = await PrepareAddToCartModel(product, updateCartItem);
@@ -255,6 +250,8 @@ namespace Grand.Web.Features.Handlers.Products
             });
 
             #endregion
+            
+           
 
             #region Product review overview
 
@@ -309,7 +306,14 @@ namespace Grand.Web.Features.Handlers.Products
             }
 
             #endregion
+            
+            #region Product price
+            
+            model.ProductPrice = await PrepareProductPriceModel(product, model.AssociatedProducts);
+            
+            #endregion
 
+            
             #region Product reservations
 
             await PrepareProductReservation(model, product);
@@ -596,7 +600,7 @@ namespace Grand.Web.Features.Handlers.Products
             });
         }
 
-        private async Task<ProductDetailsModel.ProductPriceModel> PrepareProductPriceModel(Product product)
+        private async Task<ProductDetailsModel.ProductPriceModel> PrepareProductPriceModel(Product product, IList<ProductDetailsModel> associatedProducts)
         {
             var displayPrices = await _permissionService.Authorize(StandardPermissionProvider.DisplayPrices);
             var model = new ProductDetailsModel.ProductPriceModel();
@@ -617,7 +621,7 @@ namespace Grand.Web.Features.Handlers.Products
                     else
                     {
                         var oldproductprice = await _taxService.GetProductPrice(product, product.OldPrice);
-                        decimal oldPriceBase = oldproductprice.productprice;
+                        decimal oldPriceBase =  oldproductprice.productprice;
                         decimal finalPriceWithoutDiscountBase = (await (_taxService.GetProductPrice(product, (await _priceCalculationService.GetFinalPrice(product, _workContext.CurrentCustomer, includeDiscounts: false)).finalPrice))).productprice;
 
                         var appliedPrice = (await _priceCalculationService.GetFinalPrice(product, _workContext.CurrentCustomer, includeDiscounts: true));
@@ -629,8 +633,57 @@ namespace Grand.Web.Features.Handlers.Products
 
                         if (finalPriceWithoutDiscountBase != oldPriceBase && oldPriceBase > decimal.Zero)
                             model.OldPrice = _priceFormatter.FormatPrice(oldPrice);
+                        
+                        if (associatedProducts.Any())
+                        {
+                            //find a minimum possible price
+                            decimal minPossiblePrice = 0;
+                            ProductDetailsModel minPriceProduct = null;
+                            var maxPrice = default(decimal);
+                            ProductDetailsModel maxPriceProduct = null;
+                            foreach (var associatedProduct in associatedProducts)
+                            {
+                                //calculate for the maximum quantity (in case if we have tier prices)
+                                if (minPossiblePrice == 0 ||
+                                    associatedProduct.ProductPrice.PriceValue < minPossiblePrice)
+                                {
+                                    minPriceProduct = associatedProduct;
+                                    minPossiblePrice = associatedProduct.ProductPrice.PriceValue;
+                                    
+                                }
 
-                        model.Price = _priceFormatter.FormatPrice(finalPriceWithoutDiscount);
+                                if (maxPrice < associatedProduct.ProductPrice.PriceValue)
+                                {
+                                    maxPrice = associatedProduct.ProductPrice.PriceValue;
+                                    maxPriceProduct = associatedProduct;
+                                }
+                            }
+                            
+                            var from = _localizationService.GetResource("Products.PriceRangeFrom",
+                                _workContext.WorkingLanguage.Id);
+                            var fromTo = _localizationService.GetResource("Products.PriceRangeFromTo",
+                                _workContext.WorkingLanguage.Id);
+
+                                
+                            if (maxPrice != minPossiblePrice)
+                            {
+                                 model.Price = String.Format(fromTo,
+                                          _priceFormatter.FormatPrice(minPossiblePrice, true, _workContext.WorkingCurrency, _workContext.WorkingLanguage, false),
+                                          _priceFormatter.FormatPrice(maxPrice, true, _workContext.WorkingCurrency, _workContext.WorkingLanguage, false));
+
+                            }
+                            else
+                            {
+                                model.Price = String.Format(from,
+                                  _priceFormatter.FormatPrice(minPossiblePrice, true, _workContext.WorkingCurrency, _workContext.WorkingLanguage, false));
+
+                            }
+                        }
+                        else
+                        {
+                            model.Price = _priceFormatter.FormatPrice(finalPriceWithoutDiscount);
+                        }
+
                         if (appliedPrice.appliedDiscounts.Any())
                             model.AppliedDiscounts = appliedPrice.appliedDiscounts;
                         if (appliedPrice.preferredTierPrice != null)
