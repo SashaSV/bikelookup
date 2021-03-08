@@ -554,11 +554,28 @@ namespace Grand.Services.ExportImport
 
         protected virtual async Task PrepareProductPictures(Product product, PropertyManager<Product> manager, bool isNew)
         {
+            /*
             var picture1 = manager.GetProperty("picture1") != null ? manager.GetProperty("picture1").StringValue : string.Empty;
             var picture2 = manager.GetProperty("picture2") != null ? manager.GetProperty("picture2").StringValue : string.Empty;
             var picture3 = manager.GetProperty("picture3") != null ? manager.GetProperty("picture3").StringValue : string.Empty;
+            */
 
-            foreach (var picturePath in new[] { picture1, picture2, picture3 })
+            var pictures = new List<string>();
+
+            foreach (var property in manager.GetProperties)
+            {
+
+                if (property.PropertyName.ToLower().Substring(0, property.PropertyName.Length - 1) == "picture")
+                {
+                    if (!string.IsNullOrEmpty(property.StringValue))
+                    {
+                        pictures.Add(property.StringValue);
+                    }
+                }
+            }
+
+
+            foreach (var picturePath in pictures)
             {
                 if (String.IsNullOrEmpty(picturePath))
                     continue;
@@ -1091,7 +1108,9 @@ namespace Grand.Services.ExportImport
                 var mainProduct = await CheckMainProducts(product, manager, templates, deliveryDates, warehouses, units, taxes, templatesCategory, templatesManufacturer);
                 
                 if (mainProduct != null) {
-                    await PrepareSpecficationAtributeMapping(mainProduct, manager); 
+                    await PrepareSpecficationAtributeMapping(mainProduct, manager);
+                    //pictures
+                    await PrepareProductPictures(mainProduct, manager, isNew);
                 }
 
                 if (mainProduct != null)
@@ -1155,8 +1174,7 @@ namespace Grand.Services.ExportImport
             }
             
             await _productService.UpdateProduct(product);
-            //pictures
-            await PrepareProductPictures(product, manager, isNew);
+
         }
 
         /// <summary>
