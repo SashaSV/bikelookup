@@ -3,6 +3,8 @@ using Grand.Web.Areas.Admin.Models.Customers;
 using Grand.Web.Areas.Admin.Models.Vendors;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Grand.Domain.Catalog;
+using Grand.Web.Areas.Admin.Models.Catalog;
 
 namespace Grand.Web.Areas.Admin.Interfaces
 {
@@ -26,6 +28,12 @@ namespace Grand.Web.Areas.Admin.Interfaces
         Task DeleteVendorReview(VendorReview vendorReview);
         Task ApproveVendorReviews(IList<string> selectedIds);
         Task DisapproveVendorReviews(IList<string> selectedIds);
+        
+        //Product specification
+        Task<IList<VendorSpecificationAttributeModel>> PrepareProductSpecificationAttributeModel(Vendor product);
+        Task InsertVendorSpecificationAttributeModel(AddVendorSpecificationAttributeModel model, Vendor vendor);
+        Task UpdateVendorSpecificationAttributeModel(Vendor vendor, VendorSpecificationAttribute psa, VendorSpecificationAttributeModel model);
+        Task DeleteProductSpecificationAttribute(Vendor vendor, VendorSpecificationAttribute psa);
 
     }
 }

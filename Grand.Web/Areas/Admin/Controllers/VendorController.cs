@@ -5,6 +5,7 @@ using Grand.Framework.Kendoui;
 using Grand.Framework.Mvc;
 using Grand.Framework.Mvc.Filters;
 using Grand.Framework.Security.Authorization;
+using Grand.Services.Catalog;
 using Grand.Services.Localization;
 using Grand.Services.Security;
 using Grand.Services.Seo;
@@ -17,6 +18,8 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Grand.Web.Areas.Admin.Models.Catalog;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Grand.Web.Areas.Admin.Controllers
 {
@@ -28,6 +31,7 @@ namespace Grand.Web.Areas.Admin.Controllers
         private readonly ILocalizationService _localizationService;
         private readonly IVendorService _vendorService;
         private readonly ILanguageService _languageService;
+        private readonly ISpecificationAttributeService _specificationAttributeService;
         #endregion
 
         #region Constructors
@@ -36,12 +40,14 @@ namespace Grand.Web.Areas.Admin.Controllers
             IVendorViewModelService vendorViewModelService,
             ILocalizationService localizationService,
             IVendorService vendorService,
-            ILanguageService languageService)
+            ILanguageService languageService,
+            ISpecificationAttributeService specificationAttributeService)
         {
             _vendorViewModelService = vendorViewModelService;
             _localizationService = localizationService;
             _vendorService = vendorService;
             _languageService = languageService;
+            _specificationAttributeService = specificationAttributeService;
         }
 
         #endregion
@@ -136,6 +142,19 @@ namespace Grand.Web.Areas.Admin.Controllers
             //stores
             await _vendorViewModelService.PrepareStore(model);
 
+            //specification attributes
+            var availableSpecificationAttributes = new List<SelectListItem>();
+            foreach (var sa in await _specificationAttributeService.GetSpecificationAttributes())
+            {
+                availableSpecificationAttributes.Add(new SelectListItem {
+                    Text = sa.Name,
+                    Value = sa.Id.ToString()
+                });
+            }
+            model.AddSpecificationAttributeModel.AvailableAttributes = availableSpecificationAttributes;
+
+            //default specs values
+            model.AddSpecificationAttributeModel.ShowOnProductPage = true;
             return View(model);
         }
 
@@ -194,6 +213,79 @@ namespace Grand.Web.Areas.Admin.Controllers
             }
             ErrorNotification(ModelState);
             return RedirectToAction("Edit", new { id = vendor.Id });
+        }
+        
+        [PermissionAuthorizeAction(PermissionActionName.Edit)]
+        public async Task<IActionResult> ProductSpecificationAttributeAdd(AddVendorSpecificationAttributeModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var vendor = await _vendorService.GetVendorById(model.VendorId);
+                if (vendor == null)
+                    return Content("Product not exists");
+
+                await _vendorViewModelService.InsertVendorSpecificationAttributeModel(model, vendor);
+
+                return Json(new { Result = true });
+            }
+            return Json(new { Result = false });
+        }
+        
+        [PermissionAuthorizeAction(PermissionActionName.Preview)]
+        [HttpPost]
+        public async Task<IActionResult> VendorSpecAttrList(DataSourceRequest command, string vendorId)
+        {
+            var vendor = await _vendorService.GetVendorById(vendorId);
+            if (vendor == null)
+                            //No vendor found with the specified id
+                            return RedirectToAction("List");
+          
+            var vendorSpecsModel = await _vendorViewModelService.PrepareProductSpecificationAttributeModel(vendor);
+            var gridModel = new DataSourceResult {
+                Data = vendorSpecsModel,
+                Total = vendorSpecsModel.Count
+            };
+            return Json(gridModel);
+        }
+        
+        [PermissionAuthorizeAction(PermissionActionName.Edit)]
+        [HttpPost]
+        public async Task<IActionResult> VendorSpecAttrUpdate(VendorSpecificationAttributeModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var vendor = await _vendorService.GetVendorById(model.ProductId);
+                if (vendor == null)
+                    return Content("Product not exists");
+
+                var psa = vendor.VendorSpecificationAttributes.Where(x => x.SpecificationAttributeId == model.ProductSpecificationId).Where(x => x.Id == model.Id).FirstOrDefault();
+                if (psa == null)
+                    return Content("No product specification attribute found with the specified id");
+
+                await _vendorViewModelService.UpdateVendorSpecificationAttributeModel(vendor, psa, model);
+                return new NullJsonResult();
+            }
+            return ErrorForKendoGridJson(ModelState);
+        }
+
+        [PermissionAuthorizeAction(PermissionActionName.Edit)]
+        [HttpPost]
+        public async Task<IActionResult> VendorSpecAttrDelete(VendorSpecificationAttributeModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var vendor = await _vendorService.GetVendorById(model.ProductId);
+                if (vendor == null)
+                    return Content("Product not exists");
+
+                var psa = vendor.VendorSpecificationAttributes.Where(x => x.Id == model.Id && x.SpecificationAttributeId == model.ProductSpecificationId).FirstOrDefault();
+                if (psa == null)
+                    throw new ArgumentException("No specification attribute found with the specified id");
+
+                await _vendorViewModelService.DeleteProductSpecificationAttribute(vendor, psa);
+                return new NullJsonResult();
+            }
+            return ErrorForKendoGridJson(ModelState);
         }
 
         #endregion

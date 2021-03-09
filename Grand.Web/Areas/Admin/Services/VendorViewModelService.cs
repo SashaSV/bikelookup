@@ -24,6 +24,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Grand.Core;
+using Grand.Domain.Catalog;
+using Grand.Services.Catalog;
 
 namespace Grand.Web.Areas.Admin.Services
 {
@@ -43,11 +46,12 @@ namespace Grand.Web.Areas.Admin.Services
         private readonly ILanguageService _languageService;
         private readonly SeoSettings _seoSettings;
         private readonly VendorSettings _vendorSettings;
-
+        private readonly ISpecificationAttributeService _specificationAttributeService;
+        private readonly IWorkContext _workContext;
         public VendorViewModelService(IDiscountService discountService, IVendorService vendorService, ICustomerService customerService, ILocalizationService localizationService,
             IDateTimeHelper dateTimeHelper, ICountryService countryService, IStateProvinceService stateProvinceService, IStoreService storeService, IUrlRecordService urlRecordService,
             IPictureService pictureService, IMediator mediator, VendorSettings vendorSettings, ILanguageService languageService, 
-            SeoSettings seoSettings)
+            SeoSettings seoSettings, ISpecificationAttributeService specificationAttributeService, IWorkContext workContext)
         {
             _discountService = discountService;
             _vendorService = vendorService;
@@ -63,6 +67,8 @@ namespace Grand.Web.Areas.Admin.Services
             _languageService = languageService;
             _vendorSettings = vendorSettings;
             _seoSettings = seoSettings;
+            _specificationAttributeService = specificationAttributeService;
+            _workContext = workContext ;
         }
 
         public virtual async Task PrepareDiscountModel(VendorModel model, Vendor vendor, bool excludeProperties)
@@ -188,6 +194,21 @@ namespace Grand.Web.Areas.Admin.Services
 
             //prepare address model
             await PrepareVendorAddressModel(model, null);
+            
+            //specification attributes
+            var availableSpecificationAttributes = new List<SelectListItem>();
+            foreach (var sa in await _specificationAttributeService.GetSpecificationAttributes())
+            {
+                availableSpecificationAttributes.Add(new SelectListItem {
+                    Text = sa.Name,
+                    Value = sa.Id.ToString()
+                });
+            }
+            model.AddSpecificationAttributeModel.AvailableAttributes = availableSpecificationAttributes;
+
+            //default specs values
+            model.AddSpecificationAttributeModel.ShowOnProductPage = true;
+     
             return model;
         }
         public virtual async Task<IList<VendorModel.AssociatedCustomerInfo>> AssociatedCustomers(string vendorId)
@@ -405,6 +426,97 @@ namespace Grand.Web.Areas.Admin.Services
                     await _vendorService.UpdateVendorReviewTotals(vendor);
                 }
             }
+        }
+
+        public async Task<IList<VendorSpecificationAttributeModel>> PrepareProductSpecificationAttributeModel(Vendor product)
+        {
+             var items = new List<VendorSpecificationAttributeModel>();
+            foreach (var x in product.VendorSpecificationAttributes.OrderBy(x => x.DisplayOrder))
+            {
+                var specificationAttribute = await _specificationAttributeService.GetSpecificationAttributeById(x.SpecificationAttributeId);
+                var psaModel = new VendorSpecificationAttributeModel {
+                    Id = x.Id,
+                    AttributeTypeId = (int)x.AttributeType,
+                    ProductSpecificationId = specificationAttribute.Id,
+                    AttributeId = x.SpecificationAttributeId,
+                    ProductId = product.Id,
+                    AttributeTypeName = x.AttributeType.GetLocalizedEnum(_localizationService, _workContext),
+                    AttributeName = specificationAttribute.Name,
+                    AllowFiltering = x.AllowFiltering,
+                    ShowOnProductPage = x.ShowOnProductPage,
+                    DisplayOrder = x.DisplayOrder
+                };
+                switch (x.AttributeType)
+                {
+                    case SpecificationAttributeType.Option:
+                        psaModel.ValueRaw = System.Net.WebUtility.HtmlEncode(specificationAttribute.SpecificationAttributeOptions.Where(y => y.Id == x.SpecificationAttributeOptionId).FirstOrDefault()?.Name);
+                        psaModel.SpecificationAttributeOptionId = x.SpecificationAttributeOptionId;
+                        break;
+                    case SpecificationAttributeType.CustomText:
+                        psaModel.ValueRaw = System.Net.WebUtility.HtmlEncode(x.CustomValue);
+                        break;
+                    case SpecificationAttributeType.CustomHtmlText:
+                        //do not encode?
+                        psaModel.ValueRaw = System.Net.WebUtility.HtmlEncode(x.CustomValue);
+                        break;
+                    case SpecificationAttributeType.Hyperlink:
+                        psaModel.ValueRaw = x.CustomValue;
+                        break;
+                    default:
+                        break;
+                }
+                items.Add(psaModel);
+            }
+            return items;
+        }
+
+        public async Task InsertVendorSpecificationAttributeModel(AddVendorSpecificationAttributeModel model, Vendor vendor)
+        {
+            //we allow filtering only for "Option" attribute type
+            if (model.AttributeTypeId != (int)SpecificationAttributeType.Option)
+            {
+                model.AllowFiltering = false;
+                model.SpecificationAttributeOptionId = null;
+            }
+
+            var psa = new VendorSpecificationAttribute {
+                AttributeTypeId = model.AttributeTypeId,
+                SpecificationAttributeOptionId = model.SpecificationAttributeOptionId,
+                SpecificationAttributeId = model.SpecificationAttributeId,
+                VendorId = vendor.Id,
+                CustomValue = model.CustomValue,
+                AllowFiltering = model.AllowFiltering,
+                ShowOnProductPage = model.ShowOnProductPage,
+                DisplayOrder = model.DisplayOrder,
+            };
+
+            await _specificationAttributeService.InsertVendorSpecificationAttribute(psa);
+            vendor.VendorSpecificationAttributes.Add(psa);
+        }
+
+        public async Task UpdateVendorSpecificationAttributeModel(Vendor vendor, VendorSpecificationAttribute psa,
+            VendorSpecificationAttributeModel model)
+        {
+            if (model.AttributeTypeId == (int)SpecificationAttributeType.Option)
+            {
+                psa.AllowFiltering = model.AllowFiltering;
+                psa.SpecificationAttributeOptionId = model.SpecificationAttributeOptionId;
+            }
+            else
+            {
+                psa.CustomValue = model.ValueRaw;
+            }
+            psa.ShowOnProductPage = model.ShowOnProductPage;
+            psa.DisplayOrder = model.DisplayOrder;
+            psa.VendorId = model.ProductId;
+            await _specificationAttributeService.UpdateVendorSpecificationAttribute(psa);
+        }
+
+        public async Task DeleteProductSpecificationAttribute(Vendor vendor, VendorSpecificationAttribute vsa)
+        {
+            vsa.VendorId = vendor.Id;
+            vendor.VendorSpecificationAttributes.Remove(vsa);
+            await _specificationAttributeService.DeleteVendorSpecificationAttribute(vsa);
         }
     }
 }

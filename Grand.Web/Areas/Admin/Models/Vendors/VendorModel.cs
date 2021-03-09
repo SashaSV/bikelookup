@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Grand.Web.Areas.Admin.Models.Catalog;
 
 namespace Grand.Web.Areas.Admin.Models.Vendors
 {
@@ -22,6 +23,7 @@ namespace Grand.Web.Areas.Admin.Models.Vendors
             AssociatedCustomers = new List<AssociatedCustomerInfo>();
             Address = new AddressModel();
             AvailableStores = new List<SelectListItem>();
+            AddSpecificationAttributeModel = new AddVendorSpecificationAttributeModel();
         }
 
         [GrandResourceDisplayName("Admin.Vendors.Fields.Name")]
@@ -101,7 +103,7 @@ namespace Grand.Web.Areas.Admin.Models.Vendors
 
         public decimal Commission { get; set; } = 0;
 
-
+        public AddVendorSpecificationAttributeModel AddSpecificationAttributeModel { get; set; }
         #region Nested classes
 
         public class AssociatedCustomerInfo : BaseEntityModel
@@ -121,6 +123,40 @@ namespace Grand.Web.Areas.Admin.Models.Vendors
         #endregion
 
     }
+
+         public partial class AddVendorSpecificationAttributeModel : BaseModel
+            {
+                public AddVendorSpecificationAttributeModel()
+                {
+                    AvailableAttributes = new List<SelectListItem>();
+                    AvailableOptions = new List<SelectListItem>();
+                }
+    
+                [GrandResourceDisplayName("Admin.Catalog.Products.SpecificationAttributes.Fields.SpecificationAttribute")]
+                public string SpecificationAttributeId { get; set; }
+    
+                [GrandResourceDisplayName("Admin.Catalog.Products.SpecificationAttributes.Fields.AttributeType")]
+                public int AttributeTypeId { get; set; }
+    
+                [GrandResourceDisplayName("Admin.Catalog.Products.SpecificationAttributes.Fields.SpecificationAttributeOption")]
+                public string SpecificationAttributeOptionId { get; set; }
+    
+                [GrandResourceDisplayName("Admin.Catalog.Products.SpecificationAttributes.Fields.CustomValue")]
+                public string CustomValue { get; set; }
+    
+                [GrandResourceDisplayName("Admin.Catalog.Products.SpecificationAttributes.Fields.AllowFiltering")]
+                public bool AllowFiltering { get; set; }
+    
+                [GrandResourceDisplayName("Admin.Catalog.Products.SpecificationAttributes.Fields.ShowOnProductPage")]
+                public bool ShowOnProductPage { get; set; }
+    
+                [GrandResourceDisplayName("Admin.Catalog.Products.SpecificationAttributes.Fields.DisplayOrder")]
+                public int DisplayOrder { get; set; }
+    
+                public string VendorId { get; set; }
+                public IList<SelectListItem> AvailableAttributes { get; set; }
+                public IList<SelectListItem> AvailableOptions { get; set; }
+            }
 
     public partial class VendorLocalizedModel : ILocalizedModelLocal, ISlugModelLocal
     {
