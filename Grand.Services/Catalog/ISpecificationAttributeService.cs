@@ -2,6 +2,7 @@ using Grand.Domain;
 using Grand.Domain.Catalog;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Grand.Domain.Vendors;
 
 namespace Grand.Services.Catalog
 {
@@ -168,5 +169,11 @@ namespace Grand.Services.Catalog
             string specificationAttributeId = "",
             string specificationAttributeOptionId = "");
         #endregion
+
+        Task DeleteVendorSpecificationAttribute(VendorSpecificationAttribute vendorSpecificationAttribute);
+        
+        Task UpdateVendorSpecificationAttribute(VendorSpecificationAttribute productSpecificationAttribute);
+
+        Task InsertVendorSpecificationAttribute(VendorSpecificationAttribute productSpecificationAttribute);
     }
 }

@@ -36,6 +36,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Grand.Web.Features.Models.Vendors;
 
 namespace Grand.Web.Features.Handlers.Products
 {
@@ -150,7 +151,8 @@ namespace Grand.Web.Features.Handlers.Products
             var model = await PrepareStandardProperties(product, updateCartItem);
 
             #region Vendor details
-
+            
+                                     
             if (_vendorSettings.ShowVendorOnProductDetailsPage)
             {
                 model.VendorModel = await PrepareVendorBriefInfoModel(product);
@@ -243,7 +245,7 @@ namespace Grand.Web.Features.Handlers.Products
             #endregion 
 
             #region Product specifications
-
+       
             model.ProductSpecifications = await _mediator.Send(new GetProductSpecification() { 
                 Language = _workContext.WorkingLanguage,
                 Product = product
@@ -464,10 +466,18 @@ namespace Grand.Web.Features.Handlers.Products
         {
             if (!string.IsNullOrEmpty(product.VendorId))
             {
+               
                 var vendor = await _vendorService.GetVendorById(product.VendorId);
+                
+                
                 if (vendor != null && !vendor.Deleted && vendor.Active)
                 {
-                     var pictureModel = new PictureModel {
+                    var vendorSpecs =  await _mediator.Send(new GetVendorSpecifications() { 
+                        Language = _workContext.WorkingLanguage,
+                        Vendor = vendor
+                    });
+                       
+                    var pictureModel = new PictureModel {
                                                         Id = vendor.PictureId,
                                                         FullSizeImageUrl = await _pictureService.GetPictureUrl(vendor.PictureId),
                                                         ImageUrl = await _pictureService.GetPictureUrl(vendor.PictureId, _mediaSettings.VendorThumbPictureSize),

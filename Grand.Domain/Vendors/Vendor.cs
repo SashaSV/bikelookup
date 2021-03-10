@@ -2,6 +2,7 @@ using Grand.Domain.Common;
 using Grand.Domain.Localization;
 using Grand.Domain.Seo;
 using System.Collections.Generic;
+using Grand.Domain.Catalog;
 
 namespace Grand.Domain.Vendors
 {
@@ -12,11 +13,12 @@ namespace Grand.Domain.Vendors
     {
         private ICollection<VendorNote> _vendorNotes;
         private ICollection<string> _appliedDiscounts;
-
+        private ICollection<VendorSpecificationAttribute> _productSpecificationAttributes;
         public Vendor()
         {
             Locales = new List<LocalizedProperty>();
             Address = new Address();
+            _productSpecificationAttributes = new List<VendorSpecificationAttribute>();
         }
         /// <summary>
         /// Gets or sets the name
@@ -154,6 +156,15 @@ namespace Grand.Domain.Vendors
             get { return _appliedDiscounts ?? (_appliedDiscounts = new List<string>()); }
             protected set { _appliedDiscounts = value; }
         }
+        
+          /// <summary>
+          /// Gets or sets the product specification attribute
+          /// </summary>
+          public virtual ICollection<VendorSpecificationAttribute> VendorSpecificationAttributes
+          {
+               get { return _productSpecificationAttributes ?? (_productSpecificationAttributes = new List<VendorSpecificationAttribute>()); }
+               protected set { _productSpecificationAttributes = value; }
+          }
 
     }
 }

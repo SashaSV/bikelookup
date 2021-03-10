@@ -11,6 +11,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Grand.Domain.Vendors;
 
 namespace Grand.Services.Catalog
 {
@@ -81,7 +82,7 @@ namespace Grand.Services.Catalog
         private readonly IRepository<ProductSpecificationAttribute> _productSpecificationAttributeRepository;
         private readonly ICacheManager _cacheManager;
         private readonly IMediator _mediator;
-
+        private readonly IRepository<Vendor> _vendorRepository;
         #endregion
 
         #region Ctor
@@ -96,6 +97,7 @@ namespace Grand.Services.Catalog
             IRepository<SpecificationAttribute> specificationAttributeRepository,
             IRepository<Product> productRepository,
             IRepository<ProductSpecificationAttribute> productSpecificationAttribute,
+            IRepository<Vendor> vendorRepository,
             IMediator mediator)
         {
             _cacheManager = cacheManager;
@@ -103,6 +105,7 @@ namespace Grand.Services.Catalog
             _productSpecificationAttributeRepository = productSpecificationAttribute;
             _mediator = mediator;
             _productRepository = productRepository;
+            _vendorRepository = vendorRepository;
         }
 
         #endregion
@@ -306,6 +309,27 @@ namespace Grand.Services.Catalog
             //event notification
             await _mediator.EntityDeleted(productSpecificationAttribute);
         }
+        
+        /// <summary>
+        /// Deletes a product specification attribute mapping
+        /// </summary>
+        /// <param name="productSpecificationAttribute">Product specification attribute</param>
+        public virtual async Task DeleteVendorSpecificationAttribute(VendorSpecificationAttribute vendorSpecificationAttribute)
+        {
+            if (vendorSpecificationAttribute == null)
+                throw new ArgumentNullException("vedorSpecificationAttribute");
+
+            var updatebuilder = Builders<Vendor>.Update;
+            var update = updatebuilder.Pull(p => p.VendorSpecificationAttributes, vendorSpecificationAttribute);
+            await _vendorRepository.Collection.UpdateOneAsync(new BsonDocument("_id", vendorSpecificationAttribute.VendorId), update);
+
+            //clear cache
+            await _cacheManager.RemoveAsync(string.Format(PRODUCTS_BY_ID_KEY, vendorSpecificationAttribute.VendorId));
+
+            //event notification
+            await _mediator.EntityDeleted(vendorSpecificationAttribute);
+        }
+        
 
         public virtual async Task UpdateSpecificationAttributeOption(SpecificationAttribute specificationAttribute, SpecificationAttributeOption specificationAttributeOption)
         {
@@ -345,6 +369,26 @@ namespace Grand.Services.Catalog
             //event notification
             await _mediator.EntityInserted(productSpecificationAttribute);
         }
+        
+        /// <summary>
+        /// Inserts a product specification attribute mapping
+        /// </summary>
+        /// <param name="productSpecificationAttribute">Product specification attribute mapping</param>
+        public virtual async Task InsertVendorSpecificationAttribute(VendorSpecificationAttribute productSpecificationAttribute)
+        {
+            if (productSpecificationAttribute == null)
+                throw new ArgumentNullException("productSpecificationAttribute");
+
+            var updatebuilder = Builders<Vendor>.Update;
+            var update = updatebuilder.AddToSet(p => p.VendorSpecificationAttributes, productSpecificationAttribute);
+            await _vendorRepository.Collection.UpdateOneAsync(new BsonDocument("_id", productSpecificationAttribute.VendorId), update);
+
+            //cache
+            await _cacheManager.RemoveAsync(string.Format(PRODUCTS_BY_ID_KEY, productSpecificationAttribute.VendorId));
+
+            //event notification
+            await _mediator.EntityInserted(productSpecificationAttribute);
+        }
 
         /// <summary>
         /// Updates the product specification attribute mapping
@@ -376,6 +420,37 @@ namespace Grand.Services.Catalog
             await _mediator.EntityUpdated(productSpecificationAttribute);
         }
 
+         /// <summary>
+        /// Updates the product specification attribute mapping
+        /// </summary>
+        /// <param name="productSpecificationAttribute">Product specification attribute mapping</param>
+        public virtual async Task UpdateVendorSpecificationAttribute(VendorSpecificationAttribute productSpecificationAttribute)
+        {
+            if (productSpecificationAttribute == null)
+                throw new ArgumentNullException("productSpecificationAttribute");
+
+            var builder = Builders<Vendor>.Filter;
+            var filter = builder.Eq(x => x.Id, productSpecificationAttribute.VendorId);
+            filter = filter & builder.Where(x => x.VendorSpecificationAttributes.Any(y => y.Id == productSpecificationAttribute.Id));
+            var update = Builders<Vendor>.Update
+                .Set(x => x.VendorSpecificationAttributes.ElementAt(-1).ShowOnProductPage, productSpecificationAttribute.ShowOnProductPage)
+                .Set(x => x.VendorSpecificationAttributes.ElementAt(-1).CustomValue, productSpecificationAttribute.CustomValue)
+                .Set(x => x.VendorSpecificationAttributes.ElementAt(-1).DisplayOrder, productSpecificationAttribute.DisplayOrder)
+                .Set(x => x.VendorSpecificationAttributes.ElementAt(-1).AttributeTypeId, productSpecificationAttribute.AttributeTypeId)
+                .Set(x => x.VendorSpecificationAttributes.ElementAt(-1).SpecificationAttributeId, productSpecificationAttribute.SpecificationAttributeId)
+                .Set(x => x.VendorSpecificationAttributes.ElementAt(-1).SpecificationAttributeOptionId, productSpecificationAttribute.SpecificationAttributeOptionId)
+                .Set(x => x.VendorSpecificationAttributes.ElementAt(-1).AllowFiltering, productSpecificationAttribute.AllowFiltering);
+
+            await _vendorRepository.Collection.UpdateManyAsync(filter, update);
+
+            //cache
+            await _cacheManager.RemoveAsync(string.Format(PRODUCTS_BY_ID_KEY, productSpecificationAttribute.VendorId));
+
+            //event notification
+            await _mediator.EntityUpdated(productSpecificationAttribute);
+        }
+        
+            
         /// <summary>
         /// Gets a count of product specification attribute mapping records
         /// </summary>
