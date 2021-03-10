@@ -46,6 +46,7 @@ input[type=range]:focus::-ms-fill-upper {
     font-weight: 500;
     line-height: 1.5;
     border-radius: .2rem;
+    margin-right: auto;
 }
 
 input[type=range]::-webkit-slider-runnable-track {

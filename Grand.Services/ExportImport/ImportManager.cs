@@ -963,6 +963,13 @@ namespace Grand.Services.ExportImport
 
         protected virtual async Task UpdateSpecficationAtribute(Product product, string specAtrName, string specValue)
         {
+            var _filteringAtribute = new List<string> { "manufacturer", "sp_size", "sp_available", "sp_typebike", "sp_for", "sp_material_frame"
+                , "sp_wheeldiams", "sp_type_brake","sp_year","sp_count_speed","sp_type_fork","sp_type_rear_hub","sp_weight_Limit"
+                , "sp_age", "sp_Fork_travel", "sp_equipment", "sp_model", "sp_color" };
+            var _nonVisibleAtribute = new List<string> { "sp_available", "sp_brand_fork" };
+            var _separeteAtribute = new List<string> {  "sp_typebike", "sp_for", "sp_type_brake", "sp_color" };
+            var _separeteAtributeWithLinq = new List<string> { "sp_size", "sp_model" };
+
             var specificationAttribute = await _specificationAttributeService.GetSpecificationAttributeBySeName(specAtrName);
 
             if (specificationAttribute == null)
@@ -971,19 +978,26 @@ namespace Grand.Services.ExportImport
                     Name = specAtrName,
                     SeName = specAtrName
                 };
+
                 await _specificationAttributeService.InsertSpecificationAttribute(specificationAttribute);
             }
 
-            var props = specValue.Trim().Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            
+            //specValue.Trim().Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            var separeteSymbol = _separeteAtribute.Contains(specAtrName) ? new[] { ", ", "/" } : new[] { "NOSEPARATE" };
+            var props = specValue.Trim().Split(separeteSymbol, StringSplitOptions.RemoveEmptyEntries).ToList();
+
             foreach (var prop in props)
             {
 
                 //var nameSpecification = prop.Trim();
                 //var ñ = (specAtrName == "sp_model") ? ' ' : '^';
+                separeteSymbol = _separeteAtributeWithLinq.Contains(specAtrName) ? new[] { "/" } : new[] { "NOSEPARATE" };
+                var nameSpecificationTree = prop.Trim().Split(separeteSymbol, StringSplitOptions.RemoveEmptyEntries).ToList();
 
-                var nameSpecificationTree = prop.Trim().Split(new[] { (specAtrName == "sp_model") ? ' ' : '^' }, StringSplitOptions.RemoveEmptyEntries).ToList();
                 var parantSpecAttrOptionId = "";
                 
+
                 foreach (var nameSpecification in nameSpecificationTree)
                 {
                     var specificationAttributeOption = await _specificationAttributeService.GetSpecificationAttributeByOptionName(specificationAttribute.Id, nameSpecification);
@@ -1011,8 +1025,8 @@ namespace Grand.Services.ExportImport
                             ProductId = productId,
                             SpecificationAttributeId = specificationAttribute.Id,
                             SpecificationAttributeOptionId = specificationAttributeOption.Id,
-                            AllowFiltering = true,
-                            ShowOnProductPage = true
+                            AllowFiltering = _filteringAtribute.Contains(specAtrName),
+                            ShowOnProductPage = !_nonVisibleAtribute.Contains(specAtrName)
                         };
 
                         await _specificationAttributeService.InsertProductSpecificationAttribute(productSpecificationAttribute);
