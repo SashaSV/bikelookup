@@ -468,8 +468,7 @@ namespace Grand.Web.Features.Handlers.Products
             {
                
                 var vendor = await _vendorService.GetVendorById(product.VendorId);
-                
-                
+
                 if (vendor != null && !vendor.Deleted && vendor.Active)
                 {
                     var vendorSpecs =  await _mediator.Send(new GetVendorSpecifications() { 
@@ -492,7 +491,8 @@ namespace Grand.Web.Features.Handlers.Products
                         ApprovedRatingSum = vendor.ApprovedRatingSum,
                         NotApprovedRatingSum = vendor.NotApprovedRatingSum,
                         ApprovedTotalReviews = vendor.ApprovedTotalReviews,
-                        NotApprovedTotalReviews = vendor.NotApprovedTotalReviews
+                        NotApprovedTotalReviews = vendor.NotApprovedTotalReviews,
+                        VendorSpecificationAttributes = vendorSpecs
                     };
                 }
             }

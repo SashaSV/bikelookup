@@ -32,7 +32,7 @@ namespace Grand.Web.Features.Handlers.Vendors
             if (request.Vendor == null)
                  throw new ArgumentNullException("product");
                                       
-           string cacheKey = string.Format(ModelCacheEventConst.PRODUCT_SPECS_MODEL_KEY, request.Vendor.Id, request.Language.Id);
+           string cacheKey = string.Format(ModelCacheEventConst.VENDOR_SPECS_MODEL_KEY, request.Vendor.Id, request.Language.Id);
            return await _cacheManager.GetAsync(cacheKey, async () =>
            {
               var spa = new List<ProductSpecificationModel>();
