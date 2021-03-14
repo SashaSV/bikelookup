@@ -45,11 +45,15 @@ namespace Grand.Web.Features.Handlers.Vendors
                      ColorSquaresRgb = specificationAttribute.SpecificationAttributeOptions.Where(x => x.Id == item.SpecificationAttributeOptionId).FirstOrDefault() != null ? specificationAttribute.SpecificationAttributeOptions.Where(x => x.Id == item.SpecificationAttributeOptionId).FirstOrDefault().ColorSquaresRgb : "",
                      GenericAttributes = specificationAttribute.GenericAttributes,
                      };
-                                      
                 switch (item.AttributeType)
                 {
                     case SpecificationAttributeType.Option:
-                        m.ValueRaw = WebUtility.HtmlEncode(specificationAttribute.SpecificationAttributeOptions.Where(x => x.Id == item.SpecificationAttributeOptionId).FirstOrDefault().GetLocalized(x => x.Name, request.Language.Id));
+                        var option = specificationAttribute.SpecificationAttributeOptions.Where(x => x.Id == item.SpecificationAttributeOptionId).FirstOrDefault();
+                        if (option == null)
+                        {
+                            break;
+                        }
+                        m.ValueRaw = WebUtility.HtmlEncode(option.GetLocalized(x => x.Name, request.Language.Id));
                         break;
                     case SpecificationAttributeType.CustomText:
                         m.ValueRaw = WebUtility.HtmlEncode(item.CustomValue);

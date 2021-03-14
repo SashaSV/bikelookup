@@ -12,41 +12,6 @@
 <!DOCTYPE html>
 <html>
 <body>
-<b-col xl="6" lg="6" md="7" cols="12" class="overview pl-md-3 pl-0 pr-0">
-
-    <partial name="_Discontinued" model="Model"/>
-                        
-    <vc:widget widget-zone="productdetails_before_pictures" additional-data="@Model.Id"></vc:widget>
-    <partial name="_ProductDetailsPictures" model="Model"/> <partial name="_ProductDetailsPictures" model="Model"/>
-    <vc:widget widget-zone="productdetails_after_pictures" additional-data="@Model.Id"></vc:widget>
-                        
-    @await Component.InvokeAsync("Widget", new {widgetZone = "productdetails_overview_top", additionalData = Model.Id})
-    <!--product reviews-->
-    @if (Model.ProductReviewOverview.AllowCustomerReviews)
-    {
-        <partial name="_ProductReviewOverview" model="Model.ProductReviewOverview"/>
-    }
-    <!--product manufacturers-->
-    @if (Model.ProductManufacturers.Any())
-    {
-        <partial name="_ProductManufacturers" model="Model.ProductManufacturers"/>
-    }
-    <!--warehouses-->
-    @if (Model.AllowToSelectWarehouse)
-    {
-        <partial name="_ProductWarehouses" model="Model"/>
-    }
-    <!--compare, email a friend-->
-    <b-btn-group class="mt-2 mb-3 w-100">
-        @await Component.InvokeAsync("Widget", new {widgetZone = "productdetails_inside_overview_buttons_before", additionalData = Model.Id})
-        <partial name="_CompareProductsButton" model="Model"/>
-        <partial name="_ProductEmailAFriendButton" model="Model"/>
-        <partial name="_ProductAskQuestionButton" model="Model"/>
-        @await Component.InvokeAsync("Widget", new {widgetZone = "productdetails_inside_overview_buttons_after", additionalData = Model.Id})
-    </b-btn-group>
-    <partial name="_ShareButton" model="Model"/>
-    @await Component.InvokeAsync("Widget", new {widgetZone = "productdetails_overview_bottom", additionalData = Model.Id})
-</b-col>
-<partial name="_ProductSpecifications" model="Model.ProductSpecifications"/>
+    <partial name="_ProductSpecifications" model="Model.ProductSpecifications"/>
 </body>
 </html>
