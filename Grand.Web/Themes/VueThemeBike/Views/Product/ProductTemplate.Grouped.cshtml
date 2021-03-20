@@ -91,115 +91,77 @@
                                                 <!--associated products-->
                                                 @foreach (var variant in Model.AssociatedProducts)
                                                 {
-                                                    <b-card no-body class="overflow-hidden associatedItem mb-3">
-                                                        <div class="vendor-name">
-                                                            <a href="@variant.Url">
-                                                                <h3  class="vendor-name" itemprop="name" align="center">@variant.VendorModel.Name</h3>
-                                                            </a>
-                                                        </div>
-                                                        <b-row no-gutters>
-                                                            
+                                                 <b-card no-body class="overflow-hidden associatedItem mb-3">
+                                                     <b-row class="ml-2 mb-2 mt-4 justify-content-center vendor-title">
+                                                         <a href="@variant.Url">
+                                                             <h3  class="vendor-title" itemprop="name" align="center">@variant.VendorModel.Name</h3>
+                                                         </a>
+                                                     </b-row>
+                                                     <b-row>        
                                                             <b-col lg="3" md="4">
-                                                                <a href="@variant.Url">
-                                                                    <b-card-img id="main-product-img-@variant.Id" alt="@variant.VendorModel.PictureModel.AlternateText" src="@variant.VendorModel.PictureModel.ImageUrl" class="rounded-0"></b-card-img>
-                                                                </a>
-                                                                <div class="rating">
-                                                                    @{
-                                                                        decimal ratingValue = 0;
-                                                                        var reviesCount = variant.VendorModel.NotApprovedTotalReviews + variant.VendorModel.NotApprovedTotalReviews;
-                                                                        
-                                                                        if (reviesCount!= 0)
-                                                                        {
-                                                                            var ratingSum = variant.VendorModel.ApprovedRatingSum + variant.VendorModel.NotApprovedRatingSum;
-                                                                            ratingValue = Convert.ToDecimal(((ratingSum * (double) 100) / reviesCount) / (double) 100);
+                                                                <b-row class="mb-2"> 
+                                                                    <a href="@variant.Url">
+                                                                       <b-card-img  height="200" width="200" id="main-product-img-@variant.Id" alt="@variant.VendorModel.PictureModel.AlternateText" src="@variant.VendorModel.PictureModel.ImageUrl" class="rounded-0"></b-card-img>
+                                                                    </a>
+                                                                </b-row>
+                                                                <b-row class="mb-2 ml-4">
+                                                                    <div class="rating">
+                                                                        @{
+                                                                            decimal ratingValue = 0;
+                                                                            var reviesCount = variant.VendorModel.NotApprovedTotalReviews + variant.VendorModel.NotApprovedTotalReviews;
+
+                                                                            if (reviesCount != 0)
+                                                                            {
+                                                                                var ratingSum = variant.VendorModel.ApprovedRatingSum + variant.VendorModel.NotApprovedRatingSum;
+                                                                                ratingValue = Convert.ToDecimal(((ratingSum * (double) 100) / reviesCount) / (double) 100);
+                                                                            }
                                                                         }
-                                                                    }
-                                                                    <b-form-rating id="rating-inline-grid-@Model.Id" aria-label="Rating" class="p-0" variant="warning" no-border size="sm" readonly inline value="@(ratingValue)" color="#F15A24"></b-form-rating>
-                                                                    <b-link href="@Url.RouteUrl("Product", new {SeName = Model.SeName})">@string.Format("(0)", reviesCount)</b-link>
-                                                                </div>
+                                                                        <b-form-rating id="rating-inline-grid-@Model.Id" aria-label="Rating" class="p-0" variant="warning" no-border size="sm" readonly inline value="@(ratingValue)" color="#F15A24"></b-form-rating>
+                                                                        <b-link href="@Url.RouteUrl("Product", new {SeName = Model.SeName})">@string.Format("(0)", reviesCount)</b-link>
+                                                                    </div>     
+                                                                </b-row>
                                                             </b-col>
-                                                            <b-col lg="3" md="4">
-                                                                @if (@variant.VendorModel.VendorSpecificationAttributes.Any())
-                                                                {
-                                                                    <div class="spec-container">
+                                                         <b-col lg="3" md="4">
+                                                             @if (@variant.VendorModel.VendorSpecificationAttributes.Any())
+                                                             {
+                                                                 <div class="spec-container">
                                                                            
-                                                                           @{
-                                                                               var group = @variant.VendorModel.VendorSpecificationAttributes.GroupBy(x => x.SpecificationAttributeName);
-                                                                           }
-                                                                           @foreach (var item in group)
-                                                                           {
-                                                                               <div class="spec-name">
-                                                                                   @{
-                                                                                       var groupList = item.ToList();
-                                                                                   }
-                                                                                   @groupList[0].SpecificationAttributeName:
-                                                                               </div>
-                                                                               <div class="spec-value">
-                                                                                   @foreach (var spec in groupList)
-                                                                                   {
-                                                                                       <span >
-                                                                                           @Html.Raw(spec.ValueRaw)
-                                                                                       </span>
-                                                                                   }
-                                                                               </div>
-                                                                           }
-                                                                       </div>
-                                                                }   
-                                                            </b-col>
-                                                            <b-col lg="3" md="4">
-                                                                 <!--delivery-->
-                                                                @if ((variant.FreeShippingNotificationEnabled && Model.IsFreeShipping) || !string.IsNullOrWhiteSpace(variant.DeliveryDate)
-                                                                     || variant.NotReturnable || variant.AdditionalShippingCharge > 0)
-                                                                {
-                                                                    <partial name="_DeliveryInfo" model="variant"/>
-                                                                }
-                                                                <!--sample download-->
-                                                                @if (variant.HasSampleDownload)
-                                                                {
-                                                                    <partial name="_DownloadSample" model="variant"/>
-                                                                }
-                                                                <!--attributes-->
-                                                                @{
-                                                                    if (variant.ProductAttributes.Any())
-                                                                    {
-                                                                        var dataDictAttributes = new ViewDataDictionary(ViewData);
-                                                                        dataDictAttributes.TemplateInfo.HtmlFieldPrefix = string.Format("attributes_{0}", variant.Id);
-                                                                        <partial name="VueProductAttributes" model="variant.ProductAttributes" view-data="dataDictAttributes"/>
-                                                                    }
-                                                                }
-                                                                <!--gift card-->
-                                                                @{
-                                                                    if (variant.GiftCard.IsGiftCard)
-                                                                    {
-                                                                        var dataDictGiftCard = new ViewDataDictionary(ViewData);
-                                                                        dataDictGiftCard.TemplateInfo.HtmlFieldPrefix = string.Format("giftcard_{0}", variant.Id);
-                                                                        <partial name="_GiftCardInfo" model="variant.GiftCard" view-data="dataDictGiftCard"/>
-                                                                    }
-                                                                }
-                                                                <!--price breaks-->
-                                                                @if (variant.TierPrices.Any() && !(variant.TierPrices.Count == 1))
-                                                                {
-                                                                    <partial name="_ProductTierPrices" model="variant.TierPrices"/>
-                                                                }
-                                                                @{
-                                                                    var dataDictAddToCart = new ViewDataDictionary(ViewData);
-                                                                    dataDictAddToCart.TemplateInfo.HtmlFieldPrefix = string.Format("addtocart_{0}", variant.Id);
-                                                                }
-                                                            </b-col>
-                                                            <b-col lg="3" md="4" class="prices" >
-                                                                <b-card-body class="prices">
-                                                                    <!--price & add to cart-->
-                                                                    @{
-                                                                        var dataDictPrice = new ViewDataDictionary(ViewData);
-                                                                        dataDictPrice.TemplateInfo.HtmlFieldPrefix = string.Format("price_{0}", variant.Id);
-                                                                        <a href="@variant.Url">
-                                                                            <span class="actual-price price">@Html.Raw(variant.ProductPrice.Price)</span>
-                                                                        </a>
-                                                                    }
-                                                                </b-card-body>
-                                                            </b-col>
-                                                        </b-row>
-                                                    </b-card>
+                                                                     @{
+                                                                         var group = @variant.VendorModel.VendorSpecificationAttributes.GroupBy(x => x.SpecificationAttributeName);
+                                                                     }
+                                                                     @foreach (var item in group)
+                                                                     {
+                                                                         <div class="vendor-spec-name">
+                                                                             @{
+                                                                                 var groupList = item.ToList();
+                                                                             }
+                                                                             @groupList[0].SpecificationAttributeName:
+                                                                         </div>
+                                                                         <div class="vendor-spec-value">
+                                                                             @foreach (var spec in groupList)
+                                                                             {
+                                                                                 <span >
+                                                                                     @Html.Raw(spec.ValueRaw)
+                                                                                 </span>
+                                                                             }
+                                                                         </div>
+                                                                     }
+                                                                 </div>
+                                                             }   
+                                                         </b-col>
+                                                            <b-col lg="3" md="4" class="prices align-self-center justify-content-center" >
+                                                              @{
+                                                                   var dataDictPrice = new ViewDataDictionary(ViewData);
+                                                                   dataDictPrice.TemplateInfo.HtmlFieldPrefix = string.Format("price_{0}", variant.Id);
+                                                                   <a href="@variant.Url">
+                                                                       <span class="vendor-price">@Html.Raw(variant.ProductPrice.Price)</span>
+                                                                   </a>
+                                                              }
+                                                           </b-col>
+                                                           
+                                                    </b-row>  
+                                                     
+                                                 </b-card>  
                                                 }
 
                                                 @if (Model.AssociatedProducts.Count == 0)

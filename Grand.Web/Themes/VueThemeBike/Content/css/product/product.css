@@ -209,3 +209,38 @@
 .product-collateral .add-to-wishlist-button {
     width: 235px;
 }
+.vendor-spec-name
+{
+    font-family: "Montserrat";
+    font-size: 14px;
+    font-weight: 700;
+    color: #000000;
+    line-height: 1;
+}
+
+.vendor-spec-value
+{
+    font-family: "Montserrat";
+    font-size: 14px;
+    font-weight: 400;
+    color: #000000;
+    line-height: 1;
+}
+
+.vendor-price
+{
+    font-family: "Montserrat";
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+    color: #F15A24;
+}
+
+.vendor-title
+{
+    font-family: "Montserrat";
+    font-size: 24px;
+    font-weight: 400;
+    color: #000000;
+    line-height: 1;
+}
