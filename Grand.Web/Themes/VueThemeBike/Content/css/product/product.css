@@ -244,3 +244,30 @@
     color: #000000;
     line-height: 1;
 }
+
+.product-des-spec-key
+{
+    font-family: "Montserrat";
+    font-size: 14px;
+    color: #999999;
+    font-weight: 400;
+    line-height: 17px;
+}
+
+.product-des-spec-value
+{
+    font-family: "Montserrat";
+    font-size: 14px;
+    color: #000000;
+    line-height: 17px;
+    font-weight: 400;
+}
+
+.details-price
+{
+    font-family: "Montserrat";
+    font-weight: 400;
+    font-size: 24px;
+    color: #000000;
+    line-height: 17px;
+}
