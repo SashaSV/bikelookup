@@ -767,7 +767,7 @@ z-index: 3;
 }
 .product-box .actual-price {
     font-family: "Montserrat";
-    font-size: 18px;
+    font-size: 1rem;
     font-weight: 700;
     color: #000000;
     text-align: center;
