@@ -966,9 +966,12 @@ namespace Grand.Services.ExportImport
             var _filteringAtribute = new List<string> { "manufacturer", "sp_size", "sp_available", "sp_typebike", "sp_for", "sp_material_frame"
                 , "sp_wheeldiams", "sp_type_brake","sp_year","sp_count_speed","sp_type_fork","sp_type_rear_hub","sp_weight_Limit"
                 , "sp_age", "sp_Fork_travel", "sp_equipment", "sp_model", "sp_color" };
+
             var _nonVisibleAtribute = new List<string> { "sp_available", "sp_brand_fork" };
-            var _separeteAtribute = new List<string> {  "sp_typebike", "sp_for", "sp_type_brake", "sp_color" };
-            var _separeteAtributeWithLinq = new List<string> { "sp_size", "sp_model" };
+
+            var _separeteAtribute = new List<string> { "sp_size", "sp_typebike", "sp_for", "sp_type_brake", "sp_color" };
+
+            var _separeteAtributeWithLinq = new List<string> { "sp_model" };
 
             var specificationAttribute = await _specificationAttributeService.GetSpecificationAttributeBySeName(specAtrName);
 
@@ -1000,13 +1003,16 @@ namespace Grand.Services.ExportImport
 
                 foreach (var nameSpecification in nameSpecificationTree)
                 {
-                    var specificationAttributeOption = await _specificationAttributeService.GetSpecificationAttributeByOptionName(specificationAttribute.Id, nameSpecification);
+                    
+                    var nameSpecificationTrim = nameSpecification.Trim();
+
+                    var specificationAttributeOption = await _specificationAttributeService.GetSpecificationAttributeByOptionName(specificationAttribute.Id, nameSpecificationTrim);
 
                     if (specificationAttributeOption == null)
                     {
                         specificationAttributeOption ??= new SpecificationAttributeOption();
-                        specificationAttributeOption.Name = nameSpecification;
-                        specificationAttributeOption.SeName = SeoExtensions.GetSeName(nameSpecification, true, true, nameSpecification);
+                        specificationAttributeOption.Name = nameSpecificationTrim;
+                        specificationAttributeOption.SeName = SeoExtensions.GetSeName(nameSpecification, true, true, nameSpecificationTrim);
                         specificationAttributeOption.ParentSpecificationAttrOptionId = parantSpecAttrOptionId;
                         await _specificationAttributeService.UpdateSpecificationAttributeOption(specificationAttribute, specificationAttributeOption);
                     }
