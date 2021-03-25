@@ -1,78 +1,56 @@
 ﻿@model IList<ProductSpecificationModel>
+@using System.Linq;
 <div class="spec-container table-responsive">
     @{
         var group = Model.GroupBy(x => x.SpecificationAttributeName);
+        var optionsByGroup = new Dictionary<string, List<string>>()
+        {
+            {"general", new List<string> {"sp_year", "sp_typebike", "sp_for", "sp_age", "sp_height", "sp_size"}},
+            {"transmission", new List<string> {"sp_equipment", "sp_count_speed", "sp_shift", "sp_front_derailleur", "sp_rear_derailleur", "sp_cassette", "sp_chain"}},
+            {"frameset", new List<string> {"sp_material_frame", "sp_type_fork", "sp_brand_fork", "sp_frame", "sp_fork", "sp_Fork_travel", "sp_seatpost", "sp_headset", "sp_carriage","sp_rear_shock_absorber"}},
+            {"brakes", new List<string> {"sp_type_brake", "sp_front_brake", "sp_rear_brake", "sp_front_rotor", "sp_rear_rotor", "sp_brakes", "sp_brake_levers"}},
+            {"wheels", new List<string> {"sp_wheeldiams", "sp_front_hub", "sp_type_rear_hub", "sp_rear_hub", "sp_rims", "sp_weels", "sp_hubs","sp_tyres","sp_front_tyre", "sp_rear_tyre", "sp_spokes"}},
+            {"other", new List<string> {"sp_handlebars", "sp_stem", "sp_weight_Limit", "sp_weight_bike", "sp_grips", "sp_sedals", "sp_saddle","sp_other"}},
+            {"e-motor", new List<string> {"sp_Motor", "sp_battery", "sp_charger", "sp_display"}}
+        };
+        
+        var icons = new Dictionary<string, string>()
+        {
+            {"general","/Themes/VueThemeBike/Content/images/general.svg" },
+            {"transmission", ""},  
+            {"frameset",""} , 
+            {"brakes", ""},  
+            {"wheels", ""},  
+            {"other",""},  
+            {"motor", ""},  
+        };
     }
-    <b-row>
-        <b-col>
-            <b-button v-b-toggle.collapse-1 class="category-spec shadow-none">
-                 Трасмисия
-                <span class="when-open">
-                    <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M10.091 0C15.6634 0 20.1819 4.51852 20.1819 10.091C20.1819 15.6634 15.6634 20.1819 10.091 20.1819C4.51785 20.1819 0 15.6637 0 10.091C0 4.51818 4.51785 0 10.091 0ZM10.091 1.51364C5.35383 1.51364 1.51364 5.35412 1.51364 10.091C1.51364 14.8278 5.35383 18.6683 10.091 18.6683C14.8274 18.6683 18.6683 14.8274 18.6683 10.091C18.6683 5.35448 14.8274 1.51364 10.091 1.51364ZM14.0423 8.02614L14.1273 8.09924C14.3966 8.36735 14.4219 8.78775 14.2027 9.0845L14.1296 9.16954L10.6271 12.6873C10.3581 12.9573 9.93619 12.9819 9.63945 12.7609L9.55445 12.6873L6.05188 9.16954C5.75696 8.87335 5.758 8.39416 6.05419 8.09924C6.32346 7.83113 6.74396 7.80761 7.03977 8.02808L7.1245 8.10155L10.0898 11.0799L13.057 8.10155C13.3251 7.83228 13.7455 7.80695 14.0423 8.02614Z" fill="#200E32"/>
-                    </svg>
-                </span>
-                <span class="when-closed">
-                    <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M10.091 0C15.6634 0 20.1819 4.51852 20.1819 10.091C20.1819 15.6634 15.6634 20.1819 10.091 20.1819C4.51785 20.1819 0 15.6637 0 10.091C0 4.51818 4.51785 0 10.091 0ZM10.091 1.51364C5.35383 1.51364 1.51364 5.35412 1.51364 10.091C1.51364 14.8278 5.35383 18.6683 10.091 18.6683C14.8274 18.6683 18.6683 14.8274 18.6683 10.091C18.6683 5.35448 14.8274 1.51364 10.091 1.51364ZM14.0423 8.02614L14.1273 8.09924C14.3966 8.36735 14.4219 8.78775 14.2027 9.0845L14.1296 9.16954L10.6271 12.6873C10.3581 12.9573 9.93619 12.9819 9.63945 12.7609L9.55445 12.6873L6.05188 9.16954C5.75696 8.87335 5.758 8.39416 6.05419 8.09924C6.32346 7.83113 6.74396 7.80761 7.03977 8.02808L7.1245 8.10155L10.0898 11.0799L13.057 8.10155C13.3251 7.83228 13.7455 7.80695 14.0423 8.02614Z" fill="#200E32"/>
-                    </svg>
-                </span>
-            </b-button>
-          <b-collapse id="collapse-1" class="mt-2">
-              <b-card>
-                  <p class="card-text">Collapse contents Here</p>
-              </b-card>
-          </b-collapse>
-        </b-col>
-        <b-col> 
-        </b-col>
-    </b-row>
-    <b-row></b-row>
-    <b-row></b-row>
-    <table class="table data-table border-bottom-0">
-        <colgroup>
-            <col />
-            <col />
-        </colgroup>
-        <tbody>
-            @foreach (var item in group)
-            {
-                <tr class="spec">
-                    <td class="border-bottom border-top-0">
-                        <div class="spec-name">
-                            @{
-                                var groupList = item.ToList();
-                            }
-                            @groupList[0].SpecificationAttributeName:
-                        </div>
-                    </td>
-                    <td class="border-bottom border-top-0">
-                        @{
-                            var groupList2 = item.ToList();
-                        }
-                        <div class="spec-value d-inline-flex w-100">
-                            @foreach (var spec in groupList)
-                            {
-                                @if (String.IsNullOrEmpty(spec.ColorSquaresRgb))
-                                {
-                                    <div class="mb-2 mr-2">
-                                        @Html.Raw(spec.ValueRaw)
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="color-squares mb-2 mr-2">
-                                        <span class="color-container" title="@Html.Raw(spec.ValueRaw)">
-                                            <span class="color" style="background-color: @(spec.ColorSquaresRgb);">&nbsp;</span>
-                                        </span>
-                                    </div>
-                                }
-                            }
-                        </div>
-                    </td>
 
-                </tr>
+    @{
+        var rows = 3;
+        var rowSize = 2;
+    }
+    
+    @for (var row = 0; row < rows; row++ )
+    {
+        
+        var cols = optionsByGroup
+            .Skip(rowSize * row)
+            .Take(rowSize);
+        <b-row>
+        @foreach (var options in cols)
+        {
+            var generalOptiongroup = options.Key;
+            var generalOptionKeys = optionsByGroup[generalOptiongroup];
+            var generalOptions = group.FirstOrDefault(o => generalOptionKeys.Contains(o.Key));
+            if (generalOptions != null)
+            {
+                var models = generalOptions.Select(gr => gr);
+                <b-col> <partial name="_SpecGroup" model=" new SpecGroupModel(){Specs = models.ToList(), Icon = icons[generalOptiongroup], Name = generalOptiongroup}"/></b-col>
+                continue;
             }
-        </tbody>
-    </table>
+            <b-col> <partial name="_SpecGroup" model="new SpecGroupModel{Specs = new List<ProductSpecificationModel>(), Icon = icons[generalOptiongroup], Name = generalOptiongroup}"/></b-col>
+        }
+        </b-row>
+    }
 </div>
