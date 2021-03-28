@@ -83,7 +83,7 @@
                     <b-row>
                         <b-col cols="12" class="px-0 my-3">
                             <b-row>
-                                <b-tabs content-class="mt-3" align="left">
+                                <b-tabs content-class="mt-3" align="left" lazy="true">
                                     <b-tab title="@T("Products.Sellers")" active>
                                         <partial name="_ProductHeader" model="Model"/>
                                         <div class="product-collateral">
@@ -98,13 +98,13 @@
                                                          </a>
                                                      </b-row>
                                                      <b-row>        
-                                                            <b-col lg="3" md="4">
+                                                            <b-col lg="3" md="4" class="ml-4 mr-2" >
                                                                 <b-row class="mb-2"> 
                                                                     <a href="@variant.Url">
-                                                                       <b-card-img  height="200" width="200" id="main-product-img-@variant.Id" alt="@variant.VendorModel.PictureModel.AlternateText" src="@variant.VendorModel.PictureModel.ImageUrl" class="rounded-0"></b-card-img>
+                                                                       <b-card-img fluid-grow="true" fluid="true" height="100" width="100" id="main-product-img-@variant.Id" alt="@variant.VendorModel.PictureModel.AlternateText" src="@variant.VendorModel.PictureModel.ImageUrl" class="rounded-0"></b-card-img>
                                                                     </a>
                                                                 </b-row>
-                                                                <b-row class="mb-2 ml-4">
+                                                                <b-row class="mb-2 ml-4 mr-4">
                                                                     <div class="rating">
                                                                         @{
                                                                             decimal ratingValue = 0;
@@ -174,18 +174,18 @@
                                         </div>
                                     </b-tab>
                                     <b-tab title="@T("Products.Specs")">
-                                        <partial name="_ProductHeader" model="Model"/>
+                                        <partial name="_ProductProposals" model="Model"/>
                                         <partial name="ProductDescBox" model="Model"/>
                                     </b-tab>    
                                     <b-tab title="@T("Products.ContactUs")">
-                                        <partial name="_ProductHeader" model="Model"/>
+                                        <partial name="_ProductProposals" model="Model"/>
                                         <partial name="_AskQuestionOnProduct" model="Model.ProductAskQuestion"/>
                                     </b-tab>
                                     <b-tab id="review-tab" title="@T("Products.Reviews")" :active="active ? true : false">
-                                        <partial name="_ProductHeader" model="Model"/>
+                                        <partial name="_ProductProposals" model="Model"/>
                                         @await Component.InvokeAsync("ProductReviews", new {productId = Model.Id})
                                     </b-tab>
-                                    </b-tabs>
+                                </b-tabs>
                             </b-row>      
                         </b-col>
                     </b-row>

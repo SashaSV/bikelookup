@@ -31,14 +31,15 @@ namespace Grand.Web.Features.Handlers.Vendors
         {
             if (request.Vendor == null)
                  throw new ArgumentNullException("product");
-                                      
-           string cacheKey = string.Format(ModelCacheEventConst.VENDOR_SPECS_MODEL_KEY, request.Vendor.Id, request.Language.Id);
+            
+          
+            string cacheKey = string.Format(ModelCacheEventConst.VENDOR_SPECS_MODEL_KEY, request.Vendor.Id, request.Language.Id);
            return await _cacheManager.GetAsync(cacheKey, async () =>
            {
               var spa = new List<ProductSpecificationModel>();
               foreach (var item in request.Vendor.VendorSpecificationAttributes.Where(x => x.ShowOnProductPage).OrderBy(x => x.DisplayOrder))
               {
-                var specificationAttribute = await _specificationAttributeService.GetSpecificationAttributeById(item.SpecificationAttributeId);
+                var specificationAttribute = await _specificationAttributeService.GetSpecificationAttributeById(item.SpecificationAttributeId); 
                 var m = new ProductSpecificationModel {
                      SpecificationAttributeId = item.SpecificationAttributeId,
                      SpecificationAttributeName = specificationAttribute.GetLocalized(x => x.Name, request.Language.Id),

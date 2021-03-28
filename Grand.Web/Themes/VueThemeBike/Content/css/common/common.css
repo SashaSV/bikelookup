@@ -890,6 +890,7 @@ z-index: 3;
     color: #F15A24;
 	border: 0;
 }
+
 .product-box .proposal-value {
 	position: relative;
     margin: 0 0 0 5px;
@@ -901,6 +902,7 @@ z-index: 3;
 	border: 0; 
     color: #000000;
 }
+
 .product-box .spec-value span:not(:first-child):not(:last-child)::after,
 .product-box .spec-value span:not(:last-child)::after {
 	content: ",";

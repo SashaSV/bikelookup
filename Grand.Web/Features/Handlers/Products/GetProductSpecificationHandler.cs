@@ -35,15 +35,21 @@ namespace Grand.Web.Features.Handlers.Products
             return await _cacheManager.GetAsync(cacheKey, async () =>
             {
                 var spa = new List<ProductSpecificationModel>();
-                foreach (var item in request.Product.ProductSpecificationAttributes.Where(x => x.ShowOnProductPage).OrderBy(x => x.DisplayOrder))
+                foreach (var item in request.Product.ProductSpecificationAttributes.OrderBy(x => x.DisplayOrder))
                 {
                     var specificationAttribute = await _specificationAttributeService.GetSpecificationAttributeById(item.SpecificationAttributeId);
+                    
+                    var option =
+                        specificationAttribute.SpecificationAttributeOptions.FirstOrDefault(x =>
+                            x.Id == item.SpecificationAttributeOptionId);
+                    
                     var m = new ProductSpecificationModel {
                         SpecificationAttributeId = item.SpecificationAttributeId,
                         SpecificationAttributeName = specificationAttribute.GetLocalized(x => x.Name, request.Language.Id),
-                        ColorSquaresRgb = specificationAttribute.SpecificationAttributeOptions.Where(x => x.Id == item.SpecificationAttributeOptionId).FirstOrDefault() != null ? specificationAttribute.SpecificationAttributeOptions.Where(x => x.Id == item.SpecificationAttributeOptionId).FirstOrDefault().ColorSquaresRgb : "",
+                        ColorSquaresRgb = option?.ColorSquaresRgb ?? "",
                         GenericAttributes = specificationAttribute.GenericAttributes,
-                    };
+                        ShowOnProductMainPage = item.ShowOnProductPage
+                       };
 
                     switch (item.AttributeType)
                     {

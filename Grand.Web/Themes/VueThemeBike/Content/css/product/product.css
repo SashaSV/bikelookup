@@ -196,7 +196,7 @@
     right: 0;
 }
 .product-details-page .nav-tabs .nav-link.active::before {
-    background: #17a2b8;
+    background: #F15A24;
     left: 0;
     right: 0;
 }
@@ -331,4 +331,22 @@
     flex-grow: 1;
     border-bottom: 1px solid black;
     margin-right: 5px;
+}
+
+.proposal-name {
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 17px;
+    color: #F15A24;
+}
+
+.proposal-value {
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 17px;
+    color: #000000;
 }

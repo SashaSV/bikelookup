@@ -17,49 +17,29 @@
                  @Model.ProductPrice.Price
              </div>
          </b-row>
-         @if (Model.ProductSpecifications.Any())
+         @if (Model.AssociatedProducts.Any())
          {
-             <b-row class="mb-4">
-                 <div class="spec-container">
-                     @{
-                         var group = Model.ProductSpecifications.Where(atr => atr.ShowOnProductMainPage).GroupBy(x => x.SpecificationAttributeName);
-                     }
-                     <table>
-                         <tbody>
-                         @foreach (var item in group)
-                         {
-                             <tr class="spec">
-                                 <td>
-                                     <div class="product-des-spec-key">
-                                         @{
-                                             var groupList = item.ToList();
-                                         }
-                                         @groupList[0].SpecificationAttributeName:
-                                     </div>
-                                 </td>
-                                 <td>
-                                     @{
-                                         var groupList2 = item.ToList();
-                                     }
-                                     <div class="product-des-spec-value">
-                                         @foreach (var spec in groupList)
-                                         {
-                                             <span>
-                                                 @Html.Raw(spec.ValueRaw)
-                                             </span>
-                                         }
-                                     </div>
-                                 </td>
-
-                             </tr>
-                         }
-                         </tbody>
-                     </table>
-                 </div>
-            </b-row>
+             @foreach (var assocProduct in Model.AssociatedProducts)
+             {
+                 <b-row class="mb-4">
+                     <b-col class="pl-0">
+                           <a href="@assocProduct.Url" class="proposal-name">
+                              <div >
+                                  @assocProduct.VendorModel.Name
+                              </div>
+                          </a>
+                     </b-col>
+                     <b-col>
+                         <a href="@assocProduct.Url" class="proposal-value">
+                             <div>
+                                 @assocProduct.ProductPrice.Price
+                             </div>
+                         </a>
+                     </b-col>
+                 </b-row>
+             }
          }
-        
-         <b-row align-h="between" class="prod-controls mb-4">
+         <b-row align-v="end" align-h="between" class="prod-controls mb-4">
              <div class="heart_prod" v-on:click="AxiosCart.addproducttocart_catalog('@addtowishlistlink', 'false', '@Model.Id');return false;">
                  <svg class="heart_icon_prod">
                      <path class="heart_icon_prod" xmlns="http://www.w3.org/2000/svg" d="M5.66287 0.398262C7.88261 -0.31575 10.2845 -0.0588126 12.2943 1.08156L12.627 1.28121L12.9657 1.08044C14.8711 0.00164358 17.1314 -0.286627 19.2585 0.298398L19.5941 0.398336C24.2333 1.89195 26.3105 6.95749 24.7499 11.8044C23.9675 14.0591 22.6843 16.1033 20.9904 17.7883C18.6855 20.0267 16.1447 22.0035 13.417 23.6807L13.1275 23.8607C12.8334 24.0435 12.4618 24.0466 12.1648 23.8688L11.8546 23.6831C9.1232 22.0035 6.58233 20.0267 4.26952 17.7805C2.58359 16.1033 1.30038 14.0591 0.511351 11.7847C-1.04354 6.95455 1.02507 1.89142 5.66287 0.398262ZM11.8417 2.97382C10.1944 1.84786 8.12629 1.54533 6.22931 2.15552C2.63679 3.31215 1.0081 7.29854 2.26367 11.1996C2.95423 13.1896 4.08638 14.9931 5.56524 16.4644C7.77316 18.6087 10.2069 20.5021 12.8135 22.1051L12.6332 21.9914L13.2242 21.6197C15.2874 20.2875 17.2308 18.7758 19.0277 17.1058L19.6947 16.4722C21.1815 14.9931 22.3136 13.1896 22.9976 11.2194C24.2586 7.30227 22.6228 3.31306 19.0283 2.15582C17.0365 1.51683 14.8623 1.88282 13.1823 3.14053C12.8598 3.382 12.4177 3.38667 12.0902 3.15206L11.8417 2.97382ZM17.5203 5.03209C19.1895 5.56486 20.3732 7.05927 20.5209 8.81498C20.5637 9.32299 20.1861 9.76943 19.6777 9.81214C19.1693 9.85484 18.7225 9.47764 18.6797 8.96963C18.5944 7.95541 17.9134 7.0956 16.9581 6.7907C16.4721 6.63557 16.2039 6.11614 16.3592 5.63051C16.5144 5.14489 17.0343 4.87696 17.5203 5.03209Z" fill="#dc3545"/>
