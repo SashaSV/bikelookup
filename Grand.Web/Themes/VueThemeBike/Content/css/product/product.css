@@ -317,3 +317,18 @@
     outline: none;
     border-style: none !important;
 }
+
+.detailedSpecName{
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    color: #000000;
+}
+
+.underline {
+    flex-grow: 1;
+    border-bottom: 1px solid black;
+    margin-right: 5px;
+}
