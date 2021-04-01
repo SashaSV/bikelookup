@@ -45,6 +45,7 @@ namespace Grand.Web.Features.Handlers.Products
                     
                     var m = new ProductSpecificationModel {
                         SpecificationAttributeId = item.SpecificationAttributeId,
+                        SpecificationAttributeCode = specificationAttribute.Name,
                         SpecificationAttributeName = specificationAttribute.GetLocalized(x => x.Name, request.Language.Id),
                         ColorSquaresRgb = option?.ColorSquaresRgb ?? "",
                         GenericAttributes = specificationAttribute.GenericAttributes,

@@ -20000,4 +20000,25 @@
   <LocaleResource Name="Edit">
     <Value>Редагувати</Value>
   </LocaleResource>
+    <LocaleResource Name="general">
+        <Value>ЗАГАЛЬНА</Value>
+    </LocaleResource>
+    <LocaleResource Name="transmission">
+        <Value>ТРАНСМІССІЯ</Value>
+    </LocaleResource>
+    <LocaleResource Name="frameset">
+        <Value>РАМА</Value>
+    </LocaleResource>
+    <LocaleResource Name="brakes">
+        <Value>ГАЛЬМА</Value>
+    </LocaleResource>
+    <LocaleResource Name="wheels">
+        <Value>КОЛЕСА</Value>
+    </LocaleResource>
+    <LocaleResource Name="other">
+        <Value>ІНШЕ</Value>
+    </LocaleResource>
+    <LocaleResource Name="e-motor">
+        <Value>ДВИГУН</Value>
+    </LocaleResource>
 </Language>

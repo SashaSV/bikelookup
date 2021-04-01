@@ -19999,4 +19999,25 @@
   <LocaleResource Name="Edit">
     <Value>редактировать</Value>
   </LocaleResource>
+    <LocaleResource Name="general">
+        <Value>ОБЩАЯ </Value>
+    </LocaleResource>
+    <LocaleResource Name="transmission">
+        <Value>ТРАНСМИССИЯ</Value>
+    </LocaleResource>
+    <LocaleResource Name="frameset">
+        <Value>РАМА</Value>
+    </LocaleResource>
+    <LocaleResource Name="brakes">
+        <Value>ТОРМОЗА</Value>
+    </LocaleResource>
+    <LocaleResource Name="wheels">
+        <Value>КОЛЕСА</Value>
+    </LocaleResource>
+    <LocaleResource Name="other">
+        <Value>ПРОЧЕЕ</Value>
+    </LocaleResource>
+    <LocaleResource Name="e-motor">
+        <Value>МОТОР</Value>
+    </LocaleResource>
 </Language>

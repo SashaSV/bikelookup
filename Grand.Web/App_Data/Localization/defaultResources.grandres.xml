@@ -21562,4 +21562,28 @@
   <LocaleResource Name="Wishlist.YourWishlistURL">
     <Value>Your wishlist URL for sharing</Value>
   </LocaleResource>
+  <LocaleResource Name="Wishlist.YourWishlistURL">
+    <Value>Your wishlist URL for sharing</Value>
+  </LocaleResource>
+  <LocaleResource Name="general">
+    <Value>General</Value>
+  </LocaleResource>
+  <LocaleResource Name="transmission">
+    <Value>Transmission</Value>
+  </LocaleResource>
+  <LocaleResource Name="frameset">
+    <Value>Frameset</Value>
+  </LocaleResource>
+  <LocaleResource Name="brakes">
+    <Value>Brakes</Value>
+  </LocaleResource>
+  <LocaleResource Name="wheels">
+    <Value>Wheels</Value>
+  </LocaleResource>
+  <LocaleResource Name="other">
+    <Value>Other</Value>
+  </LocaleResource>
+  <LocaleResource Name="e-motor">
+    <Value>E-Motor</Value>
+  </LocaleResource>
 </Language>
