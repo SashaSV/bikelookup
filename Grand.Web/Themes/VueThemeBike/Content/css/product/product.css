@@ -350,3 +350,7 @@
     line-height: 17px;
     color: #000000;
 }
+
+.bt-lbl{
+    text-transform: uppercase;
+}

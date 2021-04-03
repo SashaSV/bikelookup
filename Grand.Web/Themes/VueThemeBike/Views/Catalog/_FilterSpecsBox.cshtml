@@ -22,7 +22,8 @@
                                 </li>
                                 <li>
                                     <b-button-group size="sm" class="d-inline-flex flex-wrap">
-                                        @foreach (var spec in groupList)
+                                        @foreach (var spec in 
+                                            groupList.GroupBy(sp => sp.SpecificationAttributeOptionName).Select(gr => gr.First()))
                                         {
 
                                             @if (String.IsNullOrEmpty(spec.SpecificationAttributeOptionColorRgb))
