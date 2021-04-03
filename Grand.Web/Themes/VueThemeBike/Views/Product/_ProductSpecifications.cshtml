@@ -5,7 +5,7 @@
         var group = Model.GroupBy(x => x.SpecificationAttributeCode);
         var optionsByGroup = new Dictionary<string, List<string>>()
         {
-            {"general", new List<string> {"sp_year", "sp_typebike", "sp_for", "sp_age", "sp_height", "sp_size"}},
+            {"general", new List<string> {"sp_year", "sp_typebike", "sp_for", "sp_age", "sp_height", "sp_size", "manufacturer"}},
             {"transmission", new List<string> {"sp_equipment", "sp_count_speed", "sp_shift", "sp_front_derailleur", "sp_rear_derailleur", "sp_cassette", "sp_chain"}},
             {"frameset", new List<string> {"sp_material_frame", "sp_type_fork", "sp_brand_fork", "sp_frame", "sp_fork", "sp_Fork_travel", "sp_seatpost", "sp_headset", "sp_carriage","sp_rear_shock_absorber"}},
             {"brakes", new List<string> {"sp_type_brake", "sp_front_brake", "sp_rear_brake", "sp_front_rotor", "sp_rear_rotor", "sp_brakes", "sp_brake_levers"}},
@@ -42,10 +42,10 @@
         {
             var generalOptiongroup = options.Key;
             var generalOptionKeys = optionsByGroup[generalOptiongroup];
-            var generalOptions = group.FirstOrDefault(o => generalOptionKeys.Contains(o.Key));
+            var generalOptions = group.Where(o => generalOptionKeys.Contains(o.Key));
             if (generalOptions != null)
             {
-                var models = generalOptions.Select(gr => gr);
+                var models = generalOptions.SelectMany(gr => (IEnumerable<ProductSpecificationModel>)gr);
                 <b-col> <partial name="_SpecGroup" model=" new SpecGroupModel(){Specs = models.ToList(), Icon = icons[generalOptiongroup], Name = generalOptiongroup}"/></b-col>
                 continue;
             }
