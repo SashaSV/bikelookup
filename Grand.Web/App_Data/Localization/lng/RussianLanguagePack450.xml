@@ -20020,4 +20020,10 @@
     <LocaleResource Name="e-motor">
         <Value>МОТОР</Value>
     </LocaleResource>
+    <LocaleResource Name="Add_to_wishlist">
+        <Value>В избраное</Value>
+    </LocaleResource>
+    <LocaleResource Name="Add_to_compare">
+        <Value>Добавить в сравнение</Value>
+    </LocaleResource>
 </Language>

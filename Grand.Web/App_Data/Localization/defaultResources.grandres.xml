@@ -21586,4 +21586,10 @@
   <LocaleResource Name="e-motor">
     <Value>E-Motor</Value>
   </LocaleResource>
+  <LocaleResource Name="Add_to_wishlist">
+    <Value>Add to wishlist</Value>
+  </LocaleResource>
+  <LocaleResource Name="Add_to_compare">
+    <Value>Add to compare</Value>
+  </LocaleResource>
 </Language>
