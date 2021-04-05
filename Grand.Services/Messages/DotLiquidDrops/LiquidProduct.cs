@@ -46,6 +46,25 @@ namespace Grand.Services.Messages.DotLiquidDrops
             get { return _product.Url; }
         }
 
+        public string ManufactureName {
+            get { return _product.ManufactureName; }
+        }
+
+        public string Model {
+            get { return _product.Model; }
+        }
+
+        public string Year {
+            get { return _product.Year; }
+        }
+
+        public string Color {
+            get { return _product.Color; }
+        }
+
+        public string Size {
+            get { return _product.Size; }
+        }
         public string StockQuantity
         {
             get { return _product.GetTotalStockQuantity().ToString(); }

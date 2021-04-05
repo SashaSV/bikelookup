@@ -72,6 +72,21 @@ namespace Grand.Web.Areas.Admin.Models.Catalog
         [GrandResourceDisplayName("Admin.Catalog.Products.Fields.Url")]
         public string Url { get; set; }
 
+        [GrandResourceDisplayName("Admin.Catalog.Products.Fields.ManufactureName")]
+        public string ManufactureName { get; set; }
+
+        [GrandResourceDisplayName("Admin.Catalog.Products.Fields.Model")]
+        public string Model { get; set; }
+
+        [GrandResourceDisplayName("Admin.Catalog.Products.Fields.Year")]
+        public string Year { get; set; }
+
+        [GrandResourceDisplayName("Admin.Catalog.Products.Fields.Color")]
+        public string Color { get; set; }
+
+        [GrandResourceDisplayName("Admin.Catalog.Products.Fields.Size")]
+        public string Size { get; set; }
+
         [GrandResourceDisplayName("Admin.Catalog.Products.Fields.FullDescription")]
         public string FullDescription { get; set; }
 
@@ -1215,6 +1230,21 @@ namespace Grand.Web.Areas.Admin.Models.Catalog
         [GrandResourceDisplayName("Admin.Catalog.Products.Fields.Url")]
 
         public string Url { get; set; }
+
+        [GrandResourceDisplayName("Admin.Catalog.Products.Fields.ManufactureName")]
+        public string ManufactureName { get; set; }
+
+        [GrandResourceDisplayName("Admin.Catalog.Products.Fields.Model")]
+        public string Model { get; set; }
+
+        [GrandResourceDisplayName("Admin.Catalog.Products.Fields.Year")]
+        public string Year { get; set; }
+
+        [GrandResourceDisplayName("Admin.Catalog.Products.Fields.Color")]
+        public string Color { get; set; }
+
+        [GrandResourceDisplayName("Admin.Catalog.Products.Fields.Size")]
+        public string Size { get; set; }
 
         [GrandResourceDisplayName("Admin.Catalog.Products.Fields.FullDescription")]
 

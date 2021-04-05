@@ -322,6 +322,11 @@ namespace Grand.Services.ExportImport
                 xmlWriter.WriteElementString("Name", null, product.Name);
                 xmlWriter.WriteElementString("ShortDescription", null, product.ShortDescription);
                 xmlWriter.WriteElementString("Url", null, product.Url);
+                xmlWriter.WriteElementString("ManufactureName", null, product.ManufactureName);
+                xmlWriter.WriteElementString("Model", null, product.Model);
+                xmlWriter.WriteElementString("Year", null, product.Year);
+                xmlWriter.WriteElementString("Color", null, product.Color);
+                xmlWriter.WriteElementString("Size", null, product.Size);
                 xmlWriter.WriteElementString("FullDescription", null, product.FullDescription);
                 xmlWriter.WriteElementString("Flag", null, product.Flag);
                 xmlWriter.WriteElementString("AdminComment", null, product.AdminComment);
@@ -591,6 +596,12 @@ namespace Grand.Services.ExportImport
                 new PropertyByName<Product>("ParentGroupedProductId", p => p.ParentGroupedProductId),
                 new PropertyByName<Product>("VisibleIndividually", p => p.VisibleIndividually),
                 new PropertyByName<Product>("Name", p => p.Name),
+                new PropertyByName<Product>("ShortDescription", p => p.Url),
+                new PropertyByName<Product>("ShortDescription", p => p.ManufactureName),
+                new PropertyByName<Product>("ShortDescription", p => p.Model),
+                new PropertyByName<Product>("ShortDescription", p => p.Year),
+                new PropertyByName<Product>("ShortDescription", p => p.Color),
+                new PropertyByName<Product>("ShortDescription", p => p.Size),
                 new PropertyByName<Product>("ShortDescription", p => p.ShortDescription),
                 new PropertyByName<Product>("FullDescription", p => p.FullDescription),
                 new PropertyByName<Product>("Flag", p => p.Flag),

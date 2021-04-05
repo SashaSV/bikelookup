@@ -550,6 +550,41 @@
                 </div>
             </div>
             <div class="form-group">
+                <admin-label asp-for="@Model.Locales[item].ManufactureName" />
+                <div class="col-md-9 col-sm-9">
+                    <admin-textarea asp-for="@Model.Locales[item].ManufactureName"></admin-textarea>
+                    <span asp-validation-for="@Model.Locales[item].ManufactureName"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <admin-label asp-for="@Model.Locales[item].Model" />
+                <div class="col-md-9 col-sm-9">
+                    <admin-textarea asp-for="@Model.Locales[item].Model"></admin-textarea>
+                    <span asp-validation-for="@Model.Locales[item].Model"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <admin-label asp-for="@Model.Locales[item].Year" />
+                <div class="col-md-9 col-sm-9">
+                    <admin-textarea asp-for="@Model.Locales[item].Year"></admin-textarea>
+                    <span asp-validation-for="@Model.Locales[item].Year"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <admin-label asp-for="@Model.Locales[item].Color" />
+                <div class="col-md-9 col-sm-9">
+                    <admin-textarea asp-for="@Model.Locales[item].Color"></admin-textarea>
+                    <span asp-validation-for="@Model.Locales[item].Color"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <admin-label asp-for="@Model.Locales[item].Size" />
+                <div class="col-md-9 col-sm-9">
+                    <admin-textarea asp-for="@Model.Locales[item].Size"></admin-textarea>
+                    <span asp-validation-for="@Model.Locales[item].Size"></span>
+                </div>
+            </div>
+            <div class="form-group">
                 <admin-label asp-for="@Model.Locales[item].FullDescription" />
                 <div class="col-md-9 col-sm-9">
                     <admin-input asp-for="@Model.Locales[item].FullDescription" asp-template="RichEditor" />
@@ -579,10 +614,46 @@
             <div class="form-group">
                 <admin-label asp-for="Url" />
                 <div class="col-md-9 col-sm-9">
-                    <admin-textarea asp-for="Url"></admin-textarea>
+                    <admin-input asp-for="Url" />
                     <span asp-validation-for="Url"></span>
                 </div>
             </div>
+            <div class="form-group">
+                <admin-label asp-for="ManufactureName" />
+                <div class="col-md-9 col-sm-9">
+                    <admin-input asp-for="ManufactureName" />
+                    <span asp-validation-for="ManufactureName"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <admin-label asp-for="Model" />
+                <div class="col-md-9 col-sm-9">
+                    <admin-input asp-for="Model" />
+                    <span asp-validation-for="Model"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <admin-label asp-for="Year" />
+                <div class="col-md-9 col-sm-9">
+                    <admin-input asp-for="Year" />
+                    <span asp-validation-for="Year"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <admin-label asp-for="Color" />
+                <div class="col-md-9 col-sm-9">
+                    <admin-input asp-for="Color" />
+                    <span asp-validation-for="Color"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <admin-label asp-for="Size" />
+                <div class="col-md-9 col-sm-9">
+                    <admin-input asp-for="Size"/>
+                    <span asp-validation-for="Size"></span>
+                </div>
+            </div>
+
             <div class="form-group">
                 <admin-label asp-for="FullDescription" />
                 <div class="col-md-9 col-sm-9">

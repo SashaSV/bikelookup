@@ -69,6 +69,31 @@ namespace Grand.Domain.Catalog
         public string Url { get; set; }
 
         /// <summary>
+        /// Gets or sets the ManufactoreName
+        /// </summary>
+        public string ManufactureName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Model
+        /// </summary>
+        public string Model { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Year
+        /// </summary>
+        public string Year { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Color
+        /// </summary>
+        public string Color { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Size
+        /// </summary>
+        public string Size { get; set; }
+
+        /// <summary>
         /// Gets or sets the full dUrlescription
         /// </summary>
         public string FullDescription { get; set; }
