@@ -8,6 +8,8 @@ namespace Grand.Web.Models.Catalog
 
         public string SpecificationAttributeName { get; set; }
 
+        public string SpecificationAttributeCode { get; set; }
+
         //this value is already HTML encoded
         public string ValueRaw { get; set; }
         public string ColorSquaresRgb { get; set; }

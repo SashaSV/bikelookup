@@ -486,8 +486,8 @@ namespace Grand.Web.Features.Handlers.Products
                                                         FullSizeImageUrl = await _pictureService.GetPictureUrl(vendor.PictureId),
                                                         ImageUrl = await _pictureService.GetPictureUrl(vendor.PictureId, _mediaSettings.VendorThumbPictureSize),
                                                         Title = string.Format(_localizationService.GetResource("Media.Vendor.ImageLinkTitleFormat"), vendor.Name),
-                                                        AlternateText = string.Format(_localizationService.GetResource("Media.Vendor.ImageAlternateTextFormat"), vendor.Name)
-                                                    };
+                                                        AlternateText = string.Format(_localizationService.GetResource("Media.Vendor.ImageAlternateTextFormat"), vendor.Name),
+                    };
                     return new VendorBriefInfoModel {
                         Id = vendor.Id,
                         Name = vendor.GetLocalized(x => x.Name, _workContext.WorkingLanguage.Id),

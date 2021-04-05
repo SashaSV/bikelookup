@@ -2,7 +2,7 @@
 @using System.Linq;
 <div class="spec-container table-responsive">
     @{
-        var group = Model.GroupBy(x => x.SpecificationAttributeName);
+        var group = Model.GroupBy(x => x.SpecificationAttributeCode);
         var optionsByGroup = new Dictionary<string, List<string>>()
         {
             {"general", new List<string> {"sp_year", "sp_typebike", "sp_for", "sp_age", "sp_height", "sp_size"}},
