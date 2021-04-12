@@ -37,6 +37,11 @@ namespace Grand.Web.Models.Catalog
         public string Flag { get; set; }
         
         public string Url {get; set;}
+        public string ManufactureName { get; set; }
+        public string Model { get; set; }
+        public string Year { get; set; }
+        public string Color { get; set; }
+        public string Size { get; set; }
         public string Gtin { get; set; }
         public string ManufacturerPartNumber { get; set; }
         public bool IsFreeShipping { get; set; }

@@ -6,6 +6,7 @@ using Grand.Domain.Messages;
 using Grand.Domain.Seo;
 using Grand.Domain.Shipping;
 using Grand.Domain.Tax;
+using Grand.Domain.Vendors;
 using Grand.Services.Catalog;
 using Grand.Services.Directory;
 using Grand.Services.ExportImport.Help;
@@ -137,7 +138,8 @@ namespace Grand.Services.ExportImport
             IList<DeliveryDate> deliveryDates,
             IList<Warehouse> warehouses,
             IList<MeasureUnit> units,
-            IList<TaxCategory> taxes)
+            IList<TaxCategory> taxes,
+            Vendor vendor)
         {
 
             foreach (var property in manager.GetProperties)
@@ -164,6 +166,21 @@ namespace Grand.Services.ExportImport
                     case "url":
                         product.Url = property.StringValue;
                         break;
+                    case "manufacturename":
+                        product.ManufactureName = property.StringValue;
+                        break;
+                    case "model":
+                        product.Model = property.StringValue;
+                        break;
+                    case "year":
+                        product.Year = property.StringValue;
+                        break;
+                    case "color":
+                        product.Color = property.StringValue;
+                        break;
+                    case "size":
+                        product.Size = property.StringValue;
+                        break;
                     case "fulldescription":
                         product.FullDescription = property.StringValue;
                         break;
@@ -171,6 +188,10 @@ namespace Grand.Services.ExportImport
                         var vendorid = property.StringValue;
                         if (_vendorService.GetVendorById(vendorid) != null)
                             product.VendorId = property.StringValue;
+                        break;
+                    case "vendor":
+                        if (vendor != null)
+                            product.VendorId = vendor.Id;
                         break;
                     case "producttemplateid":
                         var templateid = property.StringValue;
@@ -945,8 +966,13 @@ namespace Grand.Services.ExportImport
                 productMain.WarehouseId = warehouses.FirstOrDefault()?.Id;
                 productMain.UnitId = units.FirstOrDefault().Id;
                 productMain.VendorId = string.Empty;
-                PrepareProductMapping(productMain, manager, templates, deliveryDates, warehouses, units, taxes);
+                PrepareProductMapping(productMain, manager, templates, deliveryDates, warehouses, units, taxes, null);
                 productMain.Url = string.Empty;
+                productMain.ManufactureName = string.Empty;
+                productMain.Model = string.Empty;
+                productMain.Year = string.Empty;
+                productMain.Color = string.Empty;
+                productMain.Size = string.Empty;
                 SetDefaultProductProp(productMain, isNew, manager);
 
                 var templateName = "Grouped product (with variants)";
@@ -1020,6 +1046,12 @@ namespace Grand.Services.ExportImport
                     parantSpecAttrOptionId = specificationAttributeOption.Id;
 
                     var productId = product.Id;
+                    
+                    if (!product.Name.Contains("Frame"))
+                    {
+                        product.Name = specAtrName == "sp_size" ? product.Name + " Frame " + nameSpecificationTrim : product.Name;
+                    }
+
                     var productSpecificationAttribute = product.ProductSpecificationAttributes.Where(s =>
                          s.SpecificationAttributeId == specificationAttribute.Id &&
                          s.SpecificationAttributeOptionId == specificationAttributeOption.Id).FirstOrDefault();
@@ -1045,7 +1077,8 @@ namespace Grand.Services.ExportImport
             foreach (var property in manager.GetProperties)
             {
 
-                if (property.PropertyName.ToLower().Substring(0, 3) == "sp_")
+                if (property.PropertyName.ToLower().Substring(0, 3) == "sp_" 
+                    || property.PropertyName.ToLower() == "manufacturer")
                 {
                     var specAtrName = property.PropertyName;
                     var specValue = property.StringValue;
@@ -1086,10 +1119,12 @@ namespace Grand.Services.ExportImport
 
                 var vendorName = string.Empty;
                 var vendorId = manager.GetProperty("vendorid") != null ? manager.GetProperty("vendorid").StringValue : string.Empty;
+                var vendor = new Vendor();
+
                 if (string.IsNullOrEmpty(vendorId))
                 {
                     vendorName = manager.GetProperty("vendor") != null ? manager.GetProperty("vendor").StringValue : string.Empty;
-                    var vendor = await _vendorService.GetVendorByName(vendorName);
+                    vendor = await _vendorService.GetVendorByName(vendorName);
                     vendorId = vendor.Id;
                 }
 
@@ -1122,7 +1157,7 @@ namespace Grand.Services.ExportImport
 
                 }
 
-                PrepareProductMapping(product, manager, templates, deliveryDates, warehouses, units, taxes);
+                PrepareProductMapping(product, manager, templates, deliveryDates, warehouses, units, taxes, vendor);
                 SetDefaultProductProp(product, isNew, manager);
 
                 var mainProduct = await CheckMainProducts(product, manager, templates, deliveryDates, warehouses, units, taxes, templatesCategory, templatesManufacturer);
@@ -1131,6 +1166,8 @@ namespace Grand.Services.ExportImport
                     await PrepareSpecficationAtributeMapping(mainProduct, manager);
                     //pictures
                     await PrepareProductPictures(mainProduct, manager, isNew);
+
+                    await _productService.UpdateProduct(mainProduct);
                 }
 
                 if (mainProduct != null)
@@ -1189,7 +1226,7 @@ namespace Grand.Services.ExportImport
             var manufacturerName = manager.GetProperty("manufacturer") != null ? manager.GetProperty("manufacturer").StringValue : string.Empty;
             if (!string.IsNullOrEmpty(manufacturerName))
             {
-                await UpdateSpecficationAtribute(product, "manufacturer", manufacturerName);
+                //await UpdateSpecficationAtribute(product, "manufacturer", manufacturerName);
                 await PrepareProductManufacturersByName(product, manufacturerName, templatesManufacturer);
             }
             

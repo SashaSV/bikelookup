@@ -3957,6 +3957,21 @@
   <LocaleResource Name="Admin.Affiliates.Fields.URL">
 	<Value>Affiliate URL</Value>
   </LocaleResource>
+    <LocaleResource Name="Admin.Affiliates.Fields.ManufactureName">
+	    <Value>ManufactureName</Value>
+    </LocaleResource>
+	<LocaleResource Name="Admin.Affiliates.Fields.Model">
+		<Value>Model</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.Affiliates.Fields.Year">
+		<Value>Year</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.Affiliates.Fields.Color">
+		<Value>Color</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.Affiliates.Fields.Size">
+		<Value>Size</Value>
+	</LocaleResource>
   <LocaleResource Name="Admin.Affiliates.Fields.URL.Hint">
    	<Value>When this hyperlink is clicked from the affiliate site, this site looks for an Affiliate ID query string parameter. If one exists, the customer is tagged with that affiliate.</Value>
   </LocaleResource>

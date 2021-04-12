@@ -355,6 +355,11 @@ namespace Grand.Web.Features.Handlers.Products
             var model = new ProductDetailsModel {
                 Id = product.Id,
                 Url = product.Url,
+                ManufactureName = product.ManufactureName,
+                Model = product.Model,
+                Year = product.Year,
+                Color = product.Color,
+                Size = product.Size,
                 Name = product.GetLocalized(x => x.Name, _workContext.WorkingLanguage.Id),
                 ShortDescription = product.GetLocalized(x => x.ShortDescription, _workContext.WorkingLanguage.Id),
                 FullDescription = product.GetLocalized(x => x.FullDescription, _workContext.WorkingLanguage.Id),

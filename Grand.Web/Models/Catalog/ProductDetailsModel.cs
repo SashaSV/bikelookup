@@ -76,8 +76,12 @@ namespace Grand.Web.Models.Catalog
         public bool EmailAFriendEnabled { get; set; }
         public bool AskQuestionEnabled { get; set; }
         public bool AskQuestionOnProduct { get; set; }
-        
         public string Url { get; set; }
+        public string ManufactureName { get; set; }
+        public string Model { get; set; }
+        public string Year { get; set; }
+        public string Color { get; set; }
+        public string Size { get; set; }
         public ProductAskQuestionSimpleModel ProductAskQuestion { get; set; }
         public bool CompareProductsEnabled { get; set; }
         public string PageShareCode { get; set; }
