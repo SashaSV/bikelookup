@@ -9,7 +9,7 @@
     var themeName = themeContext.WorkingThemeName;
     pagebuilder.AppendScriptParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/script/vue-gallery-slideshow.min.js", themeName));
 }
-<b-col xl="6" lg="6" md="5" cols="12" class="mt-md-0 mt-3 px-0">
+<b-col>
     <div class="gallery">
         @if (Model.PictureModels.Count == 1)
         {
@@ -18,7 +18,11 @@
                 <gallery-images></gallery-images>
                 <script>
                     Vue.component('gallery-images', {
-                      template: '<div> <template> <img class="image main-image zoom" id="main-product-img-@Model.Id" v-for="(image, i) in images" :src="image.url" :alt="image.alt" :title="image.title" :key="i" @@click="index=i"> <vue-gallery-slideshow :images="images" :index="index" @@close="index=null"></vue-gallery-slideshow> </template> </div>',
+                      template: '<div> ' +
+                       '<template>' +
+                        ' <img class="image main-image zoom" id="main-product-img-@Model.Id" v-for="(image, i) in images" :src="image.url" :alt="image.alt" :title="image.title" :key="i" @@click="index=i"> ' +
+                         '<vue-gallery-slideshow :images="images" :index="index" @@close="index=null">' +
+                         '</vue-gallery-slideshow> </template> </div>',
                       data() {
                           return {
                               images: [
@@ -67,18 +71,61 @@
         @if (Model.DefaultPictureZoomEnabled)
         {
             @if (Model.PictureModels.Count > 1)
-            {
+            { 
+                <b-row>
+                    <b-col>
+                        <b-row>
+                            <b-col md="10" offset-md="1">
+                            <b-carousel fade ref="bigimgcarousel" id="carousel"  img-height="450">
+                                @foreach (var picture in Model.PictureModels)
+                                {
+                                    <b-carousel-slide img-src="@picture.ImageUrl">
+                                    </b-carousel-slide>
+                                }
+                            </b-carousel>
+                            </b-col>
+                        </b-row>
+                        <b-row>
+                            <b-col md="1" align-self="center" class="mt-4" >
+                                <img v-on:click="onprevslide" class="scroll-btn" width="20" height="20" src="/Themes/VueThemeBike/Content/images/previmg.svg" alt=""/>
+                            </b-col>
+                            <b-col md="10">
+                                <b-carousel ref="tmbcarousel" id="carousel-thumbs" class="mt-4 carousel">
+                                    @{
+                                        var itemsPerSlide = 3;
+                                        var numSlides = Math.Ceiling((decimal) Model.PictureModels.Count / itemsPerSlide);
+                                        var imgNumber = 0;
+                                        @for (var slideNumber = 0; slideNumber < numSlides; slideNumber++)
+                                        {
+                                            var imgs = Model.PictureModels
+                                                .Skip(itemsPerSlide * slideNumber)
+                                                .Take(itemsPerSlide);
 
-                <img id="main-product-img-@Model.Id" class="image main-image zoom"
-                     src="@Model.DefaultPictureModel.ImageUrl"
-                     alt="@Model.DefaultPictureModel.AlternateText"
-                     title="@Model.DefaultPictureModel.Title"
-                     onclick="document.querySelector('.thumb-image').click()" />
+                                            <b-carousel-slide>
+                                                <b-row slot="img">
+                                                    @foreach (var img in imgs)
+                                                    {
+                                                        <img v-on:click="setslide(@imgNumber)" src="@img.ThumbImageUrl" class="img-carousel-thumbnail" alt="...">
+                                                        imgNumber++;
+                                                    }
+                                                </b-row>
+                                            </b-carousel-slide>
+                                        }
+                                    }
 
+                                </b-carousel>
+                            </b-col>
+                                 <b-col md="1" align-self="center" class="mt-4">
+                                 <img v-on:click="onnextslide" class="scroll-btn" width="20" height="20" src="/Themes/VueThemeBike/Content/images/nextImg.svg" alt=""/>
+                                 </b-col>
+                             </b-row>
+                    </b-col>
+                </b-row>
                 <gallery-images></gallery-images>
                 <script>
                     Vue.component('gallery-images', {
-                          template: '<div><template> <img class="image thumb-image zoom" v-for="(image, i) in images" :src="image.url" :datasrc="image.fullimg" :alt="image.alt" :title="image.title" :key="i" @@click="index=i"><div><vue-gallery-slideshow :images="images" :index="index" @@close="index=null"></vue-gallery-slideshow></div></template></div>',
+                          props: ['picturenum'],
+                          template: '<div><template><div><vue-gallery-slideshow :images="images" :index="index" @@close="index=null"></vue-gallery-slideshow></div></template></div>',
                           data() {
                               return {
                                     images: [
@@ -99,7 +146,7 @@
 
                                         }
                                     ],
-                                    index: null
+                                    index: this.picturenum
                                 }
                           },
                           components: {

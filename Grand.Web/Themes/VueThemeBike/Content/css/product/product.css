@@ -365,3 +365,16 @@
 .spec-group{
     text-transform: uppercase;
 }
+
+.img-carousel-thumbnail:hover{
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+.scroll-btn
+{
+    color: #F15A24;
+}
+.scroll-btn:hover
+{
+    filter: brightness(150%);
+    cursor: pointer;
+}
