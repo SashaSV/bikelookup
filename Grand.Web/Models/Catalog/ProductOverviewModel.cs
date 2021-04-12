@@ -37,6 +37,7 @@ namespace Grand.Web.Models.Catalog
         public string Flag { get; set; }
         
         public string Url {get; set;}
+        public string Weeldiam { get; set; }
         public string ManufactureName { get; set; }
         public string Model { get; set; }
         public string Year { get; set; }

@@ -355,6 +355,7 @@ namespace Grand.Web.Features.Handlers.Products
             var model = new ProductDetailsModel {
                 Id = product.Id,
                 Url = product.Url,
+                Weeldiam = product.Weeldiam,
                 ManufactureName = product.ManufactureName,
                 Model = product.Model,
                 Year = product.Year,

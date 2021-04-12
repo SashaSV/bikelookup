@@ -20,6 +20,8 @@ namespace Grand.Domain.Media
         /// </summary>
         public string SeoFilename { get; set; }
 
+        public string UrlImage { get; set; }
+        
         /// <summary>
         /// Gets or sets the "alt" attribute for "img" HTML element. If empty, then a default rule will be used (e.g. product name)
         /// </summary>

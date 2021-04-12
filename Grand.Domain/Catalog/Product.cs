@@ -71,6 +71,11 @@ namespace Grand.Domain.Catalog
         /// <summary>
         /// Gets or sets the ManufactoreName
         /// </summary>
+        public string Weeldiam { get; set; }
+
+        /// <summary>
+        /// Gets or sets the ManufactoreName
+        /// </summary>
         public string ManufactureName { get; set; }
 
         /// <summary>

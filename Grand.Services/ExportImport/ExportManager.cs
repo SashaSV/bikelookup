@@ -322,6 +322,7 @@ namespace Grand.Services.ExportImport
                 xmlWriter.WriteElementString("Name", null, product.Name);
                 xmlWriter.WriteElementString("ShortDescription", null, product.ShortDescription);
                 xmlWriter.WriteElementString("Url", null, product.Url);
+                xmlWriter.WriteElementString("Weeldiam", null, product.Weeldiam);
                 xmlWriter.WriteElementString("ManufactureName", null, product.ManufactureName);
                 xmlWriter.WriteElementString("Model", null, product.Model);
                 xmlWriter.WriteElementString("Year", null, product.Year);
@@ -596,12 +597,13 @@ namespace Grand.Services.ExportImport
                 new PropertyByName<Product>("ParentGroupedProductId", p => p.ParentGroupedProductId),
                 new PropertyByName<Product>("VisibleIndividually", p => p.VisibleIndividually),
                 new PropertyByName<Product>("Name", p => p.Name),
-                new PropertyByName<Product>("ShortDescription", p => p.Url),
-                new PropertyByName<Product>("ShortDescription", p => p.ManufactureName),
-                new PropertyByName<Product>("ShortDescription", p => p.Model),
-                new PropertyByName<Product>("ShortDescription", p => p.Year),
-                new PropertyByName<Product>("ShortDescription", p => p.Color),
-                new PropertyByName<Product>("ShortDescription", p => p.Size),
+                new PropertyByName<Product>("Url", p => p.Url),
+                new PropertyByName<Product>("Weeldiam", p => p.Weeldiam),
+                new PropertyByName<Product>("ManufactureName", p => p.ManufactureName),
+                new PropertyByName<Product>("Model", p => p.Model),
+                new PropertyByName<Product>("Year", p => p.Year),
+                new PropertyByName<Product>("Color", p => p.Color),
+                new PropertyByName<Product>("Size", p => p.Size),
                 new PropertyByName<Product>("ShortDescription", p => p.ShortDescription),
                 new PropertyByName<Product>("FullDescription", p => p.FullDescription),
                 new PropertyByName<Product>("Flag", p => p.Flag),

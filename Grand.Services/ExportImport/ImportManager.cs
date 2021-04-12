@@ -166,6 +166,9 @@ namespace Grand.Services.ExportImport
                     case "url":
                         product.Url = property.StringValue;
                         break;
+                    case "Weeldiam":
+                        product.Weeldiam = property.StringValue;
+                        break;
                     case "manufacturename":
                         product.ManufactureName = property.StringValue;
                         break;

@@ -193,6 +193,7 @@ namespace Grand.Web.Features.Handlers.Products
                 ShortDescription = product.GetLocalized(x => x.ShortDescription, _workContext.WorkingLanguage.Id),
                 FullDescription = product.GetLocalized(x => x.FullDescription, _workContext.WorkingLanguage.Id),
                 Url = product.Url,
+                Weeldiam = product.Weeldiam,
                 ManufactureName = product.ManufactureName,
                 Model = product.Model,
                 Year = product.Year,

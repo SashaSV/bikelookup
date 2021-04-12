@@ -421,7 +421,8 @@ namespace Grand.Services.Media
                     picture.AltAttribute,
                     picture.TitleAttribute,
                     false,
-                    false);
+                    false,
+                    picture.UrlImage);
             }
 
             string seoFileName = picture.SeoFilename;
@@ -512,7 +513,7 @@ namespace Grand.Services.Media
         {
             var query = _pictureRepository.Table
                 .Where(p => p.Id == pictureId)
-                .Select(p => new Picture { Id = p.Id, AltAttribute = p.AltAttribute, IsNew = p.IsNew, MimeType = p.MimeType, SeoFilename = p.SeoFilename, TitleAttribute = p.TitleAttribute });
+                .Select(p => new Picture { Id = p.Id, AltAttribute = p.AltAttribute, IsNew = p.IsNew, MimeType = p.MimeType, SeoFilename = p.SeoFilename, TitleAttribute = p.TitleAttribute, UrlImage = p.UrlImage});
             return query.FirstOrDefaultAsync();
         }
 
@@ -612,7 +613,7 @@ namespace Grand.Services.Media
         /// <returns>Picture</returns>
         public virtual async Task<Picture> InsertPicture(byte[] pictureBinary, string mimeType, string seoFilename,
             string altAttribute = null, string titleAttribute = null,
-            bool isNew = true, bool validateBinary = false)
+            bool isNew = true, bool validateBinary = false, string urlImage = null)
         {
             mimeType = CommonHelper.EnsureNotNull(mimeType);
             mimeType = CommonHelper.EnsureMaximumLength(mimeType, 20);
@@ -629,6 +630,7 @@ namespace Grand.Services.Media
                 AltAttribute = altAttribute,
                 TitleAttribute = titleAttribute,
                 IsNew = isNew,
+                UrlImage = urlImage
             };
             await _pictureRepository.InsertAsync(picture);
 
@@ -655,7 +657,7 @@ namespace Grand.Services.Media
         /// <returns>Picture</returns>
         public virtual async Task<Picture> UpdatePicture(string pictureId, byte[] pictureBinary, string mimeType,
             string seoFilename, string altAttribute = null, string titleAttribute = null,
-            bool isNew = true, bool validateBinary = true)
+            bool isNew = true, bool validateBinary = true, string urlImage = null)
         {
             mimeType = CommonHelper.EnsureNotNull(mimeType);
             mimeType = CommonHelper.EnsureMaximumLength(mimeType, 20);
@@ -679,6 +681,7 @@ namespace Grand.Services.Media
             picture.AltAttribute = altAttribute;
             picture.TitleAttribute = titleAttribute;
             picture.IsNew = isNew;
+            picture.UrlImage = urlImage;
 
             await _pictureRepository.UpdateAsync(picture);
 
