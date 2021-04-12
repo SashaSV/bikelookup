@@ -20021,4 +20021,10 @@
     <LocaleResource Name="e-motor">
         <Value>ДВИГУН</Value>
     </LocaleResource>
+    <LocaleResource Name="Add_to_wishlist">
+        <Value>До вибраного</Value>
+    </LocaleResource>
+    <LocaleResource Name="Add_to_compare">
+        <Value>Додати в порівняння</Value>
+    </LocaleResource>
 </Language>

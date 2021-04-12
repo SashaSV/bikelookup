@@ -322,6 +322,18 @@ var vm = new Vue({
         }
     },
     methods: {
+        onnextslide :function ()
+        {
+            this.$refs.tmbcarousel.next()
+        },
+        onprevslide :function ()
+        {
+            this.$refs.tmbcarousel.prev()
+        },
+        setslide :function(index)
+        {
+            this.$refs.bigimgcarousel.setSlide(index)
+        },
         applyPriceFilter()
         {
             let params = new URLSearchParams(window.location.search);

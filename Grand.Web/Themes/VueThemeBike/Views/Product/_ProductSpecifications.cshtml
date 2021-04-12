@@ -43,11 +43,11 @@
         {
             var generalOptiongroup = options.Key;
             var generalOptionKeys = optionsByGroup[generalOptiongroup];
-            var generalOptions = group.FirstOrDefault(o => generalOptionKeys.Contains(o.Key));
+            var generalOptions = group.Where(o => generalOptionKeys.Contains(o.Key));
             if (generalOptions != null)
             {
-                var models = generalOptions.Select(gr => gr);
-                <b-col> <partial name="_SpecGroup" model=" new SpecGroupModel(){Specs = models.ToList(), Icon = icons[generalOptiongroup], Name = generalOptiongroup}"/></b-col>
+                var models = generalOptions.SelectMany(gr => (IEnumerable<ProductSpecificationModel>)gr);
+                <b-col class="pl-0"> <partial name="_SpecGroup" model=" new SpecGroupModel(){Specs = models.ToList(), Icon = icons[generalOptiongroup], Name = generalOptiongroup}"/></b-col>
                 continue;
             }
             <b-col> <partial name="_SpecGroup" model="new SpecGroupModel{Specs = new List<ProductSpecificationModel>(), Icon = icons[generalOptiongroup], Name = generalOptiongroup}"/></b-col>

@@ -109,25 +109,31 @@
     flex-direction: row;
     justify-content: space-between;
     padding-bottom: 5px;
+    text-transform: uppercase;
 }
 
 .heart_prod * {
     width: 25px;
     height: 24px;
-    margin-right: 8px;
     margin-left: 0px;
     cursor: pointer;
+    margin-right: 1rem;
     align-self: flex-start;
     visibility: visible;
+    flex-direction: row;
 }
-
+.swap_prod{
+    cursor: pointer;
+}
 .swap_prod * {
     width: 25px;
     height: 24px;
     cursor: pointer;
     align-self: flex-end;
-    margin-right: 0px;
+    margin-right: 1rem;
     visibility: visible;
+    flex-direction: row;
+    display: flex;
 }
 
 .heart_prod:hover .heart_icon_prod
@@ -284,6 +290,7 @@
     background-color: white;
     color: #000000;
     font-family: "Montserrat";
+    text-transform: uppercase;
     font-weight: 400;
     border: none;
     font-size: 18px;
@@ -349,4 +356,25 @@
     font-size: 16px;
     line-height: 17px;
     color: #000000;
+}
+
+.bt-lbl{
+    text-transform: uppercase;
+}
+
+.spec-group{
+    text-transform: uppercase;
+}
+
+.img-carousel-thumbnail:hover{
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+.scroll-btn
+{
+    color: #F15A24;
+}
+.scroll-btn:hover
+{
+    filter: brightness(150%);
+    cursor: pointer;
 }
