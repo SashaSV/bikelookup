@@ -9,7 +9,7 @@
     var themeName = themeContext.WorkingThemeName;
     pagebuilder.AppendScriptParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/script/vue-gallery-slideshow.min.js", themeName));
 }
-<b-col>
+<b-col class="pl-0">
     <div class="gallery">
         @if (Model.PictureModels.Count == 1)
         {
@@ -73,54 +73,50 @@
             @if (Model.PictureModels.Count > 1)
             { 
                 <b-row>
-                    <b-col>
-                        <b-row>
-                            <b-col md="10" offset-md="1">
-                            <b-carousel fade ref="bigimgcarousel" id="carousel"  img-height="450">
-                                @foreach (var picture in Model.PictureModels)
-                                {
-                                    <b-carousel-slide img-src="@picture.ImageUrl">
-                                    </b-carousel-slide>
-                                }
-                            </b-carousel>
-                            </b-col>
-                        </b-row>
-                        <b-row>
-                            <b-col md="1" align-self="center" class="mt-4" >
-                                <img v-on:click="onprevslide" class="scroll-btn" width="20" height="20" src="/Themes/VueThemeBike/Content/images/previmg.svg" alt=""/>
-                            </b-col>
-                            <b-col md="10">
-                                <b-carousel ref="tmbcarousel" id="carousel-thumbs" class="mt-4 carousel">
-                                    @{
-                                        var itemsPerSlide = 3;
-                                        var numSlides = Math.Ceiling((decimal) Model.PictureModels.Count / itemsPerSlide);
-                                        var imgNumber = 0;
-                                        @for (var slideNumber = 0; slideNumber < numSlides; slideNumber++)
-                                        {
-                                            var imgs = Model.PictureModels
-                                                .Skip(itemsPerSlide * slideNumber)
-                                                .Take(itemsPerSlide);
-
-                                            <b-carousel-slide>
-                                                <b-row slot="img">
-                                                    @foreach (var img in imgs)
-                                                    {
-                                                        <img v-on:click="setslide(@imgNumber)" src="@img.ThumbImageUrl" class="img-carousel-thumbnail" alt="...">
-                                                        imgNumber++;
-                                                    }
-                                                </b-row>
-                                            </b-carousel-slide>
-                                        }
-                                    }
-
-                                </b-carousel>
-                            </b-col>
-                                 <b-col md="1" align-self="center" class="mt-4">
-                                 <img v-on:click="onnextslide" class="scroll-btn" width="20" height="20" src="/Themes/VueThemeBike/Content/images/nextImg.svg" alt=""/>
-                                 </b-col>
-                             </b-row>
+                    <b-col md="10" offset-md="1">
+                    <b-carousel fade ref="bigimgcarousel" id="carousel"  img-height="450">
+                        @foreach (var picture in Model.PictureModels)
+                        {
+                            <b-carousel-slide img-src="@picture.ImageUrl">
+                            </b-carousel-slide>
+                        }
+                    </b-carousel>
                     </b-col>
                 </b-row>
+                <b-row>
+                    <b-col md="1" align-self="center" class="mt-4" >
+                        <img v-on:click="onprevslide" class="scroll-btn" width="20" height="20" src="/Themes/VueThemeBike/Content/images/previmg.svg" alt=""/>
+                    </b-col>
+                    <b-col md="10">
+                        <b-carousel ref="tmbcarousel" id="carousel-thumbs" class="mt-4 carousel">
+                            @{
+                                var itemsPerSlide = 3;
+                                var numSlides = Math.Ceiling((decimal) Model.PictureModels.Count / itemsPerSlide);
+                                var imgNumber = 0;
+                                @for (var slideNumber = 0; slideNumber < numSlides; slideNumber++)
+                                {
+                                    var imgs = Model.PictureModels
+                                        .Skip(itemsPerSlide * slideNumber)
+                                        .Take(itemsPerSlide);
+
+                                    <b-carousel-slide>
+                                        <b-row slot="img">
+                                            @foreach (var img in imgs)
+                                            {
+                                                <img v-on:click="setslide(@imgNumber)" src="@img.ThumbImageUrl" class="img-carousel-thumbnail" alt="...">
+                                                imgNumber++;
+                                            }
+                                        </b-row>
+                                    </b-carousel-slide>
+                                }
+                            }
+
+                        </b-carousel>
+                    </b-col>
+                         <b-col md="1" align-self="center" class="mt-4">
+                         <img v-on:click="onnextslide" class="scroll-btn" width="20" height="20" src="/Themes/VueThemeBike/Content/images/nextImg.svg" alt=""/>
+                         </b-col>
+                     </b-row>
                 <gallery-images></gallery-images>
                 <script>
                     Vue.component('gallery-images', {
