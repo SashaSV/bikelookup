@@ -225,6 +225,12 @@ namespace Grand.Web.Areas.Admin.Controllers
             {
                 locale.Name = product.GetLocalized(x => x.Name, languageId, false, false);
                 locale.ShortDescription = product.GetLocalized(x => x.ShortDescription, languageId, false, false);
+                locale.Weeldiam = product.GetLocalized(x => x.Weeldiam, languageId, false, false);
+                locale.ManufactureName = product.GetLocalized(x => x.ManufactureName, languageId, false, false);
+                locale.Model = product.GetLocalized(x => x.Model, languageId, false, false);
+                locale.Size = product.GetLocalized(x => x.Size, languageId, false, false);
+                locale.Color = product.GetLocalized(x => x.Color, languageId, false, false);
+                locale.Year = product.GetLocalized(x => x.Year, languageId, false, false);
                 locale.FullDescription = product.GetLocalized(x => x.FullDescription, languageId, false, false);
                 locale.MetaKeywords = product.GetLocalized(x => x.MetaKeywords, languageId, false, false);
                 locale.MetaDescription = product.GetLocalized(x => x.MetaDescription, languageId, false, false);

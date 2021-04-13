@@ -46,6 +46,10 @@ namespace Grand.Services.Messages.DotLiquidDrops
             get { return _product.Url; }
         }
 
+        public string Weeldiam {
+            get { return _product.Weeldiam; }
+        }
+
         public string ManufactureName {
             get { return _product.ManufactureName; }
         }

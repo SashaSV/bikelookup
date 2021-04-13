@@ -362,6 +362,7 @@ namespace Grand.Services.Catalog
                 .Set(x => x.ShipSeparately, product.ShipSeparately)
                 .Set(x => x.ShortDescription, product.ShortDescription)
                 .Set(x => x.Url, product.Url)
+                .Set(x => x.Weeldiam, product.Weeldiam)
                 .Set(x => x.ManufactureName, product.ManufactureName)
                 .Set(x => x.Model, product.Model)
                 .Set(x => x.Year, product.Year)

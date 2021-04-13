@@ -72,6 +72,9 @@ namespace Grand.Web.Areas.Admin.Models.Catalog
         [GrandResourceDisplayName("Admin.Catalog.Products.Fields.Url")]
         public string Url { get; set; }
 
+        [GrandResourceDisplayName("Admin.Catalog.Products.Fields.Weeldiam")]
+        public string Weeldiam { get; set; }
+
         [GrandResourceDisplayName("Admin.Catalog.Products.Fields.ManufactureName")]
         public string ManufactureName { get; set; }
 
@@ -1230,6 +1233,9 @@ namespace Grand.Web.Areas.Admin.Models.Catalog
         [GrandResourceDisplayName("Admin.Catalog.Products.Fields.Url")]
 
         public string Url { get; set; }
+
+        [GrandResourceDisplayName("Admin.Catalog.Products.Fields.Weeldiam")]
+        public string Weeldiam { get; set; }
 
         [GrandResourceDisplayName("Admin.Catalog.Products.Fields.ManufactureName")]
         public string ManufactureName { get; set; }
