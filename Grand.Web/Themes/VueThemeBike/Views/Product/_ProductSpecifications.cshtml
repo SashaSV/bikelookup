@@ -1,6 +1,6 @@
 ﻿@model IList<ProductSpecificationModel>
 @using System.Linq;
-<div class="spec-container table-responsive">
+
     @{
         var group = Model.GroupBy(x => x.SpecificationAttributeCode);
         var optionsByGroup = new Dictionary<string, List<string>>()
@@ -54,4 +54,4 @@
         }
         </b-row>
     }
-</div>
+
