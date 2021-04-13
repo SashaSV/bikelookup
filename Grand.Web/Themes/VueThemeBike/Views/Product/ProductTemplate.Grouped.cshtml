@@ -91,7 +91,12 @@
                                                 <!--associated products-->
                                                 @foreach (var variant in Model.AssociatedProducts)
                                                 {
-                                                 <b-card no-body class="overflow-hidden associatedItem mb-3">
+                                                    @if (variant.VendorModel == null)
+                                                    {
+                                                        continue;
+                                                        
+                                                    }
+                                                    <b-card no-body class="overflow-hidden associatedItem mb-3">
                                                      <b-row class="ml-2 mb-2 mt-4 justify-content-center vendor-title">
                                                          <a href="@variant.Url">
                                                              <h3  class="vendor-title" itemprop="name" align="center">@variant.VendorModel.Name</h3>

@@ -21,6 +21,10 @@
          {
              @foreach (var assocProduct in Model.AssociatedProducts)
              {
+                 if (assocProduct.VendorModel == null)
+                 {
+                     continue;
+                 }
                  <b-row class="mb-4">
                      <b-col class="pl-0">
                            <a href="@assocProduct.Url" class="proposal-name">
