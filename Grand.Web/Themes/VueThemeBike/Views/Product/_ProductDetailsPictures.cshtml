@@ -74,10 +74,11 @@
             { 
                 <b-row>
                     <b-col md="10" offset-md="1">
-                    <b-carousel fade ref="bigimgcarousel" id="carousel"  img-height="450">
+                    <b-carousel fade ref="bigimgcarousel" id="carousel">
                         @foreach (var picture in Model.PictureModels)
                         {
-                            <b-carousel-slide img-src="@picture.ImageUrl">
+                            <b-carousel-slide>
+                                <img class="item" slot="img" src="@picture.ImageUrl" alt="" style='width: 100%; object-fit: contain'/>
                             </b-carousel-slide>
                         }
                     </b-carousel>
