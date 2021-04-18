@@ -184,6 +184,13 @@ namespace Grand.Services.Catalog
             string storeId = "", string vendorId = "", bool showHidden = false);
 
         /// <summary>
+        /// Gets associated products
+        /// </summary>
+        /// <param name="parentProducts">Parent product identifier (used with grouped products)</param>
+        /// <returns>Products</returns>
+        public Task<IDictionary<string, IList<Product>>> GetAssociatedProducts(IEnumerable<string> parentProducts);
+        
+        /// <summary>
         /// Update product associated 
         /// </summary>
         /// <param name="product">Product</param>

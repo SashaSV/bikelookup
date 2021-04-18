@@ -658,6 +658,15 @@ namespace Grand.Services.Catalog
             return products;
         }
 
+        public virtual async Task<IDictionary<string, IList<Product>>> GetAssociatedProducts(IEnumerable<string> parentProducts)
+        {
+            var builder = Builders<Product>.Filter;
+            var filter = builder.In(p => p.ParentGroupedProductId, parentProducts);
+            var products = await _productRepository.Collection.Find(filter).ToListAsync();
+            return products.GroupBy(p=>p.ParentGroupedProductId).
+                ToDictionary(p=>p.Key, p=>(IList<Product>)p);
+        }
+
         /// <summary>
         /// Get low stock products
         /// </summary>

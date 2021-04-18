@@ -100,28 +100,30 @@ namespace Grand.Web.Features.Handlers.Products
 
             var tasks = new List<Task<ProductOverviewModel>>();
 
+            var associatedProducts = await _productService.GetAssociatedProducts(request.Products.Select(p=>p.Id));
+            
             foreach (var product in request.Products)
             {
-                tasks.Add(GetProductOverviewModel(product, request, displayPrices, enableShoppingCart, enableWishlist, pictureSize, priceIncludesTax, res));
+                if (associatedProducts.TryGetValue(product.Id, out var currentAssociatedProducts ))
+                {
+                    currentAssociatedProducts = new List<Product>();
+                }
+                tasks.Add(GetProductOverviewModel(product, request, displayPrices, enableShoppingCart, enableWishlist, pictureSize, priceIncludesTax, res, currentAssociatedProducts));
             }
             var result = await Task.WhenAll<ProductOverviewModel>(tasks);
             return result;
         }
-
-
+        
         private async Task<ProductOverviewModel> GetProductOverviewModel(Product product, GetProductOverview request,
-            bool displayPrices, bool enableShoppingCart, bool enableWishlist, int pictureSize, bool priceIncludesTax, Dictionary<string, string> res)
+            bool displayPrices, bool enableShoppingCart, bool enableWishlist, int pictureSize, bool priceIncludesTax, Dictionary<string, string> res,
+            IEnumerable<Product> associatedProducts)
         {
             var model = await PrepareProductOverviewModel(product);
             
              #region Associated products
-
-             IEnumerable<Product> associatedProducts = new List<Product>();
              
              if (product.ProductType == ProductType.GroupedProduct)
              {
-                 associatedProducts =
-                     await _productService.GetAssociatedProducts(product.Id, _storeContext.CurrentStore.Id);
                  foreach (var associatedProduct in associatedProducts)
                  {
                      var associatedProductOverview =
@@ -259,8 +261,9 @@ namespace Grand.Web.Features.Handlers.Products
                             priceModel.CatalogPrice = _priceFormatter.FormatPrice(catalogPrice, true, _workContext.WorkingCurrency, _workContext.WorkingLanguage, priceIncludesTax);
                         }
 
-                        if(associatedProducts.Any())
-                          {
+                        var enumerable = associatedProducts.ToList();
+                        if(enumerable.Any())
+                        {
                                     //we have at least one associated product
                                     //compare products
                                     priceModel.DisableAddToCompareListButton = !_catalogSettings.CompareProductsEnabled;
@@ -271,7 +274,7 @@ namespace Grand.Web.Features.Handlers.Products
                                         Product minPriceProduct = null;
                                         var maxPrice = default(decimal);
                                         Product maxPriceProduct = null;
-                                        foreach (var associatedProduct in associatedProducts)
+                                        foreach (var associatedProduct in enumerable)
                                         {
                                             //calculate for the maximum quantity (in case if we have tier prices)
                                             var tmpPrice = (await _priceCalculationService.GetFinalPrice(associatedProduct,
@@ -297,12 +300,14 @@ namespace Grand.Web.Features.Handlers.Products
                                             else if (minPossiblePrice.HasValue)
                                             {
                                                 //calculate prices
-                                                decimal finalPriceBase = (await _taxService.GetProductPrice(minPriceProduct, minPossiblePrice.Value, priceIncludesTax, _workContext.CurrentCustomer)).productprice;
-                                                decimal finalPrice = await _currencyService.ConvertFromPrimaryStoreCurrency(finalPriceBase, _workContext.WorkingCurrency);
-
-                                                var maxPriceBase = (await _taxService.GetProductPrice(maxPriceProduct, maxPrice, priceIncludesTax, _workContext.CurrentCustomer)).productprice;
-                                                var finalMaxPrice = await _currencyService.ConvertFromPrimaryStoreCurrency(maxPriceBase, _workContext.WorkingCurrency);
-
+                                                //decimal finalPriceBase = (await _taxService.GetProductPrice(minPriceProduct, minPossiblePrice.Value, priceIncludesTax, _workContext.CurrentCustomer)).productprice;
+                                                //decimal finalPrice = await _currencyService.ConvertFromPrimaryStoreCurrency(finalPriceBase, _workContext.WorkingCurrency);
+                                                var finalPrice = minPossiblePrice.Value;
+                                                
+                                                //var maxPriceBase = (await _taxService.GetProductPrice(maxPriceProduct, maxPrice, priceIncludesTax, _workContext.CurrentCustomer)).productprice;
+                                                //var finalMaxPrice = await _currencyService.ConvertFromPrimaryStoreCurrency(maxPriceBase, _workContext.WorkingCurrency);
+                                                var finalMaxPrice = maxPrice;
+                                                
                                                 priceModel.OldPrice = null;
 
                                                 var diffPrice = finalPrice != finalMaxPrice;
