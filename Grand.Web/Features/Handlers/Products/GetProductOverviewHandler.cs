@@ -104,7 +104,7 @@ namespace Grand.Web.Features.Handlers.Products
             
             foreach (var product in request.Products)
             {
-                if (associatedProducts.TryGetValue(product.Id, out var currentAssociatedProducts ))
+                if (!associatedProducts.TryGetValue(product.Id, out var currentAssociatedProducts ))
                 {
                     currentAssociatedProducts = new List<Product>();
                 }
