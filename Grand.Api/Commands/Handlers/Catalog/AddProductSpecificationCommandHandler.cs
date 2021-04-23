@@ -32,6 +32,7 @@ namespace Grand.Api.Commands.Models.Catalog
                 CustomValue = request.Model.CustomValue,
                 AllowFiltering = request.Model.AllowFiltering,
                 ShowOnProductPage = request.Model.ShowOnProductPage,
+                ShowOnSellerPage = request.Model.ShowOnSellerPage,
                 DisplayOrder = request.Model.DisplayOrder,
             };
             await _specificationAttributeService.InsertProductSpecificationAttribute(psa);

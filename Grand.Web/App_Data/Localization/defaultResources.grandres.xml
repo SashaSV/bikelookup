@@ -4647,8 +4647,14 @@
   <LocaleResource Name="Admin.Catalog.Products.SpecificationAttributes.Fields.ShowOnProductPage">
     <Value>Show on product page</Value>
   </LocaleResource>
+  <LocaleResource Name="Admin.Catalog.Products.SpecificationAttributes.Fields.ShowOnSellerPage">
+	<Value>Show on seller page</Value>
+  </LocaleResource>
   <LocaleResource Name="Admin.Catalog.Products.SpecificationAttributes.Fields.ShowOnProductPage.Hint">
     <Value>The value of the specification attribute. Be visible on the product page</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Catalog.Products.SpecificationAttributes.Fields.ShowOnSellerPage.Hint">
+		<Value>The value of the specification attribute. Be visible on the seller page</Value>
   </LocaleResource>
   <LocaleResource Name="Admin.Catalog.Products.SpecificationAttributes.Fields.SpecificationAttribute">
     <Value>Attribute</Value>

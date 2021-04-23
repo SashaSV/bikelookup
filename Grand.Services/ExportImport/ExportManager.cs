@@ -568,6 +568,7 @@ namespace Grand.Services.ExportImport
                     xmlWriter.WriteElementString("CustomValue", null, productSpecificationAttribute.CustomValue);
                     xmlWriter.WriteElementString("AllowFiltering", null, productSpecificationAttribute.AllowFiltering.ToString());
                     xmlWriter.WriteElementString("ShowOnProductPage", null, productSpecificationAttribute.ShowOnProductPage.ToString());
+                    xmlWriter.WriteElementString("ShowOnSellerPage", null, productSpecificationAttribute.ShowOnSellerPage.ToString());
                     xmlWriter.WriteElementString("DisplayOrder", null, productSpecificationAttribute.DisplayOrder.ToString());
                     xmlWriter.WriteEndElement();
                 }

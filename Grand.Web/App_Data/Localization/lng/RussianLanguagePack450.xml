@@ -4305,6 +4305,12 @@
   <LocaleResource Name="Admin.Catalog.Products.SpecificationAttributes.Fields.ShowOnProductPage.Hint">
     <Value>Значение атрибута спецификации. Быть видимым на странице продукта</Value>
   </LocaleResource>
+	<LocaleResource Name="Admin.Catalog.Products.SpecificationAttributes.Fields.ShowOnSellerPage">
+		<Value>Показать на странице предложений</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.Catalog.Products.SpecificationAttributes.Fields.ShowOnSellerPage.Hint">
+		<Value>Значение атрибута спецификации. Быть видимым на странице предложений</Value>
+	</LocaleResource>
   <LocaleResource Name="Admin.Catalog.Products.SpecificationAttributes.Fields.SpecificationAttribute">
     <Value>атрибут</Value>
   </LocaleResource>
