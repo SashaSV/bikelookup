@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <Copyright>Copyright © UNIT-SOFT Sp. z o.o.</Copyright>
     <Company>UNIT-SOFT Sp. z o.o.</Company>
     <Authors>UNIT-SOFT Sp. z o.o.</Authors>
@@ -27,6 +27,7 @@
     <Content Update="Themes\VueThemeBike\Views\Product\_ProductProposals.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </Content>
+    <Content Remove="Views\Shared\**" />
   </ItemGroup>
   <Target Name="PublishViews" BeforeTargets="PrepareForPublish">
     <ItemGroup>
@@ -44,6 +45,9 @@
     <Content Update="Plugins\**">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Compile Remove="Views\Shared\**" />
+    <EmbeddedResource Remove="Views\Shared\**" />
+    <None Remove="Views\Shared\**" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Rotativa\Linux\wkhtmltopdf">
@@ -59,5 +63,96 @@
   <ItemGroup>
     <Folder Include="Themes\VueThemeBike\Content\script\components" />
     <Folder Include="wwwroot\components" />
+  </ItemGroup>
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\AdminHeaderLinks\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\BlogPostProducts\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\BlogRssHeaderLink\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\CategoryFeaturedProducts\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\CategoryNavigation\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\CheckoutProgress\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\CrossSellProducts\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\CurrencySelector\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\CustomerNavigation\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\EstimateShipping\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\EuCookieLaw\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\ExternalMethods\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\Favicon\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\FlyoutShoppingCart\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\Footer\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\FooterClean\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\ForumActiveDiscussionsSmall\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\ForumBreadcrumb\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\ForumLastPost\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\HeaderLinks\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\HomePageBestSellers\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\HomePageBlog\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\HomePageCategories\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\HomePageManufacturers\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\HomePageNewProducts\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\HomePageNews\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\HomePagePolls\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\HomePageProducts\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\LanguageSelector\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\Logo\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\ManufacturerFeaturedProducts\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\ManufacturerNavigation\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\NewsletterBox\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\NewsRssHeaderLink\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\OrderSummary\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\OrderTotals\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\PersonalizedProducts\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\PollBlock\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\PopularProductTags\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\PopupAction\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\PrivateMessagesInbox\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\PrivateMessagesSentItems\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\ProductsAlsoPurchased\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\PushNotificationsRegistration\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\RecentlyViewedProductsBlock\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\RecommendedProducts\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\RelatedProducts\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\SearchBox\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\ShoppingCartLinks\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\SimilarProducts\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\StoreSelector\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\StoreThemeSelector\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\SuggestedProducts\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\TaxTypeSelector\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\TopicBlock\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\TopMenu\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\VendorNavigation\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Components\Widget\Default.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Error.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Head.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Header.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\_AddressAttributes.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\_CategoryLine.Navigation.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\_CategoryLine.TopMenu.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\_CheckoutAttributes.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\_ColumnsOne.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\_ColumnsOneClean.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\_ColumnsTwo.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\_ContactAttributes.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\_CreateOrUpdateAddress.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\_CreateOrUpdateSubAccount.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\_CreateOrUpdateVendorAddress.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\_DatePickerDropDowns.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\_DiscountBox.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\_GiftCardBox.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\_JavaScriptDisabledWarning.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\_Notifications.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\_OldInternetExplorerWarning.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\_OrderReviewData.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\_Poll.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\_PopupAddToCart.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\_Print.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\_ProductBox.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\_ProductBoxFeatured.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\_ProductBoxList.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\_Root.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\_Root.Head.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\_RootClean.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\_RootPopup.cshtml" />
   </ItemGroup>
 </Project>

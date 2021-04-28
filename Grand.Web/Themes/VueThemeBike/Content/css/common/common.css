@@ -1206,3 +1206,8 @@ footer .list-group-item span:last-child {
         line-height: 1;
     }
 }
+
+.product-card-carousel{
+  height: 100%;
+    
+}
