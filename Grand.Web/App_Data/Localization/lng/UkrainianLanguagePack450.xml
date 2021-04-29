@@ -4306,6 +4306,12 @@
   <LocaleResource Name="Admin.Catalog.Products.SpecificationAttributes.Fields.ShowOnProductPage.Hint">
     <Value>Значення атрибута специфікації. Будьте видимими на сторінці продукту</Value>
   </LocaleResource>
+	<LocaleResource Name="Admin.Catalog.Products.SpecificationAttributes.Fields.ShowOnSellerPage">
+		<Value>Показати на сторінці пропозицій</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.Catalog.Products.SpecificationAttributes.Fields.ShowOnSellerPage.Hint">
+		<Value>Значення атрибута специфікації. Будьте видимими на сторінці пропозицій</Value>
+	</LocaleResource>
   <LocaleResource Name="Admin.Catalog.Products.SpecificationAttributes.Fields.SpecificationAttribute">
     <Value>Атрибут</Value>
   </LocaleResource>

@@ -155,6 +155,7 @@ namespace Grand.Web.Areas.Admin.Controllers
 
             //default specs values
             model.AddSpecificationAttributeModel.ShowOnProductPage = true;
+
             return View(model);
         }
 

@@ -13,7 +13,7 @@
     </div>
     <vc:admin-widget widget-zone="product_details_specification_attribute_details_bottom" additional-data="Model" />
 </div>
-            <script>
+<script>
                 $(document).ready(function() {
                     $("#specificationattributes-grid").kendoGrid({
                         dataSource: {
@@ -49,6 +49,7 @@
                                         ValueRaw: { editable: true, type: "string" },
                                         AllowFiltering: { editable: true, type: "boolean" },
                                         ShowOnProductPage: { editable: true, type: "boolean" },
+                                        ShowOnSellerPage: { editable: true, type: "boolean" },
                                         DisplayOrder: { editable: true, type: "number" },
                                         Id: { editable: false, type: "string" }
                                     }
@@ -136,6 +137,14 @@
                                 template: '# if(ShowOnProductPage) {# <i class="fa fa-check" aria-hidden="true" style="color:green"></i> #} else {# <i class="fa fa-times" aria-hidden="true" style="color:red"></i> #} #'
                             },
                             {
+                                field: "ShowOnSellerPage",
+                                title: "@T("Admin.Catalog.Products.SpecificationAttributes.Fields.ShowOnSellerPage")",
+                                width: 90,
+                                headerAttributes: { style: "text-align:center" },
+                                attributes: { style: "text-align:center" },
+                                template: '# if(ShowOnSellerPage) {# <i class="fa fa-check" aria-hidden="true" style="color:green"></i> #} else {# <i class="fa fa-times" aria-hidden="true" style="color:red"></i> #} #'
+                            },
+                            {
                                 field: "DisplayOrder",
                                 title: "@T("Admin.Catalog.Products.SpecificationAttributes.Fields.DisplayOrder")",
                                 width: 100,
@@ -168,7 +177,7 @@
                 }
                     });
                 });
-            </script>
+</script>
         
     <p>
         <strong>@T("Admin.Catalog.Products.SpecificationAttributes.AddNew")</strong>
@@ -204,6 +213,7 @@
                 var customValue = $("#@Html.FieldIdFor(model => model.AddSpecificationAttributeModel.CustomValue)").val();
                 var allowFiltering = $("#@Html.FieldIdFor(model => model.AddSpecificationAttributeModel.AllowFiltering)").is(':checked');
                 var showOnProductPage = $("#@Html.FieldIdFor(model => model.AddSpecificationAttributeModel.ShowOnProductPage)").is(':checked');
+                var showOnSellerPage = $("#@Html.FieldIdFor(model => model.AddSpecificationAttributeModel.ShowOnSellerPage)").is(':checked');
                 var displayOrder = $("#@Html.FieldIdFor(model => model.AddSpecificationAttributeModel.DisplayOrder)").val();
 
                 if (specificationAttributeOptionId === null) {
@@ -225,6 +235,7 @@
                         customValue: customValue,
                         allowFiltering: allowFiltering,
                         showOnProductPage: showOnProductPage,
+                        showOnSellerPage: showOnSellerPage,
                         displayOrder: displayOrder,
                         productId: '@(Model.Id)'
                     };
@@ -313,7 +324,7 @@
                 <div class="col-md-9 col-sm-9">
                     <label class="mt-checkbox mt-checkbox-outline control control-checkbox">
                         <admin-input asp-for="AddSpecificationAttributeModel.AllowFiltering" />
-                         <div class="control__indicator"></div>
+                        <div class="control__indicator"></div>
                     </label>
                     <span asp-validation-for="AddSpecificationAttributeModel.AllowFiltering"></span>
                 </div>
@@ -323,9 +334,19 @@
                 <div class="col-md-9 col-sm-9">
                     <label class="mt-checkbox mt-checkbox-outline control control-checkbox">
                         <admin-input asp-for="AddSpecificationAttributeModel.ShowOnProductPage" />
-                         <div class="control__indicator"></div>
+                        <div class="control__indicator"></div>
                     </label>
                     <span asp-validation-for="AddSpecificationAttributeModel.ShowOnProductPage"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <admin-label asp-for="AddSpecificationAttributeModel.ShowOnSellerPage" />
+                <div class="col-md-9 col-sm-9">
+                    <label class="mt-checkbox mt-checkbox-outline control control-checkbox">
+                        <admin-input asp-for="AddSpecificationAttributeModel.ShowOnSellerPage" />
+                        <div class="control__indicator"></div>
+                    </label>
+                    <span asp-validation-for="AddSpecificationAttributeModel.ShowOnSellerPage"></span>
                 </div>
             </div>
             <div class="form-group">

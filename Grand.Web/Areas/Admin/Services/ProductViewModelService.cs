@@ -479,6 +479,8 @@ namespace Grand.Web.Areas.Admin.Services
                 //default specs values
                 model.AddSpecificationAttributeModel.ShowOnProductPage = true;
 
+                model.AddSpecificationAttributeModel.ShowOnSellerPage = false;
+
             }
 
             //copy product
@@ -604,6 +606,8 @@ namespace Grand.Web.Areas.Admin.Services
             //default specs values
             model.AddSpecificationAttributeModel.ShowOnProductPage = true;
 
+            model.AddSpecificationAttributeModel.ShowOnSellerPage = false;
+            
             //discounts
             model.AvailableDiscounts = (await _discountService
                 .GetAllDiscounts(DiscountType.AssignedToSkus, storeId: _workContext.CurrentCustomer.StaffStoreId, showHidden: true))
@@ -3147,6 +3151,7 @@ namespace Grand.Web.Areas.Admin.Services
                     AttributeName = specificationAttribute.Name,
                     AllowFiltering = x.AllowFiltering,
                     ShowOnProductPage = x.ShowOnProductPage,
+                    ShowOnSellerPage = x.ShowOnSellerPage,
                     DisplayOrder = x.DisplayOrder
                 };
                 switch (x.AttributeType)
@@ -3189,6 +3194,7 @@ namespace Grand.Web.Areas.Admin.Services
                 CustomValue = model.CustomValue,
                 AllowFiltering = model.AllowFiltering,
                 ShowOnProductPage = model.ShowOnProductPage,
+                ShowOnSellerPage = model.ShowOnSellerPage,
                 DisplayOrder = model.DisplayOrder,
             };
 
@@ -3207,6 +3213,8 @@ namespace Grand.Web.Areas.Admin.Services
                 psa.CustomValue = model.ValueRaw;
             }
             psa.ShowOnProductPage = model.ShowOnProductPage;
+            psa.ShowOnSellerPage = model.ShowOnSellerPage;
+            
             psa.DisplayOrder = model.DisplayOrder;
             psa.ProductId = model.ProductId;
             await _specificationAttributeService.UpdateProductSpecificationAttribute(psa);

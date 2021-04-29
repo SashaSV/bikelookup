@@ -11,7 +11,7 @@
      <b-col class="pl-0">
          <partial name="_ProductDetailsPictures" model="Model"/>
      </b-col>
-     <b-col>
+     <b-col class="pl-1">
          <b-row class="mb-4">
              <div class="actual-price details-price">
                  @Model.ProductPrice.Price
@@ -22,7 +22,7 @@
              <b-row class="mb-4">
                  <div class="spec-container">
                      @{
-                         var group = Model.ProductSpecifications.Where(atr => atr.ShowOnProductMainPage).GroupBy(x => x.SpecificationAttributeName);
+                         var group = Model.ProductSpecifications.Where(atr => atr.ShowOnSellerMainPage).GroupBy(x => x.SpecificationAttributeName);
                      }
                      <table>
                          <tbody>

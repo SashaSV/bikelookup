@@ -11,7 +11,8 @@ namespace Grand.Api.DTOs.Catalog
         public string CustomValue { get; set; }
         public bool AllowFiltering { get; set; }
         public bool ShowOnProductPage { get; set; }
-        public int DisplayOrder { get; set; }
+        public bool ShowOnSellerPage { get; set; }
+    public int DisplayOrder { get; set; }
         [BsonElement("AttributeTypeId")]
         public SpecificationAttributeType AttributeType { get; set; }
     }

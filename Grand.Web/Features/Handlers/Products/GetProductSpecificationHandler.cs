@@ -49,8 +49,9 @@ namespace Grand.Web.Features.Handlers.Products
                         SpecificationAttributeName = specificationAttribute.GetLocalized(x => x.Name, request.Language.Id),
                         ColorSquaresRgb = option?.ColorSquaresRgb ?? "",
                         GenericAttributes = specificationAttribute.GenericAttributes,
-                        ShowOnProductMainPage = item.ShowOnProductPage
-                       };
+                        ShowOnProductMainPage = item.ShowOnProductPage,
+                        ShowOnSellerMainPage = item.ShowOnSellerPage
+                    };
 
                     switch (item.AttributeType)
                     {

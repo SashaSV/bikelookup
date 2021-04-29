@@ -48,6 +48,7 @@ namespace Grand.Domain.Catalog
         /// </summary>
         public bool ShowOnProductPage { get; set; }
 
+        public bool ShowOnSellerPage { get; set; }
         /// <summary>
         /// Gets or sets the display order
         /// </summary>

@@ -39,6 +39,7 @@ namespace Grand.Api.Commands.Models.Catalog
                 psa.SpecificationAttributeOptionId = request.Model.SpecificationAttributeOptionId;
                 psa.AttributeTypeId = (int)request.Model.AttributeType;
                 psa.ShowOnProductPage = request.Model.ShowOnProductPage;
+                psa.ShowOnSellerPage = request.Model.ShowOnSellerPage;
                 psa.DisplayOrder = request.Model.DisplayOrder;
                 psa.ProductId = product.Id;
                 await _specificationAttributeService.UpdateProductSpecificationAttribute(psa);

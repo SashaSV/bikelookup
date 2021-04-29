@@ -507,6 +507,9 @@ namespace Grand.Web.Areas.Admin.Models.Catalog
             [GrandResourceDisplayName("Admin.Catalog.Products.SpecificationAttributes.Fields.ShowOnProductPage")]
             public bool ShowOnProductPage { get; set; }
 
+            [GrandResourceDisplayName("Admin.Catalog.Products.SpecificationAttributes.Fields.ShowOnSellerPage")]
+            public bool ShowOnSellerPage { get; set; }
+
             [GrandResourceDisplayName("Admin.Catalog.Products.SpecificationAttributes.Fields.DisplayOrder")]
             public int DisplayOrder { get; set; }
 
