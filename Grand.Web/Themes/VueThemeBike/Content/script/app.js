@@ -275,6 +275,7 @@ var vm = new Vue({
             searchproducts: null,
             minAngle: minPrice,
             maxAngle: maxPrice,
+            pictureToZoom: null,
         }
     },
     props: {
@@ -322,6 +323,13 @@ var vm = new Vue({
         }
     },
     methods: {
+        onzoom: function (index)
+        {
+            this.pictureToZoom = 0;
+            this.pictureToZoom = index
+            debugger
+            Vue.forceUpdate ();
+        },
         onnextslide :function ()
         {
             this.$refs.tmbcarousel.next()

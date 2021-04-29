@@ -1211,3 +1211,39 @@ footer .list-group-item span:last-child {
   height: 100%;
     
 }
+
+.logininput{
+    background: #FFFFFF !important;
+    border: 2px solid #F15A24 !important;
+    border-color: #F15A24 !important;
+}
+
+.logininput.is-valid{
+    background: #FFFFFF !important;
+    border: 2px solid #F15A24 !important;
+    border-color: #F15A24 !important;
+    box-shadow: 0 0 0 0 #F15A24;
+}
+
+.logininput.is-valid:focus{
+    background-color: #FFFFFF !important;
+    border-color: #F15A24 !important;
+    box-shadow: 0 0 5px 1px #F15A24;
+}
+
+.btn-info:hover
+{
+    color:#fff;
+    background-color:#F15A24 !important;
+    border-color:#F15A24 !important;
+    filter: brightness(150%);
+}
+
+.btn-info:focus
+{
+    color:#fff;
+    background-color:#F15A24 !important;
+    border-color:#F15A24 !important;
+    filter: brightness(150%);
+    box-shadow: 0 0 5px 1px #F15A24 !important;
+}

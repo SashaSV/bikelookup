@@ -77,7 +77,7 @@
                         @foreach (var picture in Model.PictureModels)
                         {
                             <b-carousel-slide>
-                                <img class="item" slot="img" src="@picture.ImageUrl" alt="" style='width: 100%; object-fit: contain'/>
+                                <img  v-on:click="onzoom(1)" class="item" slot="img" src="@picture.ImageUrl" alt="" style='width: 100%; object-fit: contain'/>
                             </b-carousel-slide>
                         }
                     </b-carousel>
@@ -119,11 +119,11 @@
                          <img v-on:click="onnextslide" class="scroll-btn" width="20" height="20" src="/Themes/VueThemeBike/Content/images/nextImg.svg" alt=""/>
                          </b-col>
                      </b-row>
-                <gallery-images></gallery-images>
+                <gallery-images v-if="this.pictureToZoom>0" v-bind:picturenum="this.pictureToZoom"></gallery-images>
                 <script>
                     Vue.component('gallery-images', {
                           props: ['picturenum'],
-                          template: '<div><template><div><vue-gallery-slideshow :images="images" :index="index" @@close="index=null"></vue-gallery-slideshow></div></template></div>',
+                          template: '<div><template><div><vue-gallery-slideshow :images="images" :index="this.picturenum" @@close="index = null"></vue-gallery-slideshow></div></template></div>',
                           data() {
                               return {
                                     images: [
