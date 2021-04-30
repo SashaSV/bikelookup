@@ -1,4 +1,4 @@
-﻿@model ProductOverviewModel
+@model ProductOverviewModel
 @{
     //prepare "Add to cart" Axios link
     string addtocartlink = "";
@@ -77,7 +77,7 @@
                         <template>
                             <div class = "rating-block">
                                 
-                                    <svg width="50" height="1" viewBox="0 0 50 1" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <svg width="15%" height="1" viewBox="0 0 20 1" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M0 1H50" stroke="#444444"/>
                                     </svg>
 
@@ -86,7 +86,7 @@
                                         <b-link href="@Url.RouteUrl("Product", new {SeName = Model.SeName})">@string.Format("(0)", Model.ReviewOverviewModel.TotalReviews)</b-link>
                                     </div>
                                 
-                                    <svg width="50" height="1" viewBox="0 0 50 1" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <svg width="15%" height="1" viewBox="0 0 20 1" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M0 1H50" stroke="#444444"/>
                                     </svg>
 
@@ -162,39 +162,4 @@
             </div>
         }
     </b-card-body>
-    <template v-slot:footer>
-         <svg class = "line" width="268" height="3" viewBox="0 0 268 3" fill="none" xmlns="http://www.w3.org/2000/svg">
-                   <path d="M0 3H268" stroke="#444444"/>
-          </svg>
-        @if (Model.ShowQty)
-        {
-            var qtyId = "addtocart_" + @Model.Id + "_EnteredQuantity";
-            <input class="form-control input-group-addon catalog-quantity" type="number" id="@qtyId" name="@qtyId" value="1">
-        }
-        @if (Model.AssociatedProducts.Any())
-        {
-             <div class="proposals">
-                    @foreach (var assocProduct in Model.AssociatedProducts)
-                    {
-                        @if (assocProduct.Vendor == null)
-                        {
-                          continue;
-                        }
-                        <div class="proposal">
-                             <a href="@assocProduct.Url">
-                                 <div class="proposal-name">
-                                      @assocProduct.Vendor.Name
-                                 </div>
-                             </a>
-                              <a href="@assocProduct.Url">
-                                  <div class="proposal-value">
-                                      @assocProduct.ProductPrice.Price
-                                  </div>
-                              </a>
-                              </div>
-                        }
-             </div>
-        }
-
-    </template>
 </b-card> 
