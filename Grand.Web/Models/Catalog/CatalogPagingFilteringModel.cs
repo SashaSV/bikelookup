@@ -438,7 +438,7 @@ namespace Grand.Web.Models.Catalog
                                 var saParentOptions = specificationAttributeService.GetOptionBreadCrumb(saOption,sa.SpecificationAttributeOptions);
                                 foreach (var saoP in saParentOptions) 
                                 {
-                                    if (string.IsNullOrEmpty(saoP.ParentSpecificationAttrOptionId) && !_allFilters.Any(s=>s.SpecificationAttributeOptionId == saoP.Id)) 
+                                    if (!_allFilters.Any(s=>s.SpecificationAttributeOptionId == saoP.Id)) 
                                     {
                                         _allFilters.Add(new SpecificationAttributeOptionFilter {
                                             SpecificationAttributeId = sa.Id,
@@ -493,7 +493,9 @@ namespace Grand.Web.Models.Catalog
                         SpecificationAttributeOptionName = x.SpecificationAttributeOptionName,
                         SpecificationAttributeOptionSeName = x.SpecificationAttributeOptionSeName,
                         SpecificationAttributeOptionColorRgb = x.SpecificationAttributeOptionColorRgb,
-                        FilterUrl = ExcludeQueryStringParams(filterUrl, webHelper)
+                        SpecificationAttributeOptionParentSpecificationAttrOptionId = x.SpecificationAttributeOptionParentSpecificationAttrOptionId,
+                        FilterUrl = ExcludeQueryStringParams(filterUrl, webHelper),
+                        Id = x.SpecificationAttributeOptionId
                     };
                 }).ToList();
 
@@ -509,8 +511,10 @@ namespace Grand.Web.Models.Catalog
                         SpecificationAttributeName = x.SpecificationAttributeName,
                         SpecificationAttributeSeName = x.SpecificationAttributeSeName,
                         SpecificationAttributeOptionName = x.SpecificationAttributeOptionName,
+                        SpecificationAttributeOptionParentSpecificationAttrOptionId = x.SpecificationAttributeOptionParentSpecificationAttrOptionId,
                         SpecificationAttributeOptionSeName = x.SpecificationAttributeOptionSeName,
                         SpecificationAttributeOptionColorRgb = x.SpecificationAttributeOptionColorRgb,
+                        Id = x.SpecificationAttributeOptionId,
                         FilterUrl = ExcludeQueryStringParams(filterUrl, webHelper)
                     };
                 }).ToList();
@@ -535,6 +539,9 @@ namespace Grand.Web.Models.Catalog
             public string SpecificationAttributeOptionSeName { get; set; }
             public string SpecificationAttributeOptionColorRgb { get; set; }
             public string FilterUrl { get; set; }
+            public string SpecificationAttributeOptionParentSpecificationAttrOptionId { get; set; }
+
+            public string Id { get; set; }
         }
 
         #endregion

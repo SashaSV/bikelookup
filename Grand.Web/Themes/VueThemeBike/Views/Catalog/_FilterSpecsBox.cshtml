@@ -1,6 +1,6 @@
 ﻿@model CatalogPagingFilteringModel.SpecificationFilterModel
 @{
-    var notFilteredItemsGroups = Model.NotFilteredItems.GroupBy(x => x.SpecificationAttributeName);
+    var notFilteredItemsGroups = Model.NotFilteredItems.GroupBy(x=>x.SpecificationAttributeName);
 }
 @if (Model.Enabled)
 {
@@ -57,23 +57,36 @@
                                 </li>
                                 <li>
                                     <b-button-group size="sm" class="d-inline-flex flex-wrap">
-                                        @foreach (var spec in 
-                                            groupList.GroupBy(sp => sp.SpecificationAttributeOptionName).Select(gr => gr.First()))
+                                        @foreach(var root in group.Where(g=>g.SpecificationAttributeOptionParentSpecificationAttrOptionId == null))
                                         {
-
-                                            @if (String.IsNullOrEmpty(spec.SpecificationAttributeOptionColorRgb))
-                                            {
-                                                <b-button size="sm" variant="light" class="mb-1 mr-1" href="@spec.FilterUrl">
-                                                    @spec.SpecificationAttributeOptionName
+                                            
+                                            var specParentGroup = group.Where(g=>g.SpecificationAttributeOptionParentSpecificationAttrOptionId == root.Id);
+                                           
+                                              
+                                            <b-col>
+                                                <b-button v-b-toggle.collapse-1-inner size="sm">
+                                                    <b-form-checkbox>
+                                                        @root.SpecificationAttributeOptionName
+                                                    </b-form-checkbox>
                                                 </b-button>
-                                            }
-                                            else
-                                            {
-                                                <b-button size="sm" variant="light" class="color-container mb-1 mr-1" href="@spec.FilterUrl">
-                                                    <span class="color" title="@spec.SpecificationAttributeOptionName" style="background-color: @(spec.SpecificationAttributeOptionColorRgb);">&nbsp;</span>
-                                                </b-button>
-                                            }
-
+                                                <b-collapse id="collapse-1-inner" class="mt-2">
+                                                    @foreach (var spec in specParentGroup.GroupBy(sp => sp.SpecificationAttributeOptionName).Select(gr => gr.First()))
+                                                    {
+                                                        @if (String.IsNullOrEmpty(spec.SpecificationAttributeOptionColorRgb))
+                                                        {
+                                                            <b-button size="sm" variant="light" class="mb-1 mr-1" href="@spec.FilterUrl">
+                                                                @spec.SpecificationAttributeOptionName
+                                                            </b-button>
+                                                        }
+                                                        else
+                                                        {
+                                                            <b-button size="sm" variant="light" class="color-container mb-1 mr-1" href="@spec.FilterUrl">
+                                                                <span class="color" title="@spec.SpecificationAttributeOptionName" style="background-color: @(spec.SpecificationAttributeOptionColorRgb);">&nbsp;</span>
+                                                            </b-button>
+                                                        }
+                                                    }
+                                                </b-collapse>
+                                            </b-col>
                                         }
                                     </b-button-group>
                                 </li>
