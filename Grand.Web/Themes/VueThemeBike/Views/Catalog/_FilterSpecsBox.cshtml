@@ -1,7 +1,57 @@
-﻿@model CatalogPagingFilteringModel.SpecificationFilterModel
+﻿@using System
+@model CatalogPagingFilteringModel.SpecificationFilterModel
 @{
     var notFilteredItemsGroups = Model.NotFilteredItems.GroupBy(x=>x.SpecificationAttributeName);
 }
+
+@functions {
+
+    public void SpecTree(List<CatalogPagingFilteringModel.SpecificationFilterItem> roots,
+        IEnumerable<CatalogPagingFilteringModel.SpecificationFilterItem> group )
+    {
+        @foreach (var root in roots)
+            {
+                <b-col>
+                    <b-button v-b-toggle="'@root.Id'" size="sm">
+                        <b-form-checkbox>
+                            @root.SpecificationAttributeOptionName
+                        </b-form-checkbox>
+                    </b-button>
+                        <b-collapse id="@root.Id" class="mt-2">
+                            @{
+                                var children = group.Where(g => g.SpecificationAttributeOptionParentSpecificationAttrOptionId == root.Id).ToList();
+                            }
+                            @foreach (var child in children.GroupBy(sp => sp.SpecificationAttributeOptionName).Select(gr => gr.First()))
+                            {
+                                var childrenOfChild =
+                                        group.Where(c => c.SpecificationAttributeOptionParentSpecificationAttrOptionId == child.Id).ToList();
+                                
+                                @if(childrenOfChild.Any())
+                                {
+                                    SpecTree(new List<CatalogPagingFilteringModel.SpecificationFilterItem>{child}, childrenOfChild);
+                                    continue;
+                                }
+                         
+                                @if (String.IsNullOrEmpty(child.SpecificationAttributeOptionColorRgb))
+                                {
+                                    <b-button size="sm" variant="light" class="mb-1 mr-1" href="@child.FilterUrl">
+                                        @child.SpecificationAttributeOptionName
+                                    </b-button>
+                                }
+                                else
+                                {
+                                    <b-button size="sm" variant="light" class="color-container mb-1 mr-1" href="@child.FilterUrl">
+                                        <span class="color" title="@child.SpecificationAttributeOptionName" style="background-color: @(child.SpecificationAttributeOptionColorRgb);">&nbsp;</span>
+                                    </b-button>
+                                }
+
+                            }
+                        </b-collapse></b-col>
+                     }
+                 }
+
+                }
+
 @if (Model.Enabled)
 {
     <div id="block-product-spec-filter" class="block product-filter product-spec-filter">
@@ -46,50 +96,29 @@
         <div class="filter-content viewBox">
             @if (Model.NotFilteredItems.Any())
             {
+                var index = 0;
                 <div class="available-items">
                     @foreach (var group in notFilteredItemsGroups)
                     {
+                        index++;
                         var groupList = group.ToList();
                         <b-col cols="12" class="px-0">
                             <ul class="group product-spec-group">
-                                <li class="title">
-                                    <h6>@groupList[0].SpecificationAttributeName:</h6>
-                                </li>
-                                <li>
-                                    <b-button-group size="sm" class="d-inline-flex flex-wrap">
-                                        @foreach(var root in group.Where(g=>g.SpecificationAttributeOptionParentSpecificationAttrOptionId == null))
-                                        {
-                                            
-                                            var specParentGroup = group.Where(g=>g.SpecificationAttributeOptionParentSpecificationAttrOptionId == root.Id);
-                                           
-                                              
-                                            <b-col>
-                                                <b-button v-b-toggle.collapse-1-inner size="sm">
-                                                    <b-form-checkbox>
-                                                        @root.SpecificationAttributeOptionName
-                                                    </b-form-checkbox>
-                                                </b-button>
-                                                <b-collapse id="collapse-1-inner" class="mt-2">
-                                                    @foreach (var spec in specParentGroup.GroupBy(sp => sp.SpecificationAttributeOptionName).Select(gr => gr.First()))
-                                                    {
-                                                        @if (String.IsNullOrEmpty(spec.SpecificationAttributeOptionColorRgb))
-                                                        {
-                                                            <b-button size="sm" variant="light" class="mb-1 mr-1" href="@spec.FilterUrl">
-                                                                @spec.SpecificationAttributeOptionName
-                                                            </b-button>
-                                                        }
-                                                        else
-                                                        {
-                                                            <b-button size="sm" variant="light" class="color-container mb-1 mr-1" href="@spec.FilterUrl">
-                                                                <span class="color" title="@spec.SpecificationAttributeOptionName" style="background-color: @(spec.SpecificationAttributeOptionColorRgb);">&nbsp;</span>
-                                                            </b-button>
-                                                        }
-                                                    }
-                                                </b-collapse>
-                                            </b-col>
+                                <b-button v-b-toggle="'@groupList[0].SpecificationAttributeName'" size="sm">
+                                    <li class="title">
+                                        <h6>@groupList[0].SpecificationAttributeName:</h6>
+                                    </li>
+                                </b-button>
+                                <b-collapse id="@groupList[0].SpecificationAttributeName" class="mt-2">
+                                    <li>
+                                        @{
+                                            var roots 
+                                                = group.Where(g => g.SpecificationAttributeOptionParentSpecificationAttrOptionId == null)
+                                                    .ToList();
+                                            SpecTree(roots, group);
                                         }
-                                    </b-button-group>
-                                </li>
+                                    </li>
+                                 </b-collapse>
                             </ul>
                         </b-col>
                     }
