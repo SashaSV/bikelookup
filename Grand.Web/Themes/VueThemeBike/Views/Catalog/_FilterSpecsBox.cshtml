@@ -1,7 +1,76 @@
-﻿@model CatalogPagingFilteringModel.SpecificationFilterModel
+﻿@using System
+@model CatalogPagingFilteringModel.SpecificationFilterModel
 @{
     var notFilteredItemsGroups = Model.NotFilteredItems.GroupBy(x=>x.SpecificationAttributeName);
 }
+
+@functions 
+{
+    public void SingleOption(CatalogPagingFilteringModel.SpecificationFilterItem item)
+    {
+        @if (String.IsNullOrEmpty(item.SpecificationAttributeOptionColorRgb))
+        {
+             <b-button size="sm" variant="light" class="mb-1 mr-1" href="@item.FilterUrl">
+                 @item.SpecificationAttributeOptionName
+             </b-button>
+        }
+        else
+        {
+         <b-button size="sm" variant="light" class="color-container mb-1 mr-1" href="@item.FilterUrl">
+             <span class="color" title="@item.SpecificationAttributeOptionName" style="background-color: @(item.SpecificationAttributeOptionColorRgb);">&nbsp;</span>
+         </b-button>
+        }  
+    }        
+
+    public void SpecTree(List<CatalogPagingFilteringModel.SpecificationFilterItem> roots,
+        IEnumerable<CatalogPagingFilteringModel.SpecificationFilterItem> group )
+    {
+        @foreach (var root in roots)
+        {
+            var children  = group.Where(g => g.SpecificationAttributeOptionParentSpecificationAttrOptionId == root.Id).ToList();
+            if (!children.Any())
+            {
+                SingleOption(root);
+                continue;
+            }
+            <b-col>
+                <b-row>
+                    <b-form-checkbox>
+                    </b-form-checkbox>
+                    <b-button v-b-toggle="'@root.Id'" size="lg" class="category-spec shadow-none pt-0">
+                        @root.SpecificationAttributeOptionName
+
+                        <span class="when-open ml-2">
+                            <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10.091 0C15.6634 0 20.1819 4.51852 20.1819 10.091C20.1819 15.6634 15.6634 20.1819 10.091 20.1819C4.51785 20.1819 0 15.6637 0 10.091C0 4.51818 4.51785 0 10.091 0ZM10.091 1.51364C5.35383 1.51364 1.51364 5.35412 1.51364 10.091C1.51364 14.8278 5.35383 18.6683 10.091 18.6683C14.8274 18.6683 18.6683 14.8274 18.6683 10.091C18.6683 5.35448 14.8274 1.51364 10.091 1.51364ZM14.0423 8.02614L14.1273 8.09924C14.3966 8.36735 14.4219 8.78775 14.2027 9.0845L14.1296 9.16954L10.6271 12.6873C10.3581 12.9573 9.93619 12.9819 9.63945 12.7609L9.55445 12.6873L6.05188 9.16954C5.75696 8.87335 5.758 8.39416 6.05419 8.09924C6.32346 7.83113 6.74396 7.80761 7.03977 8.02808L7.1245 8.10155L10.0898 11.0799L13.057 8.10155C13.3251 7.83228 13.7455 7.80695 14.0423 8.02614Z" fill="#200E32"/>
+                            </svg>
+                        </span>
+                        <span class="when-closed ml-2 ">
+                            <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10.091 0C15.6634 0 20.1819 4.51852 20.1819 10.091C20.1819 15.6634 15.6634 20.1819 10.091 20.1819C4.51785 20.1819 0 15.6637 0 10.091C0 4.51818 4.51785 0 10.091 0ZM10.091 1.51364C5.35383 1.51364 1.51364 5.35412 1.51364 10.091C1.51364 14.8278 5.35383 18.6683 10.091 18.6683C14.8274 18.6683 18.6683 14.8274 18.6683 10.091C18.6683 5.35448 14.8274 1.51364 10.091 1.51364ZM14.0423 8.02614L14.1273 8.09924C14.3966 8.36735 14.4219 8.78775 14.2027 9.0845L14.1296 9.16954L10.6271 12.6873C10.3581 12.9573 9.93619 12.9819 9.63945 12.7609L9.55445 12.6873L6.05188 9.16954C5.75696 8.87335 5.758 8.39416 6.05419 8.09924C6.32346 7.83113 6.74396 7.80761 7.03977 8.02808L7.1245 8.10155L10.0898 11.0799L13.057 8.10155C13.3251 7.83228 13.7455 7.80695 14.0423 8.02614Z" fill="#200E32"/>
+                            </svg>
+                        </span>
+                    </b-button>
+                </b-row>
+                <b-collapse id="@root.Id" class="mt-2">
+                    @foreach (var child in children.GroupBy(sp => sp.SpecificationAttributeOptionName).Select(gr => gr.First()))
+                    {
+                        var childrenOfChild =
+                            group.Where(c => c.SpecificationAttributeOptionParentSpecificationAttrOptionId == child.Id).ToList();
+
+                        @if (childrenOfChild.Any())
+                        {
+                            SpecTree(new List<CatalogPagingFilteringModel.SpecificationFilterItem> {child}, childrenOfChild);
+                            continue;
+                        }
+                        SingleOption(child);
+                    }
+                </b-collapse>
+            </b-col>
+        }
+    }
+}
+
 @if (Model.Enabled)
 {
     <div id="block-product-spec-filter" class="block product-filter product-spec-filter">
@@ -46,50 +115,38 @@
         <div class="filter-content viewBox">
             @if (Model.NotFilteredItems.Any())
             {
+                var index = 0;
                 <div class="available-items">
                     @foreach (var group in notFilteredItemsGroups)
                     {
+                        index++;
                         var groupList = group.ToList();
                         <b-col cols="12" class="px-0">
                             <ul class="group product-spec-group">
-                                <li class="title">
-                                    <h6>@groupList[0].SpecificationAttributeName:</h6>
-                                </li>
-                                <li>
-                                    <b-button-group size="sm" class="d-inline-flex flex-wrap">
-                                        @foreach(var root in group.Where(g=>g.SpecificationAttributeOptionParentSpecificationAttrOptionId == null))
-                                        {
-                                            
-                                            var specParentGroup = group.Where(g=>g.SpecificationAttributeOptionParentSpecificationAttrOptionId == root.Id);
-                                           
-                                              
-                                            <b-col>
-                                                <b-button v-b-toggle.collapse-1-inner size="sm">
-                                                    <b-form-checkbox>
-                                                        @root.SpecificationAttributeOptionName
-                                                    </b-form-checkbox>
-                                                </b-button>
-                                                <b-collapse id="collapse-1-inner" class="mt-2">
-                                                    @foreach (var spec in specParentGroup.GroupBy(sp => sp.SpecificationAttributeOptionName).Select(gr => gr.First()))
-                                                    {
-                                                        @if (String.IsNullOrEmpty(spec.SpecificationAttributeOptionColorRgb))
-                                                        {
-                                                            <b-button size="sm" variant="light" class="mb-1 mr-1" href="@spec.FilterUrl">
-                                                                @spec.SpecificationAttributeOptionName
-                                                            </b-button>
-                                                        }
-                                                        else
-                                                        {
-                                                            <b-button size="sm" variant="light" class="color-container mb-1 mr-1" href="@spec.FilterUrl">
-                                                                <span class="color" title="@spec.SpecificationAttributeOptionName" style="background-color: @(spec.SpecificationAttributeOptionColorRgb);">&nbsp;</span>
-                                                            </b-button>
-                                                        }
-                                                    }
-                                                </b-collapse>
-                                            </b-col>
+                                <b-button align-h="start"  v-b-toggle="'@groupList[0].SpecificationAttributeName'" size="lg" class="category-spec shadow-none px-0">
+                                            @groupList[0].SpecificationAttributeName:
+                                            <span class="when-open ml-2">
+                                                <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M10.091 0C15.6634 0 20.1819 4.51852 20.1819 10.091C20.1819 15.6634 15.6634 20.1819 10.091 20.1819C4.51785 20.1819 0 15.6637 0 10.091C0 4.51818 4.51785 0 10.091 0ZM10.091 1.51364C5.35383 1.51364 1.51364 5.35412 1.51364 10.091C1.51364 14.8278 5.35383 18.6683 10.091 18.6683C14.8274 18.6683 18.6683 14.8274 18.6683 10.091C18.6683 5.35448 14.8274 1.51364 10.091 1.51364ZM14.0423 8.02614L14.1273 8.09924C14.3966 8.36735 14.4219 8.78775 14.2027 9.0845L14.1296 9.16954L10.6271 12.6873C10.3581 12.9573 9.93619 12.9819 9.63945 12.7609L9.55445 12.6873L6.05188 9.16954C5.75696 8.87335 5.758 8.39416 6.05419 8.09924C6.32346 7.83113 6.74396 7.80761 7.03977 8.02808L7.1245 8.10155L10.0898 11.0799L13.057 8.10155C13.3251 7.83228 13.7455 7.80695 14.0423 8.02614Z" fill="#200E32"/>
+                                                </svg>
+                                            </span>
+                                            <span class="when-closed ml-2 ">
+                                                <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M10.091 0C15.6634 0 20.1819 4.51852 20.1819 10.091C20.1819 15.6634 15.6634 20.1819 10.091 20.1819C4.51785 20.1819 0 15.6637 0 10.091C0 4.51818 4.51785 0 10.091 0ZM10.091 1.51364C5.35383 1.51364 1.51364 5.35412 1.51364 10.091C1.51364 14.8278 5.35383 18.6683 10.091 18.6683C14.8274 18.6683 18.6683 14.8274 18.6683 10.091C18.6683 5.35448 14.8274 1.51364 10.091 1.51364ZM14.0423 8.02614L14.1273 8.09924C14.3966 8.36735 14.4219 8.78775 14.2027 9.0845L14.1296 9.16954L10.6271 12.6873C10.3581 12.9573 9.93619 12.9819 9.63945 12.7609L9.55445 12.6873L6.05188 9.16954C5.75696 8.87335 5.758 8.39416 6.05419 8.09924C6.32346 7.83113 6.74396 7.80761 7.03977 8.02808L7.1245 8.10155L10.0898 11.0799L13.057 8.10155C13.3251 7.83228 13.7455 7.80695 14.0423 8.02614Z" fill="#200E32"/>
+                                                </svg>
+                                            </span>
+                                    
+                                </b-button>
+                                <b-collapse id="@groupList[0].SpecificationAttributeName" class="mt-2 pl-4">
+                                    <li>
+                                        @{
+                                            var roots
+                                                = group.Where(g => string.IsNullOrEmpty(g.SpecificationAttributeOptionParentSpecificationAttrOptionId))
+                                                    .ToList();
+                                            SpecTree(roots, group);
                                         }
-                                    </b-button-group>
-                                </li>
+                                    </li>
+                                </b-collapse>
                             </ul>
                         </b-col>
                     }

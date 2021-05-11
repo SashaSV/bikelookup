@@ -1,4 +1,41 @@
 ﻿/* catalog left side */
+.category-spec {
+    background-color: white;
+    color: #000000;
+    font-family: "Montserrat";
+    text-transform: uppercase;
+    font-weight: 400;
+    border: none;
+    font-size: 18px;
+}
+
+.category-spec:hover
+{
+    background-color: white !important;
+    color: #000000;
+    border: none;
+    outline: none;
+    border-style: none;
+}
+
+.category-spec:focus
+{
+
+    background-color: white !important;
+    color: #000000;
+    border: none;
+    outline: none;
+    border-style: none !important;
+}
+
+.collapsed > .when-open{
+    display: none;
+}
+
+.not-collapsed > .when-closed {
+    display: none;
+}
+
 .range-slider {
     width: 100%;
     margin: 0px;
