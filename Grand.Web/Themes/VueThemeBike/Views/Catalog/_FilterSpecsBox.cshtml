@@ -123,7 +123,7 @@
                         var groupList = group.ToList();
                         <b-col cols="12" class="px-0">
                             <ul class="group product-spec-group">
-                                <b-button align-h="start"  v-b-toggle="'@groupList[0].SpecificationAttributeName'" size="lg" class="category-spec shadow-none px-0">
+                                <b-button align-h="start"  v-b-toggle="'@groupList[0].Id'" size="lg" class="category-spec shadow-none px-0">
                                             @groupList[0].SpecificationAttributeName:
                                             <span class="when-open ml-2">
                                                 <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -137,7 +137,7 @@
                                             </span>
                                     
                                 </b-button>
-                                <b-collapse id="@groupList[0].SpecificationAttributeName" class="mt-2 pl-4">
+                                <b-collapse id="@groupList[0].Id" class="mt-2 pl-4">
                                     <li>
                                         @{
                                             var roots
