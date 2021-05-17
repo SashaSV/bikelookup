@@ -323,6 +323,12 @@ var vm = new Vue({
         }
     },
     methods: {
+        filterProducts: function (url)
+        {
+            window.location = url
+            debugger
+        },
+        
         onzoom: function (index)
         {
             this.pictureToZoom = 0;

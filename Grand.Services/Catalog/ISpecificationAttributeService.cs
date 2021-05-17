@@ -62,6 +62,13 @@ namespace Grand.Services.Catalog
         /// </summary>
         /// <param name="specificationAttributeOption">The specification attribute option</param>
         /// <returns>Specification attribute option</returns>
+        Task<SpecificationAttributeOption> GetChildren(string specificationAttributeOption);
+        
+        /// <summary>
+        /// Gets a specification attribute option
+        /// </summary>
+        /// <param name="specificationAttributeOption">The specification attribute option</param>
+        /// <returns>Specification attribute option</returns>
         Task<SpecificationAttribute> GetSpecificationAttributeByOptionId(string specificationAttributeOption);
 
         /// <summary>

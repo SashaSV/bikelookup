@@ -38,6 +38,23 @@ namespace Grand.Services.Queries.Handlers.Catalog
             _commonSettings = commonSettings;
         }
 
+        private IEnumerable<SpecificationAttributeOption> getChildren(SpecificationAttribute atribute, string option)
+        {
+            var children = atribute.SpecificationAttributeOptions
+                .Where(o => o.ParentSpecificationAttrOptionId == option);
+
+
+            var allChildren = children.ToList();
+
+
+            foreach (var child in children)
+            {
+                allChildren.AddRange(getChildren(atribute, child.Id));
+            }
+
+            return allChildren;
+        }
+
         public async Task<(IPagedList<Product> products, IList<string> filterableSpecificationAttributeOptionIds)>
             Handle(GetSearchProductsQuery request, CancellationToken cancellationToken)
         {
@@ -230,6 +247,8 @@ namespace Grand.Services.Queries.Handlers.Catalog
                             filterSpecification = filterSpecification & builder.Where(x => x.ProductSpecificationAttributes.Any(y => y.SpecificationAttributeId == specification.Id && y.AllowFiltering));
                         }
                         dictionary[specification.Id].Add(key);
+                        var children = getChildren(specification, key);
+                        dictionary[specification.Id].AddRange(children.Select(c=>c.Id));
                     }
                 }
 

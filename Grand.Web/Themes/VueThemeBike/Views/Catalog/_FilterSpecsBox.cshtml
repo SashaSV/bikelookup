@@ -35,7 +35,7 @@
             }
             <b-col>
                 <b-row>
-                    <b-form-checkbox>
+                    <b-form-checkbox v-model="status" v-on:change="filterProducts('@root.FilterUrl')">
                     </b-form-checkbox>
                     <b-button v-b-toggle="'@root.Id'" size="lg" class="category-spec shadow-none pt-0">
                         @root.SpecificationAttributeOptionName

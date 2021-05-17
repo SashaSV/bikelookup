@@ -215,6 +215,12 @@ namespace Grand.Services.Catalog
             await _mediator.EntityUpdated(specificationAttribute);
         }
 
+        public Task<SpecificationAttributeOption> GetChildren(string specificationAttributeOption)
+        {
+            //var children = _specificationAttributeRepository.Collection.Find(p=>p)
+            throw new NotImplementedException();
+        }
+
         #endregion
 
         #region Specification attribute option
