@@ -31,27 +31,27 @@
         var rows = 3;
         var rowSize = 2;
     }
-    
-    @for (var row = 0; row < rows; row++ )
-    {
-        
-        var cols = optionsByGroup
-            .Skip(rowSize * row)
-            .Take(rowSize);
-        <b-row>
-        @foreach (var options in cols)
+
+        @for (var row = 0; row < rows; row++)
         {
-            var generalOptiongroup = options.Key;
-            var generalOptionKeys = optionsByGroup[generalOptiongroup];
-            var generalOptions = group.Where(o => generalOptionKeys.Contains(o.Key));
-            if (generalOptions != null)
-            {
-                var models = generalOptions.SelectMany(gr => (IEnumerable<ProductSpecificationModel>)gr);
-                <b-col class="pl-0"> <partial name="_SpecGroup" model=" new SpecGroupModel(){Specs = models.ToList(), Icon = icons[generalOptiongroup], Name = generalOptiongroup}"/></b-col>
-                continue;
-            }
-            <b-col> <partial name="_SpecGroup" model="new SpecGroupModel{Specs = new List<ProductSpecificationModel>(), Icon = icons[generalOptiongroup], Name = generalOptiongroup}"/></b-col>
+
+            var cols = optionsByGroup
+                .Skip(rowSize * row)
+                .Take(rowSize);
+            <b-row class="name-spec-group">
+                @foreach (var options in cols)
+                {
+                    var generalOptiongroup = options.Key;
+                    var generalOptionKeys = optionsByGroup[generalOptiongroup];
+                    var generalOptions = group.Where(o => generalOptionKeys.Contains(o.Key));
+                    if (generalOptions != null)
+                    {
+                        var models = generalOptions.SelectMany(gr => (IEnumerable<ProductSpecificationModel>)gr);
+                        <b-col class="pl-0"> <partial name="_SpecGroup" model=" new SpecGroupModel(){Specs = models.ToList(), Icon = icons[generalOptiongroup], Name = generalOptiongroup}" /></b-col>
+                        continue;
+                    }
+                    <b-col> <partial name="_SpecGroup" model="new SpecGroupModel{Specs = new List<ProductSpecificationModel>(), Icon = icons[generalOptiongroup], Name = generalOptiongroup}" /></b-col>
+                }
+            </b-row>
         }
-        </b-row>
-    }
 

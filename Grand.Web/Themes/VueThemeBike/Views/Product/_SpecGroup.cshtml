@@ -27,10 +27,14 @@
             <b-row class="ml-1">
                 <b-col>
                     <div class="detailedSpecName">
-                        @{
-                            var groupList = item.ToList();
-                        }
-                        @groupList[0].SpecificationAttributeName
+                        <span>
+                            @{
+
+                                var groupList = item.ToList();
+
+                            }
+                            @groupList[0].SpecificationAttributeName
+                        </span>
                     </div>
                 </b-col>
                 <b-col>

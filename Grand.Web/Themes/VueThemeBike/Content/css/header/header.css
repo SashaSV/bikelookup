@@ -37,10 +37,11 @@
     align-items: flex-start;
 }
 .chat * {
+    visibility:hidden;
     cursor: pointer;
     width: 24px;
     height: 24px;
-    margin-right: 8px;
+    margin: 5px;
 }
 
 .chat:hover .chat_icon
@@ -51,7 +52,7 @@
 .heart * {
     width: 25px;
     height: 24px;
-    margin-right: 8px;
+    margin: 5px;
     cursor: pointer;
 }
 
@@ -64,7 +65,7 @@
     width: 24px;
     height: 24px;
     cursor: pointer;
-    margin-right: 8px;
+    margin: 5px;
 }
 
 .swap:hover .swap_icon
@@ -73,6 +74,7 @@
 }
 
 .my-location {
+    visibility:hidden;
     align-items: center;
     display: flex;
     margin-right: 30px;
@@ -140,18 +142,39 @@
 {
     background: none;
     text-align: center;
-    width: 300px;
+    width: 400px;
     border: none;
     font-family: "Montserrat";
-    font-size: 18px;
+    font-size: 1.2rem;
     font-weight: 400;
     z-index: 11;
     color: rgba(255, 255, 255, 1);
 }
+.find-mini:hover .search-input
+{
+    cursor: pointer;
+    width: 500px;
+}
+
+/*width="212" height="75"*/
+
+#head-logo-svg
+{
+    width: 212;
+    height: 75;
+
+}
+.head-logo-svg:hover
+{
+    width:180;
+    height: 50;
+}
+
 .search-input:focus::placeholder
 {
-    color: transparent;
+    color:transparent;
 }
+
 .search-input::placeholder
 {
     color: rgba(255, 255, 255, 1);
@@ -187,6 +210,7 @@
 }
 
 .button-ad {
+    visibility: hidden;
     background-color: rgba(241, 90, 36, 1);
     padding: 11px 18px 11px 18px;
     border: 0px;
@@ -194,17 +218,20 @@
     text-align: center;
     width: 250px;
 }
+
 .button-ad:focus{
     outline:0;
 }
+
 .button-ad:hover {
+    font-size: 1.5rem;
     filter: brightness(150%);
 }
 
 .button-addtext {
     display: inline;
     font-family: "Montserrat";
-    font-size: 14px;
+    font-size: 1rem;
     font-weight: 400;
     color: rgba(255, 255, 255, 1);
 }
@@ -223,17 +250,13 @@
     align-items: center;
 }
 .lang-select {
-    margin-top: 5px;
-    margin-right: 50px;
-    margin-left: auto;
+    padding: 0 1% 0 1%;
     display: flex;
-    width: 60px;
     font-family: "Montserrat";
-    font-size: 14px;
+    font-size: 1rem;
     font-weight: 400;
     color: rgba(255, 255, 255, 1);
     cursor: pointer;
-    padding: 5px;
 }
 .selected-lang
 {
@@ -258,7 +281,7 @@
 
 .lang-options
 {
-    padding: 0;
+    padding: 5px 10px 5px 10px;
     margin-top: 25px;
     overflow: auto;
     margin-left: 0;
@@ -274,12 +297,14 @@
 {
     padding: 5px;
     font-family: "Montserrat";
-    font-size: 14px;
+    font-size: 0.85rem;
     font-weight: 400;
 }
 
 .lang-option:hover
 {
+    font-size: 1rem;
+    font-weight: 600;
     color: rgba(241, 90, 36, 1);
     cursor: pointer;
 }
@@ -302,7 +327,7 @@
 {
     width: 200px;
     font-family: "Montserrat";
-    font-size: 20px;
+    font-size: 1.5rem;
     font-weight: 400;
     color: rgba(255, 255, 255, 1);
     padding: 5px;
@@ -310,6 +335,7 @@
 
 .menu_item:hover
 {
+    text-decoration:underline;
     color: rgba(241, 90, 36, 1);
 }
 
@@ -320,9 +346,10 @@
 }
 
 .head-logo {
+    padding: 0.5% 0;
+    cursor: pointer;
     align-items: center;
     margin: 0 auto;
-    width: 212px;
 }
 
 .logo-bike

@@ -742,7 +742,7 @@ namespace Grand.Web.Areas.Admin.Services
             model.Id = productReview.Id;
             model.StoreName = store != null ? store.Shortcut : "";
             model.ProductId = productReview.ProductId;
-            model.ProductName = product.Name;
+            model.ProductName = product is null ? "": product.Name;
             model.CustomerId = productReview.CustomerId;
             model.CustomerInfo = customer != null ? customer.IsRegistered() ? customer.Email : _localizationService.GetResource("Admin.Customers.Guest") : "";
             model.Rating = productReview.Rating;
