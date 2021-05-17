@@ -112,6 +112,7 @@
     text-transform: uppercase;
 }
 
+
 .heart_prod * {
     width: 25px;
     height: 24px;
@@ -136,10 +137,13 @@
     display: flex;
 }
 
+
+
 .heart_prod:hover .heart_icon_prod
 {
     filter: brightness(150%);
 }
+
 
 .swap_prod:hover .swap_icon_prod
 {
