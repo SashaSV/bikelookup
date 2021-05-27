@@ -7,7 +7,7 @@
 
 @{
     var themeName = themeContext.WorkingThemeName;
-    if (themeName == "VueTheme")
+    if (themeName.StartsWith("VueTheme"))
     {
         <script asp-location="Header">
             document.addEventListener('DOMContentLoaded', function () {
@@ -39,7 +39,7 @@
         }
     }
 }
-@if (themeName == "VueTheme")
+@if (themeName.StartsWith("VueTheme"))
 {
     <b-carousel id="GrandCarousel" fade controls indicators img-width="1024" img-height="267" background="#ababab" interval="6000">
         @foreach (var item in Model.Slide)
@@ -50,7 +50,11 @@
             }
             else
             {
-                <b-carousel-slide text-html="@item.Description" @if (item.FullWidth) { <text> data-width="full" class="img-desc wide-img @if (!string.IsNullOrEmpty(item.Link)) { <text> link </text> }" </text> } else { <text> class="img-desc no-wide-img @if (!string.IsNullOrEmpty(item.Link)) { <text> link </text> }" </text> } @if (!string.IsNullOrEmpty(item.Link)) { <text> onclick="window.location='@item.Link'" </text> }>
+                <b-carousel-slide text-html="@item.Description" @if (item.FullWidth)
+                                                {
+                                                    <text> data-width="full" class="img-desc wide-img @if (!string.IsNullOrEmpty(item.Link)) { <text> link </text> }" </text>
+                                                } else 
+                                                { <text> class="img-desc no-wide-img @if (!string.IsNullOrEmpty(item.Link)) { <text> link </text> }" </text> } @if (!string.IsNullOrEmpty(item.Link)) { <text> onclick="window.location='@item.Link'" </text> }>
                     <template #img>
                         <picture>
                             <source media="(max-width: 767px)" sizes="1px" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7 1w" />
