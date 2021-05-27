@@ -358,11 +358,23 @@ var vm = new Vue({
         },
         onnextslide :function ()
         {
+            debugger
             this.$refs.tmbcarousel.next()
+        },
+        onnextslide2 :function (a)
+        {
+            debugger
+            a.next()
         },
         onprevslide :function ()
         {
+            debugger
             this.$refs.tmbcarousel.prev()
+        },
+        onprevslide2 :function (a)
+        {
+            debugger
+            a.prev()
         },
         setslide :function(index)
         {
