@@ -160,6 +160,15 @@ namespace Grand.Services.Queries.Handlers.Catalog
                     (!p.MarkAsNewEndDateTimeUtc.HasValue || p.MarkAsNewEndDateTimeUtc.Value > nowUtc));
             }
 
+            if (request.Discount)
+            {
+                filter = filter & new BsonDocumentFilterDefinition<Product>(new BsonDocument(
+                    "$expr", new BsonDocument(
+                        "$ne", new BsonArray
+                        {
+                            "$Price", "$OldPrice"
+                        })));   }
+
             //searching by keyword
             if (!String.IsNullOrWhiteSpace(request.Keywords))
             {
