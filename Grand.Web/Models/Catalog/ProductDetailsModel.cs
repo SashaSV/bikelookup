@@ -95,6 +95,8 @@ namespace Grand.Web.Models.Catalog
         public IList<ManufacturerModel> ProductManufacturers { get; set; }
         public ProductReviewOverviewModel ProductReviewOverview { get; set; }
         public IList<TierPriceModel> TierPrices { get; set; }
+        public bool DisableWishlistButton { get; set; }
+        public bool DisableAddToCompareListButton { get; set; }
         //a list of associated products. For example, "Grouped" products could have several child "simple" products
         public IList<ProductDetailsModel> AssociatedProducts { get; set; }
         //bundle product 
