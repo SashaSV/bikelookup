@@ -88,6 +88,8 @@ hosts = [
 OUT_FILE_CATALOG = 'C://Users/SashaSV/source/repos/bikelookup/Grand.Web/wwwroot/content/images/'
 
 _separetAtribute = ['sp_for', 'sp_type_brake', 'sp_typebike', 'sp_color']
+_separeteAtributeWithLinq = ["sp_equipment", "sp_model"]
+
 _filteringAtribute = ["manufacturer", "sp_size", "sp_available", "sp_typebike", "sp_for", "sp_material_frame",
                       "sp_wheeldiams", "sp_type_brake", "sp_year", "sp_count_speed", "sp_type_fork",
                       "sp_type_rear_hub", "sp_age", "sp_fork_travel", "sp_equipment",
@@ -95,7 +97,6 @@ _filteringAtribute = ["manufacturer", "sp_size", "sp_available", "sp_typebike", 
 
 _nonVisibleAtribute = ["sp_available", "sp_brand_fork"]
 _visibleOnSellerTabAtribute = ["sp_year", "manufacturer", "sp_for", "sp_count_speed", "sp_size", "sp_material_frame", "sp_type_fork", "sp_equipment", "sp_type_brake"]
-_separeteAtributeWithLinq = ["sp_equipment", "sp_model"]
 
 
 SPECNAMEBASE = {
@@ -127,7 +128,7 @@ SPECNAMEBASE = {
          'displayOrderOnTabFilter': 12},
     'sp_model': {'site': ['Модельный ряд', 'Модель'], 'ru': 'Модельный ряд', 'ua': 'Модельний ряд', 'en': 'Model',
          'displayOrderOnTabProduct': 99,
-         'displayOrderOnTabFilter': 60},
+         'displayOrderOnTabFilter': 10},
     'sp_color': {'site': 'Цвет', 'ru': 'Цвет', 'ua': 'Колір', 'en': 'Color',
          'displayOrderOnTabProduct': 99,
          'displayOrderOnTabFilter': 30},
@@ -864,7 +865,7 @@ def pars_name(db, name_in, size_in = '', wheeldiam_in = '', year_in = '', model_
 
     name = name_in
 
-    if name == 'Велосипед Trek Madone SLR 7 eTap Matte Onyx Carbon':
+    if name == 'Велосипед 27,5" Cannondale TRAIL 6 Feminine (2021) mantis':
         aaa = 1
 
     for word in deletewords:
@@ -885,9 +886,10 @@ def pars_name(db, name_in, size_in = '', wheeldiam_in = '', year_in = '', model_
     if not wheeldiam[1].isdigit():
         wheeldiam = ''
     else:
-        wheeldiam = wheeldiam.replace(',', '.')
         if name.find(wheeldiam) >= 0:
             name = name[len(wheeldiam):len(name)].strip()
+
+        wheeldiam = wheeldiam.replace(',', '.')
 
     manufactureName = chek_so_name(db, name.split(' ')[0], 'manufacturer')
     if len(manufactureName) == 0:
@@ -1107,7 +1109,7 @@ def create_product(db, d, constData, name_elem):
                 'UnitId': constData['unitId'],
                 'CourseId': None,
                 'MarkAsNew': True,
-                'MarkAsNewStartDateTimeUtc': datetime.now(),
+                'MarkAsNewStartDateTimeUtc': datetime.now()-timedelta(days=1),
                 'MarkAsNewEndDateTimeUtc': datetime.now()+timedelta(days=30),
                 'Weight': 0,
                 'Length': 0,
@@ -1210,7 +1212,7 @@ def check_vendor(db, vendorName):
         v = new_v
     return v
 
-def add_specificationattributeoption(db, sa, sao, prop_name, color_hex = None):
+def add_specificationattributeoption(db, sa, sao, prop_name, color_hex = None, parentSPO = None):
     id_ = str(ObjectId())
 
     new_sao = {
@@ -1219,7 +1221,7 @@ def add_specificationattributeoption(db, sa, sao, prop_name, color_hex = None):
         'SeName': get_sename(prop_name, db, id_, 'SpecificationAttributeOption', ''),
         'ColorSquaresRgb': '',
         'DisplayOrder': 0,
-        'ParentSpecificationAttrOptionId': '',
+        'ParentSpecificationAttrOptionId': '' if parentSPO == None else parentSPO,
         'Locales': []
     }
 
@@ -1231,7 +1233,7 @@ def add_specificationattributeoption(db, sa, sao, prop_name, color_hex = None):
                     {'SpecificationAttributeOptions': sa['SpecificationAttributeOptions']})
     return new_sao
 
-def check_specificationattributeoption_by_name(db, prop_name, prop_value, color_hex = None):
+def check_specificationattributeoption_by_name(db, prop_name, prop_value, color_hex = None, parentSPO = None):
     sa = check_specificationattribute_by_name(db, prop_name)
     sao = sa['SpecificationAttributeOptions']
 
@@ -1242,7 +1244,7 @@ def check_specificationattributeoption_by_name(db, prop_name, prop_value, color_
              sao_ret = sao[ind]
 
     if sao_ret is None:
-        sao_ret = add_specificationattributeoption(db, sa, sao, prop_value, color_hex = color_hex)
+        sao_ret = add_specificationattributeoption(db, sa, sao, prop_value, color_hex = color_hex, parentSPO = parentSPO)
 
     return sao_ret
 
@@ -1639,7 +1641,10 @@ def check_product(db, data):
         sp_model = sp_model if not sp_model is None else ''
         sp_size = d.get('sp_size')
         sp_size = sp_size if not sp_size is None else ''
+
+        ##
         name_elem = pars_name(db, d['name'], size_in=sp_size, wheeldiam_in=sp_wheeldiams, year_in=sp_year, model_in = sp_model)
+
         manufacturer = d['manufacturer']
 
         brandname = manufacturer if type(manufacturer) is str else manufacturer.get('brand')
@@ -1717,7 +1722,13 @@ def check_product(db, data):
 
             sa = check_specificationattribute_by_name(db, prop_name)
 
-            if _separetAtribute.__contains__(prop_name):
+            if _separetAtribute.__contains__(prop_name) or _separeteAtributeWithLinq.__contains__(prop_name):
+                ifWithLinq = _separeteAtributeWithLinq.__contains__(prop_name)
+                parentSPO = None
+
+                if ifWithLinq:
+                    prop_value = prop_value.replace(' ', 'separate')
+
                 prop_value = prop_value.replace(',', 'separate')
                 prop_value = prop_value.replace('/', 'separate')
                 if prop_name == 'sp_color':
@@ -1757,8 +1768,9 @@ def check_product(db, data):
                                 pv = 'Цвет не определен'
                                 colorHex = None
 
-                    sao = check_specificationattributeoption_by_name(db, prop_name, pv, color_hex=colorHex)
+                    sao = check_specificationattributeoption_by_name(db, prop_name, pv, color_hex=colorHex, parentSPO=parentSPO)
                     check_productspecificationattributeoption(db, p_main, sa, sao)
+                    parentSPO = sao.get('_id') if ifWithLinq else None
 
                 continue
             sao = check_specificationattributeoption_by_name(db, prop_name, prop_value)
@@ -1894,6 +1906,7 @@ def option_update_sp_parentId(db):
                 options[i]['ParentSpecificationAttrOptionId'] = None
 
         update_document(db.SpecificationAttribute, {'_id': sa['_id']}, {'SpecificationAttributeOptions': options})
+
 def option_color_base_update_name(db):
     sa = find_document(db.SpecificationAttribute, {'Name': 'colorbase'})
     options = sa.get('SpecificationAttributeOptions')
@@ -1985,6 +1998,17 @@ def resave_option_color_base():
 
     dump_to_json(jsonFileNameOfColorBase, colors_new)
 
+def clear_all_product(db):
+    products = find_document(db.Product, {}, multiple = True)
+    for product in products:
+        pictures = product.get('ProductPictures')
+        SeName = product.get('SeName')
+
+        for picture in pictures:
+            delete_document(db.Picture, {'_id': picture.get('PictureId')})
+
+        delete_document(db.Product, {'_id': product.get('_id')})
+        delete_document(db.UrlRecord, {'EntityName': 'Product', 'Slug': SeName})
 
 def main():
 
@@ -1994,10 +2018,11 @@ def main():
 
     #check_actual_price_and_available(db)
 
-    #pars_new_card_into_bikelookup(db, 'bike-family.com.ua')
+    pars_new_card_into_bikelookup(db, 'velogo.com.ua')
     #pars_option_color_base(db)
     #option_color_base_update_name(db)
     #option_sp_color_update_ColorSquaresRgb(db)
-    option_update_sp_parentId(db)
+    #option_update_sp_parentId(db)
+    #clear_all_product(db)
 if __name__ == '__main__':
     main()
