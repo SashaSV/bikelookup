@@ -162,9 +162,10 @@ namespace Grand.Services.Queries.Handlers.Catalog
 
             if (request.Discount)
             {
+                //ne->lt
                 filter = filter & new BsonDocumentFilterDefinition<Product>(new BsonDocument(
                     "$expr", new BsonDocument(
-                        "$ne", new BsonArray
+                        "$lt", new BsonArray
                         {
                             "$Price", "$OldPrice"
                         })));   }
