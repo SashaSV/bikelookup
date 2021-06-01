@@ -458,16 +458,26 @@
                 <span asp-validation-for="NewProductsOnHomePage"></span>
             </div>
         </div>
-        <div class="form-group" id="pnlNewProductsNumberOnHomePage">
-            <div class="col-8 col-md-4 col-sm-4 text-right">
-                @Html.OverrideStoreCheckboxFor(model => model.NewProductsNumberOnHomePage_OverrideForStore, model => model.NewProductsNumberOnHomePage, Model.ActiveStoreScopeConfiguration)
-                <admin-label asp-for="NewProductsNumberOnHomePage" class="control-label" />
-            </div>
-            <div class="col-4 col-md-8 col-sm-8">
-                <admin-input asp-for="NewProductsNumberOnHomePage" />
-                <span asp-validation-for="NewProductsNumberOnHomePage"></span>
-            </div>
+    <div class="form-group" id="pnlNewProductsNumberOnHomePage">
+        <div class="col-8 col-md-4 col-sm-4 text-right">
+            @Html.OverrideStoreCheckboxFor(model => model.NewProductsNumberOnHomePage_OverrideForStore, model => model.NewProductsNumberOnHomePage, Model.ActiveStoreScopeConfiguration)
+            <admin-label asp-for="NewProductsNumberOnHomePage" class="control-label" />
         </div>
+        <div class="col-4 col-md-8 col-sm-8">
+            <admin-input asp-for="NewProductsNumberOnHomePage" />
+            <span asp-validation-for="NewProductsNumberOnHomePage"></span>
+        </div>
+    </div>
+        <div class="form-group" id="discountProductsNumberOnHomePage">
+                <div class="col-8 col-md-4 col-sm-4 text-right">
+                    @Html.OverrideStoreCheckboxFor(model => model.DiscountProductsNumberOnHomePage_OverrideForStore, model => model.DiscountProductsNumberOnHomePage, Model.ActiveStoreScopeConfiguration)
+                    <admin-label asp-for="DiscountProductsNumberOnHomePage" class="control-label" />
+                </div>
+                <div class="col-4 col-md-8 col-sm-8">
+                    <admin-input asp-for="DiscountProductsNumberOnHomePage" />
+                    <span asp-validation-for="DiscountProductsNumberOnHomePage"></span>
+                </div>
+            </div>
         <div class="form-group">
             <div class="col-8 col-md-4 col-sm-4 text-right">
                 @Html.OverrideStoreCheckboxFor(model => model.ShowBestsellersOnHomepage_OverrideForStore, model => model.ShowBestsellersOnHomepage, Model.ActiveStoreScopeConfiguration)

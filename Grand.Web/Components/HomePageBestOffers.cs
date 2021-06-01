@@ -49,8 +49,8 @@ namespace Grand.Web.Components
                 StoreId = _storeContext.CurrentStore.Id,
                 VisibleIndividuallyOnly = true,
                 Discount = true,
-                OrderBy = ProductSortingEnum.CreatedOn,
-                PageSize = _catalogSettings.NewProductsNumberOnHomePage
+                OrderBy = ProductSortingEnum.DiscountSize,
+                PageSize = _catalogSettings.DiscountProductsNumberOnHomePage
             })).products;
 
             if (!products.Any())

@@ -60,12 +60,11 @@
                                 .Take(itemsPerSlide);
     
                             <b-carousel-slide>
-                                <b-row slot="img" class="product-card-carousel h-100">
+                                <b-row slot="img" class="">
                                     @foreach (var item in items)
                                     {          
-                                        Debugger.Break();
-                                        <b-col class="product-card-carousel h-100">
-                                            <b-img class="product-card-carousel h-100" src="@item.PictureUrl" data-thumb="@item.PictureUrl" data-transition="" alt="@item.Name" title="" />
+                                        <b-col class="">
+                                            <b-img class="" src="@item.PictureUrl" data-thumb="@item.PictureUrl" data-transition="" alt="@item.Name" title="" />
                                         </b-col>
                                         imgNumber++;
                                     }
