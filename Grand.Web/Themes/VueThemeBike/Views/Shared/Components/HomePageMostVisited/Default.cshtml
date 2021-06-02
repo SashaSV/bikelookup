@@ -4,10 +4,10 @@
     <h2 class="generalTitle text-center">@T("HomePage.MostVisited")</h2>
     <b-row class="product-slider">
         <b-col md="left" align-self="center">
-            <img v-on:click="onprevslide2($refs.tmbcarouselbestof)" class="scroll-btn" width="40" height="100" src="/Themes/VueThemeBike/Content/images/ChevronLeft.svg" alt="" />
+            <img v-on:click="onprevslide2($refs.tmbcarouselmostv)" class="scroll-btn" width="40" height="100" src="/Themes/VueThemeBike/Content/images/ChevronLeft.svg" alt="" />
         </b-col>
         <b-col md="slider">
-            <b-carousel ref="tmbcarouselbestof" id="">
+            <b-carousel ref="tmbcarouselmostv" id="">
                 @{
                     var itemsPerSlide = 5;
                     var numSlides = Math.Ceiling((decimal)Model.Count / itemsPerSlide);
@@ -35,7 +35,7 @@
             </b-carousel>
         </b-col>
         <b-col md="right" align-self="center">
-            <img v-on:click="onnextslide2($refs.tmbcarouselbestof)" class="scroll-btn" width="40" height="100" src="/Themes/VueThemeBike/Content/images/ChevronRight.svg" alt="" />
+            <img v-on:click="onnextslide2($refs.tmbcarouselmostv)" class="scroll-btn" width="40" height="100" src="/Themes/VueThemeBike/Content/images/ChevronRight.svg" alt="" />
         </b-col>
     </b-row>
 </div>
