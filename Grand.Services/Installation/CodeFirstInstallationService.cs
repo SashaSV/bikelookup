@@ -4997,6 +4997,7 @@ namespace Grand.Services.Installation
                 NewProductsEnabled = true,
                 NewProductsOnHomePage = false,
                 NewProductsNumberOnHomePage = 6,
+                DiscountProductsNumberOnHomePage = 6,
                 CompareProductsEnabled = true,
                 CompareProductsNumber = 4,
                 ProductSearchAutoCompleteEnabled = true,

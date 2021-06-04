@@ -754,6 +754,7 @@ namespace Grand.Web.Areas.Admin.Controllers
                 model.CompareProductsEnabled_OverrideForStore = _settingService.SettingExists(catalogSettings, x => x.CompareProductsEnabled, storeScope);
                 model.ShowBestsellersOnHomepage_OverrideForStore = _settingService.SettingExists(catalogSettings, x => x.ShowBestsellersOnHomepage, storeScope);
                 model.NumberOfBestsellersOnHomepage_OverrideForStore = _settingService.SettingExists(catalogSettings, x => x.NumberOfBestsellersOnHomepage, storeScope);
+                
                 model.SearchPageProductsPerPage_OverrideForStore = _settingService.SettingExists(catalogSettings, x => x.SearchPageProductsPerPage, storeScope);
                 model.SearchPageAllowCustomersToSelectPageSize_OverrideForStore = _settingService.SettingExists(catalogSettings, x => x.SearchPageAllowCustomersToSelectPageSize, storeScope);
                 model.SearchPagePageSizeOptions_OverrideForStore = _settingService.SettingExists(catalogSettings, x => x.SearchPagePageSizeOptions, storeScope);
@@ -828,6 +829,8 @@ namespace Grand.Web.Areas.Admin.Controllers
             await UpdateOverrideForStore(storeScope, model.NewProductsNumber_OverrideForStore, catalogSettings, x => x.NewProductsNumber);
             await UpdateOverrideForStore(storeScope, model.NewProductsEnabled_OverrideForStore, catalogSettings, x => x.NewProductsEnabled);
             await UpdateOverrideForStore(storeScope, model.NewProductsNumberOnHomePage_OverrideForStore, catalogSettings, x => x.NewProductsNumberOnHomePage);
+            await UpdateOverrideForStore(storeScope, model.NewProductsOnHomePage_OverrideForStore, catalogSettings,
+                x => x.DiscountProductsNumberOnHomePage);
             await UpdateOverrideForStore(storeScope, model.NewProductsOnHomePage_OverrideForStore, catalogSettings, x => x.NewProductsOnHomePage);
             await UpdateOverrideForStore(storeScope, model.CompareProductsEnabled_OverrideForStore, catalogSettings, x => x.CompareProductsEnabled);
             await UpdateOverrideForStore(storeScope, model.ShowBestsellersOnHomepage_OverrideForStore, catalogSettings, x => x.ShowBestsellersOnHomepage);

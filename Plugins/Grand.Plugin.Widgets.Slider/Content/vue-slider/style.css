@@ -6,6 +6,14 @@
     left: 0;
     padding: 0;
 }
+
+#GrandCarousel .carousel-control-prev-icon,
+.carousel-control-next-icon {
+    height: 100px !important;
+    width: 40px !important;
+    background-image: url("/Themes/VueThemeBike/Content/images/ChevronLeft.svg");
+}
+
 #GrandCarousel .carousel-item .carousel-caption .slideRow {
     position: absolute;
     top: 0;

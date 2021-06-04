@@ -160,6 +160,16 @@ namespace Grand.Services.Queries.Handlers.Catalog
                     (!p.MarkAsNewEndDateTimeUtc.HasValue || p.MarkAsNewEndDateTimeUtc.Value > nowUtc));
             }
 
+            if (request.Discount)
+            {
+                //ne->lt
+                filter = filter & new BsonDocumentFilterDefinition<Product>(new BsonDocument(
+                    "$expr", new BsonDocument(
+                        "$lt", new BsonArray
+                        {
+                            "$Price", "$OldPrice"
+                        })));   }
+
             //searching by keyword
             if (!String.IsNullOrWhiteSpace(request.Keywords))
             {
@@ -315,8 +325,10 @@ namespace Grand.Services.Queries.Handlers.Catalog
             {
                 //best seller
                 builderSort = Builders<Product>.Sort.Descending(x => x.Sold);
+            }else if (request.OrderBy == ProductSortingEnum.DiscountSize)
+            {
+                builderSort = Builders<Product>.Sort.Descending(x => x.Price);
             }
-
             var products = await PagedList<Product>.Create(_productRepository.Collection, filter, builderSort, request.PageIndex, request.PageSize);
 
             if (request.LoadFilterableSpecificationAttributeOptionIds && !_catalogSettings.IgnoreFilterableSpecAttributeOption)

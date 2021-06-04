@@ -41,6 +41,9 @@
         /// Product most onsale
         /// </summary>
         OnSale = 30,
-
+        /// <summary>
+        /// Product with largest discount
+        /// </summary>
+        DiscountSize = 35
     }
 }
