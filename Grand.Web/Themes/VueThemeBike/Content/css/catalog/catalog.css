@@ -92,15 +92,15 @@ input[type=range]:focus::-ms-fill-upper {
 @media (min-width: 992px){
     .col-lg-9
     {
-        -ms-flex: 0 0 85%;
-        flex: 0 0 85%;
-        max-width: 85%;
+        -ms-flex: 0 0 80%;
+        flex: 0 0 80%;
+        max-width: 80%;
     }
 
     .col-lg-3 {
-        -ms-flex: 0 0 15%;
-        flex: 0 0 15%;
-        max-width: 15%;
+        -ms-flex: 0 0 20%;
+        flex: 0 0 20%;
+        max-width: 20%;
     }
 }
 

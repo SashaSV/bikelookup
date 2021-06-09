@@ -124,6 +124,7 @@ namespace Grand.Web.Features.Handlers.Products
              
              if (product.ProductType == ProductType.GroupedProduct)
              {
+                var bestDiscount = 0m;
                  foreach (var associatedProduct in associatedProducts)
                  {
                      var associatedProductOverview =
@@ -132,6 +133,14 @@ namespace Grand.Web.Features.Handlers.Products
                          request.ForceRedirectionAfterAddingToCart,
                          enableShoppingCart, displayPrices, enableWishlist, priceIncludesTax,
                          new List<Product>());
+                    
+                     if (associatedProductOverview.ProductPrice.OldPriceValue > 0)
+                     {
+                        bestDiscount = Math.Round(
+                            (associatedProductOverview.ProductPrice.OldPriceValue - associatedProductOverview.ProductPrice.PriceValue)
+                            / associatedProductOverview.ProductPrice.OldPriceValue, 2);
+                     }
+                     model.BestDiscount = model.BestDiscount > bestDiscount ? model.BestDiscount : bestDiscount;
                      model.AssociatedProducts.Add(associatedProductOverview);
                  }
              }
@@ -211,6 +220,8 @@ namespace Grand.Web.Features.Handlers.Products
                 ShowSku = _catalogSettings.ShowSkuOnCatalogPages,
                 TaxDisplayType = _workContext.TaxDisplayType,
                 EndTime = product.AvailableEndDateTimeUtc,
+                CreatedOnUtc = product.CreatedOnUtc,
+                UpdatedOnUtc = product.UpdatedOnUtc,
                 EndTimeLocalTime = product.AvailableEndDateTimeUtc.HasValue ? _dateTimeHelper.ConvertToUserTime(product.AvailableEndDateTimeUtc.Value, DateTimeKind.Utc) : new DateTime?(),
                 ShowQty = _catalogSettings.DisplayQuantityOnCatalogPages,
                 GenericAttributes = product.GenericAttributes,

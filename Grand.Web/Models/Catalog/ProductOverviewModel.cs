@@ -50,6 +50,8 @@ namespace Grand.Web.Models.Catalog
         public bool ShowQty { get; set; }
         public DateTime? EndTime { get; set; }
         public DateTime? EndTimeLocalTime { get; set; }
+        public DateTime? CreatedOnUtc { get; set; }
+        public DateTime? UpdatedOnUtc { get; set; }
         public TaxDisplayType TaxDisplayType { get; set; }
         public IList<ProductOverviewModel> AssociatedProducts { get; set; }
 
@@ -68,8 +70,8 @@ namespace Grand.Web.Models.Catalog
         
         //price
         public ProductReviewOverviewModel ReviewOverviewModel { get; set; }
-
-		#region Nested Classes
+        public decimal BestDiscount { get; set; }
+        #region Nested Classes
         public partial class ProductPriceModel : BaseModel
         {
             public ProductPriceModel()
