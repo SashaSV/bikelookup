@@ -66,5 +66,7 @@
 </div>
 }
 @await Component.InvokeAsync("LanguageSelector")
-<div id="HeaderUp"><header-up></header-up></div>
-@await Component.InvokeAsync("HeaderCategories")
+<div id="HeaderUp">
+    <header-up></header-up>
+    @await Component.InvokeAsync("HeaderCategories")
+</div>

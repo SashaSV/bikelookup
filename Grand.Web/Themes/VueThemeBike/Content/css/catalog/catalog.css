@@ -5,7 +5,7 @@
     /*text-transform: uppercase;*/
     font-weight: 400;
     border: none;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
 }
 
 .category-spec:hover
@@ -92,15 +92,17 @@ input[type=range]:focus::-ms-fill-upper {
 @media (min-width: 992px){
     .col-lg-9
     {
-        -ms-flex: 0 0 80%;
-        flex: 0 0 80%;
-        max-width: 80%;
+        -ms-flex: 0 0 76%;
+        flex: 0 0 76%;
+        max-width: 76%;
     }
 
     .col-lg-3 {
-        -ms-flex: 0 0 20%;
-        flex: 0 0 20%;
-        max-width: 20%;
+        -ms-flex: 0 0 24%;
+        flex: 0 0 24%;
+        max-width: 24%;
+        padding-right: 10px;
+        padding-left: 10px;
     }
 }
 
@@ -165,10 +167,11 @@ input[type=range]::-webkit-slider-thumb {
     text-decoration: none;
     font-size: 0.86rem;
     font-weight: 500;
-    display: flex;
-    padding-bottom: 10px;
-    border-color:white;
-    background-color:white
+    /*display: flex;*/
+    /*padding-bottom: 5px;*/
+    padding: 5px;
+    border-color: rgb(0 0 0 / 8%);
+    background-color: #f8f9fa;
 }
 .generalLeftSide .block-category-navigation li.active > .sublist > li a {
     color: #000;
