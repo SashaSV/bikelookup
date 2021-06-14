@@ -223,8 +223,6 @@ namespace Grand.Web.Features.Handlers.Products
                 ShowSku = _catalogSettings.ShowSkuOnCatalogPages,
                 TaxDisplayType = _workContext.TaxDisplayType,
                 EndTime = product.AvailableEndDateTimeUtc,
-                CreatedOnUtc = product.CreatedOnUtc,
-                UpdatedOnUtc = product.UpdatedOnUtc,
                 EndTimeLocalTime = product.AvailableEndDateTimeUtc.HasValue ? _dateTimeHelper.ConvertToUserTime(product.AvailableEndDateTimeUtc.Value, DateTimeKind.Utc) : new DateTime?(),
                 ShowQty = _catalogSettings.DisplayQuantityOnCatalogPages,
                 GenericAttributes = product.GenericAttributes,
