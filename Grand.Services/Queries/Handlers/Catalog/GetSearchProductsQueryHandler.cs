@@ -254,7 +254,7 @@ namespace Grand.Services.Queries.Handlers.Catalog
                         {
                             //add
                             dictionary.Add(specification.Id, new List<string>());
-                            filterSpecification = filterSpecification & builder.Where(x => x.ProductSpecificationAttributes.Any(y => y.SpecificationAttributeId == specification.Id && y.AllowFiltering));
+           
                         }
                         dictionary[specification.Id].Add(key);
                         var children = getChildren(specification, key);
@@ -266,9 +266,119 @@ namespace Grand.Services.Queries.Handlers.Catalog
                 {
                     filter = filter & builder.Where(x => x.ProductSpecificationAttributes.Any(y => y.SpecificationAttributeId == item.Key && y.AllowFiltering
                     && item.Value.Contains(y.SpecificationAttributeOptionId)));
+
+                    filterSpecification = filterSpecification & builder.Where(x =>
+                        x.ProductSpecificationAttributes.Any(y => y.SpecificationAttributeId == item.Key &&
+                                                                  y.AllowFiltering
+                                                                  && item.Value.Contains(
+                                                                      y.SpecificationAttributeOptionId)));
+                    
+                    var innerfilterSpec = builder.Empty;
+                    foreach (var option in dictionary)
+                    {
+                        if (option.Key == item.Key)
+                        {
+                            continue;
+                        }
+
+                        innerfilterSpec = innerfilterSpec & builder.Where(x =>
+                            x.ProductSpecificationAttributes.Any(y => y.SpecificationAttributeId == item.Key &&
+                                  y.AllowFiltering
+                                  && option.Value.Contains(y.SpecificationAttributeOptionId)));
+                    }
+
+                    if (request.LoadFilterableSpecificationAttributeOptionIds && !_catalogSettings.IgnoreFilterableSpecAttributeOption)
+                    {
+                        IList<string> specyfication = new List<string>();
+                        var filterSpecExists = innerfilterSpec &
+                                               builder.Where(x => x.ProductSpecificationAttributes.Count > 0);
+                        var productSpec = _productRepository.Collection.Find(filterSpecExists).Limit(1);
+                        if (productSpec != null)
+                        {
+                            var qspec = await _productRepository.Collection
+                            .Aggregate()
+                            .Match(innerfilterSpec)
+                            .Unwind(x => x.ProductSpecificationAttributes)
+                            .Project(new BsonDocument
+                                {
+                                {"AllowFiltering", "$ProductSpecificationAttributes.AllowFiltering"},
+                                {"SpecificationAttributeOptionId", "$ProductSpecificationAttributes.SpecificationAttributeOptionId"},
+                                {"SpecificationAttributeId", "$ProductSpecificationAttributes.SpecificationAttributeId"}
+                                })
+                            .Match(new BsonDocument("AllowFiltering", true))
+                            .Group(new BsonDocument
+                                    {
+                                                {"_id",
+                                                    new BsonDocument {
+                                                        { "SpecificationAttributeOptionId", "$SpecificationAttributeOptionId" },
+                                                        {"SpecificationAttributeId", "$SpecificationAttributeId"}
+                                                    }
+                                                },
+                                                {"count", new BsonDocument
+                                                    {
+                                                        { "$sum" , 1}
+                                                    }
+                                                }
+                                    })
+                            .ToListAsync();
+                            foreach (var specoption in qspec)
+                            {
+                                if (specoption["_id"]["SpecificationAttributeId"].ToString() != item.Key)
+                                {
+                                    continue;
+                                    
+                                }
+
+                                var so = specoption["_id"]["SpecificationAttributeOptionId"].ToString();
+                                specyfication.Add(so);
+                            }
+                        }
+                        filterableSpecificationAttributeOptionIds.AddRange(specyfication);
+                    }
                 }
             }
-
+            
+            if (request.LoadFilterableSpecificationAttributeOptionIds && !_catalogSettings.IgnoreFilterableSpecAttributeOption)
+            {
+                IList<string> specyfication = new List<string>();
+                var filterSpecExists = filterSpecification &
+                                       builder.Where(x => x.ProductSpecificationAttributes.Count > 0);
+                var productSpec = _productRepository.Collection.Find(filterSpecExists).Limit(1);
+                if (productSpec != null)
+                {
+                    var qspec = await _productRepository.Collection
+                    .Aggregate()
+                    .Match(filterSpecification)
+                    .Unwind(x => x.ProductSpecificationAttributes)
+                    .Project(new BsonDocument
+                        {
+                        {"AllowFiltering", "$ProductSpecificationAttributes.AllowFiltering"},
+                        {"SpecificationAttributeOptionId", "$ProductSpecificationAttributes.SpecificationAttributeOptionId"}
+                        })
+                    .Match(new BsonDocument("AllowFiltering", true))
+                    .Group(new BsonDocument
+                            {
+                                        {"_id",
+                                            new BsonDocument {
+                                                { "SpecificationAttributeOptionId", "$SpecificationAttributeOptionId" },
+                                            }
+                                        },
+                                        {"count", new BsonDocument
+                                            {
+                                                { "$sum" , 1}
+                                            }
+                                        }
+                            })
+                    .ToListAsync();
+                    foreach (var specoption in qspec)
+                    {
+                        var so = specoption["_id"]["SpecificationAttributeOptionId"].ToString();
+                        specyfication.Add(so);
+                    }
+                }
+                filterableSpecificationAttributeOptionIds.AddRange(specyfication);
+            }
+  
             var builderSort = Builders<Product>.Sort.Descending(x => x.CreatedOnUtc);
 
             if (request.OrderBy == ProductSortingEnum.Position && request.CategoryIds != null && request.CategoryIds.Any())
@@ -330,50 +440,8 @@ namespace Grand.Services.Queries.Handlers.Catalog
                 builderSort = Builders<Product>.Sort.Descending(x => x.Price);
             }
             var products = await PagedList<Product>.Create(_productRepository.Collection, filter, builderSort, request.PageIndex, request.PageSize);
-
-            if (request.LoadFilterableSpecificationAttributeOptionIds && !_catalogSettings.IgnoreFilterableSpecAttributeOption)
-            {
-                IList<string> specyfication = new List<string>();
-                var filterSpecExists = filterSpecification &
-                    builder.Where(x => x.ProductSpecificationAttributes.Count > 0);
-                var productSpec = _productRepository.Collection.Find(filterSpecExists).Limit(1);
-                if (productSpec != null)
-                {
-                    var qspec = await _productRepository.Collection
-                    .Aggregate()
-                    .Match(filterSpecification)
-                    .Unwind(x => x.ProductSpecificationAttributes)
-                    .Project(new BsonDocument
-                        {
-                        {"AllowFiltering", "$ProductSpecificationAttributes.AllowFiltering"},
-                        {"SpecificationAttributeOptionId", "$ProductSpecificationAttributes.SpecificationAttributeOptionId"}
-                        })
-                    .Match(new BsonDocument("AllowFiltering", true))
-                    .Group(new BsonDocument
-                            {
-                                        {"_id",
-                                            new BsonDocument {
-                                                { "SpecificationAttributeOptionId", "$SpecificationAttributeOptionId" },
-                                            }
-                                        },
-                                        {"count", new BsonDocument
-                                            {
-                                                { "$sum" , 1}
-                                            }
-                                        }
-                            })
-                    .ToListAsync();
-                    foreach (var item in qspec)
-                    {
-                        var so = item["_id"]["SpecificationAttributeOptionId"].ToString();
-                        specyfication.Add(so);
-                    }
-                }
-
-                filterableSpecificationAttributeOptionIds = specyfication.ToList();
-            }
-
-            return (products, filterableSpecificationAttributeOptionIds);
+            
+            return (products, filterableSpecificationAttributeOptionIds.Distinct().ToList());
 
             #endregion
         }
