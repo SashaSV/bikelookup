@@ -12,7 +12,7 @@ from pymongo import MongoClient
 #86
 NAMEMACHINE = 'localhost'
 PORTDB = 27017
-NAMEDB = 'bludb1'
+NAMEDB = 'bludb'
 PAGES_START = 1
 PAGES_COUNT = 1
 OUT_FILENAME = 'velogo'
@@ -1427,7 +1427,15 @@ def check_picture(db, pictureId, urlimage, productname):
     if p_main == None:
         id_ = str(ObjectId())
         #filename = OUT_FILE_CATALOG + url2filename(urlimage)
-        filename = '{0}{1}_0.jpeg'.format(OUT_FILE_CATALOG, id_)
+        CURR_DIR = os.getcwd()
+        CURR_DIR = CURR_DIR.replace('Python.Script', '')
+        file_catalog = '{0}Grand.Web\\wwwroot\\content\\images\\'.format(CURR_DIR)
+        try:
+            os.stat(file_catalog)
+        except:
+            os.mkdir(file_catalog)
+
+        filename = '{0}{1}_0.jpeg'.format(file_catalog, id_)
         load_image(urlimage, filename)
 
         in_file = open(filename, "rb")  # opening for [r]eading as [b]inary
