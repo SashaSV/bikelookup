@@ -30,6 +30,11 @@
     font-weight: 500;
 }
 
+.mt-2, .my-2 {
+    margin-top: .5rem!important;
+    margin-left: 2rem!important;
+}
+
 .rounded-0 {
     border-radius: 100%!important;
     border: 3px solid #F15A24; /* Параметры рамки */
@@ -450,6 +455,8 @@
 .col {
     position: relative;
     width: 100%;
+    padding-top: 5px;
+    padding-bottom: 5px;
     /*padding-right: 0px;
     padding-left: 15px;*/
 }
