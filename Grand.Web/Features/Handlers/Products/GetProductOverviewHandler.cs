@@ -160,13 +160,7 @@ namespace Grand.Web.Features.Handlers.Products
                 model.DefaultPictureModel = pictureModels.FirstOrDefault();
                 if (pictureModels.Count > 1) model.SecondPictureModel = pictureModels.ElementAtOrDefault(1);
             }
-
-            //specs
-            if (request.PrepareSpecificationAttributes && product.ProductSpecificationAttributes.Any())
-            {
-                model.SpecificationAttributeModels = await _mediator.Send(new GetProductSpecification() { Language = _workContext.WorkingLanguage, Product = product });
-            }
-
+            
             //attributes
             model.ProductAttributeModels = await PrepareAttributesModel(product);
 
@@ -231,7 +225,14 @@ namespace Grand.Web.Features.Handlers.Products
                         (!product.MarkAsNewStartDateTimeUtc.HasValue || product.MarkAsNewStartDateTimeUtc.Value < DateTime.UtcNow) &&
                         (!product.MarkAsNewEndDateTimeUtc.HasValue || product.MarkAsNewEndDateTimeUtc.Value > DateTime.UtcNow)
             };
+            
+            //specs
+            if (product.ProductSpecificationAttributes.Any())
+            {
+                model.SpecificationAttributeModels = await _mediator.Send(new GetProductSpecification() { Language = _workContext.WorkingLanguage, Product = product });
+            }
 
+            
             if (isAssociatedProduct)
             {
                 model.Vendor = await PrepareVendorBriefInfoModel(product);
