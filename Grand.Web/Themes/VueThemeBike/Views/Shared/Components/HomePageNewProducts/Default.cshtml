@@ -4,7 +4,7 @@
     <h2 class="generalTitle text-center">@T("HomePage.NewProducts")</h2>
     <b-row class="product-slider">
         <b-col md="left" align-self="center">
-            <img v-on:click="onnextslide2($refs.tmbcarouselnew)" class="scroll-btn" width="40" height="100" src="/Themes/VueThemeBike/Content/images/ChevronLeft.svg" alt="" />
+            <img v-on:click="onprevslide2($refs.tmbcarouselnew)" class="scroll-btn" width="40" height="100" src="/Themes/VueThemeBike/Content/images/ChevronLeft.svg" alt="" />
         </b-col>
         <b-col md="slider">
             <b-carousel ref="tmbcarouselnew" id="">
@@ -34,7 +34,7 @@
             </b-carousel>
         </b-col>
         <b-col md="right" align-self="center">
-            <img v-on:click="onprevslide2($refs.tmbcarouselnew)" class="scroll-btn" width="40" height="100" src="/Themes/VueThemeBike/Content/images/ChevronRight.svg" alt="" />
+            <img v-on:click="onnextslide2($refs.tmbcarouselnew)" class="scroll-btn" width="40" height="100" src="/Themes/VueThemeBike/Content/images/ChevronRight.svg" alt="" />
         </b-col>
     </b-row>
 </div>

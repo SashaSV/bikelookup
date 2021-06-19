@@ -64,7 +64,9 @@ namespace Grand.Web.Models.Catalog
         //picture
         public PictureModel DefaultPictureModel { get; set; }
         public PictureModel SecondPictureModel { get; set; }
-
+        
+        public IList<PictureModel> PictureModels { get; set; }
+        
         //specification attributes
         public IList<ProductSpecificationModel> SpecificationAttributeModels { get; set; }
 

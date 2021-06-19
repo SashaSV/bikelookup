@@ -159,6 +159,7 @@ namespace Grand.Web.Features.Handlers.Products
                 var pictureModels = await PreparePictureModel(product, model.Name, res, pictureSize);
                 model.DefaultPictureModel = pictureModels.FirstOrDefault();
                 if (pictureModels.Count > 1) model.SecondPictureModel = pictureModels.ElementAtOrDefault(1);
+                model.PictureModels = pictureModels;
             }
             
             //attributes
@@ -231,6 +232,7 @@ namespace Grand.Web.Features.Handlers.Products
             {
                 model.SpecificationAttributeModels = await _mediator.Send(new GetProductSpecification() { Language = _workContext.WorkingLanguage, Product = product });
             }
+            
 
             
             if (isAssociatedProduct)

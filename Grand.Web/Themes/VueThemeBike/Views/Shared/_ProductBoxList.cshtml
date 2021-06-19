@@ -1,4 +1,10 @@
 ﻿@model ProductOverviewModel
+@inject IThemeContext themeContext
+@inject IPageHeadBuilder pagebuilder
+@{
+    var themeName = themeContext.WorkingThemeName;
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/script/vue-gallery-slideshow.min.js", themeName));
+}
 @{
     //prepare "Add to cart" Axios link
     string addtocartlink = "";
@@ -334,57 +340,91 @@
                 }
                 </div>
             </div>
-            <div class="bottom-list-nav">
-                <div class="btn-list">
-                    <div class="btn-list-name">
-                        <span>Фото</span>
+        <div class="btn-list">
+                        <div class="btn-list-name" v-on:click="onzoom(1)">
+                            <span>Фото</span>
+                        </div>
+                        <div class="btn-list-count">
+                            <span>(2)</span>
+                        </div>
                     </div>
-                    <div class="btn-list-count">
-                        <span>(2)</span>
-                    </div>
-                </div>
+        <div class="bottom-list-nav">
+             <gallery-images v-if="this.pictureToZoom>0" v-bind:picturenum="this.pictureToZoom"></gallery-images>
+            <script>
+                Vue.component('gallery-images', {
+                      props: ['picturenum'],
+                      template: '<div><template><div><vue-gallery-slideshow :images="images" :index="this.picturenum" @@close="index = null"></vue-gallery-slideshow></div></template></div>',
+                      data() {
+                          return {
+                                images: [
+                                    @foreach (var picture in Model.PictureModels)
+                                    {
+                                        if (Model.PictureModels.First() == picture)
+                                        {
+                                            <text>
+                                                { url: '@picture.FullSizeImageUrl', fullimg: '@picture.FullSizeImageUrl', alt:'@picture.AlternateText', title: '@picture.Title' },
+                                            </text>
+                                        }
+                                        else
+                                        {
+                                            <text>
+                                        { url: '@picture.ImageUrl', fullimg: '@picture.FullSizeImageUrl', alt:'@picture.AlternateText', title: '@picture.Title' },
+                                            </text>
+                                        }
 
-                <div class="btn-list">
-                    <div class="btn-list-name">
-                        <span>Фидео</span>
-                    </div>
-                    <div class="btn-list-count">
-                        <span>(2)</span>
-                    </div>
+                                    }
+                                ],
+                                index: this.picturenum
+                            }
+                      },
+                      components: {
+                            VueGallerySlideshow
+                      },
+                });
+            </script>
+            
+
+            <div class="btn-list">
+                <div class="btn-list-name">
+                    <span>Фидео</span>
                 </div>
-                <div class="btn-list">
-                    <div class="btn-list-name">
-                        <span>Где купить</span>
-                    </div>
-                    <div class="btn-list-count">
-                        <span>(2)</span>
-                    </div>
-                </div>
-                <div class="btn-list">
-                    <div class="btn-list-name">
-                        <span>Акции</span>
-                    </div>
-                    <div class="btn-list-count">
-                        <span>(2)</span>
-                    </div>
-                </div>
-                <div class="btn-list">
-                    <div class="btn-list-name">
-                        <span>Отзывы</span>
-                    </div>
-                    <div class="btn-list-count">
-                        <span>(2)</span>
-                    </div>
-                </div>
-                <div class="btn-list">
-                    <div class="btn-list-name">
-                        <span>Б/У</span>
-                    </div>
-                    <div class="btn-list-count">
-                        <span>(2)</span>
-                    </div>
+                <div class="btn-list-count">
+                    <span>(2)</span>
                 </div>
             </div>
+            <div class="btn-list">
+                <div class="btn-list-name">
+                    <span>Где купить</span>
+                </div>
+                <div class="btn-list-count">
+                    <span>(2)</span>
+                </div>
+            </div>
+            <div class="btn-list">
+                <div class="btn-list-name">
+                    <span>Акции</span>
+                </div>
+                <div class="btn-list-count">
+                    <span>(2)</span>
+                </div>
+            </div>
+            <div class="btn-list">
+                <div class="btn-list-name">
+                    <span>Отзывы</span>
+                </div>
+                <div class="btn-list-count">
+                    <span>(2)</span>
+                </div>
+            </div>
+            <div class="btn-list">
+                <div class="btn-list-name">
+                    <span>Б/У</span>
+                </div>
+                <div class="btn-list-count">
+                    <span>(2)</span>
+                </div>
+            </div>
+        </div>
                     @if (Model.ShowQty)
                     {
                         var qtyId = "addtocart_" + @Model.Id + "_EnteredQuantity";
