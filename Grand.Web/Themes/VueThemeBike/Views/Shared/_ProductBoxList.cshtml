@@ -75,7 +75,7 @@
                                   fill="#999999" />
                         </svg>
                         <span class="view-block-count">
-                            @(230)
+                            @Model.Viewed
                         </span>
                     </div>
 
@@ -333,6 +333,9 @@
                                         </td>
 
                                     </tr>
+                                    <div class="spec-avaliable">
+                                        @assocProduct.SpecificationAttributeModels.FirstOrDefault(a => a.SpecificationAttributeCode == "sp_available").ValueRaw
+                                    </div>
                                 }
                             </tbody>
                         </table>
@@ -340,17 +343,10 @@
                 }
                 </div>
             </div>
-        <div class="btn-list">
-                        <div class="btn-list-name" v-on:click="onzoom(1)">
-                            <span>Фото</span>
-                        </div>
-                        <div class="btn-list-count">
-                            <span>(2)</span>
-                        </div>
-                    </div>
-        <div class="bottom-list-nav">
-             <gallery-images v-if="this.pictureToZoom>0" v-bind:picturenum="this.pictureToZoom"></gallery-images>
-            <script>
+
+            <div class="bottom-list-nav">
+                <gallery-images v-if="this.pictureToZoom>0" v-bind:picturenum="this.pictureToZoom"></gallery-images>
+                <script>
                 Vue.component('gallery-images', {
                       props: ['picturenum'],
                       template: '<div><template><div><vue-gallery-slideshow :images="images" :index="this.picturenum" @@close="index = null"></vue-gallery-slideshow></div></template></div>',
@@ -381,50 +377,58 @@
                             VueGallerySlideshow
                       },
                 });
-            </script>
-            
+                </script>
 
-            <div class="btn-list">
-                <div class="btn-list-name">
-                    <span>Фидео</span>
+                <div class="btn-list">
+                    <div class="btn-list-name" v-on:click="onzoom(1)">
+                        <span>Фото</span>
+                    </div>
+                    <div class="btn-list-count">
+                        <span>(2)</span>
+                    </div>
                 </div>
-                <div class="btn-list-count">
-                    <span>(2)</span>
+                <div class="btn-list">
+                    <div class="btn-list-name">
+                        <span>Фидео</span>
+                    </div>
+                    <div class="btn-list-count">
+                        <span>(2)</span>
+                    </div>
+                </div>
+
+                <div class="btn-list">
+                    <div class="btn-list-name">
+                        <span>Где купить</span>
+                    </div>
+                    <div class="btn-list-count">
+                        <span>(2)</span>
+                    </div>
+                </div>
+                <div class="btn-list">
+                    <div class="btn-list-name">
+                        <span>Акции</span>
+                    </div>
+                    <div class="btn-list-count">
+                        <span>(2)</span>
+                    </div>
+                </div>
+                <div class="btn-list">
+                    <div class="btn-list-name">
+                        <span>Отзывы</span>
+                    </div>
+                    <div class="btn-list-count">
+                        <span>(2)</span>
+                    </div>
+                </div>
+                <div class="btn-list">
+                    <div class="btn-list-name">
+                        <span>Б/У</span>
+                    </div>
+                    <div class="btn-list-count">
+                        <span>(2)</span>
+                    </div>
                 </div>
             </div>
-            <div class="btn-list">
-                <div class="btn-list-name">
-                    <span>Где купить</span>
-                </div>
-                <div class="btn-list-count">
-                    <span>(2)</span>
-                </div>
-            </div>
-            <div class="btn-list">
-                <div class="btn-list-name">
-                    <span>Акции</span>
-                </div>
-                <div class="btn-list-count">
-                    <span>(2)</span>
-                </div>
-            </div>
-            <div class="btn-list">
-                <div class="btn-list-name">
-                    <span>Отзывы</span>
-                </div>
-                <div class="btn-list-count">
-                    <span>(2)</span>
-                </div>
-            </div>
-            <div class="btn-list">
-                <div class="btn-list-name">
-                    <span>Б/У</span>
-                </div>
-                <div class="btn-list-count">
-                    <span>(2)</span>
-                </div>
-            </div>
-        </div>
                     @if (Model.ShowQty)
                     {
                         var qtyId = "addtocart_" + @Model.Id + "_EnteredQuantity";

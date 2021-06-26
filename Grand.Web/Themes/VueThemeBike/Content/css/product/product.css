@@ -112,10 +112,12 @@
 }
 
 .product-details-page .prices {
+    display: flex;
     flex-wrap: wrap;
     margin: 0 auto;
     align-items: center;
     padding: 15px;
+    justify-content: flex-end;
 }
 
 .prod-controls {
@@ -537,3 +539,23 @@
 .small-item{
     height:100px;
 ;}
+
+.justify-content-center.vendor-content, .vendor-spec.col-md-4
+{
+    display: flex;
+}
+.vendor-spec-value {
+    display: flex;
+}
+
+.vendor-spec-value span
+{
+    background-color: rgb(255,193,0,0.4);
+    /* border-color: #5038c9; */
+    border: 1px solid #f012128f;
+    border-radius: .25rem;
+    padding: 3px;
+    margin: 2px;
+    display: flex;
+    align-items: center;
+}

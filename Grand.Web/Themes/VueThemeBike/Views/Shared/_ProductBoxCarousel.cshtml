@@ -35,7 +35,7 @@
 }
 
 @await Component.InvokeAsync("Widget", new { widgetZone = "productbox_before_content", additionalData = Model})
-<b-card no-body tag="article" v-bind:class="{ mobile: isMobile()}" class="product-box mb-2">
+<b-card no-body tag="article" v-bind:class="{ mobile: isMobile()}" class="product-box carousel mb-2">
     <div class="prod-controls">
         <div class="view-block">
             <div class="view-block-img">
@@ -220,6 +220,9 @@
                                 <div class="proposal-update-date">
                                     @assocProduct.UpdatedOnUtc.Value.ToString()
                                 </div>
+                                <div class="spec-avaliable">
+                                    @assocProduct.SpecificationAttributeModels.FirstOrDefault(a => a.SpecificationAttributeCode == "sp_available").ValueRaw
+                                </div>
                             </div>
                             <div class="proposal-value">
                                 <a href="@assocProduct.Url">
@@ -227,7 +230,6 @@
                                         @assocProduct.ProductPrice.Price
                                     </div>
                                 </a>
-
                                 <div class="proposal-value-old-price">
                                     @assocProduct.ProductPrice.OldPrice
                                 </div>

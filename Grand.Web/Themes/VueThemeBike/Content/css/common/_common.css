@@ -669,8 +669,7 @@ input:checked ~ .color-container .color::before {
 }
 
 .product-box .b-rating + a {
-    /*color: #212529;*/
-    color:rgb(241, 90, 36);
+    color: #212529;
     position: relative;
     font-size: 14px;
     font-weight: 500;
@@ -696,6 +695,19 @@ input:checked ~ .color-container .color::before {
 }
 
 /* product box */
+
+.product-box {
+    border: 0;
+    /*padding: 15px;*/
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+}
+
+.product-box:hover {
+z-index: 1;
+}
 
 .discount-bage{
     position: absolute;
@@ -727,25 +739,8 @@ input:checked ~ .color-container .color::before {
 }*/
 
 .sku {
-    font-size: 0.60rem;
+    font-size: 13px;
 }
-.product-box {
-    border: 0;
-    /*padding: 15px;*/
-    padding-top: 5px;
-    padding-left: 7px;
-    padding-right: 7px;
-    padding-bottom: 5px;
-}
-
-.product-box.carousel{
-    height: 410px;
-}
-
-.product-box:hover {
-    z-index: 5;
-}
-
 .product-box::before {
     content: "";
     position: absolute;
@@ -945,8 +940,7 @@ input:checked ~ .color-container .color::before {
     font-weight: 400;
 }
 .product-box .card-title {
-    font-size: 0.85rem;
-    font-weight: 400;
+    font-size: 1rem;
     line-height: 1;
     margin: 0 auto;
     text-align: center;
@@ -1034,7 +1028,7 @@ input:checked ~ .color-container .color::before {
     background: #fff;
     border: 0;
     padding: 0;
-    z-index: 10;
+    z-index: 2;
     text-align: center;
 }
 
@@ -1084,7 +1078,6 @@ input:checked ~ .color-container .color::before {
     -webkit-transition: all .1s ease;
     z-index: -1;
 }
-
 .product-box:hover .card-footer::before {
     border-color: rgba(0,0,0,.2);
 }
@@ -1199,15 +1192,6 @@ input:checked ~ .color-container .color::before {
 	border: 0;
 }
 
-.product-box .spec-avaliable {
-    font-style: normal;
-    font-weight: 600;
-    font-size: 0.6rem;
-    line-height: 17px;
-    color:green;
-    /*color: #F15A24;*/
-	border: 0;
-}
 .proposal-value-old-price {
 	/*position: relative;*/
     margin: 0 0 0 5px;
