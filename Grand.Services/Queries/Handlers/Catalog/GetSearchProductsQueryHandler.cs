@@ -430,6 +430,8 @@ namespace Grand.Services.Queries.Handlers.Catalog
             {
                 //most viewed
                 builderSort = Builders<Product>.Sort.Descending(x => x.Viewed);
+                filter = filter & builder.Where(p => p.Viewed > 0);
+
             }
             else if (request.OrderBy == ProductSortingEnum.BestSellers)
             {
