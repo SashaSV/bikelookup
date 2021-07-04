@@ -55,12 +55,12 @@ hosts = [
         "SIZE": "param.find('span', class_='variants-radio__field-inner').find_all('span', class_='variants-radio__title')[1].get_text(strip=True)"
     },
     {
-        'isPicture': False,
+        'isPicture': True,
         'isTechs': True,
-        'parsName': False,
+        'parsName': True,
         'urlsite': 'https://bike-family.com.ua',
         'FMT': 'https://bike-family.com.ua/velosipedy?user_per_page=48&per_page={page}/',
-        'PAGES_COUNT': 1,
+        'PAGES_COUNT': 6,
         'OUT_FILENAME': 'bike-family',
         'VENDOR': 'bike-family.com.ua',
         'COUNTONPAGE': 48,
@@ -2026,7 +2026,7 @@ def main():
 
     #check_actual_price_and_available(db)
 
-    pars_new_card_into_bikelookup(db, 'velogo.com.ua')
+    pars_new_card_into_bikelookup(db, 'bike-family.com.ua')
     #pars_option_color_base(db)
     #option_color_base_update_name(db)
     #option_sp_color_update_ColorSquaresRgb(db)

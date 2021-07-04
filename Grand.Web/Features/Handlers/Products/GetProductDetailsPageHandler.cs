@@ -376,6 +376,7 @@ namespace Grand.Web.Features.Handlers.Products
                 ManufacturerPartNumber = product.ManufacturerPartNumber,
                 ShowGtin = _catalogSettings.ShowGtin,
                 Gtin = product.Gtin,
+                UpdatedOnUtc = product.UpdatedOnUtc,
                 StockAvailability = product.FormatStockMessage(warehouseId, "", _localizationService, _productAttributeParser),
                 GenericAttributes = product.GenericAttributes,
                 HasSampleDownload = product.IsDownload && product.HasSampleDownload,

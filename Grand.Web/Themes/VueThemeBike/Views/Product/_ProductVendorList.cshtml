@@ -13,16 +13,18 @@
             }
 
             <b-card no-body class="overflow-hidden associatedItem mb-3">
-                <b-row class="mb-2 justify-content-left">
-                    <a href="@variant.Url">
-                        <b-card-img fluid-grow="true" fluid="true" id="main-product-img-@variant.Id"
-                                    alt="@variant.VendorModel.PictureModel.AlternateText"
-                                    src="@variant.VendorModel.PictureModel.ImageUrl" class="rounded-0"></b-card-img>
-                    </a>
+                <b-row class="justify-content-left">
+                    <div class="rounded-photo">
+                        <a href="@variant.Url">
+                            <b-card-img fluid-grow="true" fluid="true" id="main-product-img-@variant.Id"
+                                        alt="@variant.VendorModel.PictureModel.AlternateText"
+                                        src="@variant.VendorModel.PictureModel.ImageUrl" class="rounded-0"></b-card-img>
+                        </a>
+                    </div>
                     <div class="rating">
                         @{
                             decimal ratingValue = 0;
-                            var reviesCount = variant.VendorModel.NotApprovedTotalReviews + variant.VendorModel.NotApprovedTotalReviews;
+                            var reviesCount = variant.VendorModel.ApprovedTotalReviews + variant.VendorModel.NotApprovedTotalReviews;
 
                             if (reviesCount != 0)
                             {
@@ -31,17 +33,18 @@
                             }
                         }
                         <b-form-rating id="rating-inline-grid-@Model.Id" aria-label="Rating" class="p-0" variant="warning" no-border size="sm" readonly inline value="@(ratingValue)" color="#F15A24"></b-form-rating>
-                        <b-link href="@Url.RouteUrl("Product", new {SeName = Model.SeName})">@string.Format("(0)", reviesCount)</b-link>
+                        <b-link href="@Url.RouteUrl("Vendor", new {SeName = variant.VendorModel.SeName})">@string.Format("({0})", variant.VendorModel.ApprovedTotalReviews)</b-link>
+
                     </div>
                 </b-row>
                 <b-row class="mb-2 justify-content-right">
-                    <b-col class="justify-content-center vendor-title">
+                    <div class="justify-content-center title">
                         <a href="@variant.Url">
                             <h3 class="vendor-title" itemprop="name" align="center">@variant.VendorModel.Name</h3>
                         </a>
-                    </b-col>
-                    <b-col class="justify-content-center vendor-content">
-                        <b-col class="vendor-spec">
+                    </div>
+                    <div class="justify-content-center vendor-content">
+                        <div class="vendor-spec">
                             @if (@variant.VendorModel.VendorSpecificationAttributes.Any())
                             {
                                 <div class="spec-container">
@@ -73,7 +76,7 @@
                                     }
                                 </div>
                             }
-                        </b-col>
+                        </div>
                         <b-col lg="3" md="4" class="prices align-self-center justify-content-prices">
                             @{
                                 var dataDictPrice = new ViewDataDictionary(ViewData);
@@ -81,28 +84,37 @@
                                 <a href="@variant.Url">
                                     <span class="vendor-price">@Html.Raw(variant.ProductPrice.Price)</span>
                                 </a>
+
+                                <span class="vendor-old-price">@Html.Raw(variant.ProductPrice.OldPrice)</span>
+
+                                <span class="vendor-update-date">@Html.Raw(variant.UpdatedOnUtc.Value.ToString())</span>
+
+                                <span class="vendor-avaliable">
+                                    @variant.ProductSpecifications.FirstOrDefault(a => a.SpecificationAttributeCode == "sp_available").ValueRaw
+                                </span>
                             }
                         </b-col>
-                    </b-col>
-                    <b-col class="justify-content-bottom vendor-adress">
+                    </div>
+                    <div class="justify-content-bottom vendor-adress">
                         <div class="vendor-adress-list">
                             <div class="vendor-adress-label">
                                 @("Adress magasine")
                             </div>
+                            <div class="adress-list">
+                                <div class="vendor-adress-1">
+                                    @("Kyiv, Kirilovskaya st., 160/20")
+                                </div>
 
-                            <div class="vendor-adress-1">
-                                  @("Kyiv, Kirilovskaya st., 160/20")
-                            </div>
+                                <div class="vendor-adress-1">
+                                    @("Kyiv, Oblonskaya nab st, 7K1")
+                                </div>
 
-                            <div class="vendor-adress-1">
-                                @("Kyiv, Oblonskaya nab st, 7K1")
-                            </div>
-
-                            <div class="vendor-adress-1">
-                                @("Dnepr, Oblonskaya nab st, 7K1")
+                                <div class="vendor-adress-1">
+                                    @("Dnepr, Oblonskaya nab st, 7K1")
+                                </div>
                             </div>
                         </div>
-                    </b-col>
+                    </div>
             </b-card>
         }
 
