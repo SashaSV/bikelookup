@@ -76,7 +76,7 @@ Vue.component('findmini', {
     },
     methods: {
         lookup: function() {
-            console.debug(this.TextToSearch);
+            //console.debug(this.TextToSearch);
             axios({
                 url: '/catalog/searchtermautocomplete',
                 method: 'get',
@@ -346,7 +346,7 @@ var vm = new Vue({
         filterProducts: function (url)
         {
             window.location = url
-            debugger
+            //debugger
         },
         
         onzoom: function (index)
@@ -358,22 +358,22 @@ var vm = new Vue({
         },
         onnextslide :function ()
         {
-            debugger
+            //debugger
             this.$refs.tmbcarousel.next()
         },
         onnextslide2 :function (a)
         {
-            debugger
+            //debugger
             a.next()
         },
         onprevslide :function ()
         {
-            debugger
+            //debugger
             this.$refs.tmbcarousel.prev()
         },
         onprevslide2 :function (a)
         {
-            debugger
+            //debugger
             a.prev()
         },
         setslide :function(index)
