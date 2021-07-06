@@ -41,7 +41,9 @@
     
     <!-- Top page products -->
     @await Component.InvokeAsync("HomePageProducts")
-    <!-- Home products -->
+    <!-- Home products --> 
+    @await Component.InvokeAsync("HomePageBestOffers")
+    @await Component.InvokeAsync("HomePageMostVisited")
     @await Component.InvokeAsync("HomePageNewProducts")
     @await Component.InvokeAsync("CategoryFeaturedProducts")
     @await Component.InvokeAsync("Widget", new { widgetZone = "home_page_before_best_sellers" })

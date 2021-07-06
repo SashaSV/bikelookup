@@ -1,13 +1,13 @@
-﻿@model IList<ProductOverviewModel>
+@model IList<ProductOverviewModel>
 @inject DisplayOrderHomePage order
 <div class="product-slider new-product order-@order.HomePageNewProducts">
-    <h2 class="generalTitle text-center">@T("HomePage.NewProducts")</h2>
+    <h2 class="generalTitle text-center">@T("HomePage.MostVisited")</h2>
     <b-row class="product-slider">
         <b-col md="left" align-self="center">
-            <img v-on:click="onprevslide2($refs.tmbcarouselnew)" class="scroll-btn" width="40" height="100" src="/Themes/VueThemeBike/Content/images/ChevronLeft.svg" alt="" />
+            <img v-on:click="onprevslide2($refs.tmbcarouselmostv)" class="scroll-btn" width="40" height="100" src="/Themes/VueThemeBike/Content/images/ChevronLeft.svg" alt="" />
         </b-col>
         <b-col md="slider">
-            <b-carousel ref="tmbcarouselnew" id="">
+            <b-carousel ref="tmbcarouselmostv" id="">
                 @{
                     var itemsPerSlide = 5;
                     var numSlides = Math.Ceiling((decimal)Model.Count / itemsPerSlide);
@@ -31,21 +31,11 @@
                         </b-carousel-slide>
                     }
                 }
+
             </b-carousel>
         </b-col>
         <b-col md="right" align-self="center">
-            <img v-on:click="onnextslide2($refs.tmbcarouselnew)" class="scroll-btn" width="40" height="100" src="/Themes/VueThemeBike/Content/images/ChevronRight.svg" alt="" />
+            <img v-on:click="onnextslide2($refs.tmbcarouselmostv)" class="scroll-btn" width="40" height="100" src="/Themes/VueThemeBike/Content/images/ChevronRight.svg" alt="" />
         </b-col>
     </b-row>
 </div>
-    @*<div class="product-grid order-@order.HomePageNewProducts">
-        <b-form-row>
-            @foreach (var item in Model)
-            {
-                <b-col xl="@order.Np_Xl" lg="@order.Np_Lg" md="@order.Np_Md" sm="@order.Np_Sm" cols="@order.Np_Col" class="product-container mb-2">
-                    <partial name="_ProductBox" model="item"/>
-                </b-col>
-            }
-        </b-form-row>*@
-    @*</div>*@
-

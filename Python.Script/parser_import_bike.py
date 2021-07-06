@@ -12,7 +12,7 @@ from pymongo import MongoClient
 #86
 NAMEMACHINE = 'localhost'
 PORTDB = 27017
-NAMEDB = 'bludb1'
+NAMEDB = 'bludb'
 PAGES_START = 1
 PAGES_COUNT = 1
 OUT_FILENAME = 'velogo'
@@ -55,12 +55,12 @@ hosts = [
         "SIZE": "param.find('span', class_='variants-radio__field-inner').find_all('span', class_='variants-radio__title')[1].get_text(strip=True)"
     },
     {
-        'isPicture': False,
+        'isPicture': True,
         'isTechs': True,
-        'parsName': False,
+        'parsName': True,
         'urlsite': 'https://bike-family.com.ua',
         'FMT': 'https://bike-family.com.ua/velosipedy?user_per_page=48&per_page={page}/',
-        'PAGES_COUNT': 1,
+        'PAGES_COUNT': 6,
         'OUT_FILENAME': 'bike-family',
         'VENDOR': 'bike-family.com.ua',
         'COUNTONPAGE': 48,
@@ -1427,7 +1427,15 @@ def check_picture(db, pictureId, urlimage, productname):
     if p_main == None:
         id_ = str(ObjectId())
         #filename = OUT_FILE_CATALOG + url2filename(urlimage)
-        filename = '{0}{1}_0.jpeg'.format(OUT_FILE_CATALOG, id_)
+        CURR_DIR = os.getcwd()
+        CURR_DIR = CURR_DIR.replace('Python.Script', '')
+        file_catalog = '{0}Grand.Web\\wwwroot\\content\\images\\'.format(CURR_DIR)
+        try:
+            os.stat(file_catalog)
+        except:
+            os.mkdir(file_catalog)
+
+        filename = '{0}{1}_0.jpeg'.format(file_catalog, id_)
         load_image(urlimage, filename)
 
         in_file = open(filename, "rb")  # opening for [r]eading as [b]inary
@@ -2018,7 +2026,7 @@ def main():
 
     #check_actual_price_and_available(db)
 
-    pars_new_card_into_bikelookup(db, 'velogo.com.ua')
+    pars_new_card_into_bikelookup(db, 'bike-family.com.ua')
     #pars_option_color_base(db)
     #option_color_base_update_name(db)
     #option_sp_color_update_ColorSquaresRgb(db)

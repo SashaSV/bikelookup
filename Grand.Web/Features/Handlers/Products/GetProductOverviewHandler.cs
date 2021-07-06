@@ -124,6 +124,7 @@ namespace Grand.Web.Features.Handlers.Products
              
              if (product.ProductType == ProductType.GroupedProduct)
              {
+                var bestDiscount = 0m;
                  foreach (var associatedProduct in associatedProducts)
                  {
                      var associatedProductOverview =
@@ -132,6 +133,14 @@ namespace Grand.Web.Features.Handlers.Products
                          request.ForceRedirectionAfterAddingToCart,
                          enableShoppingCart, displayPrices, enableWishlist, priceIncludesTax,
                          new List<Product>());
+                    
+                     if (associatedProductOverview.ProductPrice.OldPriceValue > 0)
+                     {
+                        bestDiscount = Math.Round(
+                            (associatedProductOverview.ProductPrice.OldPriceValue - associatedProductOverview.ProductPrice.PriceValue)
+                            / associatedProductOverview.ProductPrice.OldPriceValue, 2);
+                     }
+                     model.BestDiscount = model.BestDiscount > bestDiscount ? model.BestDiscount : bestDiscount;
                      model.AssociatedProducts.Add(associatedProductOverview);
                  }
              }
@@ -150,14 +159,9 @@ namespace Grand.Web.Features.Handlers.Products
                 var pictureModels = await PreparePictureModel(product, model.Name, res, pictureSize);
                 model.DefaultPictureModel = pictureModels.FirstOrDefault();
                 if (pictureModels.Count > 1) model.SecondPictureModel = pictureModels.ElementAtOrDefault(1);
+                model.PictureModels = pictureModels;
             }
-
-            //specs
-            if (request.PrepareSpecificationAttributes && product.ProductSpecificationAttributes.Any())
-            {
-                model.SpecificationAttributeModels = await _mediator.Send(new GetProductSpecification() { Language = _workContext.WorkingLanguage, Product = product });
-            }
-
+            
             //attributes
             model.ProductAttributeModels = await PrepareAttributesModel(product);
 
@@ -206,6 +210,9 @@ namespace Grand.Web.Features.Handlers.Products
                 Sku = product.Sku,
                 Gtin = product.Gtin,
                 Flag = product.Flag,
+                Viewed = product.Viewed,
+                UpdatedOnUtc = product.UpdatedOnUtc,
+                CreatedOnUtc = product.CreatedOnUtc,
                 ManufacturerPartNumber = product.ManufacturerPartNumber,
                 IsFreeShipping = product.IsFreeShipping,
                 ShowSku = _catalogSettings.ShowSkuOnCatalogPages,
@@ -219,7 +226,15 @@ namespace Grand.Web.Features.Handlers.Products
                         (!product.MarkAsNewStartDateTimeUtc.HasValue || product.MarkAsNewStartDateTimeUtc.Value < DateTime.UtcNow) &&
                         (!product.MarkAsNewEndDateTimeUtc.HasValue || product.MarkAsNewEndDateTimeUtc.Value > DateTime.UtcNow)
             };
+            
+            //specs
+            if (product.ProductSpecificationAttributes.Any())
+            {
+                model.SpecificationAttributeModels = await _mediator.Send(new GetProductSpecification() { Language = _workContext.WorkingLanguage, Product = product });
+            }
+            
 
+            
             if (isAssociatedProduct)
             {
                 model.Vendor = await PrepareVendorBriefInfoModel(product);

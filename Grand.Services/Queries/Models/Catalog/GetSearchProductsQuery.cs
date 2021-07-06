@@ -21,6 +21,9 @@ namespace Grand.Services.Queries.Models.Catalog
         public ProductType? ProductType { get; set; } = null;
         public bool VisibleIndividuallyOnly { get; set; } = false;
         public bool MarkedAsNewOnly { get; set; } = false;
+
+        public bool Discount { get; set; }
+
         public bool? FeaturedProducts { get; set; } = null;
         public decimal? PriceMin { get; set; } = null;
         public decimal? PriceMax { get; set; } = null;

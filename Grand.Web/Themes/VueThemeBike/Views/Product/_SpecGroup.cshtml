@@ -5,7 +5,7 @@
         var group = Model.Specs.GroupBy(x => x.SpecificationAttributeName);
  }
 
-<b-button v-b-toggle="'@Model.Name'" class="category-spec shadow-none" xmlns="http://www.w3.org/1999/html">
+<b-button v-b-toggle="'@Model.Name'" class="category-spec  shadow-none" xmlns="http://www.w3.org/1999/html">
     <img async src="@Model.Icon" alt="" class="ml-1 mr-2"/>
     @T(Model.Name)
     <span class="when-open ml-2">
@@ -21,7 +21,7 @@
 </b-button>
 @if (group.Any())
 {
-    <b-collapse id="@Model.Name" class="mt-2">
+    <b-collapse id="@Model.Name" visible class="mt-2">
         @foreach (var item in group)
         {
             <b-row class="ml-1">

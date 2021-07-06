@@ -27,6 +27,7 @@
     <Content Update="Themes\VueThemeBike\Views\Product\_ProductProposals.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </Content>
+    <Content Remove="Themes\VueThemeBike\Views\Shared\Components\HomePageBestOffer\**" />
   </ItemGroup>
   <Target Name="PublishViews" BeforeTargets="PrepareForPublish">
     <ItemGroup>
@@ -44,6 +45,10 @@
     <Content Update="Plugins\**">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Compile Remove="Themes\VueThemeBike\Views\Shared\Components\HomePageBestOffer\**" />
+    <EmbeddedResource Remove="Themes\VueThemeBike\Views\Shared\Components\HomePageBestOffer\**" />
+    <None Remove="Themes\VueThemeBike\Views\Shared\Components\HomePageBestOffer\**" />
+    <Compile Remove="Themes\VueThemeBike\Views\Shared\Components\HomePageBestOffers\Default.cshtml.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Rotativa\Linux\wkhtmltopdf">

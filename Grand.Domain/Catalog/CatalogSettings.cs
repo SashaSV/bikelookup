@@ -212,6 +212,11 @@ namespace Grand.Domain.Catalog
         /// Gets or sets a number of products on the "New products" on home page
         /// </summary>
         public int NewProductsNumberOnHomePage { get; set; }
+        
+        /// <summary>
+        /// Gets or sets a number of products on the "Discount" on home page
+        /// </summary>
+        public int DiscountProductsNumberOnHomePage { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether "Compare products" feature is enabled

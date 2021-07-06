@@ -23,8 +23,7 @@ a:hover {
 .carousel {
     position: relative;
     margin-top: 3px;
-    z-index: 0;
-    /*margin-bottom: 10px;*/
+    margin-bottom: 10px;
 }
 
 .date-text {
@@ -455,16 +454,13 @@ ul.Menu.-vertical {
     flex-wrap: wrap;
     margin-right: -15px;
     margin-left: -15px;
-    z-index: 0;
-    /*margin-bottom: 10px;*/
+    margin-bottom: 10px;
 }
 
 .generalTitle {
     position: relative;
     margin: 15px 0 15px 0;
-    z-index: 0;
 }
-
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
     line-height: 1.3;
 }
@@ -579,17 +575,12 @@ input:checked ~ .color-container .color::before {
     padding-right: 10px;
     padding-left: 10px;
     max-width: 3%;
-    z-index: 0;
-    /*margin-bottom: 15px;*/
+    margin-bottom: 15px;
 }
 
 .col-md-slider {
     flex: auto;
     max-width: 94%;
-}
-
-.product-slider{
-    z-index: 0;
 }
 
 .row .product-slider{
@@ -678,8 +669,7 @@ input:checked ~ .color-container .color::before {
 }
 
 .product-box .b-rating + a {
-    /*color: #212529;*/
-    color:rgb(241, 90, 36);
+    color: #212529;
     position: relative;
     font-size: 14px;
     font-weight: 500;
@@ -705,6 +695,19 @@ input:checked ~ .color-container .color::before {
 }
 
 /* product box */
+
+.product-box {
+    border: 0;
+    /*padding: 15px;*/
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+}
+
+.product-box:hover {
+z-index: 1;
+}
 
 .discount-bage{
     position: absolute;
@@ -736,25 +739,8 @@ input:checked ~ .color-container .color::before {
 }*/
 
 .sku {
-    font-size: 0.60rem;
+    font-size: 13px;
 }
-.product-box {
-    border: 0;
-    /*padding: 15px;*/
-    padding-top: 5px;
-    padding-left: 7px;
-    padding-right: 7px;
-    padding-bottom: 5px;
-}
-
-.product-box.carousel{
-    height: 400px;
-}
-
-.product-box:hover {
-    z-index: 5;
-}
-
 .product-box::before {
     content: "";
     position: absolute;
@@ -948,14 +934,13 @@ input:checked ~ .color-container .color::before {
     line-height: 17px;
 }
 .spec-value{
-    font-size: 0.8rem;
+    font-size: 1rem;
     color: #000000;
     line-height: 17px;
     font-weight: 400;
 }
 .product-box .card-title {
-    font-size: 0.85rem;
-    font-weight: 400;
+    font-size: 1rem;
     line-height: 1;
     margin: 0 auto;
     text-align: center;
@@ -1043,7 +1028,7 @@ input:checked ~ .color-container .color::before {
     background: #fff;
     border: 0;
     padding: 0;
-    z-index: 10;
+    z-index: 2;
     text-align: center;
 }
 
@@ -1093,7 +1078,6 @@ input:checked ~ .color-container .color::before {
     -webkit-transition: all .1s ease;
     z-index: -1;
 }
-
 .product-box:hover .card-footer::before {
     border-color: rgba(0,0,0,.2);
 }
@@ -1208,41 +1192,6 @@ input:checked ~ .color-container .color::before {
 	border: 0;
 }
 
-.product-box .proposal-update-date:hover::after{
-    content: "Дата последнего обновления"; /* Выводим текст */
-    position: absolute; /* Абсолютное позиционирование */
-    left: 20%; top: 70%; /* Положение подсказки */
-    z-index: 1; /* Отображаем подсказку поверх других элементов */
-    background: rgba(255,255,230,0.9); /* Полупрозрачный цвет фона */
-    /*font-family: Arial, sans-serif; /* Гарнитура шрифта */
-    font-size: 0.65rem; /* Размер текста подсказки */
-    padding: 5px 10px; /* Поля */
-    border: 1px solid #333; /* Параметры рамки */
-    color: #333;
-}
-
-.product-box .view-block:hover::after{
-    content: "Количество просмотров"; /* Выводим текст */
-    position: absolute; /* Абсолютное позиционирование */
-    left: 20%; top: 10%; /* Положение подсказки */
-    z-index: 10; /* Отображаем подсказку поверх других элементов */
-    background: rgba(255,255,230,0.9); /* Полупрозрачный цвет фона */
-    /*font-family: Arial, sans-serif; /* Гарнитура шрифта */
-    font-size: 0.65rem; /* Размер текста подсказки */
-    padding: 5px 10px; /* Поля */
-    border: 1px solid #333; /* Параметры рамки */
-    color: #333;
-}
-
-.product-box .spec-avaliable {
-    font-style: normal;
-    font-weight: 600;
-    font-size: 0.6rem;
-    line-height: 17px;
-    color:green;
-    /*color: #F15A24;*/
-	border: 0;
-}
 .proposal-value-old-price {
 	/*position: relative;*/
     margin: 0 0 0 5px;
@@ -1496,8 +1445,7 @@ footer .list-group-item span:last-child {
     position: relative;
     width: 100%;
     margin-top: 2px;
-    z-index: 0;
-    /*margin-bottom: 10px;*/
+    margin-bottom: 10px;
 
     /* overflow: hidden; */
 }
@@ -1513,33 +1461,32 @@ footer .list-group-item span:last-child {
 /* media */
 
 .pl-4, .px-4 {
-    padding-left: 0.8rem!important;
-}
-.pr-4, .px-4 {
-    padding-right: 0.8rem!important;
-}
-
-.pt-4, .py-4 {
-    padding-top: 0.6rem!important;
+    padding-left: 1.2rem!important;
 }
 
 .pb-4, .py-4 {
-    padding-bottom: 4rem!important;
+    padding-bottom: 1.2rem!important;
+}
+.pr-4, .px-4 {
+    padding-right: 1.2rem!important;
+}
+.pt-4, .py-4 {
+    padding-top: 1.2rem!important;
 }
 
 @media (min-width: 992px) {
     .main-container.container-fluid .product-grid .product-container.col-lg-4 {
-        -ms-flex: 0 0 25%;
-        flex: 0 0 25%;
-        max-width: 25%;
+        -ms-flex: 0 0 20%;
+        flex: 0 0 20%;
+        max-width: 20%;
     }
 }
 
 @media (min-width: 1400px) {
     .main-container .container-fluid .categoryGrid .col-xl-4 {
-        -ms-flex: 0 0 20%;
-        flex: 0 0 20%;
-        max-width: 20%;
+        -ms-flex: 0 0 25%;
+        flex: 0 0 25%;
+        max-width: 25%;
     }
     
     .main-container .container-fluid .product-grid .product-container.col-lg-4 {
@@ -1628,7 +1575,6 @@ footer .list-group-item span:last-child {
     -ms-user-select: none;
     user-select: none;
     background-color: transparent;
-    /*border: 2px solid #F15A24;*/
     border: 1px solid transparent;
     padding: .1rem 0.25rem;
     font-size: 1rem;
@@ -1732,7 +1678,6 @@ footer .list-group-item span:last-child {
 
 .product-card-carousel{
   height: 100%;
-  z-index: 0;
 }
 
 .logininput{
@@ -1752,31 +1697,6 @@ footer .list-group-item span:last-child {
     background-color: #FFFFFF !important;
     border-color: #F15A24 !important;
     box-shadow: 0 0 5px 1px #F15A24;
-}
-
-.range-slider-min-max span{
-    margin-right: 10px;
-}
-
-.btn-light {
-    /*margin-left: 10px;*/
-    color: #212529;
-    background-color: #f8f9fa;
-    border-color: #f8f9fa;
-}
-
-button, input, optgroup, select, textarea {
-    margin-right: 10px;
-    font-family: inherit;
-    font-size: inherit;
-    line-height: inherit;
-}
-
-.btn-info {
-    /*color: #fff;
-    background-color: #F15A24;
-    border-color: #F15A24;*/
-    border: 2px solid #F15A24;
 }
 
 .btn-info:hover

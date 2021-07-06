@@ -50,7 +50,12 @@ namespace Grand.Web.Models.Catalog
         public bool ShowQty { get; set; }
         public DateTime? EndTime { get; set; }
         public DateTime? EndTimeLocalTime { get; set; }
+        public DateTime? CreatedOnUtc { get; set; }
+        public DateTime? UpdatedOnUtc { get; set; }
         public TaxDisplayType TaxDisplayType { get; set; }
+        
+        public Int64 Viewed { get; set; }
+
         public IList<ProductOverviewModel> AssociatedProducts { get; set; }
 
         //price
@@ -59,7 +64,9 @@ namespace Grand.Web.Models.Catalog
         //picture
         public PictureModel DefaultPictureModel { get; set; }
         public PictureModel SecondPictureModel { get; set; }
-
+        
+        public IList<PictureModel> PictureModels { get; set; }
+        
         //specification attributes
         public IList<ProductSpecificationModel> SpecificationAttributeModels { get; set; }
 
@@ -68,8 +75,8 @@ namespace Grand.Web.Models.Catalog
         
         //price
         public ProductReviewOverviewModel ReviewOverviewModel { get; set; }
-
-		#region Nested Classes
+        public decimal BestDiscount { get; set; }
+        #region Nested Classes
         public partial class ProductPriceModel : BaseModel
         {
             public ProductPriceModel()

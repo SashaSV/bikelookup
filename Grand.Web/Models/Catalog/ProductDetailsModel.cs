@@ -70,7 +70,7 @@ namespace Grand.Web.Models.Catalog
         public bool IncBothDate { get; set; }
         public List<SelectListItem> Parameters { get; set; }
         public DateTime StartDate { get; set; }
-
+        public DateTime? UpdatedOnUtc { get; set; }
         public string StockAvailability { get; set; }
         public bool DisplayBackInStockSubscription { get; set; }
         public bool EmailAFriendEnabled { get; set; }

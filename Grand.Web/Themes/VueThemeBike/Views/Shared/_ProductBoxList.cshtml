@@ -1,10 +1,16 @@
 ﻿@model ProductOverviewModel
+@inject IThemeContext themeContext
+@inject IPageHeadBuilder pagebuilder
+@{
+    var themeName = themeContext.WorkingThemeName;
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/script/vue-gallery-slideshow.min.js", themeName));
+}
 @{
     //prepare "Add to cart" Axios link
     string addtocartlink = "";
     string addtowishlistlink = "";
     string quickviewurl = Url.RouteUrl("QuickView-Product", new { productId = Model.Id });
-
+    var isAssociatedProductWithDiscount = Model.AssociatedProducts.Any(a => !String.IsNullOrEmpty(a.ProductPrice.OldPrice));
     var shoppingCartTypeId = (int)ShoppingCartType.ShoppingCart;
     var quantity = 1;
     if (!Model.ShowQty)
@@ -38,6 +44,14 @@
 <div class="w-100 mb-3 border-bottom">
     <b-card no-body tag="article" class="product-box list mb-3" v-bind:class="{ mobile: isMobile()}">
         <div class="picture-container">
+            @if (isAssociatedProductWithDiscount)
+            {
+                <div class="sale-label">
+                    <span class="product-discount badge product-box-label">
+                        @(Math.Round(Model.BestDiscount*-100,0))%
+                    </span>
+                </div>
+            }
             <b-link class="img-container" href="@Url.RouteUrl("Product", new { SeName = Model.SeName })" title="@Model.DefaultPictureModel.Title">
                 <b-card-img-lazy alt="@Model.DefaultPictureModel.AlternateText" class="main-product-img" src="@Model.DefaultPictureModel.ImageUrl" title="@Model.DefaultPictureModel.Title"></b-card-img-lazy>
                 @if (!string.IsNullOrEmpty(Model.SecondPictureModel.ImageUrl))
@@ -51,207 +65,252 @@
             </a>
         </div>
         <b-card-body>
-          
-            @if (Model.ShowSku && !string.IsNullOrEmpty(Model.Sku))
-            {
-                <span class="sku">@Model.Sku</span>
-            }
-          
-            @if (Model.ProductPrice.DisplayTaxShippingInfo)
-            {
-                var inclTax = Model.TaxDisplayType == TaxDisplayType.IncludingTax;
-                <div class="tax-shipping-info">
-                    @T(inclTax ? "Products.Price.TaxShipping.InclTax" : "Products.Price.TaxShipping.ExclTax", Url.RouteUrl("Topic", new { SeName = TopicSeNameConstants.Shippinginfo }))
+            
+            <div class="view-btn-group">
+                <div class="view-block">
+                    <div class="view-block-img">
+                        <svg width="17" height="14" viewBox="0 0 17 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M8.31948 0.370605C11.6282 0.373005 14.5994 2.69218 16.2682 6.57533C16.3338 6.72653 16.3338 6.89772 16.2682 7.04892C14.6002 10.9329 11.6282 13.252 8.31948 13.2544H8.31468C5.00592 13.252 2.03476 10.9329 0.365982 7.04892C0.301183 6.89772 0.301183 6.72653 0.365982 6.57533C2.03476 2.69218 5.00672 0.373005 8.31468 0.370605H8.31948ZM8.31708 1.57059C5.56832 1.57139 3.06115 3.52577 1.57317 6.81212C3.06115 10.0993 5.56752 12.0537 8.31708 12.0545C11.0666 12.0537 13.573 10.0993 15.061 6.81212C13.573 3.52577 11.0666 1.57139 8.31708 1.57059ZM8.31684 3.6832C10.0424 3.6832 11.4464 5.08719 11.4464 6.81277C11.4464 8.53754 10.0424 9.94073 8.31684 9.94073C6.59126 9.94073 5.18808 8.53754 5.18808 6.81277C5.18808 5.08719 6.59126 3.6832 8.31684 3.6832ZM8.31684 4.88319C7.25286 4.88319 6.38807 5.74878 6.38807 6.81277C6.38807 7.87595 7.25286 8.74074 8.31684 8.74074C9.38083 8.74074 10.2464 7.87595 10.2464 6.81277C10.2464 5.74878 9.38083 4.88319 8.31684 4.88319Z"
+                                  fill="#999999" />
+                        </svg>
+                        <span class="view-block-count">
+                            @Model.Viewed
+                        </span>
+                    </div>
+
                 </div>
-            }
+                @if (isAssociatedProductWithDiscount)
+                {
+                    <div class="discount-bage">
+                        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M28.6217 14.999L29.9379 18.4318C30.0823 18.8106 29.9698 19.2399 29.6529 19.4968L26.7993 21.8104L26.2218 25.442C26.158 25.8432 25.843 26.1563 25.4418 26.2201L21.81 26.7975L19.4982 29.6529C19.2432 29.9698 18.8045 30.0823 18.4351 29.9379L15.0002 28.6199L11.5672 29.9361C11.1866 30.0823 10.761 29.9661 10.5041 29.6511L8.19045 26.7956L4.55868 26.2182C4.15932 26.1544 3.84433 25.8395 3.78058 25.4401L3.20309 21.8085L0.347554 19.4949C0.0325638 19.2399 -0.0818078 18.8106 0.0625629 18.4318L1.37877 14.999L0.0625629 11.5661C-0.0836827 11.1873 0.0325638 10.758 0.347554 10.503L3.20309 8.19131L3.78058 4.55968C3.84433 4.15846 4.15744 3.84348 4.55868 3.77973L8.19045 3.20227L10.5041 0.348721C10.761 0.0299933 11.1904 -0.0824979 11.5691 0.063742L15.0002 1.37802L18.4333 0.0618663C18.542 0.0206192 18.6545 -8.10324e-07 18.7689 -8.10324e-07C19.0445 -8.10324e-07 19.3164 0.121862 19.4982 0.348721L21.81 3.20227L25.4418 3.77973C25.843 3.84348 26.158 4.15846 26.2218 4.55968L26.7993 8.19131L29.6529 10.503C29.9698 10.7599 30.0823 11.1873 29.9379 11.5661L28.6217 14.999Z" fill="#F15A24" />
+                            <path d="M12.1875 16.8739C10.6369 16.8739 9.37506 18.1357 9.37506 19.6862C9.37506 21.2368 10.6369 22.4985 12.1875 22.4985C13.7381 22.4985 14.9999 21.2368 14.9999 19.6862C14.9999 18.1357 13.7381 16.8739 12.1875 16.8739ZM12.1875 20.6237C11.67 20.6237 11.25 20.2037 11.25 19.6862C11.25 19.1688 11.67 18.7488 12.1875 18.7488C12.705 18.7488 13.125 19.1688 13.125 19.6862C13.125 20.2037 12.705 20.6237 12.1875 20.6237Z" fill="#FAFAFA" />
+                            <path d="M17.8123 7.49951C16.2617 7.49951 14.9999 8.7613 14.9999 10.3118C14.9999 11.8623 16.2617 13.1241 17.8123 13.1241C19.3629 13.1241 20.6247 11.8623 20.6247 10.3118C20.6247 8.7613 19.3629 7.49951 17.8123 7.49951ZM17.8123 11.2492C17.2967 11.2492 16.8748 10.8274 16.8748 10.3118C16.8748 9.79623 17.2967 9.37438 17.8123 9.37438C18.3279 9.37438 18.7498 9.79623 18.7498 10.3118C18.7498 10.8274 18.3279 11.2492 17.8123 11.2492Z" fill="#FAFAFA" />
+                            <path d="M10.3128 7.49951C10.1235 7.49951 9.93408 7.55576 9.76909 7.67388C9.34723 7.97573 9.24973 8.56069 9.5516 8.98253L18.9263 22.1066C19.2282 22.5285 19.8132 22.6259 20.235 22.3241C20.6569 22.0241 20.7525 21.4373 20.4525 21.0173L11.0778 7.89324C10.8922 7.63638 10.6053 7.49951 10.3128 7.49951Z" fill="#FAFAFA" />
+                        </svg>
+                    </div>
+                }
+                @if (@Model.MarkAsNew)
+                {
+                    <div class="new-product-bage">
+                        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M28.2951 12.7813C27.8334 12.4408 27.2569 12.0156 27.1812 11.7338C27.099 11.4247 27.3925 10.7478 27.6299 10.2038C28.0369 9.26991 28.4569 8.30211 27.9899 7.49731C27.5191 6.68212 26.4612 6.5621 25.4399 6.44733C24.8569 6.3821 24.1317 6.30127 23.9151 6.08342C23.6973 5.86558 23.6164 5.14038 23.5512 4.55862C23.4364 3.53732 23.3177 2.4808 22.5012 2.00861C21.7917 1.59646 20.7404 1.95646 19.7947 2.36861C19.273 2.59556 18.7277 2.81206 18.2634 2.81732C17.9817 2.74169 17.5578 2.16513 17.216 1.70339C16.6291 0.905195 15.9625 0 14.9999 0C14.0386 0 13.3708 0.905195 12.7825 1.70345C12.4408 2.16648 12.0169 2.74304 11.6177 2.83041C11.2656 2.83041 10.7256 2.59562 10.2038 2.36867C9.25561 1.95652 8.203 1.60043 7.49865 2.00867C6.68083 2.48086 6.56216 3.53738 6.44733 4.55997C6.38209 5.14301 6.30127 5.86692 6.0847 6.08477C5.86686 6.30127 5.14166 6.38344 4.55991 6.44739C3.53732 6.56216 2.47946 6.68218 2.00861 7.49737C1.54296 8.30217 1.96294 9.26869 2.36861 10.2039C2.60602 10.7478 2.90078 11.4261 2.81732 11.7352C2.74169 12.0169 2.16647 12.4422 1.70339 12.7826C0.905194 13.3695 0 14.0373 0 14.9999C0 15.9625 0.905194 16.6304 1.7048 17.2186C2.16654 17.5591 2.74304 17.9843 2.81873 18.266C2.9009 18.5752 2.60742 19.2521 2.37001 19.796C1.96306 20.73 1.54308 21.6978 2.01001 22.5026C2.48086 23.3178 3.53873 23.4378 4.56003 23.5525C5.14307 23.6178 5.86827 23.6986 6.08483 23.9165C6.30267 24.1343 6.3835 24.8595 6.44874 25.4413C6.5635 26.4626 6.68224 27.5191 7.49872 27.9913C8.20435 28.4021 9.25567 28.0434 10.2039 27.6313C10.7256 27.4043 11.2617 27.1734 11.7352 27.1826C12.0169 27.2582 12.4408 27.8347 12.7826 28.2965C13.3708 29.0947 14.0374 29.9999 15 29.9999C15.9613 29.9999 16.6291 29.0947 17.2174 28.2965C17.5591 27.8335 17.9831 27.2569 18.3822 27.1683C18.7344 27.1683 19.2744 27.403 19.7961 27.63C20.747 28.0421 21.7969 28.3996 22.5013 27.9913C23.3191 27.5191 23.4378 26.4626 23.5526 25.44C23.6178 24.8569 23.6987 24.133 23.9152 23.9152C24.1331 23.6973 24.8583 23.6165 25.44 23.5513C26.4626 23.4365 27.5205 23.3178 27.9913 22.5013C28.457 21.6965 28.037 20.73 27.6313 19.7947C27.3939 19.2508 27.1004 18.5726 27.1826 18.2648C27.2582 17.983 27.8335 17.5578 28.2965 17.2173C29.0948 16.6304 30 15.9625 30 14.9999C30 14.0373 29.0947 13.3696 28.2951 12.7813ZM11.7391 17.6086C11.7391 17.8891 11.5591 18.1382 11.293 18.2269C11.2252 18.2504 11.1561 18.2608 11.0869 18.2608C10.8861 18.2608 10.6904 18.1669 10.5652 18L7.82607 14.3478V17.6086C7.82607 17.9686 7.53387 18.2608 7.17387 18.2608C6.81387 18.2608 6.52168 17.9686 6.52168 17.6086V12.3913C6.52168 12.1108 6.70168 11.8617 6.96777 11.773C7.23257 11.683 7.52733 11.7757 7.69559 12L10.4347 15.6521V12.3913C10.4347 12.0313 10.7269 11.7391 11.0869 11.7391C11.4469 11.7391 11.7391 12.0313 11.7391 12.3913V17.6086ZM16.3043 14.3478C16.6643 14.3478 16.9565 14.64 16.9565 15C16.9565 15.36 16.6643 15.6521 16.3043 15.6521H14.3478V16.9565H16.3043C16.6643 16.9565 16.9565 17.2486 16.9565 17.6086C16.9565 17.9686 16.6643 18.2608 16.3043 18.2608H13.6956C13.3356 18.2608 13.0434 17.9686 13.0434 17.6086V12.3913C13.0434 12.0313 13.3356 11.7391 13.6956 11.7391H16.3043C16.6643 11.7391 16.9565 12.0313 16.9565 12.3913C16.9565 12.7513 16.6643 13.0435 16.3043 13.0435H14.3478V14.3478H16.3043ZM24.763 12.5491L23.4586 17.7665C23.3882 18.0482 23.1404 18.249 22.8508 18.2595C22.8417 18.2595 22.8325 18.2595 22.8247 18.2595C22.5443 18.2595 22.2952 18.0808 22.2052 17.8134L21.5217 15.7578L20.8369 17.8148C20.7456 18.0887 20.5199 18.2726 20.1925 18.2596C19.903 18.2491 19.6552 18.047 19.5847 17.7665L18.2804 12.5492C18.1943 12.1996 18.4056 11.8461 18.7552 11.7587C19.0982 11.67 19.4582 11.8827 19.5456 12.2335L20.306 15.2778L20.9021 13.4896C21.0808 12.9574 21.9625 12.9574 22.1399 13.4896L22.7359 15.2778L23.4964 12.2335C23.5824 11.8826 23.9346 11.6713 24.2868 11.7587C24.6391 11.846 24.8504 12.2008 24.763 12.5491Z" fill="#444444" />
+                        </svg>
+                    </div>
+                }
+            </div>
+            <div class="sku-btn-group">
+                @if (Model.ShowSku && !string.IsNullOrEmpty(Model.Sku))
+                {
+                    <span class="sku">@Model.Sku</span>
+                }
+
+                <b-button-group>
+                    @if (!Model.ProductPrice.DisableWishlistButton)
+                    {
+                        <b-button v-b-tooltip.hover.bottom title="@T("ShoppingCart.AddToWishlist")" class="btn btn-secondary" onclick="AxiosCart.addproducttocart_catalog('@addtowishlistlink', '@Model.ShowQty', '@Model.Id');return false;">
+                            <b-icon icon="heart"></b-icon>
+                            <span class="sr-only">AddToWishlist</span>
+                        </b-button>
+                    }
+                    @if (!Model.ProductPrice.DisableAddToCompareListButton)
+                    {
+                        <b-button v-b-tooltip.hover.bottom title="@T("ShoppingCart.AddToCompareList")" class="btn btn-secondary" onclick="AxiosCart.addproducttocomparelist('@addtocomparelink');return false;">
+                            <span class="sr-only">AddToCompareList</span>
+                            <b-icon icon="shuffle"></b-icon>
+                        </b-button>
+                    }
+                </b-button-group>
+            </div>
             <div class="listbox">
-             <div class="listbox-left">
-                 <h5 class="card-title mb-0">
-                               <a href="@Url.RouteUrl("Product", new { SeName = Model.SeName })">
-                                   @Model.Name
-                               </a>
-                           </h5>
+                <div class="listbox-left">
+                <h5 class="card-title list">
+                    <a href="@Url.RouteUrl("Product", new { SeName = Model.SeName })">
+                        @Model.Name
+                    </a>
+                </h5>
                 @if (Model.SpecificationAttributeModels.Any())
                 {
-                 <div class="spec-container">
-                    @{
-                        var group = Model.SpecificationAttributeModels.GroupBy(x => x.SpecificationAttributeName);
-                    }
-                    <table>
-                        <tbody>
-                            @foreach (var item in group)
-                            {
-                                <tr class="spec">
-                                    <td>
-                                        <div class="spec-name">
+                    <div class="spec-container">
+                        @{
+                            var group = Model.SpecificationAttributeModels.Where(atr => atr.ShowOnSellerMainPage).GroupBy(x => x.SpecificationAttributeName);
+                        }
+                        <table>
+                            <tbody>
+                                @foreach (var item in group)
+                                {
+                                    <tr class="spec">
+                                        <td>
+                                            <div class="spec-name">
+                                                @{
+                                                    var groupList = item.ToList();
+                                                }
+                                                @groupList[0].SpecificationAttributeName:
+                                            </div>
+                                        </td>
+                                        <td>
                                             @{
-                                                var groupList = item.ToList();
+                                                var groupList2 = item.ToList();
                                             }
-                                            @groupList[0].SpecificationAttributeName:
-                                        </div>
-                                    </td>
-                                    <td>
-                                        @{
-                                            var groupList2 = item.ToList();
-                                        }
-                                        <div class="spec-value">
-                                            @foreach (var spec in groupList)
-                                            {
-                                                <span>
-                                                    @Html.Raw(spec.ValueRaw)
-                                                </span>
-                                            }
-                                        </div>
-                                    </td>
+                                            <div class="spec-value">
+                                                @foreach (var spec in groupList)
+                                                {
+                                                    <span>
+                                                        @Html.Raw(spec.ValueRaw)
+                                                    </span>
+                                                }
+                                            </div>
+                                        </td>
 
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-                 }   
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
                 @if (Model.ProductAttributeModels.Any())
-                                    {
-                                        <div class="attr-container">
-                                            <table>
-                                                <tbody>
-                                                @foreach (var item in Model.ProductAttributeModels)
-                                                {
-                                                    <tr class="attr">
-                                                        <td>
-                                                            <div class="attr-name">
-                                                                @item.Name
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="attr-value">
-                                                                @foreach (var spec in item.Values)
-                                                                {
-                                                                    switch (item.AttributeControlType)
-                                                                    {
-                                                                        case AttributeControlType.DropdownList:
-                                                                        case AttributeControlType.RadioList:
-                                                                        case AttributeControlType.Checkboxes:
-                                                                        case AttributeControlType.ReadonlyCheckboxes:
-                                                                            <b-button variant="light" size="sm" class="name" href="@Url.RouteUrl("Product", new {SeName = Model.SeName})?@item.Name=@Html.Raw(spec.Name)">
-                                                                                @Html.Raw(spec.Name)
-                                                                            </b-button>
-                                                                            break;
-                                                                        case AttributeControlType.ColorSquares:
-                                                                            if ((spec.PictureModel.FullSizeImageUrl).Length > 0)
-                                                                            {
-                                                                                <b-button variant="light" size="sm" class="name color-container" title="@spec.Name" v-on:click='productImage' data-href="@spec.PictureModel.FullSizeImageUrl">
-                                                                                    <span class="color" style="background-color:@spec.ColorSquaresRgb;">&nbsp;</span>
-                                                                                </b-button>
-                                                                            }
-                                                                            else
-                                                                            {
-                                                                                <b-button variant="light" size="sm" class="name color-container" title="@spec.Name" href="@Url.RouteUrl("Product", new {SeName = Model.SeName})?@item.Name=@Html.Raw(spec.Name)">
-                                                                                    <span class="color" style="background-color:@spec.ColorSquaresRgb;">&nbsp;</span>
-                                                                                </b-button>
-                                                                            }
-                                                                            break;
-                                                                        case AttributeControlType.ImageSquares:
-                                                                            if ((spec.PictureModel.FullSizeImageUrl).Length > 0)
-                                                                            {
-                                                                                <b-button variant="light" size="sm" class="p-1 name image-container" v-on:click='productImage' data-href="@spec.PictureModel.FullSizeImageUrl">
-                                                                                    <img src="@spec.ImageSquaresPictureModel?.ImageUrl" alt="@spec.Name"/>
-                                                                                </b-button>
-                                                                            }
-                                                                            else
-                                                                            {
-                                                                                <b-button variant="light" size="sm" class="p-1 name image-container" href="@Url.RouteUrl("Product", new {SeName = Model.SeName})?@item.Name=@Html.Raw(spec.Name)">
-                                                                                    <img src="@spec.ImageSquaresPictureModel?.ImageUrl" alt="@spec.Name"/>
-                                                                                </b-button>
-                                                                            }
-                                                                            break;
-                                                                        default:
-                                                                            break;
-                                                                    }
-                                                                }
-                                                            </div>
-                                                        </td>
-                
-                                                    </tr>
-                                                }
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    }
-             </div>     
-             <div class="listbox-right">
-                    <div class="prices-rating">
-                                    @if (Model.ReviewOverviewModel.AllowCustomerReviews)
-                                    {
-                                        decimal ratingValue = 0;
-                                        if (Model.ReviewOverviewModel.TotalReviews != 0)
-                                        {
-                                            ratingValue = Convert.ToDecimal(((Model.ReviewOverviewModel.RatingSum * (double)100) / Model.ReviewOverviewModel.TotalReviews) / (double)100);
-                                        }
-                                        <template>
-                                            <div class="rating">
-                                                <b-form-rating id="rating-inline-list-@Model.Id" class="p-0" variant="warning" no-border size="sm" show-value precision="2" readonly inline value="@(ratingValue)"></b-form-rating>
-                                                <b-link href="@Url.RouteUrl("Product", new { SeName = Model.SeName })">@Model.ReviewOverviewModel.TotalReviews @T("Reviews.Overview.Reviews")</b-link>
+                {
+                    <div class="attr-container">
+                        <table>
+                            <tbody>
+                                @foreach (var item in Model.ProductAttributeModels)
+                                {
+                                    <tr class="attr">
+                                        <td>
+                                            <div class="attr-name">
+                                                @item.Name
                                             </div>
-                                        </template>
-                                    }
-                                    @if (Model.ProductType == ProductType.Auction)
-                                    {
-                    
-                                        @if (Model.EndTime.HasValue)
-                                        {
-                                            <div class="countdown-box alert alert-info d-table mb-1">
-                                                @if (Model.EndTime > DateTime.UtcNow)
+                                        </td>
+                                        <td>
+                                            <div class="attr-value">
+                                                @foreach (var spec in item.Values)
                                                 {
-                                                    <countdown :end-time="@Model.EndTime.Value.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds">
-                                                        <template v-slot:process="{ timeObj }">
-                                                            <span class="col-form-label">@T("AddToCart.Timeleft"):</span>
-                                                            <span>{{ `${timeObj.d}` }} : </span>
-                                                            <span>{{ `${timeObj.h}` }} : </span>
-                                                            <span>{{ `${timeObj.m}` }} : </span>
-                                                            <span>{{ `${timeObj.s}` }}</span>
-                                                        </template>
-                                                        <template v-slot:finish>
-                                                            <span>@T("ShoppingCart.Auctionends")</span>
-                                                        </template>
-                                                    </countdown>
-                                                }
-                                                else
-                                                {
-                                                    <div class="d-inline-flex flex-wrap justify-content-center">
-                                                        <label class="ended-label">@T("ShoppingCart.Auctionends"):</label>
-                                                        <div class="count-date">@Model.EndTimeLocalTime.Value.ToString()</div>
-                                                    </div>
+                                                    switch (item.AttributeControlType)
+                                                    {
+                                                        case AttributeControlType.DropdownList:
+                                                        case AttributeControlType.RadioList:
+                                                        case AttributeControlType.Checkboxes:
+                                                        case AttributeControlType.ReadonlyCheckboxes:
+                                                            <b-button variant="light" size="sm" class="name" href="@Url.RouteUrl("Product", new {SeName = Model.SeName})?@item.Name=@Html.Raw(spec.Name)">
+                                                                @Html.Raw(spec.Name)
+                                                            </b-button>
+                                                            break;
+                                                        case AttributeControlType.ColorSquares:
+                                                            if ((spec.PictureModel.FullSizeImageUrl).Length > 0)
+                                                            {
+                                                                <b-button variant="light" size="sm" class="name color-container" title="@spec.Name" v-on:click='productImage' data-href="@spec.PictureModel.FullSizeImageUrl">
+                                                                    <span class="color" style="background-color:@spec.ColorSquaresRgb;">&nbsp;</span>
+                                                                </b-button>
+                                                            }
+                                                            else
+                                                            {
+                                                                <b-button variant="light" size="sm" class="name color-container" title="@spec.Name" href="@Url.RouteUrl("Product", new {SeName = Model.SeName})?@item.Name=@Html.Raw(spec.Name)">
+                                                                    <span class="color" style="background-color:@spec.ColorSquaresRgb;">&nbsp;</span>
+                                                                </b-button>
+                                                            }
+                                                            break;
+                                                        case AttributeControlType.ImageSquares:
+                                                            if ((spec.PictureModel.FullSizeImageUrl).Length > 0)
+                                                            {
+                                                                <b-button variant="light" size="sm" class="p-1 name image-container" v-on:click='productImage' data-href="@spec.PictureModel.FullSizeImageUrl">
+                                                                    <img src="@spec.ImageSquaresPictureModel?.ImageUrl" alt="@spec.Name" />
+                                                                </b-button>
+                                                            }
+                                                            else
+                                                            {
+                                                                <b-button variant="light" size="sm" class="p-1 name image-container" href="@Url.RouteUrl("Product", new {SeName = Model.SeName})?@item.Name=@Html.Raw(spec.Name)">
+                                                                    <img src="@spec.ImageSquaresPictureModel?.ImageUrl" alt="@spec.Name" />
+                                                                </b-button>
+                                                            }
+                                                            break;
+                                                        default:
+                                                            break;
+                                                    }
                                                 }
                                             </div>
-                                        }
-                                    }
-                                <div class="prices @if (Model.ProductType == ProductType.Reservation) { <text>reservation-price</text> } ">
-                                    @if (Model.ProductType != ProductType.Auction)
-                                    {
-                                        <div class="actual-price price">
-                                            @Model.ProductPrice.Price
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="actual-price price">
-                                            @(Model.ProductPrice.HighestBidValue > 0 ? Model.ProductPrice.HighestBid : Model.ProductPrice.StartPrice)
-                                        </div>
-                                    }
-                                    @if (!String.IsNullOrEmpty(Model.ProductPrice.OldPrice))
-                                    {
-                                        <div class="old-price price">
-                                            @Model.ProductPrice.OldPrice
-                                        </div>
-                                    }
-                                </div>
-                                </div>
-                    @if (Model.AssociatedProducts.Any())
+                                        </td>
+
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                </div>
+                <div class="listbox-right">
+                <div class="prices-rating-list">
+                    @if (Model.ReviewOverviewModel.AllowCustomerReviews)
                     {
-                        <div>
-                            <table>
-                                <tbody>
+                        decimal ratingValue = 0;
+                        if (Model.ReviewOverviewModel.TotalReviews != 0)
+                        {
+                            ratingValue = Convert.ToDecimal(((Model.ReviewOverviewModel.RatingSum * (double)100) / Model.ReviewOverviewModel.TotalReviews) / (double)100);
+                        }
+                        <template>
+                            <div class="rating-list">
+                                <b-form-rating id="rating-inline-list-@Model.Id" class="p-0" variant="warning" no-border size="sm" show-value precision="2" readonly inline value="@(ratingValue)"></b-form-rating>
+                                <b-link href="@Url.RouteUrl("Product", new { SeName = Model.SeName })">@Model.ReviewOverviewModel.TotalReviews @T("Reviews.Overview.Reviews")</b-link>
+                            </div>
+                        </template>
+                    }
+                    @if (Model.ProductType == ProductType.Auction)
+                    {
+
+                        @if (Model.EndTime.HasValue)
+                        {
+                            <div class="countdown-box alert alert-info d-table mb-1">
+                                @if (Model.EndTime > DateTime.UtcNow)
+                                {
+                                    <countdown :end-time="@Model.EndTime.Value.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds">
+                                        <template v-slot:process="{ timeObj }">
+                                            <span class="col-form-label">@T("AddToCart.Timeleft"):</span>
+                                            <span>{{ `${timeObj.d}` }} : </span>
+                                            <span>{{ `${timeObj.h}` }} : </span>
+                                            <span>{{ `${timeObj.m}` }} : </span>
+                                            <span>{{ `${timeObj.s}` }}</span>
+                                        </template>
+                                        <template v-slot:finish>
+                                            <span>@T("ShoppingCart.Auctionends")</span>
+                                        </template>
+                                    </countdown>
+                                }
+                                else
+                                {
+                                    <div class="d-inline-flex flex-wrap justify-content-center">
+                                        <label class="ended-label">@T("ShoppingCart.Auctionends"):</label>
+                                        <div class="count-date">@Model.EndTimeLocalTime.Value.ToString()</div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    }
+                    <div class="prices @if (Model.ProductType == ProductType.Reservation) { <text>reservation-price</text> } ">
+                        @if (Model.ProductType != ProductType.Auction)
+                        {
+                            <div class="actual-price price">
+                                @Model.ProductPrice.Price
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="actual-price price">
+                                @(Model.ProductPrice.HighestBidValue > 0 ? Model.ProductPrice.HighestBid : Model.ProductPrice.StartPrice)
+                            </div>
+                        }
+                        @if (!String.IsNullOrEmpty(Model.ProductPrice.OldPrice))
+                        {
+                            <div class="old-price price">
+                                @Model.ProductPrice.OldPrice
+                            </div>
+                        }
+                    </div>
+                </div>
+                @if (Model.AssociatedProducts.Any())
+                {
+                    <div>
+                        <table>
+                            <tbody>
                                 @foreach (var assocProduct in Model.AssociatedProducts)
                                 {
                                     @if (assocProduct.Vendor == null)
@@ -274,64 +333,107 @@
                                         </td>
 
                                     </tr>
+                                    <div class="spec-avaliable">
+                                        @assocProduct.SpecificationAttributeModels.FirstOrDefault(a => a.SpecificationAttributeCode == "sp_available").ValueRaw
+                                    </div>
                                 }
-                                </tbody>
-                            </table>
-                        </div>
-                    }
-                </div>   
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                </div>
             </div>
-       
-            @if (Model.ShowQty)
-            {
-                var qtyId = "addtocart_" + @Model.Id + "_EnteredQuantity";
-                <input class="form-control input-group-addon catalog-quantity" type="number" id="@qtyId" name="@qtyId" value="1">
-            }
-            <b-button-group>
-                @if (!Model.ProductPrice.DisableWishlistButton)
-                {
-                    <b-button v-b-tooltip.hover.bottom title="@T("ShoppingCart.AddToWishlist")" class="btn btn-secondary" onclick="AxiosCart.addproducttocart_catalog('@addtowishlistlink', '@Model.ShowQty', '@Model.Id');return false;">
-                        <b-icon icon="heart"></b-icon>
-                        <span class="sr-only">AddToWishlist</span>
-                    </b-button>
-                }
-                @if (!Model.ProductPrice.DisableBuyButton && Model.ProductType == ProductType.SimpleProduct)
-                {
-                    var addToCartText = T("ShoppingCart.AddToCart").Text;
-                    if (Model.ProductType == ProductType.Reservation)
+
+            <div class="bottom-list-nav">
+                <gallery-images v-if="this.pictureToZoom>0" v-bind:picturenum="this.pictureToZoom"></gallery-images>
+                <script>
+                Vue.component('gallery-images', {
+                      props: ['picturenum'],
+                      template: '<div><template><div><vue-gallery-slideshow :images="images" :index="this.picturenum" @@close="index = null"></vue-gallery-slideshow></div></template></div>',
+                      data() {
+                          return {
+                                images: [
+                                    @foreach (var picture in Model.PictureModels)
+                                    {
+                                        if (Model.PictureModels.First() == picture)
+                                        {
+                                            <text>
+                                                { url: '@picture.FullSizeImageUrl', fullimg: '@picture.FullSizeImageUrl', alt:'@picture.AlternateText', title: '@picture.Title' },
+                                            </text>
+                                        }
+                                        else
+                                        {
+                                            <text>
+                                        { url: '@picture.ImageUrl', fullimg: '@picture.FullSizeImageUrl', alt:'@picture.AlternateText', title: '@picture.Title' },
+                                            </text>
+                                        }
+
+                                    }
+                                ],
+                                index: this.picturenum
+                            }
+                      },
+                      components: {
+                            VueGallerySlideshow
+                      },
+                });
+                </script>
+
+                <div class="btn-list">
+                    <div class="btn-list-name" v-on:click="onzoom(1)">
+                        <span>Фото</span>
+                    </div>
+                    <div class="btn-list-count">
+                        <span>(2)</span>
+                    </div>
+                </div>
+                <div class="btn-list">
+                    <div class="btn-list-name">
+                        <span>Фидео</span>
+                    </div>
+                    <div class="btn-list-count">
+                        <span>(2)</span>
+                    </div>
+                </div>
+
+                <div class="btn-list">
+                    <div class="btn-list-name">
+                        <span>Где купить</span>
+                    </div>
+                    <div class="btn-list-count">
+                        <span>(2)</span>
+                    </div>
+                </div>
+                <div class="btn-list">
+                    <div class="btn-list-name">
+                        <span>Акции</span>
+                    </div>
+                    <div class="btn-list-count">
+                        <span>(2)</span>
+                    </div>
+                </div>
+                <div class="btn-list">
+                    <div class="btn-list-name">
+                        <span>Отзывы</span>
+                    </div>
+                    <div class="btn-list-count">
+                        <span>(2)</span>
+                    </div>
+                </div>
+                <div class="btn-list">
+                    <div class="btn-list-name">
+                        <span>Б/У</span>
+                    </div>
+                    <div class="btn-list-count">
+                        <span>(2)</span>
+                    </div>
+                </div>
+            </div>
+                    @if (Model.ShowQty)
                     {
-                        addToCartText = T("ShoppingCart.Reservation").Text;
+                        var qtyId = "addtocart_" + @Model.Id + "_EnteredQuantity";
+                        <input class="form-control input-group-addon catalog-quantity" type="number" id="@qtyId" name="@qtyId" value="1">
                     }
-                    if (Model.ProductPrice.AvailableForPreOrder)
-                    {
-                        addToCartText = T("ShoppingCart.PreOrder").Text;
-                    }
-                    <b-button variant="info" class="justify-content-center w-100" onclick="AxiosCart.addproducttocart_catalog('@addtocartlink', '@Model.ShowQty', '@Model.Id');return false;">
-                        <b-icon icon="cart2" class="mx-auto d-sm-none d-block"></b-icon>
-                        <span class="add-cart-text d-sm-block d-none">@(addToCartText)</span>
-                        <span class="sr-only">AddToCart</span>
-                    </b-button>
-                }
-                else
-                {
-                    if (Model.ProductType == ProductType.Auction)
-                    {
-                        var addToCartText = T("ShoppingCart.Bids").Text;
-                        <b-button variant="info" class="justify-content-center w-100" onclick="AxiosCart.addproducttocart_catalog('@addtocartlink', 'false', '@Model.Id');return false;">
-                            <b-icon icon="hammer" class="mx-auto d-sm-none d-block"></b-icon>
-                            <span class="add-cart-text d-sm-block d-none">@(addToCartText)</span>
-                            <span class="sr-only">AddToCart</span>
-                        </b-button>
-                    }
-                }
-                @if (!Model.ProductPrice.DisableAddToCompareListButton)
-                {
-                    <b-button v-b-tooltip.hover.bottom title="@T("ShoppingCart.AddToCompareList")" class="btn btn-secondary" onclick="AxiosCart.addproducttocomparelist('@addtocomparelink');return false;">
-                        <span class="sr-only">AddToCompareList</span>
-                        <b-icon icon="shuffle"></b-icon>
-                    </b-button>
-                }
-            </b-button-group>
-        </b-card-body>
+</b-card-body>
     </b-card>
 </div>
