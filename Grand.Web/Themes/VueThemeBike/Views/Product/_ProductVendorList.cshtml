@@ -13,7 +13,7 @@
             }
 
             <b-card no-body class="overflow-hidden associatedItem mb-3">
-                <b-row class="justify-content-left">
+                <div class="justify-content-left">
                     <div class="rounded-photo">
                         <a href="@variant.Url">
                             <b-card-img fluid-grow="true" fluid="true" id="main-product-img-@variant.Id"
@@ -36,17 +36,18 @@
                         <b-link href="@Url.RouteUrl("Vendor", new {SeName = variant.VendorModel.SeName})">@string.Format("({0})", variant.VendorModel.ApprovedTotalReviews)</b-link>
 
                     </div>
-                </b-row>
-                <b-row class="mb-2 justify-content-right">
+                </div>
+                <div class="justify-content-right">
                     <div class="justify-content-center title">
                         <a href="@variant.Url">
                             <h3 class="vendor-title" itemprop="name" align="center">@variant.VendorModel.Name</h3>
                         </a>
                     </div>
                     <div class="justify-content-center vendor-content">
-                        <div class="vendor-spec">
-                            @if (@variant.VendorModel.VendorSpecificationAttributes.Any())
-                            {
+
+                        @if (@variant.VendorModel.VendorSpecificationAttributes.Any())
+                        {
+                            <div class="vendor-spec">
                                 <div class="spec-container">
 
                                     @{
@@ -75,8 +76,9 @@
                                         </div>
                                     }
                                 </div>
-                            }
-                        </div>
+                            </div>
+                        }
+
                         <b-col lg="3" md="4" class="prices align-self-center justify-content-prices">
                             @{
                                 var dataDictPrice = new ViewDataDictionary(ViewData);
@@ -115,6 +117,7 @@
                             </div>
                         </div>
                     </div>
+                </div>
             </b-card>
         }
 

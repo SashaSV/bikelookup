@@ -232,7 +232,7 @@ Vue.component('header-up', {
     },
     template: `
         <div class="header-up1">
-        <div class="header-up-inner"> 
+        <div class="container header-up-inner"> 
         <langsellector></langsellector>                
         <button-add class="button-add"></button-add>
         <findmini class="find-mini"></findmini>

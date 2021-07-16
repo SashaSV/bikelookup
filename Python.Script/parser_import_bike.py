@@ -12,7 +12,7 @@ from pymongo import MongoClient
 #86
 NAMEMACHINE = 'localhost'
 PORTDB = 27017
-NAMEDB = 'bludb'
+NAMEDB = 'bludb1'
 PAGES_START = 1
 PAGES_COUNT = 1
 OUT_FILENAME = 'velogo'
