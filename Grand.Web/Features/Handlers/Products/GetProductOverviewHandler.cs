@@ -159,6 +159,8 @@ namespace Grand.Web.Features.Handlers.Products
                 var pictureModels = await PreparePictureModel(product, model.Name, res, pictureSize);
                 model.DefaultPictureModel = pictureModels.FirstOrDefault();
                 if (pictureModels.Count > 1) model.SecondPictureModel = pictureModels.ElementAtOrDefault(1);
+                
+                
                 model.PictureModels = pictureModels;
             }
             

@@ -1,0 +1,29 @@
+﻿@model AddressModel
+@{
+    //page title
+    ViewBag.Title = T("Admin.Customers.Customers.Addresses.EditAddress").Text;
+    var vendorAddresModel = new VendorViewAddresModel {VendorId = Model.VendorId, Address = Model};
+}
+<form asp-area="@Constants.AreaAdmin" asp-controller="Customer" asp-action="AddressEdit" method="post">
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel light form-fit">
+                <div class="x_title">
+                    <div class="caption">
+                        <i class="fa fa-user-plus"></i>
+                        @T("Admin.Customers.Customers.Addresses.EditAddress")
+                        <small>@Html.ActionLink("(" + T("Admin.Customers.Customers.Addresses.BackToCustomer") + ")", "Edit", new { id = Model.VendorId })</small>
+                    </div>
+                    <div class="actions">
+                        <button class="btn btn-success" type="submit" name="save"><i class="fa fa-check"></i> @T("Admin.Common.Save") </button>
+                        <vc:admin-widget widget-zone="customer_address_details_buttons" additional-data="Model" />
+                    </div>
+                </div>
+                <div class="x_content form">
+                   <partial name="_CreateOrUpdateAddress" model="vendorAddresModel" />
+                </div>
+            </div> 
+        </div>
+    </div>
+</form>   

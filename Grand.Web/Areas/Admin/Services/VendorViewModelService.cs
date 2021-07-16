@@ -26,7 +26,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Grand.Core;
 using Grand.Domain.Catalog;
+using Grand.Domain.Common;
 using Grand.Services.Catalog;
+using Grand.Web.Areas.Admin.Models.Common;
+using NUglify.Helpers;
 
 namespace Grand.Web.Areas.Admin.Services
 {
@@ -119,45 +122,48 @@ namespace Grand.Web.Areas.Admin.Services
         public virtual async Task PrepareVendorAddressModel(VendorModel model, Vendor vendor)
         {
 
-            if (model.Address == null)
-                model.Address = new Models.Common.AddressModel();
+            if (model.Addresses == null)
+                model.Addresses = new List<Models.Common.AddressModel>();
 
-            model.Address.FirstNameEnabled = false;
-            model.Address.FirstNameRequired = false;
-            model.Address.LastNameEnabled = false;
-            model.Address.LastNameRequired = false;
-            model.Address.EmailEnabled = false;
-            model.Address.EmailRequired = false;
-            model.Address.CompanyEnabled = _vendorSettings.AddressSettings.CompanyEnabled;
-            model.Address.CountryEnabled = _vendorSettings.AddressSettings.CountryEnabled;
-            model.Address.StateProvinceEnabled = _vendorSettings.AddressSettings.StateProvinceEnabled;
-            model.Address.CityEnabled = _vendorSettings.AddressSettings.CityEnabled;
-            model.Address.CityRequired = _vendorSettings.AddressSettings.CityRequired;
-            model.Address.StreetAddressEnabled = _vendorSettings.AddressSettings.StreetAddressEnabled;
-            model.Address.StreetAddressRequired = _vendorSettings.AddressSettings.StreetAddressRequired;
-            model.Address.StreetAddress2Enabled = _vendorSettings.AddressSettings.StreetAddress2Enabled;
-            model.Address.ZipPostalCodeEnabled = _vendorSettings.AddressSettings.ZipPostalCodeEnabled;
-            model.Address.ZipPostalCodeRequired = _vendorSettings.AddressSettings.ZipPostalCodeRequired;
-            model.Address.PhoneEnabled = _vendorSettings.AddressSettings.PhoneEnabled;
-            model.Address.PhoneRequired = _vendorSettings.AddressSettings.PhoneRequired;
-            model.Address.FaxEnabled = _vendorSettings.AddressSettings.FaxEnabled;
-            model.Address.FaxRequired = _vendorSettings.AddressSettings.FaxRequired;
-
-            //address
-            model.Address.AvailableCountries.Add(new SelectListItem { Text = _localizationService.GetResource("Admin.Address.SelectCountry"), Value = "" });
-            foreach (var c in await _countryService.GetAllCountries(showHidden: true))
-                model.Address.AvailableCountries.Add(new SelectListItem { Text = c.Name, Value = c.Id.ToString(), Selected = (vendor != null && c.Id == vendor.Address.CountryId) });
-
-            var states = !String.IsNullOrEmpty(model.Address.CountryId) ? await _stateProvinceService.GetStateProvincesByCountryId(model.Address.CountryId, showHidden: true) : new List<StateProvince>();
-            if (states.Count > 0)
+            foreach (var Aadress in model.Addresses)
             {
-                foreach (var s in states)
-                    model.Address.AvailableStates.Add(new SelectListItem { Text = s.Name, Value = s.Id.ToString(), Selected = (vendor != null && s.Id == vendor.Address.StateProvinceId) });
-            }
-            else
-                model.Address.AvailableStates.Add(new SelectListItem { Text = _localizationService.GetResource("Admin.Address.OtherNonUS"), Value = "" });
-        }
+                Aadress.FirstNameEnabled = false;
+                Aadress.FirstNameRequired = false;
+                Aadress.LastNameEnabled = false;
+                Aadress.LastNameRequired = false;
+                Aadress.EmailEnabled = false;
+                Aadress.EmailRequired = false;
+                Aadress.CompanyEnabled = _vendorSettings.AddressSettings.CompanyEnabled;
+                Aadress.CountryEnabled = _vendorSettings.AddressSettings.CountryEnabled;
+                Aadress.StateProvinceEnabled = _vendorSettings.AddressSettings.StateProvinceEnabled;
+                Aadress.CityEnabled = _vendorSettings.AddressSettings.CityEnabled;
+                Aadress.CityRequired = _vendorSettings.AddressSettings.CityRequired;
+                Aadress.StreetAddressEnabled = _vendorSettings.AddressSettings.StreetAddressEnabled;
+                Aadress.StreetAddressRequired = _vendorSettings.AddressSettings.StreetAddressRequired;
+                Aadress.StreetAddress2Enabled = _vendorSettings.AddressSettings.StreetAddress2Enabled;
+                Aadress.ZipPostalCodeEnabled = _vendorSettings.AddressSettings.ZipPostalCodeEnabled;
+                Aadress.ZipPostalCodeRequired = _vendorSettings.AddressSettings.ZipPostalCodeRequired;
+                Aadress.PhoneEnabled = _vendorSettings.AddressSettings.PhoneEnabled;
+                Aadress.PhoneRequired = _vendorSettings.AddressSettings.PhoneRequired;
+                Aadress.FaxEnabled = _vendorSettings.AddressSettings.FaxEnabled;
+                Aadress.FaxRequired = _vendorSettings.AddressSettings.FaxRequired;
 
+                //address
+                Aadress.AvailableCountries.Add(new SelectListItem { Text = _localizationService.GetResource("Admin.Address.SelectCountry"), Value = "" });
+                foreach (var c in await _countryService.GetAllCountries(showHidden: true))
+                    Aadress.AvailableCountries.Add(new SelectListItem { Text = c.Name, Value = c.Id.ToString(), Selected = (vendor != null && c.Id == Aadress?.CountryId) });
+
+                var states = !String.IsNullOrEmpty(Aadress.CountryId) ? await _stateProvinceService.GetStateProvincesByCountryId(Aadress.CountryId, showHidden: true) : new List<StateProvince>();
+                if (states.Count > 0)
+                {
+                    foreach (var s in states)
+                        Aadress.AvailableStates.Add(new SelectListItem { Text = s.Name, Value = s.Id.ToString(), Selected = (vendor != null && s.Id == Aadress?.StateProvinceId) });
+                }
+                else
+                    Aadress.AvailableStates.Add(new SelectListItem { Text = _localizationService.GetResource("Admin.Address.OtherNonUS"), Value = "" });
+             }
+        }
+        
         public virtual async Task PrepareStore(VendorModel model)
         {
             model.AvailableStores.Add(new SelectListItem
@@ -225,8 +231,8 @@ namespace Grand.Web.Areas.Admin.Services
         public virtual async Task<Vendor> InsertVendorModel(VendorModel model)
         {
             var vendor = model.ToEntity();
-            vendor.Address = model.Address.ToEntity();
-            vendor.Address.CreatedOnUtc = DateTime.UtcNow;
+            vendor.Addresses = model.Addresses.Select(a => a.ToEntity()).ToList();
+            vendor.Addresses.ForEach(a => a.CreatedOnUtc = DateTime.UtcNow);
 
             await _vendorService.InsertVendor(vendor);
 
@@ -250,13 +256,19 @@ namespace Grand.Web.Areas.Admin.Services
 
             return vendor;
         }
+
+        public async Task<Vendor> UpdateVendorAddressModel(Vendor vendor, AddressModel model)
+        {
+            return vendor;
+        }
+
         public virtual async Task<Vendor> UpdateVendorModel(Vendor vendor, VendorModel model)
         {
             string prevPictureId = vendor.PictureId;
             vendor = model.ToEntity(vendor);
             vendor.Locales = await model.Locales.ToLocalizedProperty(vendor, x => x.Name, _seoSettings, _urlRecordService, _languageService);
             model.SeName = await vendor.ValidateSeName(model.SeName, vendor.Name, true, _seoSettings, _urlRecordService, _languageService);
-            vendor.Address = model.Address.ToEntity(vendor.Address);
+            vendor.Addresses = model.Addresses.Select(a=>a.ToEntity()).ToList();
 
             //discounts
             var allDiscounts = await _discountService.GetAllDiscounts(DiscountType.AssignedToVendors, showHidden: true);
@@ -517,6 +529,23 @@ namespace Grand.Web.Areas.Admin.Services
             vsa.VendorId = vendor.Id;
             vendor.VendorSpecificationAttributes.Remove(vsa);
             await _specificationAttributeService.DeleteVendorSpecificationAttribute(vsa);
+        }
+
+        public async Task<Address> UpdateAddress(Vendor vendor, AddressModel addressModel, Address address)
+        {
+            address = addressModel.ToEntity(address);
+            await _vendorService.UpdateVendor(vendor);
+            return address;
+        }
+
+        public async Task AddAddressToVendor(Vendor vendor, AddressModel addressModel)
+        {
+            await _vendorService.InsertVendorAdress(vendor.Id, addressModel.ToEntity());
+        }
+        
+        public async Task RemoveAddressFromVendor(Vendor vendor, AddressModel addressModel)
+        {
+            await _vendorService.InsertVendorAdress(vendor.Id, addressModel.ToEntity());
         }
     }
 }

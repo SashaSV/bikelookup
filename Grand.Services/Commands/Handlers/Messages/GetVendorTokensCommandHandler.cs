@@ -3,6 +3,7 @@ using Grand.Services.Directory;
 using Grand.Services.Localization;
 using Grand.Services.Messages.DotLiquidDrops;
 using MediatR;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -24,13 +25,12 @@ namespace Grand.Services.Commands.Handlers.Messages
         public async Task<LiquidVendor> Handle(GetVendorTokensCommand request, CancellationToken cancellationToken)
         {
             var liquidVendor = new LiquidVendor(request.Vendor);
-            liquidVendor.StateProvince = !string.IsNullOrEmpty(request.Vendor.Address?.StateProvinceId) ?
-                (await _stateProvinceService.GetStateProvinceById(request.Vendor.Address.StateProvinceId))?
+            liquidVendor.StateProvince = !string.IsNullOrEmpty(request.Vendor.Addresses?.FirstOrDefault()?.StateProvinceId) ?
+                (await _stateProvinceService.GetStateProvinceById(request.Vendor.Addresses?.FirstOrDefault()?.StateProvinceId))?
+                .GetLocalized(x => x.Name, request.Language.Id) : ""; 
+            liquidVendor.Country = !string.IsNullOrEmpty(request.Vendor.Addresses?.FirstOrDefault()?.CountryId) ?
+                (await _countryService.GetCountryById(request.Vendor.Addresses?.FirstOrDefault()?.CountryId))?
                 .GetLocalized(x => x.Name, request.Language.Id) : "";
-            liquidVendor.Country = !string.IsNullOrEmpty(request.Vendor.Address?.CountryId) ?
-                (await _countryService.GetCountryById(request.Vendor.Address.CountryId))?
-                .GetLocalized(x => x.Name, request.Language.Id) : "";
-
             return liquidVendor;
         }
     }

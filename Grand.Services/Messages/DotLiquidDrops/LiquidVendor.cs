@@ -1,6 +1,7 @@
 ﻿using DotLiquid;
 using Grand.Domain.Vendors;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Grand.Services.Messages.DotLiquidDrops
 {
@@ -31,37 +32,37 @@ namespace Grand.Services.Messages.DotLiquidDrops
 
         public string Address1
         {
-            get { return _vendor.Address?.Address1; }
+            get { return _vendor.Addresses?.FirstOrDefault()?.Address1; }
         }
 
         public string Address2
         {
-            get { return _vendor.Address?.Address2; }
+            get { return _vendor.Addresses?.FirstOrDefault()?.Address2; }
         }
 
         public string City
         {
-            get { return _vendor.Address?.City; }
+            get { return _vendor.Addresses?.FirstOrDefault()?.City; }
         }
 
         public string Company
         {
-            get { return _vendor.Address?.Company; }
+            get { return _vendor.Addresses?.FirstOrDefault()?.Company; }
         }
 
         public string FaxNumber
         {
-            get { return _vendor.Address?.FaxNumber; }
+            get { return _vendor.Addresses?.FirstOrDefault()?.FaxNumber; }
         }
 
         public string PhoneNumber
         {
-            get { return _vendor.Address?.PhoneNumber; }
+            get { return _vendor.Addresses?.FirstOrDefault()?.PhoneNumber; }
         }
 
         public string ZipPostalCode
         {
-            get { return _vendor.Address?.ZipPostalCode; }
+            get { return _vendor.Addresses?.FirstOrDefault()?.ZipPostalCode; }
         }
 
         public string StateProvince { get; set; }

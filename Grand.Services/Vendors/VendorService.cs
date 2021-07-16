@@ -1,4 +1,5 @@
 using Grand.Domain;
+using Grand.Domain.Common;
 using Grand.Domain.Data;
 using Grand.Domain.Seo;
 using Grand.Domain.Vendors;
@@ -422,6 +423,32 @@ namespace Grand.Services.Vendors
                 filter &= builder.Where(x => x.Id == vendorId);
             }
             return await _vendorRepository.Collection.Find(filter).ToListAsync();
+        }
+
+        public async Task InsertVendorAdress(string vendorId, Address address)
+        {
+            var vendor =  await _vendorRepository.GetByIdAsync(vendorId);
+            if(vendor == null)
+                return;
+            vendor.Addresses.Add(address);
+            
+            await _vendorRepository.UpdateAsync(vendor);
+
+            //event notification
+            await _mediator.EntityUpdated(vendor);
+        }
+
+        public async Task DeleteVendorAdress(string vendorId, Address address)
+        {
+            var vendor =  await _vendorRepository.GetByIdAsync(vendorId);
+            if(vendor == null)
+                return;
+            vendor.Addresses.Remove(address);
+            
+            await _vendorRepository.UpdateAsync(vendor);
+
+            //event notification
+            await _mediator.EntityUpdated(vendor);
         }
 
         #endregion

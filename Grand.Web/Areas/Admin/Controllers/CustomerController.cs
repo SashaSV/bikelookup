@@ -767,7 +767,7 @@ namespace Grand.Web.Areas.Admin.Controllers
         {
             var customer = await _customerService.GetCustomerById(model.CustomerId);
             if (customer == null)
-                //No customer found with the specified id
+                //No customer found with the specified id 
                 return RedirectToAction("List");
 
             var address = customer.Addresses.Where(x => x.Id == model.Address.Id).FirstOrDefault();

@@ -1,4 +1,5 @@
 ﻿using Grand.Core.Models;
+using Grand.Domain.Common;
 using Grand.Domain.Vendors;
 using System.Collections.Generic;
 using Grand.Web.Models.Media;
@@ -33,6 +34,8 @@ namespace Grand.Web.Models.Catalog
         public string SeName { get; set; }
 
         public PictureModel PictureModel { get; set; }
+
+        public IList<Address> Addresses { get; set; }
 
         public IList<ProductSpecificationModel> VendorSpecificationAttributes { get; set; }
     }

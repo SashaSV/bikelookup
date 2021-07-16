@@ -1,0 +1,6 @@
+﻿@model VendorViewAddresModel
+<div asp-validation-summary="All"></div>
+<input type="hidden" asp-for="VendorId" />
+<vc:admin-widget widget-zone="customer_address_details_top" additional-data="Model" />
+<admin-input asp-for="Address" asp-template="Address" />
+<vc:admin-widget widget-zone="customer_address_details_bottom" additional-data="Model" />

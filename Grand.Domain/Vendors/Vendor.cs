@@ -17,7 +17,7 @@ namespace Grand.Domain.Vendors
         public Vendor()
         {
             Locales = new List<LocalizedProperty>();
-            Address = new Address();
+            Addresses = new List<Address>();
             _productSpecificationAttributes = new List<VendorSpecificationAttribute>();
         }
         /// <summary>
@@ -133,9 +133,8 @@ namespace Grand.Domain.Vendors
         /// <summary>
         /// Gets or sets the vendor address
         /// </summary>
-        public virtual Address Address { get; set; }
-
-
+        public virtual IList<Address> Addresses { get; set; }
+        
         /// <summary>
         /// Gets or sets the collection of locales
         /// </summary>

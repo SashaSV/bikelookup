@@ -12,6 +12,7 @@ using Grand.Web.Models.Catalog;
 using Grand.Web.Models.Media;
 using MediatR;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -72,7 +73,7 @@ namespace Grand.Web.Features.Handlers.Catalog
                 //prepare vendor address
                 vendorModel.Address = await _mediator.Send(new GetVendorAddress() {
                     Language = request.Language,
-                    Address = vendor.Address,
+                    Address = vendor.Addresses.FirstOrDefault(),
                     ExcludeProperties = false,
                 });
 
