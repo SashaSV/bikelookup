@@ -1,4 +1,5 @@
 using Grand.Domain;
+using Grand.Domain.Common;
 using Grand.Domain.Vendors;
 using System;
 using System.Collections.Generic;
@@ -153,6 +154,20 @@ namespace Grand.Services.Vendors
         /// <returns>Vendors</returns>
         Task<IList<Vendor>> SearchVendors(string vendorId = "", string keywords = null);
 
+        /// <summary>
+        /// Insert Vendor adress 
+        /// </summary>
+        /// <param name="Vendor">Vendor</param>
+        Task InsertVendorAdress(string vendorId, Address address);
+        
+        /// <summary>
+        /// Insert Vendor adress 
+        /// </summary>
+        /// <param name="Vendor">Vendor</param>
+        Task DeleteVendorAdress(string vendorId, Address address);
+
+        
+        
         #endregion
     }
 }

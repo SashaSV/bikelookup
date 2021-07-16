@@ -6,6 +6,17 @@ using System.Collections.Generic;
 
 namespace Grand.Web.Areas.Admin.Models.Common
 {
+    public class VendorViewAddresModel
+    {
+        public AddressModel Address { get; set; }
+
+        public string VendorId {
+            get;
+            set;
+        }
+
+    }
+
     public partial class AddressModel : BaseEntityModel
     {
         public AddressModel()
@@ -14,6 +25,8 @@ namespace Grand.Web.Areas.Admin.Models.Common
             AvailableStates = new List<SelectListItem>();
             CustomAddressAttributes = new List<AddressAttributeModel>();
         }
+
+        //public AddressModel Address => this; 
 
         [GrandResourceDisplayName("Admin.Address.Fields.FirstName")]
 
@@ -80,12 +93,11 @@ namespace Grand.Web.Areas.Admin.Models.Common
         public string FormattedCustomAddressAttributes { get; set; }
         public IList<AddressAttributeModel> CustomAddressAttributes { get; set; }
 
+        public string VendorId { get; set; }
 
         public IList<SelectListItem> AvailableCountries { get; set; }
         public IList<SelectListItem> AvailableStates { get; set; }
-
-
-
+        
         public bool FirstNameEnabled { get; set; }
         public bool FirstNameRequired { get; set; }
         public bool LastNameEnabled { get; set; }

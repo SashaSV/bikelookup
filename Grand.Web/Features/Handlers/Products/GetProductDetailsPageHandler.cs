@@ -1,6 +1,7 @@
 ﻿using Grand.Core;
 using Grand.Core.Caching;
 using Grand.Domain.Catalog;
+using Grand.Domain.Common;
 using Grand.Domain.Customers;
 using Grand.Domain.Media;
 using Grand.Domain.Orders;
@@ -498,7 +499,8 @@ namespace Grand.Web.Features.Handlers.Products
                         NotApprovedRatingSum = vendor.NotApprovedRatingSum,
                         ApprovedTotalReviews = vendor.ApprovedTotalReviews,
                         NotApprovedTotalReviews = vendor.NotApprovedTotalReviews,
-                        VendorSpecificationAttributes = vendorSpecs
+                        VendorSpecificationAttributes = vendorSpecs,
+                        Addresses = vendor.Addresses
                     };
                 }
             }

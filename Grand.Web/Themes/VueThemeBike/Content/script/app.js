@@ -321,6 +321,7 @@ var vm = new Vue({
             minAngle: minPrice,
             maxAngle: maxPrice,
             pictureToZoom: null,
+            prodToZoom: null,
         }
     },
     props: {
@@ -378,8 +379,16 @@ var vm = new Vue({
         {
             this.pictureToZoom = 0;
             this.pictureToZoom = index
-            debugger
-            Vue.forceUpdate ();
+
+            this.$forceUpdate();
+        },
+        opengalery: function (index, id)
+        {
+            this.pictureToZoom = 0;
+            this.pictureToZoom = index;
+            this.prodToZoom = id;
+
+            this.$forceUpdate();
         },
         onnextslide :function ()
         {

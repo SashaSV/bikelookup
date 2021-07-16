@@ -63,7 +63,7 @@
                 </content>
             </tabstrip-item>
         }
-        <tabstrip-item text="@T("Admin.Common.GenericAttributes.Tab")" tab-index="6">
+        <tabstrip-item text="@T("Admin.Vendors.GenericAttributes.Tab")" tab-index="6">
             <content>
                 <div>
                     @{
@@ -73,6 +73,13 @@
                     <partial name="_GenericAttributes" model="Model" view-data="ViewData" />
                 </div>
             </content>
+        </tabstrip-item>
+          <tabstrip-item text="@T("Admin.Vendors.Customers.Addresses")" tab-index="4">
+                        <content>
+                            <div>
+                                <partial name="_CreateOrUpdate.TabAddresses" model="Model" />
+                            </div>
+                        </content>
         </tabstrip-item>
         <vc:admin-widget widget-zone="vendor_details_tabs" additional-data="Model" />
     </items>

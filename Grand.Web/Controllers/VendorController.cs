@@ -25,6 +25,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Grand.Web.Controllers
@@ -197,7 +198,7 @@ namespace Grand.Web.Controllers
                     PageSizeOptions = _vendorSettings.DefaultVendorPageSizeOptions,
                     AllowCustomerReviews = _vendorSettings.DefaultAllowCustomerReview,
                 };
-                model.Address.ToEntity(vendor.Address, true);
+                model.Address.ToEntity(vendor.Addresses.FirstOrDefault(), true);
                 await _vendorService.InsertVendor(vendor);
 
                 //search engine name (the same as vendor name)                
@@ -256,7 +257,7 @@ namespace Grand.Web.Controllers
             var countries = await _countryService.GetAllCountries(_workContext.WorkingLanguage.Id);
             model.Address = await _mediator.Send(new GetVendorAddress() {
                 Language = _workContext.WorkingLanguage,
-                Address = vendor.Address,
+                Address = vendor.Addresses.FirstOrDefault(),
                 ExcludeProperties = false,
                 LoadCountries = () => countries,
             });
@@ -320,7 +321,7 @@ namespace Grand.Web.Controllers
 
                 //update picture seo file name
                 await UpdatePictureSeoNames(vendor);
-                model.Address.ToEntity(vendor.Address, true);
+                model.Address.ToEntity(vendor.Addresses.FirstOrDefault(), true);
 
                 await _vendorService.UpdateVendor(vendor);
 
@@ -334,7 +335,7 @@ namespace Grand.Web.Controllers
             model.Address = await _mediator.Send(new GetVendorAddress() {
                 Language = _workContext.WorkingLanguage,
                 Model = model.Address,
-                Address = vendor.Address,
+                Address = vendor.Addresses.FirstOrDefault(),
                 ExcludeProperties = false,
                 LoadCountries = () => countries,
             });

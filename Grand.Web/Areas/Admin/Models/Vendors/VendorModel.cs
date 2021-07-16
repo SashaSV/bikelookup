@@ -21,7 +21,7 @@ namespace Grand.Web.Areas.Admin.Models.Vendors
             }
             Locales = new List<VendorLocalizedModel>();
             AssociatedCustomers = new List<AssociatedCustomerInfo>();
-            Address = new AddressModel();
+            Addresses = new List<AddressModel>();
             AvailableStores = new List<SelectListItem>();
             AddSpecificationAttributeModel = new AddVendorSpecificationAttributeModel();
         }
@@ -89,7 +89,7 @@ namespace Grand.Web.Areas.Admin.Models.Vendors
         [GrandResourceDisplayName("Admin.Vendors.Fields.AssociatedCustomerEmails")]
         public IList<AssociatedCustomerInfo> AssociatedCustomers { get; set; }
 
-        public AddressModel Address { get; set; }
+        public IList<AddressModel> Addresses { get; set; }
 
         //vendor notes
         [GrandResourceDisplayName("Admin.Vendors.VendorNotes.Fields.Note")]
