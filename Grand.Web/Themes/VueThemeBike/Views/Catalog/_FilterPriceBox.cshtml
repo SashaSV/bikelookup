@@ -44,7 +44,7 @@
                         <input type="number" min="@Model.AvalibleRange.FromValue" max="@Model.AvalibleRange.ToValue" value='@Model.SelectedRange.FromValue' step="1" v-model="sliderMin" v-on:change="onPriceFilter()">
                         <span>-</span>
                         <input type="number" min="@Model.AvalibleRange.FromValue" max="@Model.AvalibleRange.ToValue" value='@Model.SelectedRange.ToValue' v-model="sliderMax" v-on:change="onPriceFilter()">
-                        <b-button size="sm" variant="light" class="price-apply" v-on:click="applyPriceFilter()"><h6 class="mb-0">OK</h6></b-button>
+                        <b-button size="" variant="light" class="price-apply" v-on:click="applyPriceFilter()"><h6 class="mb-0">OK</h6></b-button>
                     </div>                   
                     <div class='range-slider-line'>
                         <input type="range" min="@Model.AvalibleRange.FromValue" max="@Model.AvalibleRange.ToValue" step="1" value='@Model.SelectedRange.FromValue' v-model="sliderMin">

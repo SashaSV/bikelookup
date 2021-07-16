@@ -113,6 +113,7 @@ input[type=range]:focus::-ms-fill-upper {
     line-height: 1.5;
     border-radius: .2rem;
     margin-right: auto;
+    border: 2px solid #F15A24;
 }
 
 input[type=range]::-webkit-slider-runnable-track {

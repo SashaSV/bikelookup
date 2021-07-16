@@ -85,110 +85,21 @@
                             <b-row>
                                 <b-tabs class="w-100" content-class="mt-3" align="left" lazy="true">
                                     <b-tab title="@T("Products.Sellers")" active>
-                                        <partial name="_ProductHeader" model="Model"/>
-                                        <div class="product-collateral">
-                                            <div>
-                                                <!--associated products-->
-                                                @foreach (var variant in Model.AssociatedProducts)
-                                                {
-                                                    @if (variant.VendorModel == null)
-                                                    {
-                                                        continue;
-                                                        
-                                                    }
-                                                <b-card no-body class="overflow-hidden associatedItem mb-3">
-                                                    <b-row class="mb-2 justify-content-left">
-
-                                                            <a href="@variant.Url">
-                                                                <b-card-img fluid-grow="true" fluid="true" id="main-product-img-@variant.Id"
-                                                                            alt="@variant.VendorModel.PictureModel.AlternateText"
-                                                                            src="@variant.VendorModel.PictureModel.ImageUrl" class="rounded-0"></b-card-img>
-                                                            </a>
-
-                                                        <div class="rating">
-                                                            @{
-                                                                decimal ratingValue = 0;
-                                                                var reviesCount = variant.VendorModel.NotApprovedTotalReviews + variant.VendorModel.NotApprovedTotalReviews;
-
-                                                                if (reviesCount != 0)
-                                                                {
-                                                                    var ratingSum = variant.VendorModel.ApprovedRatingSum + variant.VendorModel.NotApprovedRatingSum;
-                                                                    ratingValue = Convert.ToDecimal(((ratingSum * (double)100) / reviesCount) / (double)100);
-                                                                }
-                                                            }
-                                                            <b-form-rating id="rating-inline-grid-@Model.Id" aria-label="Rating" class="p-0" variant="warning" no-border size="sm" readonly inline value="@(ratingValue)" color="#F15A24"></b-form-rating>
-                                                            <b-link href="@Url.RouteUrl("Product", new {SeName = Model.SeName})">@string.Format("(0)", reviesCount)</b-link>
-                                                        </div>
-</b-row>
-                                                    <b-row class="mb-2 justify-content-right">
-                                                        <b-col class="ml-2 mb-2 mt-4 justify-content-center vendor-title">
-                                                            <a href="@variant.Url">
-                                                                <h3 class="vendor-title" itemprop="name" align="center">@variant.VendorModel.Name</h3>
-                                                            </a>
-                                                        </b-col>
-                                                        <b-col class="ml-2 mb-2 mt-4 justify-content-center vendor-content">
-                                                            <b-col lg="3" md="4" class="vendor-spec">
-                                                                @if (@variant.VendorModel.VendorSpecificationAttributes.Any())
-                                                                {
-                                                                    <div class="spec-container">
-
-                                                                        @{
-                                                                            var group = @variant.VendorModel.VendorSpecificationAttributes.GroupBy(x => x.SpecificationAttributeName);
-                                                                        }
-                                                                        @foreach (var item in group)
-                                                                        {
-                                                                            <div class="vendor-spec-name">
-                                                                                @{
-                                                                                    var groupList = item.ToList();
-                                                                                }
-                                                                                @groupList[0].SpecificationAttributeName:
-                                                                            </div>
-                                                                            <div class="vendor-spec-value">
-                                                                                @foreach (var spec in groupList)
-                                                                                {
-                                                                                    <span>
-                                                                                        @Html.Raw(spec.ValueRaw)
-                                                                                    </span>
-                                                                                }
-                                                                            </div>
-                                                                        }
-                                                                    </div>
-                                                                }
-                                                            </b-col>
-                                                            <b-col lg="3" md="4" class="prices align-self-center justify-content-prices">
-                                                                @{
-                                                                    var dataDictPrice = new ViewDataDictionary(ViewData);
-                                                                    dataDictPrice.TemplateInfo.HtmlFieldPrefix = string.Format("price_{0}", variant.Id);
-                                                                    <a href="@variant.Url">
-                                                                        <span class="vendor-price">@Html.Raw(variant.ProductPrice.Price)</span>
-                                                                    </a>
-                                                                }
-                                                            </b-col>
-
-                                                        </b-col>
-
-</b-card>  
-                                                }
-
-                                                @if (Model.AssociatedProducts.Count == 0)
-                                                {
-                                                    <div class="no-associated-products">
-                                                        @T("Products.NoAssociatedProducts")
-                                                    </div>
-                                                }
-                                            </div>
-                                        </div>
+                                        <partial name="_ProductHeader" model="Model" />
+                                        <partial name="_ProductVendorList" model="Model" />
                                     </b-tab>
                                     <b-tab title="@T("Products.Specs")">
                                         <partial name="_ProductProposals" model="Model"/>
                                         <div class="spec-group container">
                                             <partial name="ProductDescBox" model="Model"/>
                                         </div>
-                                    </b-tab>    
-                                    <b-tab title="@T("Products.ContactUs")">
+                                    </b-tab>
+                                    
+                                    @*<b-tab title="@T("Products.ContactUs")">
                                         <partial name="_ProductProposals" model="Model"/>
                                         <partial name="_AskQuestionOnProduct" model="Model.ProductAskQuestion"/>
-                                    </b-tab>
+                                    </b-tab>*@
+
                                     <b-tab id="review-tab" title="@T("Products.Reviews")" :active="active ? true : false">
                                         <partial name="_ProductProposals" model="Model"/>
                                         @await Component.InvokeAsync("ProductReviews", new {productId = Model.Id})
