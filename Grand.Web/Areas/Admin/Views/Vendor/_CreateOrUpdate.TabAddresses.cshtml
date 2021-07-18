@@ -6,7 +6,7 @@
         <div id="customer-addresses-grid"></div>
     </div>
     <div class="panel-footer">
-        <button type="button" class="k-button" onclick="location.href='@Url.Action("AddAdress","Vendor" ,new { vendorId = Model.Id })'"><i class="fa fa-plus"></i>&nbsp;@T("Admin.Customers.Customers.Addresses.AddButton")</button>
+        <button type="button" class="k-button" onclick="location.href='@Url.Action("AddressCreate","Vendor" ,new { vendorId = Model.Id })'"><i class="fa fa-plus"></i>&nbsp;@T("Admin.Customers.Customers.Addresses.AddButton")</button>
     </div>
     <vc:admin-widget widget-zone="customer_details_addresses_bottom" additional-data="Model" />
 </div>
@@ -23,10 +23,10 @@ $(document).ready(function () {
                     data: addAntiForgeryToken
                 },
                 destroy: {
-                    url: "@Html.Raw(Url.Action("RemoveAdddresFromVendor", "Vendor", new { customerId = Model.Id }))",
+                    url: "@Html.Raw(Url.Action("RemoveAdddresFromVendor", "Vendor", new { vendorId = Model.Id }))",
                     type: "POST",
                     dataType: "json",
-                    data: addAntiForgeryToken
+                     data: addAntiForgeryToken
                 }
             },
             schema: {

@@ -134,7 +134,11 @@ namespace Grand.Domain.Vendors
         /// Gets or sets the vendor address
         /// </summary>
         public virtual IList<Address> Addresses { get; set; }
-        
+
+        public void RemoveAddress()
+        {
+        }
+
         /// <summary>
         /// Gets or sets the collection of locales
         /// </summary>

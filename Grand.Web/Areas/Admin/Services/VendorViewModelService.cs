@@ -127,6 +127,7 @@ namespace Grand.Web.Areas.Admin.Services
 
             foreach (var Aadress in model.Addresses)
             {
+                Aadress.VendorId = vendor.Id;
                 Aadress.FirstNameEnabled = false;
                 Aadress.FirstNameRequired = false;
                 Aadress.LastNameEnabled = false;
@@ -540,12 +541,15 @@ namespace Grand.Web.Areas.Admin.Services
 
         public async Task AddAddressToVendor(Vendor vendor, AddressModel addressModel)
         {
-            await _vendorService.InsertVendorAdress(vendor.Id, addressModel.ToEntity());
+            var address = addressModel.ToEntity();
+            addressModel.Id = address.Id;
+            await _vendorService.InsertVendorAdress(vendor.Id,address);
         }
         
-        public async Task RemoveAddressFromVendor(Vendor vendor, AddressModel addressModel)
+        public async Task RemoveAddressFromVendor(Vendor vendor, Address address)
         {
-            await _vendorService.InsertVendorAdress(vendor.Id, addressModel.ToEntity());
+            vendor.Addresses.Remove(address);
+            await _vendorService.UpdateVendor(vendor);
         }
     }
 }

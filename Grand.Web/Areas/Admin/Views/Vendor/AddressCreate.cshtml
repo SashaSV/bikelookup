@@ -1,9 +1,10 @@
-﻿@model CustomerAddressModel
+﻿@model AddressModel
 @{
     //page title
     ViewBag.Title = T("Admin.Customers.Customers.Addresses.AddNew").Text;
+    var vendorAddresModel = new VendorViewAddresModel {VendorId = Model.VendorId, Address = Model};
 }
-<form asp-area="@Constants.AreaAdmin" asp-controller="Customer" asp-action="AddressCreate" method="post">
+<form asp-area="@Constants.AreaAdmin" asp-controller="Vendor" asp-action="AddressCreate" method="post">
    
     <div class="row">
         <div class="col-md-12">
@@ -12,7 +13,7 @@
                     <div class="caption">
                         <i class="fa fa-user-plus"></i>
                         @T("Admin.Customers.Customers.Addresses.AddNew") 
-                        <small>@Html.ActionLink("(" + T("Admin.Customers.Customers.Addresses.BackToCustomer") + ")", "Edit", new { id = Model.CustomerId })</small>
+                        <small>@Html.ActionLink("(" + T("Admin.Customers.Customers.Addresses.BackToCustomer") + ")", "Edit", new { id = Model.VendorId })</small>
                     </div>
                     <div class="actions">
                         <button class="btn btn-success" type="submit" name="save"><i class="fa fa-check"></i> @T("Admin.Common.Save") </button>
@@ -20,7 +21,7 @@
                     </div>
                 </div>
                 <div class="x_content form">
-                   <partial name="_CreateOrUpdateAddress" model="Model" />
+                   <partial name="_CreateOrUpdateAddress" model="vendorAddresModel" />
                 </div>
             </div>
         </div>

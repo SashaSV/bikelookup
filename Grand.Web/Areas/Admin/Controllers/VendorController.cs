@@ -401,9 +401,36 @@ namespace Grand.Web.Areas.Admin.Controllers
             //If we got this far, something failed, redisplay form
             //await _vendorViewModelService.PrepareVendorAddressModel(vendorModel, vendor);
 
-            //return View(model);
+            //return View(model);   
         }
         
+        [HttpPost]
+        public async Task<IActionResult> AddressEdit(VendorViewAddresModel model, IFormCollection form)
+        {
+            var vendor = await _vendorService.GetVendorById(model.VendorId);
+            
+            if (vendor == null)
+                //No customer found with the specified id 
+                return RedirectToAction("List");
+
+            var address = vendor.Addresses.Where(x => x.Id == model.Address.Id).FirstOrDefault();
+            if (address == null)
+                //No address found with the specified id
+                return RedirectToAction("Edit", new { id = vendor.Id });
+           
+            if (ModelState.IsValid)
+            {
+                address = model.Address.ToEntity(address);
+                await _vendorService.UpdateVendor(vendor);
+                SuccessNotification(_localizationService.GetResource("Admin.Customers.Customers.Addresses.Updated"));
+                return RedirectToAction("AddressEdit", new { addressId = model.Address.Id, vendorID = model.VendorId });
+            }
+            //If we got this far, something failed, redisplay form
+            await  _vendorViewModelService.PrepareVendorAddressModel(vendor.ToModel(), vendor);
+
+            return View(model.Address);
+        }
+                
         [PermissionAuthorizeAction(PermissionActionName.Preview)]
         [HttpPost]
         public async Task<IActionResult> AddressesSelect(string customerId, DataSourceRequest command)
@@ -425,32 +452,70 @@ namespace Grand.Web.Areas.Admin.Controllers
 
         
          [PermissionAuthorizeAction(PermissionActionName.Edit)]
-        public async Task<IActionResult> AddAdress(string vendorId, AddressModel model)
+        public async Task<IActionResult> AddressCreate(string vendorId, AddressModel model)
         {
             if (ModelState.IsValid)
             {
                 var vendor = await _vendorService.GetVendorById(vendorId);
                 if (vendor == null)
-                    return Content("Product not exists");
+                    return Content("Vendor not exists");
 
                 await _vendorViewModelService.AddAddressToVendor(vendor,model);
-
-                return Json(new { Result = true });
+              
+                vendor = await _vendorService.GetVendorById(vendorId);
+                var vemdorModel = vendor.ToModel();
+                
+                await _vendorViewModelService.PrepareVendorAddressModel (vemdorModel, vendor);
+                var newAddresModell = vemdorModel.Addresses.LastOrDefault();
+                
+                return View(newAddresModell);
             }
-            return Json(new { Result = false });
+            return View(model);
         }
         
-        [PermissionAuthorizeAction(PermissionActionName.Edit)]
         [HttpPost]
-        public async Task<IActionResult> RemoveAdddresFromVendor( string vendorId, AddressModel addressModell)
+        public async Task<IActionResult> AddressCreate(VendorViewAddresModel model, IFormCollection form)
+        {
+            var vendor = await _vendorService.GetVendorById(model.VendorId);
+            
+            if (vendor == null)
+                //No customer found with the specified id 
+                return RedirectToAction("List");
+
+            var address = vendor.Addresses.Where(x => x.Id == model.Address.Id).FirstOrDefault();
+            if (address == null)
+                //No address found with the specified id
+                return RedirectToAction("Edit", new { id = vendor.Id });
+           
+            if (ModelState.IsValid)
+            {
+                address = model.Address.ToEntity(address);
+                await _vendorService.UpdateVendor(vendor);
+                SuccessNotification(_localizationService.GetResource("Admin.Customers.Customers.Addresses.Updated"));
+                return RedirectToAction("AddressEdit", new { addressId = model.Address.Id, vendorID = model.VendorId });
+            }
+            //If we got this far, something failed, redisplay form
+            await  _vendorViewModelService.PrepareVendorAddressModel(vendor.ToModel(), vendor);
+
+            return View(model.Address);
+        }
+        
+        [HttpPost]  
+        [RequestFormLimits(ValueCountLimit = Int32.MaxValue)]
+        public async Task<IActionResult> RemoveAdddresFromVendor(string id, string vendorId)
         {
             if (ModelState.IsValid)
             {
                 var vendor = await _vendorService.GetVendorById(vendorId);
                 if (vendor == null)
-                    return Content("Product not exists");
+                    return Content("Product not existxs");
 
-                await _vendorViewModelService.RemoveAddressFromVendor(vendor, addressModell);
+                var address = vendor.Addresses.FirstOrDefault(a=>a.Id == id);
+                
+                if (address == null)
+                    return Content("Address not existxs");
+                
+                await _vendorViewModelService.RemoveAddressFromVendor(vendor, address);
                 return new NullJsonResult();
             }
             return ErrorForKendoGridJson(ModelState);

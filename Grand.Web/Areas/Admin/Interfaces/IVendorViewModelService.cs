@@ -44,6 +44,6 @@ namespace Grand.Web.Areas.Admin.Interfaces
         
         Task AddAddressToVendor(Vendor vendor, AddressModel addressModel);
 
-        Task RemoveAddressFromVendor(Vendor vendor, AddressModel addressModel);
+        Task RemoveAddressFromVendor(Vendor vendor, Address address);
     }
 }

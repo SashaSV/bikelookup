@@ -4,7 +4,7 @@
     ViewBag.Title = T("Admin.Customers.Customers.Addresses.EditAddress").Text;
     var vendorAddresModel = new VendorViewAddresModel {VendorId = Model.VendorId, Address = Model};
 }
-<form asp-area="@Constants.AreaAdmin" asp-controller="Customer" asp-action="AddressEdit" method="post">
+<form asp-area="@Constants.AreaAdmin" asp-controller="Vendor" asp-action="AddressEdit" method="post">
     
     <div class="row">
         <div class="col-md-12">
