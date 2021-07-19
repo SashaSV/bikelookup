@@ -90,7 +90,10 @@
                                 <span class="vendor-update-date">@Html.Raw(variant.UpdatedOnUtc.Value.ToString())</span>
 
                                 <span class="vendor-avaliable">
-                                    @variant.ProductSpecifications.FirstOrDefault(a => a.SpecificationAttributeCode == "sp_available").ValueRaw
+                                    @{
+                                        var avalible = variant.ProductSpecifications.FirstOrDefault(a => a.SpecificationAttributeCode == "sp_available");
+                                    }
+                                    @avalible?.ValueRaw;
                                 </span>
                             }
                         </b-col>
@@ -101,17 +104,12 @@
                                 @("Adress magasine")
                             </div>
                             <div class="adress-list">
-                                <div class="vendor-adress-1">
-                                    @("Kyiv, Kirilovskaya st., 160/20")
-                                </div>
-
-                                <div class="vendor-adress-1">
-                                    @("Kyiv, Oblonskaya nab st, 7K1")
-                                </div>
-
-                                <div class="vendor-adress-1">
-                                    @("Dnepr, Oblonskaya nab st, 7K1")
-                                </div>
+                                @foreach (var addrs in variant.VendorModel.Addresses)
+                                {
+                                    <div class="vendor-adress-1">
+                                        @(addrs.City + "," + addrs.Address1)
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>
