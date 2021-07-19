@@ -673,7 +673,8 @@ input:checked ~ .color-container .color::before {
 
 
 .product-box .b-rating + a::before{
-    content:'/';
+    /*content:'/';*/
+    content:' ';
     margin: 0 3px; 
 }
 
@@ -1527,14 +1528,6 @@ footer .list-group-item span:last-child {
     padding-bottom: 4rem!important;
 }
 
-@media (min-width: 992px) {
-    .main-container.container-fluid .product-grid .product-container.col-lg-4 {
-        -ms-flex: 0 0 25%;
-        flex: 0 0 25%;
-        max-width: 25%;
-    }
-}
-
 @media (min-width: 1400px) {
     .main-container .container-fluid .categoryGrid .col-xl-4 {
         -ms-flex: 0 0 20%;
@@ -1575,9 +1568,27 @@ footer .list-group-item span:last-child {
     }
 }
 
-@media (min-width: 2200px) {
-    .container, .container-lg, .container-md, .container-sm, .container-xl, .container-fluid {
-        max-width: 2140px;
+@media (min-width: 992px) {
+    .main-container.container-fluid .product-grid .product-container.col-lg-4 {
+        -ms-flex: 0 0 25%;
+        flex: 0 0 25%;
+        max-width: 25%;
+    }
+}
+
+@media (min-width:576px){.container,.container-sm{max-width:540px}}
+@media (min-width:768px){.container,.container-md,.container-sm{max-width:720px}}
+@media (min-width:992px){.container,.container-lg,.container-md,.container-sm{max-width:960px}}
+
+@media (min-width:1200px){
+    .container, .container-lg,.container-md,.container-sm,.container-xl, .container-fluid {
+        max-width:1140px
+    }
+}
+
+@media (min-width:1500px){
+    .container, .container-lg,.container-md,.container-sm,.container-xl, .container-fluid {
+        max-width:1480px
     }
 }
 
@@ -1587,11 +1598,12 @@ footer .list-group-item span:last-child {
     }
 }
 
-@media (min-width: 1500px){
+/* @media (min-width: 1920px) {
     .container, .container-lg, .container-md, .container-sm, .container-xl, .container-fluid {
-        max-width: 1480px;
+        max-width: 1900px;
     }
-}
+} */
+
 /*
 @media (min-width: 1400px){
     .container, .container-lg, .container-md, .container-sm, .container-xl, .container-fluid {

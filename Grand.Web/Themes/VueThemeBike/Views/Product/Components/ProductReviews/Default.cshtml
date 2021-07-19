@@ -3,9 +3,10 @@
 <div class="mb-3">
     <b-button variant="info" href="@Url.RouteUrl("ProductReviews", new { productId = Model.ProductId })">@T("Reviews.Overview.AddNew")</b-button>
 </div>
-
+<partial name="_ProductReviews" model="Model" />
 @if (Model.Items.Any())
 {
+    /*
     <div class="product-review-list">
         <h5 class="mb-3"><strong>@T("Reviews.ExistingReviews")</strong></h5>
         @foreach (var review in Model.Items)
@@ -43,7 +44,7 @@
                 </div>
                 @if (!string.IsNullOrEmpty(review.ReplyText))
                 {
-                    <hr/>
+                    <hr />
                     <div class="reply-content mt-2">
                         <blockquote class="administration-response">
                             <h5 class="administration-response-header">@T("Reviews.AdministrationResponse")</h5>
@@ -57,7 +58,7 @@
                 </template>
             </b-card>
         }
-    </div>
+    </div>*/
 }
 else
 {

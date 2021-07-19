@@ -1,41 +1,35 @@
-﻿@model VendorReviewsModel
-@inject IPageHeadBuilder pagebuilder
-@{
-    Layout = "_ColumnsOne";
-
-    //title
-    pagebuilder.AddTitleParts(Model.VendorName);
-    pagebuilder.AddTitleParts(T("PageTitle.VendorReviews").Text);
-}
-<div class="page vendor-reviews-page">
-    <h2 class="generalTitle text-center">@T("Reviews.VendorReviewsFor") <a href="@Url.RouteUrl("Vendor", new { SeName = Model.VendorSeName })">@Model.VendorName</a></h2>
-    @await Component.InvokeAsync("Widget", new { widgetZone = "vendorreviews_page_top", additionalData = Model.VendorId })
-    @if (Model.AddVendorReview.SuccessfullyAdded)
+﻿@model ProductReviewsModel
+<div class="page product-reviews-page">
+    <h2 class="generalTitle">@T("Reviews.ProductReviewsFor") <a href="@Url.RouteUrl("Product", new { SeName = Model.ProductSeName })">@Model.ProductName</a></h2>
+    @await Component.InvokeAsync("Widget", new { widgetZone = "productreviews_page_top", additionalData = Model.ProductId })
+    @if (Model.AddProductReview.SuccessfullyAdded)
     {
-        <b-alert variant="success" show>@Model.AddVendorReview.Result</b-alert>
+        <b-alert variant="success" show>@Model.AddProductReview.Result</b-alert>
     }
     else
     {
         <div class="write-review" id="review-form">
             <h5 class="generalTitle"><strong>@T("Reviews.Write")</strong></h5>
-            <form asp-route="VendorReviews" method="post">
+            <form asp-route="ProductReviews" method="post" v-on:submit.prevent="validateBeforeSubmitParam($event, 'add-review')">
                 <div asp-validation-summary="ModelOnly" class="message-error alert alert-danger my-3"></div>
                 <fieldset>
                     <div class="form-fields">
                         <div class="form-group">
-                            <label asp-for="AddVendorReview.Title" class="col-form-label">@T("Reviews.Fields.Title"):</label>
-                            <input asp-for="AddVendorReview.Title" class="form-control review-title" asp-disabled="@(!Model.AddVendorReview.CanCurrentCustomerLeaveReview)" />
-                            <span asp-validation-for="AddVendorReview.Title"></span>
+                            <label asp-for="AddProductReview.Title" class="col-form-label">@T("Reviews.Fields.Title"):</label>
+                            <input asp-for="AddProductReview.Title" class="form-control review-title" asp-disabled="@(!Model.AddProductReview.CanCurrentCustomerLeaveReview)" v-validate="'required'" />
+                            <span class="field-validation-error">{{veeErrors.first('AddProductReview.Title')}}</span>
+                            <span asp-validation-for="AddProductReview.Title"></span>
                         </div>
-                        <label asp-for="AddVendorReview.ReviewText" class="col-form-label">@T("Reviews.Fields.ReviewText"):</label>
-                        <textarea asp-for="AddVendorReview.ReviewText" class="form-control review-text" asp-disabled="@(!Model.AddVendorReview.CanCurrentCustomerLeaveReview)"></textarea>
-                        <span asp-validation-for="AddVendorReview.ReviewText"></span>
+                        <label asp-for="AddProductReview.ReviewText" class="col-form-label">@T("Reviews.Fields.ReviewText"):</label>
+                        <textarea asp-for="AddProductReview.ReviewText" class="form-control review-text" asp-disabled="@(!Model.AddProductReview.CanCurrentCustomerLeaveReview)" v-validate="'required'"></textarea>
+                        <span class="field-validation-error">{{veeErrors.first('AddProductReview.ReviewText')}}</span>
+                        <span asp-validation-for="AddProductReview.ReviewText"></span>
                         <div class="form-group review-rating d-flex flex-wrap">
-                            <label asp-for="AddVendorReview.Rating" class="col-form-label w-100">@T("Reviews.Fields.Rating"):</label>
+                            <label asp-for="AddProductReview.Rating" class="col-form-label w-100">@T("Reviews.Fields.Rating"):</label>
                             <b-form-rating v-model="value" variant="warning" show-value value="5" inline></b-form-rating>
-                            <input class="sr-only" asp-for="AddVendorReview.Rating" v-model="value" />
+                            <input class="sr-only" asp-for="AddProductReview.Rating" v-model="value" />
                         </div>
-                        @if (Model.AddVendorReview.DisplayCaptcha)
+                        @if (Model.AddProductReview.DisplayCaptcha)
                         {
                             <div class="captcha-box">
                                 <captcha />
@@ -44,16 +38,15 @@
                     </div>
                 </fieldset>
                 <div class="buttons my-3">
-                    <input type="submit" name="add-review" class="btn btn-info write-vendor-review-button" value="@T("Reviews.SubmitButton")" />
+                    <input type="submit" class="btn btn-info write-product-review-button" value="@T("Reviews.SubmitButton")" disabled="@(!Model.AddProductReview.CanCurrentCustomerLeaveReview)"/>
                 </div>
             </form>
         </div>
     }
-
     @if (Model.Items.Any())
     {
-        <div class="vendor-review-list">
-            <h5><strong>@T("Reviews.ExistingReviews")</strong></h5>
+        <div class="product-review-list">
+            <h5 class="mb-3"><strong>@T("Reviews.ExistingReviews")</strong></h5>
             @foreach (var review in Model.Items)
             {
                 int ratingStars = review.Rating;
@@ -87,12 +80,22 @@
                             @Html.Raw(Grand.Core.Html.HtmlHelper.FormatText(review.ReviewText))
                         </div>
                     </div>
+                    @if (!string.IsNullOrEmpty(review.ReplyText))
+                    {
+                        <div class="reply-content">
+                            <blockquote class="administration-response">
+                                <h5 class="administration-response-header">@T("Reviews.AdministrationResponse")</h5>
+                                @Html.Raw(Grand.Core.Html.HtmlHelper.FormatText(review.ReviewText))
+                                <p>@review.Signature</p>
+                            </blockquote>
+                        </div>
+                    }
                     <template v-slot:footer>
-                        <partial name="_VendorReviewHelpfulness" model="review.Helpfulness" />
+                        <partial name="_ProductReviewHelpfulness" model="review.Helpfulness" />
                     </template>
                 </b-card>
             }
         </div>
     }
-    @await Component.InvokeAsync("Widget", new { widgetZone = "productreviews_page_bottom", additionalData = Model.VendorId })
+    @await Component.InvokeAsync("Widget", new { widgetZone = "productreviews_page_bottom", additionalData = Model.ProductId })
 </div>

@@ -283,8 +283,8 @@
     margin: 0 auto;
     align-items: center;
     text-align: center;
-    justify-content: center;
-    /*max-width: 1340px;*/
+    justify-content: space-between;
+    /*max-width: 1480px;*/
 }
 
 
