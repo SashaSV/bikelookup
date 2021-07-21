@@ -445,6 +445,7 @@ namespace Grand.Services.Catalog
                 .Set(x => x.VendorSpecificationAttributes.ElementAt(-1).DisplayOrder, productSpecificationAttribute.DisplayOrder)
                 .Set(x => x.VendorSpecificationAttributes.ElementAt(-1).AttributeTypeId, productSpecificationAttribute.AttributeTypeId)
                 .Set(x => x.VendorSpecificationAttributes.ElementAt(-1).SpecificationAttributeId, productSpecificationAttribute.SpecificationAttributeId)
+                 .Set(x => x.VendorSpecificationAttributes.ElementAt(-1).DetailsUrl, productSpecificationAttribute.DetailsUrl)
                 .Set(x => x.VendorSpecificationAttributes.ElementAt(-1).SpecificationAttributeOptionId, productSpecificationAttribute.SpecificationAttributeOptionId)
                 .Set(x => x.VendorSpecificationAttributes.ElementAt(-1).AllowFiltering, productSpecificationAttribute.AllowFiltering);
 
