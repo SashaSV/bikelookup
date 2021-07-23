@@ -134,7 +134,10 @@ namespace Grand.Web.Areas.Admin.Models.Vendors
     
                 [GrandResourceDisplayName("Admin.Catalog.Products.SpecificationAttributes.Fields.SpecificationAttribute")]
                 public string SpecificationAttributeId { get; set; }
-    
+
+                [GrandResourceDisplayName("Admin.Catalog.Products.SpecificationAttributes.Fields.Url")]
+                public string DetailsUrl { get; set; }
+
                 [GrandResourceDisplayName("Admin.Catalog.Products.SpecificationAttributes.Fields.AttributeType")]
                 public int AttributeTypeId { get; set; }
     

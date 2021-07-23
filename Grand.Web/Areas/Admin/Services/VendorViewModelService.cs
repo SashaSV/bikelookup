@@ -457,7 +457,9 @@ namespace Grand.Web.Areas.Admin.Services
                     AttributeName = specificationAttribute.Name,
                     AllowFiltering = x.AllowFiltering,
                     ShowOnProductPage = x.ShowOnProductPage,
-                    DisplayOrder = x.DisplayOrder
+                    DisplayOrder = x.DisplayOrder,
+                    DetailsUrl = x.DetailsUrl
+                    
                 };
                 switch (x.AttributeType)
                 {
@@ -501,6 +503,7 @@ namespace Grand.Web.Areas.Admin.Services
                 AllowFiltering = model.AllowFiltering,
                 ShowOnProductPage = model.ShowOnProductPage,
                 DisplayOrder = model.DisplayOrder,
+                DetailsUrl = model.DetailsUrl
             };
 
             await _specificationAttributeService.InsertVendorSpecificationAttribute(psa);
@@ -521,6 +524,7 @@ namespace Grand.Web.Areas.Admin.Services
             }
             psa.ShowOnProductPage = model.ShowOnProductPage;
             psa.DisplayOrder = model.DisplayOrder;
+            psa.DetailsUrl = model.DetailsUrl;
             psa.VendorId = model.ProductId;
             await _specificationAttributeService.UpdateVendorSpecificationAttribute(psa);
         }

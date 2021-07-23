@@ -25,7 +25,12 @@ namespace Grand.Domain.Vendors
             /// Gets or sets the specification attribute Id
             /// </summary>
             public string SpecificationAttributeId { get; set; }
-    
+
+            /// <summary>
+            /// Url of atribute optin details
+            /// </summary>
+            public string DetailsUrl { get; set; }
+
             /// <summary>
             /// Gets or sets the specification attribute identifier
             /// </summary>

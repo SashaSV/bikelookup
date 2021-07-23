@@ -41,6 +41,7 @@ namespace Grand.Web.Features.Handlers.Vendors
               {
                 var specificationAttribute = await _specificationAttributeService.GetSpecificationAttributeById(item.SpecificationAttributeId); 
                 var m = new ProductSpecificationModel {
+                     DetailsUrl = item.DetailsUrl,
                      SpecificationAttributeId = item.SpecificationAttributeId,
                      SpecificationAttributeName = specificationAttribute.GetLocalized(x => x.Name, request.Language.Id),
                      ColorSquaresRgb = specificationAttribute.SpecificationAttributeOptions.Where(x => x.Id == item.SpecificationAttributeOptionId).FirstOrDefault() != null ? specificationAttribute.SpecificationAttributeOptions.Where(x => x.Id == item.SpecificationAttributeOptionId).FirstOrDefault().ColorSquaresRgb : "",

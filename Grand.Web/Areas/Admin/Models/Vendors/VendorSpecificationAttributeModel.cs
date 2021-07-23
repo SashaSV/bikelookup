@@ -23,7 +23,8 @@ namespace Grand.Web.Areas.Admin.Models.Vendors
             public string ProductSpecificationId { get; set; }
     
             public string SpecificationAttributeOptionId { get; set; }
-    
+
+            public string DetailsUrl { get; set; }
             public string ProductId { get; set; }
         }
 }

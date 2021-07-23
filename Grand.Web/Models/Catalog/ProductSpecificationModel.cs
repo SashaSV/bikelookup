@@ -14,6 +14,8 @@ namespace Grand.Web.Models.Catalog
         public string ValueRaw { get; set; }
         public string ColorSquaresRgb { get; set; }
 
+        public string DetailsUrl { get; set; }
+
         public bool ShowOnProductMainPage { get; set; }
 
         public bool ShowOnSellerMainPage { get; set; }

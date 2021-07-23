@@ -205,6 +205,7 @@
                 var allowFiltering = $("#@Html.FieldIdFor(model => model.AddSpecificationAttributeModel.AllowFiltering)").is(':checked');
                 var showOnProductPage = $("#@Html.FieldIdFor(model => model.AddSpecificationAttributeModel.ShowOnProductPage)").is(':checked');
                 var displayOrder = $("#@Html.FieldIdFor(model => model.AddSpecificationAttributeModel.DisplayOrder)").val();
+                var url = $("#@Html.FieldIdFor(model => model.AddSpecificationAttributeModel.DetailsUrl)").val();
 
                 if (specificationAttributeOptionId === null) {
                     //some validation
@@ -226,6 +227,7 @@
                         allowFiltering: allowFiltering,
                         showOnProductPage: showOnProductPage,
                         displayOrder: displayOrder,
+                        detailsurl: url,
                         vendorId: '@(Model.Id)'
                     };
                     addAntiForgeryToken(postData);
@@ -313,7 +315,7 @@
                 <div class="col-md-9 col-sm-9">
                     <label class="mt-checkbox mt-checkbox-outline control control-checkbox">
                         <admin-input asp-for="AddSpecificationAttributeModel.AllowFiltering" />
-                         <div class="control__indicator"></div>
+                        <div class="control__indicator"></div>
                     </label>
                     <span asp-validation-for="AddSpecificationAttributeModel.AllowFiltering"></span>
                 </div>
@@ -323,7 +325,7 @@
                 <div class="col-md-9 col-sm-9">
                     <label class="mt-checkbox mt-checkbox-outline control control-checkbox">
                         <admin-input asp-for="AddSpecificationAttributeModel.ShowOnProductPage" />
-                         <div class="control__indicator"></div>
+                        <div class="control__indicator"></div>
                     </label>
                     <span asp-validation-for="AddSpecificationAttributeModel.ShowOnProductPage"></span>
                 </div>
@@ -333,6 +335,13 @@
                 <div class="col-md-9 col-sm-9">
                     <admin-input asp-for="AddSpecificationAttributeModel.DisplayOrder" />
                     <span asp-validation-for="AddSpecificationAttributeModel.DisplayOrder"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <admin-label asp-for="AddSpecificationAttributeModel.DetailsUrl" />
+                <div class="col-md-9 col-sm-9">
+                    <admin-input asp-for="AddSpecificationAttributeModel.DetailsUrl" />
+                    <span asp-validation-for="AddSpecificationAttributeModel.DetailsUrl"></span>
                 </div>
             </div>
             <div class="form-actions">
@@ -351,7 +360,7 @@
          <p>
                 <strong>@T("Admin.Catalog.Products.SpecificationAttributes.AddNew")</strong>
             </p>
-            <script>
+         <script>
                 $(document).ready(function() {
                     $("#@Html.FieldIdFor(model => model.AddSpecificationAttributeModel.SpecificationAttributeId)").change(function() {
                         var selectedAttributeId = $(this).val();
@@ -373,7 +382,7 @@
                         });
                     });
                 });
-        
+
                 $(document).ready(function() {
                     $('#addProductSpec').click(function() {
                         var attributeTypeId = $("#@Html.FieldIdFor(model => model.AddSpecificationAttributeModel.AttributeTypeId)").val();
@@ -383,7 +392,7 @@
                         var allowFiltering = $("#@Html.FieldIdFor(model => model.AddSpecificationAttributeModel.AllowFiltering)").is(':checked');
                         var showOnProductPage = $("#@Html.FieldIdFor(model => model.AddSpecificationAttributeModel.ShowOnProductPage)").is(':checked');
                         var displayOrder = $("#@Html.FieldIdFor(model => model.AddSpecificationAttributeModel.DisplayOrder)").val();
-        
+                        var url = $("#@Html.FieldIdFor(model => model.AddSpecificationAttributeModel.DetailsUrl)").val();
                         if (specificationAttributeOptionId === null) {
                             //some validation
                             if (attributeTypeId == @(((int) SpecificationAttributeType.Option).ToString())) {
@@ -395,7 +404,7 @@
                             }
                         } else {
                             $('#addProductSpec').attr('disabled', true);
-        
+
                             var postData = {
                                 attributeTypeId: attributeTypeId,
                                 specificationAttributeId: specificationAttributeId,
@@ -407,7 +416,7 @@
                                 productId: '@(Model.Id)'
                             };
                             addAntiForgeryToken(postData);
-        
+
                             $.ajax({
                                 cache: false,
                                 type: "POST",
@@ -426,15 +435,15 @@
                         }
                     });
                 });
-        
-        
+
+
                 $(document).ready(function() {
                     $("#@Html.FieldIdFor(model => model.AddSpecificationAttributeModel.AttributeTypeId)").change(toggleAttributeType);
                     $("#@Html.FieldIdFor(model => model.AddSpecificationAttributeModel.SpecificationAttributeId)").change();
-        
+
                     toggleAttributeType();
                 });
-        
+
                 function toggleAttributeType() {
                     var selectedTypeId = $("#@Html.FieldIdFor(model => model.AddSpecificationAttributeModel.AttributeTypeId)").val();
                     if (selectedTypeId == @(((int)SpecificationAttributeType.Option).ToString())) {
@@ -455,7 +464,7 @@
                         $('#pnlAllowFiltering').hide();
                     }
                 }
-            </script>
+         </script>
             <div class="form-horizontal">
                 <div class="form-body">
                     <div class="form-group">
@@ -491,7 +500,7 @@
                         <div class="col-md-9 col-sm-9">
                             <label class="mt-checkbox mt-checkbox-outline control control-checkbox">
                                 <admin-input asp-for="AddSpecificationAttributeModel.AllowFiltering" />
-                                 <div class="control__indicator"></div>
+                                <div class="control__indicator"></div>
                             </label>
                             <span asp-validation-for="AddSpecificationAttributeModel.AllowFiltering"></span>
                         </div>
@@ -501,9 +510,19 @@
                         <div class="col-md-9 col-sm-9">
                             <label class="mt-checkbox mt-checkbox-outline control control-checkbox">
                                 <admin-input asp-for="AddSpecificationAttributeModel.ShowOnProductPage" />
-                                 <div class="control__indicator"></div>
+                                <div class="control__indicator"></div>
                             </label>
                             <span asp-validation-for="AddSpecificationAttributeModel.ShowOnProductPage"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <admin-label asp-for="AddSpecificationAttributeModel.DetailsUrl" />
+                        <div class="col-md-9 col-sm-9">
+                            <label class="mt-checkbox mt-checkbox-outline control control-checkbox">
+                                <admin-input asp-for="AddSpecificationAttributeModel.DetailsUrl" />
+                                <div class="control__indicator"></div>
+                            </label>
+                            <span asp-validation-for="AddSpecificationAttributeModel.DetailsUrl"></span>
                         </div>
                     </div>
                     <div class="form-group">
