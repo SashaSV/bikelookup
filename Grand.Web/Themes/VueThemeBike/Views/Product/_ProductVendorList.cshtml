@@ -103,14 +103,14 @@
                     <div class="justify-content-bottom vendor-adress">
                         <div class="vendor-adress-list">
                             <div class="vendor-adress-label">
-                                @("Adress magasine")
+                                @T("Vendor.StoreAdresses")
                             </div>
                             <div class="adress-list">
                                 @foreach (var addrs in variant.VendorModel.Addresses)
                                 {
-                                    <div class="vendor-adress-1">
-                                        @(addrs.City + "," + addrs.Address1)
-                                    </div>
+                                <div class="vendor-adress-1">
+                                    @(T("Vendor.CityNameAttribute")+" "+addrs.City + ", " + addrs.Address1)
+                                </div>
                                 }
                             </div>
                         </div>

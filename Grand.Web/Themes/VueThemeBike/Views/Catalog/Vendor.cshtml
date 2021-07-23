@@ -52,87 +52,90 @@
         </b-row>
         <b-row>
             <b-col cols="12">
-                    @if (Model.Address != null)
-                    {
-                            <ul class="info px-0 mb-0">
-                                @if (Model.Address.CompanyEnabled && !String.IsNullOrEmpty(Model.Address.Company))
+                @if (Model.Address != null)
+                {
+                    <ul class="info px-0 mb-0">
+                        @if (Model.Address.CompanyEnabled && !String.IsNullOrEmpty(Model.Address.Company))
+                        {
+                            <li class="company">
+                                <label class="col-form-label">@T("Address.Fields.Company"):</label>
+                                @Model.Address.Company
+                            </li>
+                        }
+                        @if (Model.Address.StreetAddressEnabled && !String.IsNullOrEmpty(Model.Address.Address1))
+                        {
+                            <li class="address1">
+                                <label class="col-form-label w-100">@T("Address.Fields.Address1"):</label>
+                                @Model.Address.Address1
+                            </li>
+                        }
+                        @if (Model.Address.StreetAddress2Enabled && !String.IsNullOrEmpty(Model.Address.Address2))
+                        {
+                            <li class="address2">
+                                <label class="col-form-label">@T("Address.Fields.Address2"):</label>
+                                @Model.Address.Address2
+                            </li>
+                        }
+                        @if (Model.Address.CityEnabled || Model.Address.StateProvinceEnabled || Model.Address.ZipPostalCodeEnabled)
+                        {
+                            var cityStateZip = "";
+                            if (Model.Address.CityEnabled && !String.IsNullOrEmpty(Model.Address.City))
+                            {
+                                cityStateZip = Model.Address.City;
+                                if (Model.Address.StateProvinceEnabled || Model.Address.ZipPostalCodeEnabled)
                                 {
-                                    <li class="company">
-                                        <label class="col-form-label">@T("Address.Fields.Company"):</label>
-                                        @Model.Address.Company
-                                    </li>
+                                    cityStateZip += ",";
                                 }
-                                @if (Model.Address.StreetAddressEnabled && !String.IsNullOrEmpty(Model.Address.Address1))
+                            }
+                            if (Model.Address.StateProvinceEnabled)
+                            {
+                                if (!String.IsNullOrEmpty(cityStateZip))
                                 {
-                                    <li class="address1">
-                                        <label class="col-form-label w-100">@T("Address.Fields.Address1"):</label>
-                                        @Model.Address.Address1
-                                    </li>
+                                    cityStateZip += " ";
                                 }
-                                @if (Model.Address.StreetAddress2Enabled && !String.IsNullOrEmpty(Model.Address.Address2))
+                                cityStateZip += Model.Address.StateProvinceName;
+                            }
+                            if (Model.Address.ZipPostalCodeEnabled)
+                            {
+                                if (!String.IsNullOrEmpty(cityStateZip))
                                 {
-                                    <li class="address2">
-                                        <label class="col-form-label">@T("Address.Fields.Address2"):</label>
-                                        @Model.Address.Address2
-                                    </li>
+                                    cityStateZip += " ";
                                 }
-                                @if (Model.Address.CityEnabled || Model.Address.StateProvinceEnabled || Model.Address.ZipPostalCodeEnabled)
-                                {
-                                    var cityStateZip = "";
-                                    if (Model.Address.CityEnabled && !String.IsNullOrEmpty(Model.Address.City))
-                                    {
-                                        cityStateZip = Model.Address.City;
-                                        if (Model.Address.StateProvinceEnabled || Model.Address.ZipPostalCodeEnabled)
-                                        {
-                                            cityStateZip += ",";
-                                        }
-                                    }
-                                    if (Model.Address.StateProvinceEnabled)
-                                    {
-                                        if (!String.IsNullOrEmpty(cityStateZip))
-                                        {
-                                            cityStateZip += " ";
-                                        }
-                                        cityStateZip += Model.Address.StateProvinceName;
-                                    }
-                                    if (Model.Address.ZipPostalCodeEnabled)
-                                    {
-                                        if (!String.IsNullOrEmpty(cityStateZip))
-                                        {
-                                            cityStateZip += " ";
-                                        }
-                                        cityStateZip += Model.Address.ZipPostalCode;
-                                    }
-                                    if (!String.IsNullOrEmpty(cityStateZip))
-                                    {
-                                        <li class="city-state-zip">
-                                            @cityStateZip
-                                        </li>
-                                    }
-                                }
-                                @if (Model.Address.CountryEnabled && !String.IsNullOrEmpty(Model.Address.CountryName))
-                                {
-                                    <li class="country">
-                                        @Model.Address.CountryName
-                                    </li>
-                                }
-                                @if (Model.Address.PhoneEnabled && !String.IsNullOrEmpty(Model.Address.PhoneNumber))
-                                {
-                                    <li class="phone">
-                                        <label class="col-form-label">@T("Address.Fields.PhoneNumber"):</label>
-                                        @Model.Address.PhoneNumber
-                                    </li>
-                                }
-                                @if (Model.Address.FaxEnabled && !String.IsNullOrEmpty(Model.Address.FaxNumber))
-                                {
-                                    <li class="fax">
-                                        <label class="col-form-label">@T("Address.Fields.FaxNumber"):</label>
-                                        @Model.Address.FaxNumber
-                                    </li>
-                                }
-                            </ul>
-                    }
+                                cityStateZip += Model.Address.ZipPostalCode;
+                            }
+                            if (!String.IsNullOrEmpty(cityStateZip))
+                            {
+                                <li class="city-state-zip">
+                                    @cityStateZip
+                                </li>
+                            }
+                        }
+                        @if (Model.Address.CountryEnabled && !String.IsNullOrEmpty(Model.Address.CountryName))
+                        {
+                            <li class="country">
+                                @Model.Address.CountryName
+                            </li>
+                        }
+                        @if (Model.Address.PhoneEnabled && !String.IsNullOrEmpty(Model.Address.PhoneNumber))
+                        {
+                            <li class="phone">
+                                <label class="col-form-label">@T("Address.Fields.PhoneNumber"):</label>
+                                @Model.Address.PhoneNumber
+                            </li>
+                        }
+                        @if (Model.Address.FaxEnabled && !String.IsNullOrEmpty(Model.Address.FaxNumber))
+                        {
+                            <li class="fax">
+                                <label class="col-form-label">@T("Address.Fields.FaxNumber"):</label>
+                                @Model.Address.FaxNumber
+                            </li>
+                        }
+                    </ul>
+                }
             </b-col>
+        </b-row>
+        <b-row>
+            <partial name="_VendorReviews" model="Model.VendorReviews" />
         </b-row>
     </b-card>
     @*contact vendor*@

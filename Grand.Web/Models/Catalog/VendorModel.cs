@@ -25,6 +25,7 @@ namespace Grand.Web.Models.Catalog
         public PictureModel PictureModel { get; set; }
         public CatalogPagingFilteringModel PagingFilteringContext { get; set; }
         public VendorReviewOverviewModel VendorReviewOverview { get; set; }
+        public VendorReviewsModel VendorReviews { get; set; }
         public IList<ProductOverviewModel> Products { get; set; }
     }
 }

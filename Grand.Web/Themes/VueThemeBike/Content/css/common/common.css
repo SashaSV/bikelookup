@@ -1747,6 +1747,13 @@ footer .list-group-item span:last-child {
   z-index: 0;
 }
 
+.vendor-page{
+    width: 100%;
+}
+.product-review-list{
+    width: 100%;
+}
+
 .logininput{
     background: #FFFFFF !important;
     border: 2px solid #F15A24 !important;
@@ -1788,7 +1795,7 @@ button, input, optgroup, select, textarea {
     /*color: #fff;
     background-color: #F15A24;
     border-color: #F15A24;*/
-    border: 2px solid #F15A24;
+    border: 2px solid #F15A24!important;
 }
 
 .btn-info:hover

@@ -304,6 +304,10 @@
     max-width: 160px;
 }
 
+.card.product-review-item {
+    flex-direction: column;
+}
+
 .card {
     position: relative;
     display: -ms-flexbox;

@@ -22,6 +22,7 @@ namespace Grand.Web.Models.Vendors
             Items = new List<VendorReviewModel>();
             AddVendorReview = new AddVendorReviewModel();
         }
+
         public string VendorId { get; set; }
 
         public string VendorName { get; set; }
@@ -29,6 +30,7 @@ namespace Grand.Web.Models.Vendors
         public string VendorSeName { get; set; }
 
         public IList<VendorReviewModel> Items { get; set; }
+
         public AddVendorReviewModel AddVendorReview { get; set; }
     }
 

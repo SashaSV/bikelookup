@@ -1,15 +1,5 @@
 ﻿@model VendorReviewsModel
-@inject IPageHeadBuilder pagebuilder
-@{
-    Layout = "_ColumnsOne";
-
-    //title
-    pagebuilder.AddTitleParts(Model.VendorName);
-    pagebuilder.AddTitleParts(T("PageTitle.VendorReviews").Text);
-}
-<partial name="_VendorReviews" model="Model" />
-
-@*<div class="page vendor-reviews-page">
+<div class="page vendor-reviews-page">
     <h2 class="generalTitle text-center">@T("Reviews.VendorReviewsFor") <a href="@Url.RouteUrl("Vendor", new { SeName = Model.VendorSeName })">@Model.VendorName</a></h2>
     @await Component.InvokeAsync("Widget", new { widgetZone = "vendorreviews_page_top", additionalData = Model.VendorId })
     @if (Model.AddVendorReview.SuccessfullyAdded)
@@ -97,4 +87,4 @@
         </div>
     }
     @await Component.InvokeAsync("Widget", new { widgetZone = "productreviews_page_bottom", additionalData = Model.VendorId })
-</div>*@
+</div>

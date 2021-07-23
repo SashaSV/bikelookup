@@ -248,6 +248,10 @@ namespace Grand.Web.Controllers
             if (await _permissionService.Authorize(StandardPermissionProvider.AccessAdminPanel, customer) && await _permissionService.Authorize(StandardPermissionProvider.ManageManufacturers, customer))
                 DisplayEditLink(Url.Action("Edit", "Vendor", new { id = vendor.Id, area = "Admin" }));
 
+            var vr = await _mediator.Send(new GetVendorReviews() { Vendor = vendor });
+            
+            
+
             var model = await _mediator.Send(new GetVendor() {
                 Command = command,
                 Vendor = vendor,
@@ -255,8 +259,11 @@ namespace Grand.Web.Controllers
                 Customer = _workContext.CurrentCustomer,
                 Store = _storeContext.CurrentStore,
             });
+
             //review
             model.VendorReviewOverview = PrepareVendorReviewOverviewModel(vendor);
+
+            model.VendorReviews = vr;
 
             return View(model);
         }
