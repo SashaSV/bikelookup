@@ -230,7 +230,9 @@
                         detailsurl: url,
                         vendorId: '@(Model.Id)'
                     };
-                    addAntiForgeryToken(postData);
+                    addAntiForgery
+        
+        (postData);
 
                     $.ajax({
                         cache: false,

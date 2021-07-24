@@ -34,6 +34,8 @@ namespace Grand.Web
                 .AddEnvironmentVariables()
                 .Build();
 
+           
+
             //create logger
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(Configuration)
