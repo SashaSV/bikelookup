@@ -9,11 +9,13 @@ using Grand.Framework.Security.Captcha;
 using Grand.Services.Catalog;
 using Grand.Services.Common;
 using Grand.Services.Customers;
+using Grand.Services.Helpers;
 using Grand.Services.Localization;
 using Grand.Services.Logging;
 using Grand.Services.Notifications.Vendors;
 using Grand.Services.Queries.Models.Orders;
 using Grand.Services.Security;
+using Grand.Services.Seo;
 using Grand.Services.Stores;
 using Grand.Services.Vendors;
 using Grand.Web.Commands.Models.Vendors;
@@ -48,9 +50,11 @@ namespace Grand.Web.Controllers
         private readonly ICustomerActivityService _customerActivityService;
         private readonly ICustomerActionEventService _customerActionEventService;
         private readonly IMediator _mediator;
-
+        private readonly IDateTimeHelper _dateTimeHelper;
+        private readonly ICustomerService _customerService;
         private readonly VendorSettings _vendorSettings;
-
+        private readonly CustomerSettings _customerSettings;
+        private readonly CaptchaSettings _captchaSettings;
         #endregion
 
         #region Constructors
@@ -69,8 +73,14 @@ namespace Grand.Web.Controllers
             ICustomerActivityService customerActivityService,
             ICustomerActionEventService customerActionEventService,
             IMediator mediator,
-            VendorSettings vendorSettings)
+            VendorSettings vendorSettings,
+            CaptchaSettings captchaSettings,
+            CustomerSettings customerSettings,
+            IDateTimeHelper dateTimeHelper,
+            ICustomerService customerService)
         {
+            _customerSettings = customerSettings;
+            _captchaSettings = captchaSettings;
             _vendorService = vendorService;
             _manufacturerService = manufacturerService;
             _categoryService = categoryService;
@@ -86,6 +96,8 @@ namespace Grand.Web.Controllers
             _customerActionEventService = customerActionEventService;
             _mediator = mediator;
             _vendorSettings = vendorSettings;
+            _dateTimeHelper = dateTimeHelper;
+            _customerService = customerService;
         }
 
         #endregion
@@ -98,6 +110,42 @@ namespace Grand.Web.Controllers
                 SystemCustomerAttributeNames.LastContinueShoppingPage,
                 _webHelper.GetThisPageUrl(false),
                 _storeContext.CurrentStore.Id);
+        }
+
+        private async Task<VendorReviewsModel> PrepareVendorReviesModel(Vendor vendor)
+        {
+            var model = new VendorReviewsModel();
+            model.VendorId = vendor.Id;
+            model.VendorName = vendor.GetLocalized(x => x.Name, _workContext.WorkingLanguage.Id);
+            model.VendorSeName = vendor.GetSeName(_workContext.WorkingLanguage.Id);
+         
+            var vendorReviews = await _vendorService.GetAllVendorReviews("", true, null, null, "", vendor.Id);
+            foreach (var pr in vendorReviews)
+            {
+                var customer = await _customerService.GetCustomerById(pr.CustomerId);
+                model.Items.Add(new VendorReviewModel {
+                    Id = pr.Id,
+                    CustomerId = pr.CustomerId,
+                    CustomerName = customer.FormatUserName(_customerSettings.CustomerNameFormat),
+                    AllowViewingProfiles = _customerSettings.AllowViewingProfiles && customer != null && !customer.IsGuest(),
+                    Title = pr.Title,
+                    ReviewText = pr.ReviewText,
+                    Rating = pr.Rating,
+                    Helpfulness = new VendorReviewHelpfulnessModel {
+                        VendorId = vendor.Id,
+                        VendorReviewId = pr.Id,
+                        HelpfulYesTotal = pr.HelpfulYesTotal,
+                        HelpfulNoTotal = pr.HelpfulNoTotal,
+                    },
+                    WrittenOnStr = _dateTimeHelper.ConvertToUserTime(pr.CreatedOnUtc, DateTimeKind.Utc).ToString("g"),
+                });
+                return model;
+            }
+
+            model.AddVendorReview.CanCurrentCustomerLeaveReview = _vendorSettings.AllowAnonymousUsersToReviewVendor || !_workContext.CurrentCustomer.IsGuest();
+            model.AddVendorReview.DisplayCaptcha = _captchaSettings.Enabled && _captchaSettings.ShowOnVendorReviewPage;
+
+            return model;
         }
 
         private VendorReviewOverviewModel PrepareVendorReviewOverviewModel(Vendor vendor)
@@ -257,6 +305,7 @@ namespace Grand.Web.Controllers
             });
             //review
             model.VendorReviewOverview = PrepareVendorReviewOverviewModel(vendor);
+            model.VendorReviews = await PrepareVendorReviesModel(vendor);
 
             return View(model);
         }
