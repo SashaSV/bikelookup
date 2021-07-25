@@ -1,7 +1,8 @@
 ﻿@model VendorReviewsModel
-<div class="page vendor-reviews-page">
-    <h2 class="generalTitle text-center">@T("Reviews.VendorReviewsFor") <a href="@Url.RouteUrl("Vendor", new { SeName = Model.VendorSeName })">@Model.VendorName</a></h2>
-    @await Component.InvokeAsync("Widget", new { widgetZone = "vendorreviews_page_top", additionalData = Model.VendorId })
+@{
+    //Layout = "_ColumnsOne";
+}
+<div class="">
     @if (Model.AddVendorReview.SuccessfullyAdded)
     {
         <b-alert variant="success" show>@Model.AddVendorReview.Result</b-alert>
@@ -10,7 +11,8 @@
     {
         <div class="write-review" id="review-form">
             <h5 class="generalTitle"><strong>@T("Reviews.Write")</strong></h5>
-            <form asp-route="VendorReviews" method="post">
+            <form method="post" action="/vendoreviews/@Model.VendorId">
+                @Html.AntiForgeryToken()
                 <div asp-validation-summary="ModelOnly" class="message-error alert alert-danger my-3"></div>
                 <fieldset>
                     <div class="form-fields">

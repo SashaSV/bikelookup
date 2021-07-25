@@ -1,8 +1,5 @@
 ﻿@model ProductReviewsModel
 
-<div class="mb-3">
-    <b-button variant="info" href="@Url.RouteUrl("ProductReviews", new { productId = Model.ProductId })">@T("Reviews.Overview.AddNew")</b-button>
-</div>
 <partial name="_ProductReviews" model="Model" />
 @if (Model.Items.Any())
 {

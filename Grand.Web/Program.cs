@@ -1,6 +1,7 @@
 ﻿using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Serilog;
 using System;
 
@@ -27,7 +28,11 @@ namespace Grand.Web
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .UseSerilog()
+                .ConfigureLogging(logging =>
+                {
+                    logging.AddConsole();
+                    logging.SetMinimumLevel(LogLevel.Information);
+                })
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureWebHostDefaults(webBuilder =>
                 {

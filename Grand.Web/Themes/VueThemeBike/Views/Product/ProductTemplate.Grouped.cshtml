@@ -73,8 +73,7 @@
 @await Component.InvokeAsync("Widget", new { widgetZone = "productdetails_after_breadcrumb", additionalData = Model.Id })
 <div class="page product-details-page product-standard product-grouped">
     @await Component.InvokeAsync("Widget", new { widgetZone = "productdetails_top", additionalData = Model.Id })
-    <form asp-route="Product" asp-route-sename="@Model.SeName" method="post" id="product-details-form">
-        <div itemscope itemtype="http://schema.org/Product" data-productid="@Model.Id">
+       <div itemscope itemtype="http://schema.org/Product" data-productid="@Model.Id">
             <b-container class="product-essential" fluid>
               
                     <div class="product-name">
@@ -112,6 +111,6 @@
             </b-container>
         </div>
         @await Component.InvokeAsync("RelatedProducts", new { productId = Model.Id })
-    </form>
+   
     @await Component.InvokeAsync("Widget", new { widgetZone = "productdetails_bottom", additionalData = Model.Id })
 </div>
