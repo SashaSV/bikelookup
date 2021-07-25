@@ -13,7 +13,7 @@
     </div>
     <vc:admin-widget widget-zone="product_details_specification_attribute_details_bottom" additional-data="Model" />
 </div>
-            <script>
+<script>
                 $(document).ready(function() {
                     $("#specificationattributes-grid").kendoGrid({
                         dataSource: {
@@ -47,6 +47,7 @@
                                         AttributeTypeName: { editable: false, type: "string" },
                                         AttributeName: { editable: false, type: "string" },
                                         ValueRaw: { editable: true, type: "string" },
+                                        DetailsUrl: { editable: true, type: "string" },
                                         AllowFiltering: { editable: true, type: "boolean" },
                                         ShowOnProductPage: { editable: true, type: "boolean" },
                                         DisplayOrder: { editable: true, type: "number" },
@@ -120,6 +121,10 @@
                                                     }
 
                                                 }
+                            },{
+                                field: "DetailsUrl",
+                                title: "@T("Admin.Catalog.Products.SpecificationAttributes.Fields.DetailsUrl")",
+                                width: 100
                             }, {
                                 field: "AllowFiltering",
                                 title: "@T("Admin.Catalog.Products.SpecificationAttributes.Fields.AllowFiltering")",
@@ -168,7 +173,7 @@
                 }
                     });
                 });
-            </script>
+</script>
         
     <p>
         <strong>@T("Admin.Catalog.Products.SpecificationAttributes.AddNew")</strong>
@@ -201,11 +206,11 @@
                 var attributeTypeId = $("#@Html.FieldIdFor(model => model.AddSpecificationAttributeModel.AttributeTypeId)").val();
                 var specificationAttributeId = $("#@Html.FieldIdFor(model => model.AddSpecificationAttributeModel.SpecificationAttributeId)").val();
                 var specificationAttributeOptionId = $("#@Html.FieldIdFor(model => model.AddSpecificationAttributeModel.SpecificationAttributeOptionId)").val();
+                var detailsUrl = $("#@Html.FieldIdFor(model => model.AddSpecificationAttributeModel.DetailsUrl)").val();
                 var customValue = $("#@Html.FieldIdFor(model => model.AddSpecificationAttributeModel.CustomValue)").val();
                 var allowFiltering = $("#@Html.FieldIdFor(model => model.AddSpecificationAttributeModel.AllowFiltering)").is(':checked');
                 var showOnProductPage = $("#@Html.FieldIdFor(model => model.AddSpecificationAttributeModel.ShowOnProductPage)").is(':checked');
                 var displayOrder = $("#@Html.FieldIdFor(model => model.AddSpecificationAttributeModel.DisplayOrder)").val();
-                var url = $("#@Html.FieldIdFor(model => model.AddSpecificationAttributeModel.DetailsUrl)").val();
 
                 if (specificationAttributeOptionId === null) {
                     //some validation
@@ -227,11 +232,11 @@
                         allowFiltering: allowFiltering,
                         showOnProductPage: showOnProductPage,
                         displayOrder: displayOrder,
-                        detailsurl: url,
+                        detailsurl: detailsUrl,
                         vendorId: '@(Model.Id)'
                     };
                     addAntiForgery
-        
+
         (postData);
 
                     $.ajax({
@@ -394,7 +399,7 @@
                         var allowFiltering = $("#@Html.FieldIdFor(model => model.AddSpecificationAttributeModel.AllowFiltering)").is(':checked');
                         var showOnProductPage = $("#@Html.FieldIdFor(model => model.AddSpecificationAttributeModel.ShowOnProductPage)").is(':checked');
                         var displayOrder = $("#@Html.FieldIdFor(model => model.AddSpecificationAttributeModel.DisplayOrder)").val();
-                        var url = $("#@Html.FieldIdFor(model => model.AddSpecificationAttributeModel.DetailsUrl)").val();
+                        var detailsUrl = $("#@Html.FieldIdFor(model => model.AddSpecificationAttributeModel.DetailsUrl)").val();
                         if (specificationAttributeOptionId === null) {
                             //some validation
                             if (attributeTypeId == @(((int) SpecificationAttributeType.Option).ToString())) {
@@ -411,6 +416,7 @@
                                 attributeTypeId: attributeTypeId,
                                 specificationAttributeId: specificationAttributeId,
                                 specificationAttributeOptionId: specificationAttributeOptionId,
+                                detailsUrl: detailsUrl,
                                 customValue: customValue,
                                 allowFiltering: allowFiltering,
                                 showOnProductPage: showOnProductPage,
