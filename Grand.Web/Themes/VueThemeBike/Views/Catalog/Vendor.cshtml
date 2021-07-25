@@ -43,10 +43,9 @@
                     @*review*@
                     @if (Model.VendorReviewOverview.AllowCustomerReviews)
                     {
-                <div>
-                    <partial name="_VendorReviewOverview" model="Model.VendorReviewOverview" />
-                   
-                </div>
+                     <div>
+                        <partial name="_VendorReviewOverview" model="Model.VendorReviewOverview" />
+                    </div>
                     }
                 </div>
             </b-col>
@@ -133,7 +132,7 @@
                         }
                     </ul>
                 }
-                <partial name="_VendorReviews" model="Model.VendorReviews" />
+                @*<partial name="_VendorReviews" model="Model.VendorReviews" />*@
             </b-col>
         </b-row>
         <b-row>
