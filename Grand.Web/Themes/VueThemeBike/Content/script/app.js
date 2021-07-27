@@ -231,7 +231,7 @@ Vue.component('header-up', {
         }
     },
     template: `
-        <div class="header-up1">
+        <div class="header-up2">
         <div class="container header-up-inner"> 
         <langsellector></langsellector>                
         <button-add class="button-add"></button-add>
@@ -384,6 +384,7 @@ var vm = new Vue({
         },
         opengalery: function (index, id)
         {
+             //debugger
             this.pictureToZoom = 0;
             this.pictureToZoom = index;
             this.prodToZoom = id;
@@ -392,22 +393,22 @@ var vm = new Vue({
         },
         onnextslide :function ()
         {
-            //debugger
+             //debugger
             this.$refs.tmbcarousel.next()
         },
         onnextslide2 :function (a)
         {
-            //debugger
+             //debugger
             a.next()
         },
         onprevslide :function ()
         {
-            //debugger
+             //debugger
             this.$refs.tmbcarousel.prev()
         },
         onprevslide2 :function (a)
         {
-            //debugger
+             //debugger
             a.prev()
         },
         setslide :function(index)

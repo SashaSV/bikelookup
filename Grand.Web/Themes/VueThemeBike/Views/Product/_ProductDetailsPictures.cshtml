@@ -83,14 +83,14 @@
                     </b-carousel>
                     </b-col>
                 </b-row>
-                <b-row>
+                <b-row class ="sl-mini-1">
                     <b-col md="1" align-self="center" class="mt-4" >
                         <img v-on:click="onprevslide" class="scroll-btn" width="20" height="20" src="/Themes/VueThemeBike/Content/images/previmg.svg" alt=""/>
                     </b-col>
                     <b-col md="10">
                         <b-carousel ref="tmbcarousel" id="carousel-thumbs" class="mt-4 carousel">
                             @{
-                                var itemsPerSlide = 3;
+                                var itemsPerSlide = 4;
                                 var numSlides = Math.Ceiling((decimal) Model.PictureModels.Count / itemsPerSlide);
                                 var imgNumber = 0;
                                 @for (var slideNumber = 0; slideNumber < numSlides; slideNumber++)
@@ -99,12 +99,12 @@
                                         .Skip(itemsPerSlide * slideNumber)
                                         .Take(itemsPerSlide);
 
-                                    <b-carousel-slide>
-                                        <b-row slot="img">
+                                    <b-carousel-slide class ="sl-mini">
+                                        <b-row class ="sl-mini-2" slot="img">
                                             @foreach (var img in imgs)
                                             {
-                                                <b-col md="4">
-                                                <img v-on:click="setslide(@imgNumber)" src="@img.ThumbImageUrl" class="img-carousel-thumbnail small-item" alt="..." style='width: 100%; object-fit: cover'>
+                                                <b-col md="sl-mini-4">
+                                                    <img v-on:click="setslide(@imgNumber)" src="@img.ThumbImageUrl" class="img-carousel-thumbnail small-item" alt="...">
                                                 </b-col>
                                                 imgNumber++;
                                             }
