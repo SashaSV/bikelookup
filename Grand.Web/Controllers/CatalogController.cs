@@ -399,8 +399,10 @@ namespace Grand.Web.Controllers
                 else
                     model.AddVendorReview.Result = _localizationService.GetResource("VendorReviews.SuccessfullyAdded");
 
+                return RedirectToRoute("Vendor", new { SeName = vendor.GetSeName(_workContext.WorkingLanguage.Id) });
                 return View(model);
             }
+            return RedirectToRoute("Vendor", new { SeName = vendor.GetSeName(_workContext.WorkingLanguage.Id) });
             model = await _mediator.Send(new GetVendorReviews() { Vendor = vendor });
 
             return View(model);
