@@ -574,7 +574,10 @@ namespace Grand.Web.Controllers
                 if (productReview.IsApproved)
                     await _mediator.Publish(new ProductReviewApprovedEvent(productReview));
 
-                model = await _mediator.Send(new GetProductReviews() {
+                //save as recently viewed
+               return RedirectToRoute("Product", new { SeName = product.GetSeName(_workContext.WorkingLanguage.Id) });
+
+               model = await _mediator.Send(new GetProductReviews() {
                     Customer = _workContext.CurrentCustomer,
                     Language = _workContext.WorkingLanguage,
                     Product = product,
