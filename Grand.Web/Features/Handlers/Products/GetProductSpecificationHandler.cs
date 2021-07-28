@@ -53,10 +53,16 @@ namespace Grand.Web.Features.Handlers.Products
                         ShowOnSellerMainPage = item.ShowOnSellerPage
                     };
 
+                    var optionAtr = specificationAttribute.SpecificationAttributeOptions.FirstOrDefault(x => x.Id == item.SpecificationAttributeOptionId);
+                    if (optionAtr == null)
+                    {
+                        continue;
+                    }
+
                     switch (item.AttributeType)
                     {
                         case SpecificationAttributeType.Option:
-                            m.ValueRaw = WebUtility.HtmlEncode(specificationAttribute.SpecificationAttributeOptions.Where(x => x.Id == item.SpecificationAttributeOptionId).FirstOrDefault().GetLocalized(x => x.Name, request.Language.Id));
+                            m.ValueRaw = WebUtility.HtmlEncode(optionAtr.GetLocalized(x => x.Name, request.Language.Id));
                             break;
                         case SpecificationAttributeType.CustomText:
                             m.ValueRaw = WebUtility.HtmlEncode(item.CustomValue);

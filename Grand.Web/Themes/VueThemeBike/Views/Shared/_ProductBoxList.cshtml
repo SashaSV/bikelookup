@@ -334,7 +334,7 @@
 
                                     </tr>
                                     <div class="spec-avaliable">
-                                        @assocProduct.SpecificationAttributeModels.FirstOrDefault(a => a.SpecificationAttributeCode == "sp_available").ValueRaw
+                                        @assocProduct.SpecificationAttributeModels.FirstOrDefault(a => a.SpecificationAttributeCode == "sp_available")?.ValueRaw
                                     </div>
                                 }
                             </tbody>
