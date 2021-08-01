@@ -100,7 +100,7 @@ namespace Grand.Web.Controllers
 
         #region Product details page
 
-        public virtual async Task<IActionResult> ProductDetails(string productId, string updatecartitemid = "")
+        public virtual async Task<IActionResult> ProductDetails(string productId, string tab = null, string updatecartitemid = "")
         {
             var product = await _productService.GetProductById(productId);
             if (product == null)
@@ -166,6 +166,8 @@ namespace Grand.Web.Controllers
                 UpdateCartItem = updatecartitem
             });
 
+            model.OpenedPage = tab;
+            
             //product template
             var productTemplateViewPath = await _mediator.Send(new GetProductTemplateViewPath() { ProductTemplateId = product.ProductTemplateId });
 
@@ -575,7 +577,7 @@ namespace Grand.Web.Controllers
                     await _mediator.Publish(new ProductReviewApprovedEvent(productReview));
 
                 //save as recently viewed
-               return RedirectToRoute("Product", new { SeName = product.GetSeName(_workContext.WorkingLanguage.Id) });
+               return RedirectToRoute("Product", new { SeName = product.GetSeName(_workContext.WorkingLanguage.Id), tab = "review"});
 
                model = await _mediator.Send(new GetProductReviews() {
                     Customer = _workContext.CurrentCustomer,
