@@ -47,8 +47,8 @@ namespace Grand.Web.Features.Handlers.Customers
 
                 reviewModel.Id = productReview.Id;
                 reviewModel.ProductId = productReview.ProductId;
-                reviewModel.ProductName = product.Name;
-                reviewModel.ProductSeName = product.GetSeName(request.Language.Id);
+                reviewModel.ProductName = product == null ? "" : product.Name ;
+                reviewModel.ProductSeName = product == null ? "" : product.GetSeName(request.Language.Id);
                 reviewModel.Rating = productReview.Rating;
                 reviewModel.CreatedOn = _dateTimeHelper.ConvertToUserTime(productReview.CreatedOnUtc, DateTimeKind.Utc);
                 reviewModel.Signature = productReview.Signature;

@@ -682,6 +682,17 @@ img.main-image {
     height:350px;
 }
 
+img.geometry-image {
+    height:800px;
+}
+
+.geometry-image-block{
+    display: flex;
+    justify-content: center;
+    border-top: 1px solid #dee2e6;
+    padding-top: 25px;
+}
+
 .justify-content-center.vendor-content, .vendor-spec.col-md-4
 {
     display: flex;

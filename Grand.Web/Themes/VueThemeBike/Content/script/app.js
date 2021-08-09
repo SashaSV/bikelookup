@@ -289,9 +289,14 @@ Vue.component('header-menu', {
                 categories : []
             }
         },
-    template:`
+    //template:`
+    //    <div class="header-menu">
+    //         <logo-big></logo-big>
+    //    </div>
+    //`
+    template: `
         <div class="header-menu">
-             <logo-big></logo-big>
+     
         </div>
     `
 })
