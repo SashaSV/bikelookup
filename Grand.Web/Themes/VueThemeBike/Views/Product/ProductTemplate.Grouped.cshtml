@@ -83,10 +83,12 @@
                         <b-col cols="12" class="px-0 my-3">
                             <b-row>
                                 <b-tabs class="w-100" content-class="mt-3" align="left" lazy="true">
+                                    
                                     <b-tab title="@T("Products.Sellers")">
                                         <partial name="_ProductHeader" model="Model" />
                                         <partial name="_ProductVendorList" model="Model" />
                                     </b-tab>
+
                                     <b-tab title="@T("Products.Specs")">
                                         <partial name="_ProductProposals" model="Model" />
                                         <div class="spec-group container">
@@ -94,6 +96,10 @@
                                         </div>
                                     </b-tab>
                                     
+                                    <b-tab title="@T("Products.Geometry")">
+                                        <partial name="_ProductProposals" model="Model" />
+                                        <partial name="_ProductGeometryPictures" model="Model" />
+                                    </b-tab>
                                     @*<b-tab title="@T("Products.ContactUs")">
                                         <partial name="_ProductProposals" model="Model"/>
                                         <partial name="_AskQuestionOnProduct" model="Model.ProductAskQuestion"/>
