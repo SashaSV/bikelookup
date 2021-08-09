@@ -1054,18 +1054,15 @@ namespace Grand.Web.Features.Handlers.Products
         private async Task<IList<ProductDetailsModel.TierPriceModel>> PrepareProductTierPriceModel(Product product)
         {
             var model = new List<ProductDetailsModel.TierPriceModel>();
-            foreach (var tierPrice in product.TierPrices.OrderBy(x => x.Quantity)
+            foreach (var tierPrice in product.TierPrices.OrderBy(x => x.StartDateTimeUtc)
                     .FilterByStore(_storeContext.CurrentStore.Id)
-                    .FilterForCustomer(_workContext.CurrentCustomer)
-                    .FilterByDate()
-                    .RemoveDuplicatedQuantities())
+                    .FilterForCustomer(_workContext.CurrentCustomer))
             {
                 var tier = new ProductDetailsModel.TierPriceModel();
-                var priceBase = await _taxService.GetProductPrice(product, (await _priceCalculationService.GetFinalPrice(product,
-                                       _workContext.CurrentCustomer, decimal.Zero, _catalogSettings.DisplayTierPricesWithDiscounts, tierPrice.Quantity)).finalPrice);
-                var price = await _currencyService.ConvertFromPrimaryStoreCurrency(priceBase.productprice, _workContext.WorkingCurrency);
+                var price = await _currencyService.ConvertFromPrimaryStoreCurrency(tierPrice.Price, _workContext.WorkingCurrency);
                 tier.Quantity = tierPrice.Quantity;
                 tier.Price = _priceFormatter.FormatPrice(price, false, false);
+                tier.PriceValue = price;
                 model.Add(tier);
             }
             return model;

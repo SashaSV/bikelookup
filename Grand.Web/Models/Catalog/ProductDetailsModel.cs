@@ -226,6 +226,8 @@ namespace Grand.Web.Models.Catalog
         {
             public string Price { get; set; }
 
+            public decimal PriceValue { get; set; }
+
             public int Quantity { get; set; }
         }
 

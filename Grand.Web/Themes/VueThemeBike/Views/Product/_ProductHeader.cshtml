@@ -12,11 +12,11 @@
     
         var LineChartData =  
             {  
-                labels:@Html.Raw(Json.Serialize(Model.TierPrices.Select(p=>p.Price))),  
+                labels:@Html.Raw(Json.Serialize(Model.TierPrices.Select(p=>p.PriceValue))),  
                 datasets: [{  
                     label: 'Product price',  
                     backgroundColor: "rgba(75,192,192,0.4)", 
-                    data: @Html.Raw(Json.Serialize(Model.TierPrices.Select(p=>p.Price)))
+                    data: @Html.Raw(Json.Serialize(Model.TierPrices.Select(p=>p.PriceValue)))
                 }]  
             };  
             debugger
