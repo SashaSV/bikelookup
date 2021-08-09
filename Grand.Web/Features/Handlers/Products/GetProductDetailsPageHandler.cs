@@ -1063,6 +1063,7 @@ namespace Grand.Web.Features.Handlers.Products
                 tier.Quantity = tierPrice.Quantity;
                 tier.Price = _priceFormatter.FormatPrice(price, false, false);
                 tier.PriceValue = price;
+                tier.DateStart = tierPrice.StartDateTimeUtc.GetValueOrDefault();
                 model.Add(tier);
             }
             return model;

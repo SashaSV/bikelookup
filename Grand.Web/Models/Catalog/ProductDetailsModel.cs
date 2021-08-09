@@ -5,6 +5,7 @@ using Grand.Core.Models;
 using Grand.Services.Discounts;
 using Grand.Web.Models.Media;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.OData.Edm;
 using System;
 using System.Collections.Generic;
 
@@ -227,6 +228,8 @@ namespace Grand.Web.Models.Catalog
             public string Price { get; set; }
 
             public decimal PriceValue { get; set; }
+
+            public DateTime DateStart { get; set; }
 
             public int Quantity { get; set; }
         }
