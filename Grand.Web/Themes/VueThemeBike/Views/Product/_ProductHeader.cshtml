@@ -1,3 +1,4 @@
+@using NPOI.SS.Formula.Functions
 @model ProductDetailsModel
 @{
     //prepare "Add to cart" Axios link
@@ -6,6 +7,36 @@
     var shoppingCartTypeId = (int)ShoppingCartType.ShoppingCart;
     var addtocomparelink = Url.RouteUrl("AddProductToCompare", new { productId = Model.Id });
 }
+<script src="~/Themes/VueThemeBike/Content/script/chart.js/dist/chart.js"></script>  
+    <script>  
+    
+        var LineChartData =  
+            {  
+                labels:@Html.Raw(Json.Serialize(Model.TierPrices.Select(p=>p.Price))),  
+                datasets: [{  
+                    label: 'Product price',  
+                    backgroundColor: "rgba(75,192,192,0.4)", 
+                    data: @Html.Raw(Json.Serialize(Model.TierPrices.Select(p=>p.Price)))
+                }]  
+            };  
+            debugger
+            window.onload = function () {  
+                var ctx1 = document.getElementById("Linecanvas").getContext("2d");  
+                window.myBar = new Chart(ctx1,  
+                    {  
+                        type: 'line',  
+                        data: LineChartData,  
+                        options:  
+                            {  
+                                title:  
+                                {  
+                                    display: false,  
+                                    text: "ProductWise Sales Count"  
+                                }
+                            }  
+                    });  
+            }  
+    </script>  
 <b-container class="position-relative">
     <b-row class="mb-4">
         <b-col class="pl-0">
@@ -33,9 +64,9 @@
                 <div class="dinamics-price-label">
                     @T("Products.PriceDinamics")
                 </div>
-                <div class="dinamics-price-grafic">
-                    <img src="/Content/images/uploaded/36f8742e-adb9-4d96-8bda-b12906084363.png" alt="" class="price-graf"/>
-                </div>
+                 <div>
+                     <canvas id="Linecanvas"></canvas>
+                 </div>
             </b-row>
             @if (Model.ProductSpecifications.Any())
             {

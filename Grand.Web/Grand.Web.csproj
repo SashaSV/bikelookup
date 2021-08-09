@@ -65,5 +65,10 @@
     <Folder Include="Themes\VueThemeBike\Content\script\components" />
     <Folder Include="wwwroot\components" />
   </ItemGroup>
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Themes\VueThemeBike\Content\chart.js\auto\package.json" />
+    <_ContentIncludedByDefault Remove="Themes\VueThemeBike\Content\chart.js\helpers\package.json" />
+    <_ContentIncludedByDefault Remove="Themes\VueThemeBike\Content\chart.js\package.json" />
+  </ItemGroup>
   <ProjectExtensions><VisualStudio><UserProperties app_3data_4appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 </Project>

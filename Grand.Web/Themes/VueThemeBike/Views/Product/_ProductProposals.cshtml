@@ -6,6 +6,11 @@
     var shoppingCartTypeId = (int)ShoppingCartType.ShoppingCart;
     var addtocomparelink = Url.RouteUrl("AddProductToCompare", new { productId = Model.Id });
 }
+    <script src="~/Themes/VueThemeBike/Content/script/chart.js/dist/chart.js"></script>  
+    <script>  
+    
+       
+    </script>  
 <b-container class="position-relative">
     <b-row class="mb-4">
       <b-col class="pl-0">
@@ -33,8 +38,8 @@
               <div class="dinamics-price-label">
                   @T("Products.PriceDinamics")
               </div>
-              <div class="dinamics-price-grafic">
-                  <img src="/Content/images/uploaded/36f8742e-adb9-4d96-8bda-b12906084363.png" alt="" class="price-graf" />
+              <div>
+                   <canvas id="Linecanvas"></canvas>
               </div>
           </b-row>
           @if (Model.AssociatedProducts.Any())
