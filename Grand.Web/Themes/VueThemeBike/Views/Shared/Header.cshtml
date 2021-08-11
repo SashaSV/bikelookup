@@ -37,7 +37,7 @@
             <b-icon :variant="[fluid ? 'info' : 'dark']" icon="aspect-ratio" @@click="fluid = !fluid"></b-icon>
         </b-nav-item>*@
                     <b-nav-item>
-                        <b-icon icon="search" variant="dark" v-b-modal.search-box></b-icon>
+                        <b-icon icon="search" variant="light" v-b-modal.search-box></b-icon>
                     </b-nav-item>
                     <b-modal id="search-box"
                              hide-footer hide-header size="xl">
@@ -58,7 +58,7 @@
                     </template>
                     @await Component.InvokeAsync("ShoppingCartLinks")
                     <b-nav-item>
-                        <b-icon icon="gear" variant="dark" v-b-toggle.sidebar-right></b-icon>
+                        <b-icon icon="gear" variant="light" v-b-toggle.sidebar-right></b-icon>
                     </b-nav-item>
                 </b-navbar-nav>
                 </b-container>

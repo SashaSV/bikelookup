@@ -145,6 +145,10 @@ namespace Grand.Domain.Customers
         public bool HideNewsletterBlock { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether to hide newsletter box
+        /// </summary>
+        public bool HideAds { get; set; }
+        /// <summary>
         /// Gets or sets a value indicating whether newsletter block should allow to unsubsribe
         /// </summary>
         public bool NewsletterBlockAllowToUnsubscribe { get; set; }
@@ -208,6 +212,11 @@ namespace Grand.Domain.Customers
         /// Gets or sets a value indicating whether to hide 'Reviews' tab on 'My account' page
         /// </summary>
         public bool HideReviewsTab { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to hide 'Ads' tab on 'My account' page
+        /// </summary>
+        public bool HideAdsTab { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether to hide 'Courses' tab on 'My account' page

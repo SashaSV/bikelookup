@@ -704,6 +704,7 @@ img.geometry-image {
 }
 
 .spec-container{
+    visibility: hidden;
     display: flex;
     flex-wrap: wrap;
 }

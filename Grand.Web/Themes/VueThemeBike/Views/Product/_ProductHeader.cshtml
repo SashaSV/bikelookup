@@ -19,7 +19,7 @@
                     data: @Html.Raw(Json.Serialize(Model.TierPrices.Select(p=>p.PriceValue)))
                 }]  
             };  
-            debugger
+            /*debugger*/
             window.onload = function () {  
                 var ctx1 = document.getElementById("Linecanvas").getContext("2d");  
                 window.myBar = new Chart(ctx1,  
