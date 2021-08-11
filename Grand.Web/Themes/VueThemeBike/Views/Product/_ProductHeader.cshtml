@@ -6,20 +6,27 @@
     string addtowishlistlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = Model.Id, shoppingCartTypeId = (int)ShoppingCartType.Wishlist, quantity = 1});
     var shoppingCartTypeId = (int)ShoppingCartType.ShoppingCart;
     var addtocomparelink = Url.RouteUrl("AddProductToCompare", new { productId = Model.Id });
+    var chartDatasets = Model.AssociatedProducts.Select((a)=>new
+    {
+        label = a.VendorModel.Name,
+        backgroundColor = "rgba(75,192,192,0.4)",
+        data = a.TierPrices.Select(p=>p.PriceValue)
+    }).ToList();
+
+    var lables = Model.AssociatedProducts.SelectMany(a=>a.TierPrices.Select	(tp=>tp.DateStart))
+        .Distinct()
+        .OrderBy(p=>p).Select(d=>d.ToString	()).ToList	();
 }
 <script src="~/Themes/VueThemeBike/Content/script/chart.js/dist/chart.js"></script>  
     <script>  
     
         var LineChartData =  
             {  
-                labels:@Html.Raw(Json.Serialize(Model.TierPrices.Select(p=>p.DateStart.ToString()))),  
-                datasets: [{  
-                    label: 'Product price',  
-                    backgroundColor: "rgba(75,192,192,0.4)", 
-                    data: @Html.Raw(Json.Serialize(Model.TierPrices.Select(p=>p.PriceValue)))
-                }]  
+                labels:@Html.Raw(Json.Serialize(lables)),  
+                datasets: @Html.Raw(Json.Serialize(chartDatasets))
             };  
             /*debugger*/
+        
             window.onload = function () {  
                 var ctx1 = document.getElementById("Linecanvas").getContext("2d");  
                 window.myBar = new Chart(ctx1,  
