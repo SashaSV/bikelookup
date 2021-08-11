@@ -20,6 +20,7 @@ namespace Grand.Web.Models.Customer
         public bool HideDocuments { get; set; }
         public bool ShowVendorInfo { get; set; }
         public bool HideReviews { get; set; }
+        public bool HideAds { get; set; }
         public bool HideCourses { get; set; }
         public bool HideSubAccounts { get; set; }
         public CustomerNavigationEnum SelectedTab { get; set; }

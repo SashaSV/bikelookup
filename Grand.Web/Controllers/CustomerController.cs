@@ -1195,6 +1195,21 @@ namespace Grand.Web.Controllers
 
         #endregion
 
+        #region My account / Ads
+        public virtual async Task<IActionResult> Ads()
+        {
+            if (!_workContext.CurrentCustomer.IsRegistered())
+                return Challenge();
+
+            if (_customerSettings.HideReviewsTab)
+                return RedirectToRoute("CustomerInfo");
+
+            var model = await _mediator.Send(new GetReviews() { Customer = _workContext.CurrentCustomer, Language = _workContext.WorkingLanguage });
+
+            return View(model);
+        }
+
+        #endregion
         #region My account / TwoFactorAuth
 
         public async Task<IActionResult> EnableTwoFactorAuthenticator()

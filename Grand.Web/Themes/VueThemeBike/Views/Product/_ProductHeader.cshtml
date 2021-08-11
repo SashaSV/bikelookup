@@ -20,12 +20,13 @@
 }
 <script src="~/Themes/VueThemeBike/Content/script/chart.js/dist/chart.js"></script>  
     <script>  
-        debugger
+    
         var LineChartData =  
             {  
                 labels:@Html.Raw(Json.Serialize(lables)),  
                 datasets: @Html.Raw(Json.Serialize(chartDatasets))
             };  
+            /*debugger*/
         
             window.onload = function () {  
                 var ctx1 = document.getElementById("Linecanvas").getContext("2d");  

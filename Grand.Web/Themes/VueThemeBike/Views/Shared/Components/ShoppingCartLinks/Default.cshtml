@@ -2,8 +2,8 @@
 
 @if (Model.WishlistEnabled)
 {
-    <b-nav-item href="@Url.RouteUrl("Compareproducts")"><b-icon icon="cart" variant="dark"></b-icon></b-nav-item>
-    <b-nav-item href="@Url.RouteUrl("Wishlist")"><b-icon icon="heart" variant="dark"></b-icon><div class="qty-indicator wishlist-qty">@T("Wishlist.HeaderQuantity", Model.WishlistItems)</div></b-nav-item>
+    <b-nav-item href="@Url.RouteUrl("Compareproducts")"><b-icon icon="cart" variant="light"></b-icon></b-nav-item>
+    <b-nav-item href="@Url.RouteUrl("Wishlist")"><b-icon icon="heart" variant="light"></b-icon><div class="qty-indicator wishlist-qty">@T("Wishlist.HeaderQuantity", Model.WishlistItems)</div></b-nav-item>
 }
 
 @*@if (Model.ShoppingCartEnabled)

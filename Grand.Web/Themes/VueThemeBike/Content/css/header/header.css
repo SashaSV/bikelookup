@@ -567,20 +567,28 @@
     background-color: transparent !important;
     border: 0 !important;
 }
-
+/* 
 .text-dark {
     color: #f8f9fa!important;
-}
+} */
 
-.text-dark:hover {
+/* .text-dark:hover {
+    color: rgba(241, 90, 36, 1)!important;
+} */
+
+.text-light:hover {
     color: rgba(241, 90, 36, 1)!important;
 }
-
 .menu-toggler span {
     width: 30px;
     height: 2px;
     background: #f8f9fa;
 }
+
+/* .btn-outline-secondary {
+    color: #333;
+    border-color: #333;
+} */
 
 @media (min-width: 576px) {
     .b-sidebar {

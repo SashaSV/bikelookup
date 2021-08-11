@@ -47,6 +47,15 @@
                                                                      {<text>inactive</text>}"><b-icon icon="cart-check"></b-icon> <span>@T("Account.CustomerOrders")</span></a>
                                                                 </li>
                                                             }
+        @if (!Model.HideAds)
+        {
+            <li class="customer-orders">
+                <a href="@Url.RouteUrl("CustomerOrders")" class="@if (Model.SelectedTab == CustomerNavigationEnum.Orders)
+                                                                     {<text>active</text>}
+                                                                     else
+                                                                     {<text>inactive</text>}"><b-icon icon="List"></b-icon> <span>@T("Account.MyAds")</span></a>
+                                                                </li>
+                                                            }
         @if (!Model.HideCourses)
         {
             <li class="customer-auctions">
