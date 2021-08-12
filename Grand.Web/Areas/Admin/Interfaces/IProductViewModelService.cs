@@ -93,7 +93,7 @@ namespace Grand.Web.Areas.Admin.Interfaces
 
         //Pictures
         Task<IList<ProductModel.ProductPictureModel>> PrepareProductPictureModel(Product product);
-        Task InsertProductPicture(Product product, string pictureId, int displayOrder, string overrideAltAttribute, string overrideTitleAttribute);
+        Task InsertProductPicture(Product product, string pictureId, int displayOrder, string overrideAltAttribute, string overrideTitleAttribute, bool geometry);
         Task UpdateProductPicture(ProductModel.ProductPictureModel model);
         Task DeleteProductPicture(ProductModel.ProductPictureModel model);
 

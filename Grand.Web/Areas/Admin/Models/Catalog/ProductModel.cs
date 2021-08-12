@@ -532,6 +532,9 @@ namespace Grand.Web.Areas.Admin.Models.Catalog
             [GrandResourceDisplayName("Admin.Catalog.Products.Pictures.Fields.DisplayOrder")]
             public int DisplayOrder { get; set; }
 
+            [GrandResourceDisplayName("Admin.Catalog.Products.Pictures.Fields.Geometry")]
+            public bool GeometryPicture { get; set; }
+            
             [GrandResourceDisplayName("Admin.Catalog.Products.Pictures.Fields.OverrideAltAttribute")]
 
             public string OverrideAltAttribute { get; set; }

@@ -657,7 +657,7 @@ namespace Grand.Services.Media
         /// <returns>Picture</returns>
         public virtual async Task<Picture> UpdatePicture(string pictureId, byte[] pictureBinary, string mimeType,
             string seoFilename, string altAttribute = null, string titleAttribute = null,
-            bool isNew = true, bool validateBinary = true, string urlImage = null)
+            bool isNew = true, bool validateBinary = true, string urlImage = null, bool geometry = false)
         {
             mimeType = CommonHelper.EnsureNotNull(mimeType);
             mimeType = CommonHelper.EnsureMaximumLength(mimeType, 20);
@@ -682,6 +682,7 @@ namespace Grand.Services.Media
             picture.TitleAttribute = titleAttribute;
             picture.IsNew = isNew;
             picture.UrlImage = urlImage;
+            picture.Geometry = geometry;
 
             await _pictureRepository.UpdateAsync(picture);
 

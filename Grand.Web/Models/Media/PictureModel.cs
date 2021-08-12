@@ -9,6 +9,8 @@ namespace Grand.Web.Models.Media
 
         public string FullSizeImageUrl { get; set; }
 
+        public bool Geometry { get; set; }
+        
         public string Title { get; set; }
 
         public string AlternateText { get; set; }

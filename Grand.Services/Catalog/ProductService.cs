@@ -1910,7 +1910,8 @@ namespace Grand.Services.Catalog
             .Set(x => x.ProductPictures.ElementAt(-1).MimeType, productPicture.MimeType)
             .Set(x => x.ProductPictures.ElementAt(-1).SeoFilename, productPicture.SeoFilename)
             .Set(x => x.ProductPictures.ElementAt(-1).AltAttribute, productPicture.AltAttribute)
-            .Set(x => x.ProductPictures.ElementAt(-1).TitleAttribute, productPicture.TitleAttribute);
+            .Set(x => x.ProductPictures.ElementAt(-1).TitleAttribute, productPicture.TitleAttribute)
+            .Set(x => x.ProductPictures.ElementAt(-1).Geometry, productPicture.Geometry);
 
         await _productRepository.Collection.UpdateManyAsync(filter, update);
 

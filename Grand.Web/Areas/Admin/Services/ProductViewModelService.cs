@@ -3038,13 +3038,14 @@ namespace Grand.Web.Areas.Admin.Services
                     PictureUrl = picture != null ? await _pictureService.GetPictureUrl(picture) : null,
                     OverrideAltAttribute = picture?.AltAttribute,
                     OverrideTitleAttribute = picture?.TitleAttribute,
-                    DisplayOrder = x.DisplayOrder
+                    DisplayOrder = x.DisplayOrder,
+                    GeometryPicture = x.Geometry
                 };
                 items.Add(m);
             }
             return items;
         }
-        public virtual async Task InsertProductPicture(Product product, string pictureId, int displayOrder, string overrideAltAttribute, string overrideTitleAttribute)
+        public virtual async Task InsertProductPicture(Product product, string pictureId, int displayOrder, string overrideAltAttribute, string overrideTitleAttribute, bool geometry)
         {
             var picture = await _pictureService.GetPictureById(pictureId);
             if (picture == null)
@@ -3058,7 +3059,8 @@ namespace Grand.Web.Areas.Admin.Services
                 picture.MimeType,
                 picture.SeoFilename,
                 overrideAltAttribute,
-                overrideTitleAttribute);
+                overrideTitleAttribute,
+                geometry);
 
             await _productService.InsertProductPicture(new ProductPicture {
                 PictureId = pictureId,
@@ -3067,7 +3069,8 @@ namespace Grand.Web.Areas.Admin.Services
                 AltAttribute = overrideAltAttribute,
                 MimeType = picture.MimeType,
                 SeoFilename = picture.SeoFilename,
-                TitleAttribute = overrideTitleAttribute
+                TitleAttribute = overrideTitleAttribute,
+                Geometry = geometry
             });
 
             await _pictureService.SetSeoFilename(pictureId, _pictureService.GetPictureSeName(product.Name));
@@ -3100,6 +3103,7 @@ namespace Grand.Web.Areas.Admin.Services
             productPicture.SeoFilename = picture.SeoFilename;
             productPicture.AltAttribute = model.OverrideAltAttribute;
             productPicture.TitleAttribute = model.OverrideTitleAttribute;
+            productPicture.Geometry = model.GeometryPicture;
 
             await _productService.UpdateProductPicture(productPicture);
 
@@ -3108,7 +3112,8 @@ namespace Grand.Web.Areas.Admin.Services
                 picture.MimeType,
                 picture.SeoFilename,
                 model.OverrideAltAttribute,
-                model.OverrideTitleAttribute);
+                model.OverrideTitleAttribute,
+                model.GeometryPicture);
         }
         public virtual async Task DeleteProductPicture(ProductModel.ProductPictureModel model)
         {
