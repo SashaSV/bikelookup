@@ -70,5 +70,8 @@
     <_ContentIncludedByDefault Remove="Themes\VueThemeBike\Content\chart.js\helpers\package.json" />
     <_ContentIncludedByDefault Remove="Themes\VueThemeBike\Content\chart.js\package.json" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="ColorHelper" Version="1.4.0" />
+  </ItemGroup>
   <ProjectExtensions><VisualStudio><UserProperties app_3data_4appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 </Project>
