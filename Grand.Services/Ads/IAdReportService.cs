@@ -13,7 +13,7 @@ namespace Grand.Services.Ads
     /// <summary>
     /// Order report service interface
     /// </summary>
-    public partial interface IOrderReportService
+    public partial interface IAdReportService
     {
         /// <summary>
         /// Get "order by country" report

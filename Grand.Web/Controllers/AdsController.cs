@@ -35,10 +35,10 @@ namespace Grand.Web.Controllers
     {
         #region Fields
 
-        private readonly IAdsService _adsService;
+        private readonly IAdService _adsService;
         private readonly IWorkContext _workContext;
         private readonly IStoreContext _storeContext;
-        private readonly IAdsProcessingService _adsProcessingService;
+        private readonly IAdProcessingService _adsProcessingService;
         private readonly IPaymentService _paymentService;
         private readonly ILocalizationService _localizationService;
         private readonly IMediator _mediator;
@@ -48,10 +48,10 @@ namespace Grand.Web.Controllers
 
         #region Constructors
 
-        public AdsController(IAdsService adsService,
+        public AdsController(IAdService adsService,
             IWorkContext workContext,
             IStoreContext storeContext,
-            IAdsProcessingService adsProcessingService,
+            IAdProcessingService adsProcessingService,
             IPaymentService paymentService,
             ILocalizationService localizationService,
             IMediator mediator,
@@ -173,7 +173,7 @@ namespace Grand.Web.Controllers
             var order = await _adsService.GetAdsById(orderId);
             if (!order.Access(_workContext.CurrentCustomer) || order.PaymentStatus != Domain.Payments.PaymentStatus.Pending
                 || (order.ShippingStatus != ShippingStatus.ShippingNotRequired && order.ShippingStatus != ShippingStatus.NotYetShipped)
-                || order.AdsStatus != AdStatus.Pending
+                || order.AdStatus != AdStatus.Pending
                 || !_adsSettings.UserCanCancelUnpaidOrder)
 
                 return Challenge();

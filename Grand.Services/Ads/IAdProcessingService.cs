@@ -11,7 +11,7 @@ namespace Grand.Services.Ads
     /// <summary>
     /// Ad processing service interface
     /// </summary>
-    public partial interface IAdsProcessingService
+    public partial interface IAdProcessingService
     {
         /// <summary>
         /// Send notification Ad 

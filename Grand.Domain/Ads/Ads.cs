@@ -407,7 +407,7 @@ namespace Grand.Domain.Ads
         /// <summary>
         /// Gets or sets the Ads status
         /// </summary>
-        public AdStatus AdsStatus
+        public AdStatus AdStatus
         {
             get
             {

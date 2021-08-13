@@ -9,19 +9,19 @@ namespace Grand.Web.Models.Ads
     {
         public CustomerAdListModel()
         {
-            Ads = new List<AdsDetailsModel>();
+            Ads = new List<AdDetailsModel>();
             RecurringAds = new List<RecurringAdsModel>();
             CancelRecurringPaymentErrors = new List<string>();
         }
 
-        public IList<AdsDetailsModel> Ads { get; set; }
+        public IList<AdDetailsModel> Ads { get; set; }
         public IList<RecurringAdsModel> RecurringAds { get; set; }
         public IList<string> CancelRecurringPaymentErrors { get; set; }
 
 
         #region Nested classes
 
-        public partial class AdsDetailsModel : BaseEntityModel
+        public partial class AdDetailsModel : BaseEntityModel
         {
             public string AdTotal { get; set; }
             public bool IsReturnRequestAllowed { get; set; }

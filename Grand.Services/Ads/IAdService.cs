@@ -12,7 +12,7 @@ namespace Grand.Services.Ads
     /// <summary>
     /// Ads service interface
     /// </summary>
-    public partial interface IAdsService
+    public partial interface IAdService
     {
         #region Ads
 
