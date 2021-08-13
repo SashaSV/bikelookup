@@ -21,6 +21,15 @@
                                                                         {<text>inactive</text>}"><span class="mdi mdi-clipboard-account-outline"></span><span>@T("Account.CustomerAddresses")</span></a>
                                                                     </li>
                                                                 }
+            @if (!Model.HideAddresses)
+            {
+                <li class="customer-addresses">
+                    <a href="@Url.RouteUrl("CustomerAddresses")" class="@if (Model.SelectedTab == CustomerNavigationEnum.Addresses)
+                                                                        {<text>active</text>}
+                                                                        else
+                                                                        {<text>inactive</text>}"><span class="mdi mdi-clipboard-account-outline"></span><span>@T("Account.CustomerAddresses")</span></a>
+                                                                    </li>
+                                                                }
             @if (!Model.HideOrders)
             {
                 <li class="customer-orders">
@@ -28,6 +37,15 @@
                                                                      {<text>active</text>}
                                                                      else
                                                                      {<text>inactive</text>}"><span class="mdi mdi-cart"></span><span>@T("Account.CustomerOrders")</span></a>
+                                                                </li>
+                                                            }
+            @if (!Model.HideAds)
+            {
+                <li class="customer-ads">
+                    <a href="@Url.RouteUrl("CustomerAds")" class="@if (Model.SelectedTab == CustomerNavigationEnum.Ads)
+                                                                     {<text>active</text>}
+                                                                     else
+                                                                     {<text>inactive</text>}"><b-icon icon="List"></b-icon> <span>@T("Account.MyAds")</span></a>
                                                                 </li>
                                                             }
             @if (!Model.HideCourses)

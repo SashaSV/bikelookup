@@ -214,8 +214,8 @@ namespace Grand.Web.Controllers
         public virtual async Task<IActionResult> ReturnRequestDetails(string returnRequestId)
         {
             var rr = await _returnRequestService.GetReturnRequestById(returnRequestId);
-            if (!rr.Access(_workContext.CurrentCustomer))
-                return Challenge();
+            //if (!rr.Access(_workContext.CurrentCustomer))
+            //    return Challenge();
 
             var order = await _orderService.GetOrderById(rr.OrderId);
             if (!order.Access(_workContext.CurrentCustomer))

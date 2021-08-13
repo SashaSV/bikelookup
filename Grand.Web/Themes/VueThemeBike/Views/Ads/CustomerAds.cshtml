@@ -1,0 +1,16 @@
+﻿@model CustomerAdListModel
+@inject IPageHeadBuilder pagebuilder
+@{
+    Layout = "_ColumnsTwo";
+
+    //title
+    pagebuilder.AddTitleParts(T("PageTitle.Account").Text);
+}
+@section left
+{
+    @await Component.InvokeAsync("CustomerNavigation", new { selectedTabId = CustomerNavigationEnum.Ads })
+}
+<div class="page account-page order-list-page pl-lg-3 pt-lg-0 pt-3">
+    <h1 class="generalTitle h2">@T("Account.MyAds")</h1>
+
+</div>
