@@ -29,7 +29,7 @@
                                                                    {<text>inactive</text>}"><b-icon icon="person"></b-icon> <span>@T("Account.CustomerInfo")</span></a>
                                                             </li>
                                                         }
-        @if (!Model.HideAddresses)
+        @if (!Model.HideAddresses && false)
         {
             <li class="customer-addresses">
                 <a href="@Url.RouteUrl("CustomerAddresses")" class="@if (Model.SelectedTab == CustomerNavigationEnum.Addresses)
@@ -38,7 +38,7 @@
                                                                         {<text>inactive</text>}"><b-icon icon="file-earmark-richtext"></b-icon> <span>@T("Account.CustomerAddresses")</span></a>
                                                                     </li>
                                                                 }
-        @if (!Model.HideOrders)
+        @*@if (!Model.HideOrders)
         {
             <li class="customer-orders">
                 <a href="@Url.RouteUrl("CustomerOrders")" class="@if (Model.SelectedTab == CustomerNavigationEnum.Orders)
@@ -46,11 +46,11 @@
                                                                      else
                                                                      {<text>inactive</text>}"><b-icon icon="cart-check"></b-icon> <span>@T("Account.CustomerOrders")</span></a>
                                                                 </li>
-                                                            }
+                                                            }*@
         @if (!Model.HideAds)
         {
-            <li class="customer-orders">
-                <a href="@Url.RouteUrl("CustomerOrders")" class="@if (Model.SelectedTab == CustomerNavigationEnum.Orders)
+            <li class="customer-ads">
+                <a href="@Url.RouteUrl("CustomerAds")" class="@if (Model.SelectedTab == CustomerNavigationEnum.Ads)
                                                                      {<text>active</text>}
                                                                      else
                                                                      {<text>inactive</text>}"><b-icon icon="List"></b-icon> <span>@T("Account.MyAds")</span></a>
@@ -92,7 +92,7 @@
                                                                              {<text>inactive</text>}"><b-icon icon="file-earmark-check"></b-icon> <span>@T("Account.CustomerDocuments")</span></a>
                                                                         </li>
                                                                     }
-        @if (!Model.HideReturnRequests)
+        @if (!Model.HideReturnRequests && false)
         {
             <li class="customer-returns">
                 <a href="@Url.RouteUrl("CustomerReturnRequests")" class="@if (Model.SelectedTab == CustomerNavigationEnum.ReturnRequests)
@@ -101,7 +101,7 @@
                                                                              {<text>inactive</text>}"><b-icon icon="arrow-return-left"></b-icon> <span>@T("Account.CustomerReturnRequests")</span></a>
                                                                         </li>
                                                                     }
-        @if (!Model.HideDownloadableProducts)
+        @if (!Model.HideDownloadableProducts && false)
         {
             <li class="customer-downloadable">
                 <a href="@Url.RouteUrl("CustomerDownloadableProducts")" class="@if (Model.SelectedTab == CustomerNavigationEnum.DownloadableProducts)
@@ -110,7 +110,7 @@
                                                                                    {<text>inactive</text>}"><b-icon icon="cloud-download"></b-icon> <span>@T("Account.DownloadableProducts")</span></a>
                                                                             </li>
                                                                         }
-        @if (!Model.HideBackInStockSubscriptions)
+        @if (!Model.HideBackInStockSubscriptions && false)
         {
             <li class="customer-back">
                 <a href="@Url.RouteUrl("CustomerBackInStockSubscriptions")" class="@if (Model.SelectedTab == CustomerNavigationEnum.BackInStockSubscriptions)
@@ -119,7 +119,7 @@
                                                                                    {<text>inactive</text>}"><b-icon icon="skip-backward"></b-icon> <span>@T("Account.BackInStockSubscriptions")</span></a>
                                                                             </li>
                                                                         }
-        @if (!Model.HideRewardPoints)
+        @if (!Model.HideRewardPoints && false)
         {
             <li class="reward-points">
                 <a href="@Url.RouteUrl("CustomerRewardPoints")" class="@if (Model.SelectedTab == CustomerNavigationEnum.RewardPoints)

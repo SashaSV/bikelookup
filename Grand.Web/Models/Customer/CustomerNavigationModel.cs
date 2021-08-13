@@ -45,6 +45,7 @@ namespace Grand.Web.Models.Customer
         Documents = 130,
         Reviews = 140,
         Courses = 150,
-        SubAccounts = 160
+        SubAccounts = 160,
+        Ads = 170
     }
 }
