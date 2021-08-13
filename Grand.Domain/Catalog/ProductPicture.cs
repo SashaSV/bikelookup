@@ -37,6 +37,8 @@ namespace Grand.Domain.Catalog
         /// </summary>
         public string TitleAttribute { get; set; }
 
+        public bool Geometry { get; set; }
+
     }
 
 }

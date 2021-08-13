@@ -1098,7 +1098,7 @@ namespace Grand.Web.Areas.Admin.Controllers
         #region Product pictures
         public async Task<IActionResult> ProductPictureAdd(string pictureId, int displayOrder,
             string overrideAltAttribute, string overrideTitleAttribute,
-            string productId)
+            string productId, bool geometry)
         {
             if (string.IsNullOrEmpty(pictureId))
                 throw new ArgumentException();
@@ -1113,7 +1113,7 @@ namespace Grand.Web.Areas.Admin.Controllers
                 if (!product.AccessToEntityByStore(_workContext.CurrentCustomer.StaffStoreId))
                     return Json(new { Result = false });
 
-            await _productViewModelService.InsertProductPicture(product, pictureId, displayOrder, overrideAltAttribute, overrideTitleAttribute);
+            await _productViewModelService.InsertProductPicture(product, pictureId, displayOrder, overrideAltAttribute, overrideTitleAttribute, geometry);
 
             return Json(new { Result = true });
         }

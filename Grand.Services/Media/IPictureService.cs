@@ -150,7 +150,7 @@ namespace Grand.Services.Media
         /// <returns>Picture</returns>
         Task<Picture> UpdatePicture(string pictureId, byte[] pictureBinary, string mimeType,
             string seoFilename, string altAttribute = null, string titleAttribute = null,
-            bool isNew = true, bool validateBinary = true, string urlImage = null);
+            bool isNew = true, bool validateBinary = true, string urlImage = null, bool geometry = false);
 
         /// <summary>
         /// Updates the picture

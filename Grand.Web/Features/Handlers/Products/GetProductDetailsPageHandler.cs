@@ -601,6 +601,7 @@ namespace Grand.Web.Features.Handlers.Products
                         ThumbImageUrl = await _pictureService.GetPictureUrl(picture.PictureId, _mediaSettings.ProductThumbPictureSizeOnProductDetailsPage),
                         ImageUrl = await _pictureService.GetPictureUrl(picture.PictureId, _mediaSettings.ProductDetailsPictureSize),
                         FullSizeImageUrl = await _pictureService.GetPictureUrl(picture.PictureId),
+                        Geometry = picture.Geometry,
                         Title = string.Format(_localizationService.GetResource("Media.Product.ImageLinkTitleFormat.Details"), name),
                         AlternateText = string.Format(_localizationService.GetResource("Media.Product.ImageAlternateTextFormat.Details"), name),
                     };
