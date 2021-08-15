@@ -16,6 +16,11 @@ namespace Grand.Domain.Shipping
         public string OrderId { get; set; }
 
         /// <summary>
+        /// Gets or sets the ad identifier
+        /// </summary>
+        public string AdId { get; set; }
+
+        /// <summary>
         /// Gets or sets the store identifier
         /// </summary>
         public string StoreId { get; set; }

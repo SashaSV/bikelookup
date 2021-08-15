@@ -2,25 +2,25 @@
 
 namespace Grand.Domain.Ads
 {
-    public class AdsSettings : ISettings
+    public class AdSettings : ISettings
     {
         /// <summary>
-        /// Gets or sets a value indicating whether customer can make re-order
+        /// Gets or sets a value indicating whether customer can make re-Ad
         /// </summary>
         public bool IsReAdsAllowed { get; set; }
 
         /// <summary>
-        /// Gets or sets a minimum order subtotal amount
+        /// Gets or sets a minimum Ad subtotal amount
         /// </summary>
         public decimal MinAdsSubtotalAmount { get; set; }
         /// <summary>
-        /// Gets or sets a value indicating whether 'inimum order subtotal amount' option
+        /// Gets or sets a value indicating whether 'inimum Ad subtotal amount' option
         /// should be evaluated over 'X' value including tax or not
         /// </summary>
         public bool MinAdsSubtotalAmountIncludingTax { get; set; }
 
         /// <summary>
-        /// Gets or sets a minimum order total amount
+        /// Gets or sets a minimum Ad total amount
         /// </summary>
         public decimal MinAdsTotalAmount { get; set; }
 
@@ -35,7 +35,7 @@ namespace Grand.Domain.Ads
         public bool TermsOfServiceOnShoppingCartPage { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether 'Terms of service' enabled on the order confirmation page
+        /// Gets or sets a value indicating whether 'Terms of service' enabled on the Ad confirmation page
         /// </summary>
         public bool TermsOfServiceOnAdsConfirmPage { get; set; }
 
@@ -51,22 +51,22 @@ namespace Grand.Domain.Ads
         public bool DisableBillingAddressCheckoutStep { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether "Order completed" page should be skipped
+        /// Gets or sets a value indicating whether "Ad completed" page should be skipped
         /// </summary>
-        public bool DisableOrderCompletedPage { get; set; }
+        public bool DisableAdCompletedPage { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating we should attach PDF invoice to "Order placed" email
+        /// Gets or sets a value indicating we should attach PDF invoice to "Ad placed" email
         /// </summary>
-        public bool AttachPdfInvoiceToOrderPlacedEmail { get; set; }
+        public bool AttachPdfInvoiceToAdPlacedEmail { get; set; }
         /// <summary>
-        /// Gets or sets a value indicating we should attach PDF invoice to "Order paid" email
+        /// Gets or sets a value indicating we should attach PDF invoice to "Ad paid" email
         /// </summary>
-        public bool AttachPdfInvoiceToOrderPaidEmail { get; set; }    
+        public bool AttachPdfInvoiceToAdPaidEmail { get; set; }    
         /// <summary>
-        /// Gets or sets a value indicating we should attach PDF invoice to "Order completed" email
+        /// Gets or sets a value indicating we should attach PDF invoice to "Ad completed" email
         /// </summary>
-        public bool AttachPdfInvoiceToOrderCompletedEmail { get; set; }
+        public bool AttachPdfInvoiceToAdCompletedEmail { get; set; }
         /// <summary>
         /// Gets or sets a value indicating we should attach PDF invoice to binary field
         /// </summary>
@@ -92,56 +92,56 @@ namespace Grand.Domain.Ads
         public bool ReturnRequests_PickupDateRequired { get; set; }
 
         /// <summary>
-        /// Gets or sets a number of days that the Return Request Link will be available for customers after order placing.
+        /// Gets or sets a number of days that the Return Request Link will be available for customers after Ad placing.
         /// </summary>
         public int NumberOfDaysReturnRequestAvailable { get; set; }
 
         /// <summary>
-        ///  Gift cards are activated when the order status is
+        ///  Gift cards are activated when the Ad status is
         /// </summary>
-        public int GiftCards_Activated_OrderStatusId { get; set; }
+        public int GiftCards_Activated_AdStatusId { get; set; }
 
         /// <summary>
-        ///  Gift cards are deactivated when the order is canceled
+        ///  Gift cards are deactivated when the Ad is canceled
         /// </summary>
-        public bool DeactivateGiftCardsAfterCancelOrder { get; set; }
+        public bool DeactivateGiftCardsAfterCancelAd { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to deactivate related gift cards after deleting the order
+        /// Gets or sets a value indicating whether to deactivate related gift cards after deleting the Ad
         /// </summary>
-        public bool DeactivateGiftCardsAfterDeletingOrder { get; set; }
+        public bool DeactivateGiftCardsAfterDeletingAd { get; set; }
         /// <summary>
-        /// Gets or sets an order placement interval in seconds (prevent 2 orders being placed within an X seconds time frame).
+        /// Gets or sets an Ad placement interval in seconds (prevent 2 Ads being placed within an X seconds time frame).
         /// </summary>
-        public int MinimumOrderPlacementInterval { get; set; }
+        public int MinimumAdPlacementInterval { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether an order status should be set to "Complete" only when its shipping status is "Delivered". Otherwise, "Shipped" status will be enough.
+        /// Gets or sets a value indicating whether an Ad status should be set to "Complete" only when its shipping status is "Delivered". Otherwise, "Shipped" status will be enough.
         /// </summary>
-        public bool CompleteOrderWhenDelivered { get; set; }
+        public bool CompleteAdWhenDelivered { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether order status can be marked as cancelled by user (if order isn't paid and shipped yet)
+        /// Gets or sets a value indicating whether Ad status can be marked as cancelled by user (if Ad isn't paid and shipped yet)
         /// </summary>
-        public bool UserCanCancelUnpaidOrder { get; set; }
+        public bool UserCanCancelUnpaidAd { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether unpublish auction product after made order.
+        /// Gets or sets a value indicating whether unpublish auction product after made Ad.
         /// </summary>
         public bool UnpublishAuctionProduct { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether customers can add order notes
+        /// Gets or sets a value indicating whether customers can add Ad notes
         /// </summary>
         public bool AllowCustomerToAddAdsNote { get; set; }
 
         /// <summary>
-        /// Gets or sets a length for order code
+        /// Gets or sets a length for Ad code
         /// </summary>
         public int LengthCode { get; set; }
 
         /// <summary>
-        /// Gets or sets Number of Days after which order would automatically Canceled - if not paid and has pending status
+        /// Gets or sets Number of Days after which Ad would automatically Canceled - if not paid and has pending status
         /// </summary>
         public int? DaysToCancelUnpaidAds { get; set; }
     }

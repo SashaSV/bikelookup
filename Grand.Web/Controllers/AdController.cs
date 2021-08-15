@@ -1,18 +1,12 @@
 ﻿using Grand.Core;
 using Grand.Domain.Customers;
-using Grand.Domain.Orders;
 using Grand.Domain.Shipping;
 using Grand.Framework.Controllers;
-using Grand.Services.Commands.Models.Orders;
 using Grand.Services.Common;
 using Grand.Services.Localization;
-using Grand.Services.Orders;
 using Grand.Services.Payments;
 using Grand.Services.Shipping;
-using Grand.Web.Commands.Models.Orders;
 using Grand.Web.Events;
-using Grand.Web.Features.Models.Orders;
-using Grand.Web.Models.Orders;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -31,53 +25,53 @@ using Grand.Web.Models.Ads;
 
 namespace Grand.Web.Controllers
 {
-    public partial class AdsController : BasePublicController
+    public partial class AdController : BasePublicController
     {
         #region Fields
 
-        private readonly IAdService _adsService;
+        private readonly IAdService _adService;
         private readonly IWorkContext _workContext;
         private readonly IStoreContext _storeContext;
         private readonly IAdProcessingService _adsProcessingService;
         private readonly IPaymentService _paymentService;
         private readonly ILocalizationService _localizationService;
         private readonly IMediator _mediator;
-        private readonly AdsSettings _adsSettings;
+        private readonly AdSettings _adSettings;
 
         #endregion
 
         #region Constructors
 
-        public AdsController(IAdService adsService,
+        public AdController(IAdService adService,
             IWorkContext workContext,
             IStoreContext storeContext,
             IAdProcessingService adsProcessingService,
             IPaymentService paymentService,
             ILocalizationService localizationService,
             IMediator mediator,
-            AdsSettings adsSettings)
+            AdSettings adSettings)
         {
-            _adsService = adsService;
+            _adService = adService;
             _workContext = workContext;
             _storeContext = storeContext;
             _adsProcessingService = adsProcessingService;
             _paymentService = paymentService;
             _localizationService = localizationService;
             _mediator = mediator;
-            _adsSettings = adsSettings;
+            _adSettings = adSettings;
         }
 
         #endregion
 
         #region Methods
 
-        //My account / Orders
-        public virtual async Task<IActionResult> CustomerOrders()
+        //My account / Ads
+        public virtual async Task<IActionResult> CustomerAds()
         {
             if (!_workContext.CurrentCustomer.IsRegistered())
                 return Challenge();
 
-            var model = await _mediator.Send(new GetCustomerOrderList() {
+            var model = await _mediator.Send(new GetCustomerAdList() {
                 Customer = _workContext.CurrentCustomer,
                 Language = _workContext.WorkingLanguage,
                 Store = _storeContext.CurrentStore
@@ -85,8 +79,8 @@ namespace Grand.Web.Controllers
             return View(model);
         }
 
-        //My account / Orders / Cancel recurring order
-        [HttpPost, ActionName("AdsOrders")]
+        //My account / Ads / Cancel recurring Ad
+        [HttpPost, ActionName("CustomerAds")]
         [AutoValidateAntiforgeryToken]
         [FormValueRequired(FormValueRequirement.StartsWith, "cancelRecurringPayment")]
         public virtual async Task<IActionResult> CancelRecurringPayment(IFormCollection form)
@@ -100,17 +94,17 @@ namespace Grand.Web.Controllers
                 if (formValue.StartsWith("cancelRecurringPayment", StringComparison.OrdinalIgnoreCase))
                     recurringPaymentId = formValue.Substring("cancelRecurringPayment".Length);
 
-            var recurringPayment = await _adsService.GetRecurringPaymentById(recurringPaymentId);
+            var recurringPayment = await _adService.GetRecurringPaymentById(recurringPaymentId);
             if (recurringPayment == null)
             {
-                return RedirectToRoute("AdsOrders");
+                return RedirectToRoute("CustomerAds");
             }
 
             if (await _adsProcessingService.CanCancelRecurringPayment(_workContext.CurrentCustomer, recurringPayment))
             {
                 var errors = await _adsProcessingService.CancelRecurringPayment(recurringPayment);
 
-                var model = await _mediator.Send(new GetCustomerOrderList() {
+                var model = await _mediator.Send(new GetCustomerAdList() {
                     Customer = _workContext.CurrentCustomer,
                     Language = _workContext.WorkingLanguage,
                     Store = _storeContext.CurrentStore
@@ -121,7 +115,7 @@ namespace Grand.Web.Controllers
             }
             else
             {
-                return RedirectToRoute("CustomerOrders");
+                return RedirectToRoute("CustomerAds");
             }
         }
 
@@ -134,18 +128,19 @@ namespace Grand.Web.Controllers
             if (!rewardPointsSettings.Enabled)
                 return RedirectToRoute("CustomerInfo");
 
-            var model = await _mediator.Send(new GetCustomerRewardPoints() {
-                Customer = _workContext.CurrentCustomer,
-                Store = _storeContext.CurrentStore,
-                Currency = _workContext.WorkingCurrency
-            });
-            return View(model);
+            //var model = await _mediator.Send(new GetCustomerRewardPoints() {
+            //    Customer = _workContext.CurrentCustomer,
+            //    Store = _storeContext.CurrentStore,
+            //    Currency = _workContext.WorkingCurrency
+            //});
+            //return View(model);
+            return null;
         }
 
-        //My account / Order details page
+        //My account / Ad details page
         public virtual async Task<IActionResult> Details(string AdId)
         {
-            var ad = await _adsService.GetAdsById(AdId);
+            var ad = await _adService.GetAdsById(AdId);
             if (!ad.Access(_workContext.CurrentCustomer))
                 return Challenge();
 
@@ -154,102 +149,102 @@ namespace Grand.Web.Controllers
             return View(model);
         }
 
-        //My account / Order details page / Print
-        public virtual async Task<IActionResult> PrintOrderDetails(string orderId)
+        //My account / Ad details page / Print
+        public virtual async Task<IActionResult> PrintAdDetails(string AdId)
         {
-            var order = await _adsService.GetAdsById(orderId);
-            if (!order.Access(_workContext.CurrentCustomer))
+            var Ad = await _adService.GetAdsById(AdId);
+            if (!Ad.Access(_workContext.CurrentCustomer))
                 return Challenge();
 
-            var model = await _mediator.Send(new GetAdDetails() { Ad = order, Language = _workContext.WorkingLanguage });
+            var model = await _mediator.Send(new GetAdDetails() { Ad = Ad, Language = _workContext.WorkingLanguage });
             model.PrintMode = true;
 
             return View("Details", model);
         }
 
-        //My account / Order details page / Cancel Unpaid Order
-        public virtual async Task<IActionResult> CancelOrder(string orderId)
+        //My account / Ad details page / Cancel Unpaid Ad
+        public virtual async Task<IActionResult> CancelAd(string AdId)
         {
-            var order = await _adsService.GetAdsById(orderId);
-            if (!order.Access(_workContext.CurrentCustomer) || order.PaymentStatus != Domain.Payments.PaymentStatus.Pending
-                || (order.ShippingStatus != ShippingStatus.ShippingNotRequired && order.ShippingStatus != ShippingStatus.NotYetShipped)
-                || order.AdStatus != AdStatus.Pending
-                || !_adsSettings.UserCanCancelUnpaidOrder)
+            var Ad = await _adService.GetAdsById(AdId);
+            if (!Ad.Access(_workContext.CurrentCustomer) || Ad.PaymentStatus != Domain.Payments.PaymentStatus.Pending
+                || (Ad.ShippingStatus != ShippingStatus.ShippingNotRequired && Ad.ShippingStatus != ShippingStatus.NotYetShipped)
+                || Ad.AdStatus != AdStatus.Pending
+                || !_adSettings.UserCanCancelUnpaidAd)
 
                 return Challenge();
 
-            await _mediator.Send(new CancelAdCommand() { Ad = order, NotifyCustomer = true, NotifyStoreOwner = true });
+            await _mediator.Send(new CancelAdCommand() { Ad = Ad, NotifyCustomer = true, NotifyStoreOwner = true });
 
-            return RedirectToRoute("OrderDetails", new { orderId = orderId });
+            return RedirectToRoute("AdDetails", new { AdId = AdId });
         }
 
-        //My account / Order details page / PDF invoice
-        public virtual async Task<IActionResult> GetPdfInvoice(string orderId, [FromServices] IPdfService pdfService)
+        //My account / Ad details page / PDF invoice
+        public virtual async Task<IActionResult> GetPdfInvoice(string AdId, [FromServices] IPdfService pdfService)
         {
-            var order = await _adsService.GetAdsById(orderId);
-            if (!order.Access(_workContext.CurrentCustomer))
+            var Ad = await _adService.GetAdsById(AdId);
+            if (!Ad.Access(_workContext.CurrentCustomer))
                 return Challenge();
 
-            var orders = new List<Ad>();
-            orders.Add(order);
+            var Ads = new List<Ad>();
+            Ads.Add(Ad);
             byte[] bytes;
             using (var stream = new MemoryStream())
             {
-                //await pdfService.PrintOrdersToPdf(stream, orders, _workContext.WorkingLanguage.Id);
+                //await pdfService.PrintAdsToPdf(stream, Ads, _workContext.WorkingLanguage.Id);
                 bytes = stream.ToArray();
             }
-            return File(bytes, "application/pdf", string.Format("order_{0}.pdf", order.Id));
+            return File(bytes, "application/pdf", string.Format("Ad_{0}.pdf", Ad.Id));
         }
 
-        //My account / Order details page / Add order note
-        public virtual async Task<IActionResult> AddOrderNote(string orderId)
+        //My account / Ad details page / Add Ad note
+        public virtual async Task<IActionResult> AddAdNote(string AdId)
         {
-            if (!_adsSettings.AllowCustomerToAddAdsNote)
+            if (!_adSettings.AllowCustomerToAddAdsNote)
                 return RedirectToRoute("HomePage");
 
-            var order = await _adsService.GetAdsById(orderId);
-            if (!order.Access(_workContext.CurrentCustomer))
+            var Ad = await _adService.GetAdsById(AdId);
+            if (!Ad.Access(_workContext.CurrentCustomer))
                 return Challenge();
 
-            var model = new AddOrderNoteModel();
-            model.OrderId = orderId;
-            return View("AddOrderNote", model);
+            var model = new AddAdNoteModel();
+            model.AdId = AdId;
+            return View("AddAdNote", model);
         }
 
-        //My account / Order details page / Add order note
+        //My account / Ad details page / Add Ad note
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public virtual async Task<IActionResult> AddOrderNote(AddAdNoteModel model)
+        public virtual async Task<IActionResult> AddAdNote(AddAdNoteModel model)
         {
-            if (!_adsSettings.AllowCustomerToAddAdsNote)
+            if (!_adSettings.AllowCustomerToAddAdsNote)
                 return RedirectToRoute("HomePage");
 
             if (!ModelState.IsValid)
             {
-                return View("AddOrderNote", model);
+                return View("AddAdNote", model);
             }
 
-            var order = await _adsService.GetAdsById(model.AdId);
-            if (!order.Access(_workContext.CurrentCustomer))
+            var Ad = await _adService.GetAdsById(model.AdId);
+            if (!Ad.Access(_workContext.CurrentCustomer))
                 return Challenge();
 
-            await _mediator.Send(new InsertAdNoteCommand() { Ad = order, AdNote = model, Language = _workContext.WorkingLanguage });
+            await _mediator.Send(new InsertAdNoteCommand() { Ad = Ad, AdNote = model, Language = _workContext.WorkingLanguage });
 
             //notification
-            await _mediator.Publish(new AdNoteEvent(order, model));
+            await _mediator.Publish(new AdNoteEvent(Ad, model));
 
-            AddNotification(Framework.UI.NotifyType.Success, _localizationService.GetResource("OrderNote.Added"), true);
-            return RedirectToRoute("OrderDetails", new { orderId = model.AdId });
+            AddNotification(Framework.UI.NotifyType.Success, _localizationService.GetResource("AdNote.Added"), true);
+            return RedirectToRoute("AdDetails", new { AdId = model.AdId });
         }
 
-        //My account / Order details page / re-order
-        public virtual async Task<IActionResult> ReOrder(string orderId)
+        //My account / Ad details page / re-Ad
+        public virtual async Task<IActionResult> ReAd(string AdId)
         {
-            var order = await _adsService.GetAdsById(orderId);
-            if (!order.Access(_workContext.CurrentCustomer))
+            var Ad = await _adService.GetAdsById(AdId);
+            if (!Ad.Access(_workContext.CurrentCustomer))
                 return Challenge();
 
-            var warnings = await _mediator.Send(new ReAdCommand() { Ad = order });
+            var warnings = await _mediator.Send(new ReAdCommand() { Ad = Ad });
 
             if(warnings.Any())
                 AddNotification(Framework.UI.NotifyType.Error, string.Join(",", warnings), true);
@@ -257,21 +252,21 @@ namespace Grand.Web.Controllers
             return RedirectToRoute("ShoppingCart");
         }
 
-        //My account / Order details page / Complete payment
+        //My account / Ad details page / Complete payment
         [HttpPost, ActionName("Details")]
         [FormValueRequired("repost-payment")]
         [AutoValidateAntiforgeryToken]
-        public virtual async Task<IActionResult> RePostPayment(string orderId, [FromServices] IWebHelper webHelper)
+        public virtual async Task<IActionResult> RePostPayment(string AdId, [FromServices] IWebHelper webHelper)
         {
-            var ad = await _adsService.GetAdsById(orderId);
+            var ad = await _adService.GetAdsById(AdId);
             if (!ad.Access(_workContext.CurrentCustomer))
                 return Challenge();
 
-            //if (!await _paymentService.CanRePostProcessPayment(order))
-            //    return RedirectToRoute("OrderDetails", new { orderId = orderId });
+            //if (!await _paymentService.CanRePostProcessPayment(Ad))
+            //    return RedirectToRoute("AdDetails", new { AdId = AdId });
 
             //var postProcessPaymentRequest = new PostProcessPaymentRequest {
-            //    Order = order
+            //    Ad = Ad
             //};
 
             //await _paymentService.PostProcessPayment(postProcessPaymentRequest);
@@ -284,28 +279,29 @@ namespace Grand.Web.Controllers
 
             //if no redirection has been done (to a third-party payment page)
             //theoretically it's not possible
-            return RedirectToRoute("OrderDetails", new { orderId = orderId });
+            return RedirectToRoute("AdDetails", new { AdId = AdId });
         }
 
-        //My account / Order details page / Shipment details page
+        //My account / Ad details page / Shipment details page
         public virtual async Task<IActionResult> ShipmentDetails(string shipmentId, [FromServices] IShipmentService shipmentService)
         {
             var shipment = await shipmentService.GetShipmentById(shipmentId);
             if (shipment == null)
                 return Challenge();
 
-            var order = await _adsService.GetAdsById(shipment.OrderId);
-            if (!order.Access(_workContext.CurrentCustomer))
+            var Ad = await _adService.GetAdsById(shipment.AdId);
+            if (!Ad.Access(_workContext.CurrentCustomer))
                 return Challenge();
 
-            var model = await _mediator.Send(new GetShipmentDetails() {
-                Customer = _workContext.CurrentCustomer,
-                Language = _workContext.WorkingLanguage,
-                //Order = order,
-                Shipment = shipment
-            });
+            //var model = await _mediator.Send(new GetShipmentDetails() {
+            //    Customer = _workContext.CurrentCustomer,
+            //    Language = _workContext.WorkingLanguage,
+            //    //Ad = Ad,
+            //    Shipment = shipment
+            //});
 
-            return View(model);
+            //return View(model);
+            return Challenge();
         }
 
         #endregion

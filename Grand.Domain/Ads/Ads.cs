@@ -15,7 +15,7 @@ namespace Grand.Domain.Ads
     /// </summary>
     public partial class Ad : BaseEntity
     {
-        private ICollection<AdsItem> _AdsItems;
+        private ICollection<AdItem> _AdItems;
         private ICollection<string> _AdsTags;
 
 
@@ -384,10 +384,10 @@ namespace Grand.Domain.Ads
         /// <summary>
         /// Gets or sets Ads items
         /// </summary>
-        public virtual ICollection<AdsItem> AdsItems
+        public virtual ICollection<AdItem> AdItems
         {
-            get { return _AdsItems ?? (_AdsItems = new List<AdsItem>()); }
-            protected set { _AdsItems = value; }
+            get { return _AdItems ?? (_AdItems = new List<AdItem>()); }
+            protected set { _AdItems = value; }
         }
 
         /// <summary>

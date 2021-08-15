@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Grand.Web.Models.Ads
 {
     public partial class CustomerAdListModel : BaseModel
-    {
+    { 
         public CustomerAdListModel()
         {
             Ads = new List<AdDetailsModel>();

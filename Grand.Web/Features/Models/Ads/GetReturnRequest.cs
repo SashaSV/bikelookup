@@ -1,15 +1,16 @@
 ﻿using Grand.Domain.Customers;
 using Grand.Domain.Localization;
+using Grand.Domain.Ads;
 using Grand.Domain.Stores;
 using Grand.Web.Models.Ads;
 using MediatR;
 
 namespace Grand.Web.Features.Models.Ads
 {
-    public class GetCustomerAdList : IRequest<CustomerAdListModel>
+    public class GetReturnRequestAd : IRequest<ReturnRequestModelAd>
     {
-        public Customer Customer { get; set; }
-        public Store Store { get; set; }
+        public Ad Ad { get; set; }
         public Language Language { get; set; }
+        public Store Store { get; set; }
     }
 }

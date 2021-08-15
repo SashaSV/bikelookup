@@ -1,7 +1,7 @@
 ﻿using Grand.Domain.Ads;
 using MediatR;
 
-namespace Grand.Services.Commands.Models.Orders
+namespace Grand.Services.Commands.Models.Ads
 {
     public class CancelAdCommand : IRequest<bool>
     {

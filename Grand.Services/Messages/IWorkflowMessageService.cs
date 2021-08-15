@@ -1,4 +1,5 @@
-﻿using Grand.Domain.Blogs;
+﻿using Grand.Domain.Ads;
+using Grand.Domain.Blogs;
 using Grand.Domain.Catalog;
 using Grand.Domain.Customers;
 using Grand.Domain.Forums;
@@ -11,6 +12,8 @@ using Grand.Domain.Stores;
 using Grand.Domain.Vendors;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ReturnRequest = Grand.Domain.Orders.ReturnRequest;
+using ReturnRequestNote = Grand.Domain.Orders.ReturnRequestNote;
 
 namespace Grand.Services.Messages
 {
@@ -74,7 +77,15 @@ namespace Grand.Services.Messages
         Task<int> SendCustomerEmailTokenValidationMessage(Customer customer, Store store, string languageId);
 
         #endregion
-
+        #region Ad workflow
+        /// <summary>
+        /// Sends a new ad note added notification to a customer
+        /// </summary>
+        /// <param name="ad">Ad</param>
+        /// <param name="adNote">Ad note</param>
+        /// <returns>Queued email identifier</returns>
+        Task<int> SendNewAdNoteAddedCustomerNotification(Ad ad, AdNote adNote);
+        #endregion
         #region Order workflow
 
         /// <summary>

@@ -38,6 +38,8 @@ namespace Grand.Web.Infrastructure
 
             RegisterOrderRoute(routeBuilder, pattern);
 
+            RegisterAdRoute(routeBuilder, pattern);
+
             RegisterReturnRequestRoute(routeBuilder, pattern);
 
             RegisterCommonRoute(routeBuilder, pattern);
@@ -805,6 +807,7 @@ namespace Grand.Web.Infrastructure
                             new { controller = "ShoppingCart", action = "UploadFileCheckoutAttribute" });
         }
 
+
         private void RegisterOrderRoute(IEndpointRouteBuilder routeBuilder, string pattern)
         {
             routeBuilder.MapControllerRoute("CustomerOrders",
@@ -845,6 +848,18 @@ namespace Grand.Web.Infrastructure
                             "orderdetails/ordernote/{orderId}",
                             new { controller = "Order", action = "AddOrderNote" });
 
+        }
+
+        private void RegisterAdRoute(IEndpointRouteBuilder routeBuilder, string pattern)
+        {
+            routeBuilder.MapControllerRoute("CustomerAds",
+                            pattern + "ad/history",
+                            new { controller = "Ad", action = "CustomerAds" });
+
+            //orders
+            routeBuilder.MapControllerRoute("AdDetails",
+                            pattern + "addetails/{adId}",
+                            new { controller = "Ad", action = "Details" });
         }
 
         private void RegisterBackInStockSubscriptionRoute(IEndpointRouteBuilder routeBuilder, string pattern)

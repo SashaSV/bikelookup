@@ -1,5 +1,6 @@
 ﻿using Grand.Core;
 using Grand.Domain;
+using Grand.Domain.Ads;
 using Grand.Domain.Blogs;
 using Grand.Domain.Catalog;
 using Grand.Domain.Common;
@@ -28,6 +29,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using ReturnRequest = Grand.Domain.Orders.ReturnRequest;
 
 namespace Grand.Services.Messages
 {
@@ -927,6 +929,49 @@ namespace Grand.Services.Messages
 
         #endregion
 
+        #region Ad workflow
+        /// <summary>
+        /// Sends a new ad note added notification to a customer
+        /// </summary>
+        /// <param name="ad">Ad</param>
+        /// <param name="adNote">Ad note</param>
+        /// <returns>Queued email identifier</returns>
+        public virtual async Task<int> SendNewAdNoteAddedCustomerNotification(Ad ad, AdNote adNote)
+        {
+            if (adNote == null)
+                throw new ArgumentNullException("adNote");
+
+            if (ad == null)
+                throw new ArgumentNullException("ad");
+
+            var store = await GetStore(ad.StoreId);
+            var language = await EnsureLanguageIsActive(ad.CustomerLanguageId, store.Id);
+
+            var messageTemplate = await GetMessageTemplate("Customer.NewOrderNote", store.Id);
+            if (messageTemplate == null)
+                return 0;
+
+            //email account
+            var emailAccount = await GetEmailAccountOfMessageTemplate(messageTemplate, language.Id);
+
+            var customer = await _mediator.Send(new GetCustomerByIdQuery() { Id = ad.CustomerId });
+
+            LiquidObject liquidObject = new LiquidObject();
+            await _messageTokenProvider.AddStoreTokens(liquidObject, store, language, emailAccount);
+            //await _messageTokenProvider.AddOrderTokens(liquidObject, ad, customer, store, adNote);
+            if (customer != null)
+                await _messageTokenProvider.AddCustomerTokens(liquidObject, customer, store, language);
+
+            //event notification
+            await _mediator.MessageTokensAdded(messageTemplate, liquidObject);
+
+            var toEmail = ad.BillingAddress.Email;
+            var toName = string.Format("{0} {1}", ad.BillingAddress.FirstName, ad.BillingAddress.LastName);
+            return await SendNotification(messageTemplate, emailAccount,
+                language.Id, liquidObject,
+                toEmail, toName);
+        }
+        #endregion
         #region Newsletter workflow
 
         /// <summary>
@@ -1321,7 +1366,7 @@ namespace Grand.Services.Messages
         /// <param name="returnRequestNote">Return request note</param>
         /// <param name="order">Order</param>
         /// <returns>Queued email identifier</returns>
-        public virtual async Task<int> SendNewReturnRequestNoteAddedCustomerNotification(ReturnRequest returnRequest, ReturnRequestNote returnRequestNote, Order order)
+        public virtual async Task<int> SendNewReturnRequestNoteAddedCustomerNotification(ReturnRequest returnRequest, Domain.Orders.ReturnRequestNote returnRequestNote, Order order)
         {
             if (returnRequestNote == null)
                 throw new ArgumentNullException("returnRequestNote");

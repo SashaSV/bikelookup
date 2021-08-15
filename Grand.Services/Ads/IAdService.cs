@@ -132,13 +132,13 @@ namespace Grand.Services.Ads
         /// </summary>
         /// <param name="AdsItemGuid">Ads item identifier</param>
         /// <returns>Ads item</returns>
-        Task<AdsItem> GetAdsItemByGuid(Guid AdsItemGuid);
+        Task<AdItem> GetAdItemByGuid(Guid AdsItemGuid);
 
         /// <summary>
         /// Delete an Ads item
         /// </summary>
         /// <param name="AdsItem">The Ads item</param>
-        Task DeleteAdsItem(AdsItem AdsItem);
+        Task DeleteAdItem(AdItem AdsItem);
 
         #endregion
 

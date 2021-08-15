@@ -1,6 +1,5 @@
 ﻿using Grand.Domain.Ads;
 using Grand.Domain.Customers;
-using Grand.Domain.Orders;
 
 namespace Grand.Web.Extensions
 {

@@ -7,7 +7,7 @@ namespace Grand.Domain.Ads
     /// <summary>
     /// Represents an Ads item
     /// </summary>
-    public partial class AdsItem : SubBaseEntity
+    public partial class AdItem : SubBaseEntity
     {
         /// <summary>
         /// Gets or sets the Ads item identifier

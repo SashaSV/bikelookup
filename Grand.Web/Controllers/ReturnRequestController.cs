@@ -7,12 +7,12 @@ using Grand.Services.Directory;
 using Grand.Services.Localization;
 using Grand.Services.Orders;
 using Grand.Services.Queries.Models.Orders;
+using Grand.Services.Queries.Models.Ads;
 using Grand.Web.Commands.Models.Orders;
 using Grand.Web.Extensions;
 using Grand.Web.Features.Models.Common;
 using Grand.Web.Features.Models.Orders;
 using Grand.Web.Models.Common;
-using Grand.Web.Models.Orders;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,6 +20,10 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using ReturnRequestModel = Grand.Web.Models.Orders.ReturnRequestModel;
+using Grand.Services.Ads;
+using Grand.Web.Features.Models.Ads;
+using IReturnRequestService = Grand.Services.Orders.IReturnRequestService;
 
 namespace Grand.Web.Controllers
 {
@@ -29,6 +33,7 @@ namespace Grand.Web.Controllers
 
         private readonly IReturnRequestService _returnRequestService;
         private readonly IOrderService _orderService;
+        private readonly IAdService _adService;
         private readonly IWorkContext _workContext;
         private readonly IStoreContext _storeContext;
         private readonly ILocalizationService _localizationService;
@@ -42,6 +47,7 @@ namespace Grand.Web.Controllers
         public ReturnRequestController(
             IReturnRequestService returnRequestService,
             IOrderService orderService,
+            IAdService adService,
             IWorkContext workContext,
             IStoreContext storeContext,
             ILocalizationService localizationService,
@@ -50,6 +56,7 @@ namespace Grand.Web.Controllers
         {
             _returnRequestService = returnRequestService;
             _orderService = orderService;
+            _adService = adService;
             _workContext = workContext;
             _storeContext = storeContext;
             _localizationService = localizationService;
@@ -122,6 +129,24 @@ namespace Grand.Web.Controllers
                 Language = _workContext.WorkingLanguage
             });
 
+            return View(model);
+        }
+
+        public virtual async Task<IActionResult> ReturnRequestAd(string adId, string errors = "")
+        {
+            var ad = await _adService.GetAdsById(adId);
+            if (!ad.Access(_workContext.CurrentCustomer))
+                return Challenge();
+
+            if (!await _mediator.Send(new IsReturnRequestAllowedQueryAd() { Ad = ad }))
+                return RedirectToRoute("HomePage");
+
+            var model = await _mediator.Send(new GetReturnRequestAd() {
+                Ad = ad,
+                Language = _workContext.WorkingLanguage,
+                Store = _storeContext.CurrentStore
+            });
+            model.Error = errors;
             return View(model);
         }
 

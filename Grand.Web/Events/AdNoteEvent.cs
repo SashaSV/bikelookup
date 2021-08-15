@@ -1,7 +1,5 @@
 ﻿using Grand.Domain.Ads;
-using Grand.Domain.Orders;
 using Grand.Web.Models.Ads;
-using Grand.Web.Models.Orders;
 using MediatR;
 
 namespace Grand.Web.Events
