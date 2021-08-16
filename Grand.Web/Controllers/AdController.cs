@@ -33,7 +33,6 @@ namespace Grand.Web.Controllers
         private readonly IWorkContext _workContext;
         private readonly IStoreContext _storeContext;
         private readonly IAdProcessingService _adsProcessingService;
-        private readonly IPaymentService _paymentService;
         private readonly ILocalizationService _localizationService;
         private readonly IMediator _mediator;
         private readonly AdSettings _adSettings;
@@ -46,7 +45,6 @@ namespace Grand.Web.Controllers
             IWorkContext workContext,
             IStoreContext storeContext,
             IAdProcessingService adsProcessingService,
-            IPaymentService paymentService,
             ILocalizationService localizationService,
             IMediator mediator,
             AdSettings adSettings)
@@ -55,7 +53,6 @@ namespace Grand.Web.Controllers
             _workContext = workContext;
             _storeContext = storeContext;
             _adsProcessingService = adsProcessingService;
-            _paymentService = paymentService;
             _localizationService = localizationService;
             _mediator = mediator;
             _adSettings = adSettings;
@@ -134,7 +131,7 @@ namespace Grand.Web.Controllers
             //    Currency = _workContext.WorkingCurrency
             //});
             //return View(model);
-            return null;
+            return Challenge();
         }
 
         //My account / Ad details page

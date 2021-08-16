@@ -13,8 +13,6 @@ using Grand.Web.Commands.Models.Orders;
 using Grand.Web.Events;
 using Grand.Web.Features.Models.Orders;
 using Grand.Web.Models.Orders;
-using Grand.Web.Features.Models.Ads;
-using Grand.Web.Models.Ads;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,8 +22,6 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Grand.Web.Extensions;
-using Grand.Web.Commands.Models.Ads;
-using Grand.Services.Ads;
 
 namespace Grand.Web.Controllers
 {
@@ -34,7 +30,6 @@ namespace Grand.Web.Controllers
         #region Fields
 
         private readonly IOrderService _orderService;
-        private readonly IAdService _adService;
         private readonly IWorkContext _workContext;
         private readonly IStoreContext _storeContext;
         private readonly IOrderProcessingService _orderProcessingService;
@@ -90,7 +85,7 @@ namespace Grand.Web.Controllers
             if (!_workContext.CurrentCustomer.IsRegistered())
                 return Challenge();
 
-            var model = await _mediator.Send(new GetCustomerAdList() {
+            var model = await _mediator.Send(new GetCustomerOrderList() {
                 Customer = _workContext.CurrentCustomer,
                 Language = _workContext.WorkingLanguage,
                 Store = _storeContext.CurrentStore
@@ -240,8 +235,8 @@ namespace Grand.Web.Controllers
             if (!order.Access(_workContext.CurrentCustomer))
                 return Challenge();
 
-            var model = new AddAdNoteModel();
-            model.AdId = adId;
+            var model = new AddOrderNoteModel();
+            model.OrderId = adId;
             return View("AddOrderNote", model);
         }
 
@@ -274,7 +269,7 @@ namespace Grand.Web.Controllers
         //My account / Order details page / Add order note
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public virtual async Task<IActionResult> AddAdNote(AddAdNoteModel model)
+        public virtual async Task<IActionResult> AddAdNote(AddOrderNoteModel model)
         {
             if (!_orderSettings.AllowCustomerToAddOrderNote)
                 return RedirectToRoute("HomePage");
@@ -284,17 +279,17 @@ namespace Grand.Web.Controllers
                 return View("AddOrderNote", model);
             }
 
-            var ad = await _adService.GetAdsById(model.AdId);
-            if (!ad.Access(_workContext.CurrentCustomer))
+            var order = await _orderService.GetOrderById(model.OrderId);
+            if (!order.Access(_workContext.CurrentCustomer))
                 return Challenge();
 
-            await _mediator.Send(new InsertAdNoteCommand() { Ad = ad, AdNote = model, Language = _workContext.WorkingLanguage });
+            await _mediator.Send(new InsertOrderNoteCommand() { Order = order, OrderNote = model, Language = _workContext.WorkingLanguage });
 
             //notification
-            await _mediator.Publish(new AdNoteEvent(ad, model));
+            await _mediator.Publish(new OrderNoteEvent(order, model));
 
             AddNotification(Framework.UI.NotifyType.Success, _localizationService.GetResource("OrderNote.Added"), true);
-            return RedirectToRoute("OrderDetails", new { orderId = model.AdId });
+            return RedirectToRoute("OrderDetails", new { orderId = model.OrderId });
         }
 
         //My account / Order details page / re-order
