@@ -28,6 +28,7 @@ using Grand.Framework.Mvc.Filters;
 using Grand.Framework.Security.Authorization;
 using Grand.Framework.Security.Captcha;
 using Grand.Framework.Themes;
+using Grand.Services.Ads;
 using Grand.Services.Commands.Models.Common;
 using Grand.Services.Commands.Models.Orders;
 using Grand.Services.Common;
@@ -55,6 +56,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using IReturnRequestService = Grand.Services.Orders.IReturnRequestService;
 
 namespace Grand.Web.Areas.Admin.Controllers
 {
@@ -73,6 +75,7 @@ namespace Grand.Web.Areas.Admin.Controllers
         private readonly ILocalizationService _localizationService;
         private readonly IDateTimeHelper _dateTimeHelper;
         private readonly IOrderService _orderService;
+        private readonly IAdService _adService;
         private readonly IEncryptionService _encryptionService;
         private readonly IThemeProvider _themeProvider;
         private readonly ICustomerService _customerService;
@@ -99,6 +102,7 @@ namespace Grand.Web.Areas.Admin.Controllers
             ILocalizationService localizationService,
             IDateTimeHelper dateTimeHelper,
             IOrderService orderService,
+            IAdService adService,
             IEncryptionService encryptionService,
             IThemeProvider themeProvider,
             ICustomerService customerService,
@@ -121,6 +125,7 @@ namespace Grand.Web.Areas.Admin.Controllers
             _localizationService = localizationService;
             _dateTimeHelper = dateTimeHelper;
             _orderService = orderService;
+            _adService = adService;
             _encryptionService = encryptionService;
             _themeProvider = themeProvider;
             _customerService = customerService;

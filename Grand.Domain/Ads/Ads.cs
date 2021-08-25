@@ -16,7 +16,7 @@ namespace Grand.Domain.Ads
     public partial class Ad : BaseEntity
     {
         private ICollection<AdItem> _AdItems;
-        private ICollection<string> _AdsTags;
+        private ICollection<string> _AdTags;
 
 
 
@@ -60,7 +60,7 @@ namespace Grand.Domain.Ads
         /// <summary>
         /// Gets or sets an Ads status identifier
         /// </summary>
-        public int AdsStatusId { get; set; }
+        public int AdStatusId { get; set; }
 
         /// <summary>
         /// Gets or sets the shipping status identifier
@@ -150,19 +150,19 @@ namespace Grand.Domain.Ads
         /// Gets or sets the Ads subtotal discount (excl tax)
         /// </summary>
         [BsonRepresentation(BsonType.Decimal128, AllowTruncation = true)]
-        public decimal AdsSubTotalDiscountExclTax { get; set; }
+        public decimal AdSubTotalDiscountExclTax { get; set; }
 
         /// <summary>
         /// Gets or sets the Ads shipping (incl tax)
         /// </summary>
         [BsonRepresentation(BsonType.Decimal128, AllowTruncation = true)]
-        public decimal AdsShippingInclTax { get; set; }
+        public decimal AdShippingInclTax { get; set; }
 
         /// <summary>
         /// Gets or sets the Ads shipping (excl tax)
         /// </summary>
         [BsonRepresentation(BsonType.Decimal128, AllowTruncation = true)]
-        public decimal AdsShippingExclTax { get; set; }
+        public decimal AdShippingExclTax { get; set; }
 
         /// <summary>
         /// Gets or sets the payment method additional fee (incl tax)
@@ -185,7 +185,7 @@ namespace Grand.Domain.Ads
         /// Gets or sets the Ads tax
         /// </summary>
         [BsonRepresentation(BsonType.Decimal128, AllowTruncation = true)]
-        public decimal AdsTax { get; set; }
+        public decimal AdTax { get; set; }
 
         /// <summary>
         /// Gets or sets the Ads discount (applied to Ads total)
@@ -197,7 +197,7 @@ namespace Grand.Domain.Ads
         /// Gets or sets the Ads total
         /// </summary>
         [BsonRepresentation(BsonType.Decimal128, AllowTruncation = true)]
-        public decimal AdsTotal { get; set; }
+        public decimal AdTotal { get; set; }
 
         /// <summary>
         /// Gets or sets the refunded amount
@@ -393,10 +393,10 @@ namespace Grand.Domain.Ads
         /// <summary>
         /// Gets or sets the Ads's tags
         /// </summary>
-        public virtual ICollection<string> AdsTags 
+        public virtual ICollection<string> AdTags 
         {
-            get { return _AdsTags ?? (_AdsTags = new List<string>()); }
-            protected set { _AdsTags = value; }
+            get { return _AdTags ?? (_AdTags = new List<string>()); }
+            protected set { _AdTags = value; }
 
         }
 
@@ -411,11 +411,11 @@ namespace Grand.Domain.Ads
         {
             get
             {
-                return (AdStatus)this.AdsStatusId;
+                return (AdStatus)this.AdStatusId;
             }
             set
             {
-                this.AdsStatusId = (int)value;
+                this.AdStatusId = (int)value;
             }
         }
 

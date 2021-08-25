@@ -6,5 +6,6 @@ namespace Grand.Services.Commands.Models.Customers
     {
         public string CustomerId { get; set; }
         public string OrderId { get; set; }
+        public string AdId { get; set; }
     }
 }

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Grand.Web.Commands.Models.Ads
 {
-    public class ReturnRequestSubmitCommandAd : IRequest<(ReturnRequestModelAd model, ReturnRequest rr)>
+    public class ReturnRequestSubmitCommandAd : IRequest<(ReturnRequestModelAd model, ReturnRequestAd rr)>
     {
         public ReturnRequestModelAd Model { get; set; }
         public Ad Ad { get; set; }

@@ -134,7 +134,7 @@ namespace Grand.Web.Controllers
 
         public virtual async Task<IActionResult> ReturnRequestAd(string adId, string errors = "")
         {
-            var ad = await _adService.GetAdsById(adId);
+            var ad = await _adService.GetAdById(adId);
             if (!ad.Access(_workContext.CurrentCustomer))
                 return Challenge();
 

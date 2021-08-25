@@ -86,8 +86,8 @@ namespace Grand.Web.Features.Handlers.Ads
         }
         private async Task PrepareRecurringPayments(CustomerAdListModel model, GetCustomerAdList request)
         {
-            //var recurringPayments = await _adService.SearchRecurringPayments(request.Store.Id,
-            //    request.Customer.Id);
+            var recurringPayments = await _adService.SearchRecurringPayments(request.Store.Id,
+                request.Customer.Id);
             //foreach (var recurringPayment in recurringPayments)
             //{
             //    var recurringPaymentModel = new CustomerAdListModel.RecurringAdModel {

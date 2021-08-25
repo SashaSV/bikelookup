@@ -1,6 +1,6 @@
 ﻿namespace Grand.Domain.Ads
 {
-    public class ReturnRequestItem : BaseEntity
+    public class ReturnRequestItemAd : BaseEntity
     {
         /// <summary>
         /// Gets or sets the Ad item identifier

@@ -3,6 +3,7 @@ using Grand.Core.Configuration;
 using Grand.Core.Data;
 using Grand.Core.Infrastructure;
 using Grand.Core.Infrastructure.DependencyManagement;
+using Grand.Services.Ads;
 using Grand.Services.Affiliates;
 using Grand.Services.Authentication;
 using Grand.Services.Authentication.External;
@@ -102,6 +103,8 @@ namespace Grand.Services.Infrastructure
             RegisterNewsService(builder);
 
             RegisterOrdersService(builder);
+
+            RegisterAdsService(builder);
 
             RegisterPaymentsService(builder);
 
@@ -342,6 +345,14 @@ namespace Grand.Services.Infrastructure
             builder.RegisterType<CheckoutAttributeService>().As<ICheckoutAttributeService>().InstancePerLifetimeScope();
 
         }
+
+        private void RegisterAdsService(ContainerBuilder builder)
+        {
+            builder.RegisterType<AdService>().As<IAdService>().InstancePerLifetimeScope();
+            builder.RegisterType<AdReportService>().As<IAdReportService>().InstancePerLifetimeScope();
+            builder.RegisterType<AdProcessingService>().As<IAdProcessingService>().InstancePerLifetimeScope();
+        }
+
         private void RegisterPaymentsService(ContainerBuilder builder)
         {
             builder.RegisterType<PaymentService>().As<IPaymentService>().InstancePerLifetimeScope();

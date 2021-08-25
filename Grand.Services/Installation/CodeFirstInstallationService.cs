@@ -47,6 +47,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Grand.Core.Data;
+using Grand.Domain.Ads;
 
 namespace Grand.Services.Installation
 {
@@ -61,6 +62,10 @@ namespace Grand.Services.Installation
         private readonly IRepository<CampaignHistory> _campaignHistoryRepository;
         private readonly IRepository<Order> _orderRepository;
         private readonly IRepository<OrderNote> _orderNoteRepository;
+        private readonly IRepository<OrderTag> _orderTagRepository;
+        private readonly IRepository<Ad> _adRepository;
+        private readonly IRepository<AdNote> _adNoteRepository;
+        private readonly IRepository<AdTag> _adTagRepository;
         private readonly IRepository<ReturnRequest> _returnRequestRepository;
         private readonly IRepository<ReturnRequestNote> _returnRequestNoteRepository;
         private readonly IRepository<Store> _storeRepository;
@@ -136,7 +141,6 @@ namespace Grand.Services.Installation
         private readonly IRepository<RecentlyViewedProduct> _recentlyViewedProductRepository;
         private readonly IRepository<KnowledgebaseArticle> _knowledgebaseArticleRepository;
         private readonly IRepository<KnowledgebaseCategory> _knowledgebaseCategoryRepository;
-        private readonly IRepository<OrderTag> _orderTagRepository;
         private readonly IGenericAttributeService _genericAttributeService;
         private readonly IWebHelper _webHelper;
         private readonly IWebHostEnvironment _hostingEnvironment;
@@ -155,6 +159,9 @@ namespace Grand.Services.Installation
             _campaignHistoryRepository = serviceProvider.GetRequiredService<IRepository<CampaignHistory>>();
             _orderRepository = serviceProvider.GetRequiredService<IRepository<Order>>();
             _orderNoteRepository = serviceProvider.GetRequiredService<IRepository<OrderNote>>();
+            _adRepository = serviceProvider.GetRequiredService<IRepository<Ad>>();
+            _adNoteRepository = serviceProvider.GetRequiredService<IRepository<AdNote>>(); 
+            _adTagRepository = serviceProvider.GetRequiredService<IRepository<AdTag>>();
             _storeRepository = serviceProvider.GetRequiredService<IRepository<Store>>();
             _measureDimensionRepository = serviceProvider.GetRequiredService<IRepository<MeasureDimension>>();
             _measureWeightRepository = serviceProvider.GetRequiredService<IRepository<MeasureWeight>>();
@@ -5925,6 +5932,30 @@ namespace Grand.Services.Installation
 
         }
 
+        protected virtual async Task InstallAdTags()
+        {
+            var coolTag = new AdTag {
+                Name = "cool",
+                Count = 0
+
+            };
+            await _adTagRepository.InsertAsync(coolTag);
+
+            var newTag = new AdTag {
+                Name = "new",
+                Count = 0
+
+            };
+            await _adTagRepository.InsertAsync(newTag);
+
+            var oldTag = new AdTag {
+                Name = "old",
+                Count = 0
+            };
+            await _adTagRepository.InsertAsync(oldTag);
+
+        }
+
         protected virtual async Task InstallManufacturers()
         {
             var pictureService = _serviceProvider.GetRequiredService<IPictureService>();
@@ -10818,6 +10849,17 @@ namespace Grand.Services.Installation
 
             await _orderNoteRepository.Collection.Indexes.CreateOneAsync(new CreateIndexModel<OrderNote>((Builders<OrderNote>.IndexKeys.Ascending(x => x.OrderId).Descending(x => x.CreatedOnUtc)), new CreateIndexOptions() { Name = "Id", Unique = false, Background = true }));
 
+            //ad
+
+            await _adRepository.Collection.Indexes.CreateOneAsync(new CreateIndexModel<Ad>((Builders<Ad>.IndexKeys.Ascending(x => x.CustomerId).Descending(x => x.CreatedOnUtc)), new CreateIndexOptions() { Name = "CustomerId_1_CreatedOnUtc_-1", Unique = false }));
+            await _adRepository.Collection.Indexes.CreateOneAsync(new CreateIndexModel<Ad>((Builders<Ad>.IndexKeys.Descending(x => x.CreatedOnUtc)), new CreateIndexOptions() { Name = "CreatedOnUtc_-1", Unique = false }));
+            await _adRepository.Collection.Indexes.CreateOneAsync(new CreateIndexModel<Ad>((Builders<Ad>.IndexKeys.Descending(x => x.AdNumber)), new CreateIndexOptions() { Name = "AdNumber", Unique = false }));
+            await _adRepository.Collection.Indexes.CreateOneAsync(new CreateIndexModel<Ad>((Builders<Ad>.IndexKeys.Ascending(x => x.Code)), new CreateIndexOptions() { Name = "AdCode", Unique = false }));
+            await _adRepository.Collection.Indexes.CreateOneAsync(new CreateIndexModel<Ad>((Builders<Ad>.IndexKeys.Ascending("AdItems.ProductId")), new CreateIndexOptions() { Name = "AdItemsProductId" }));
+            await _adRepository.Collection.Indexes.CreateOneAsync(new CreateIndexModel<Ad>((Builders<Ad>.IndexKeys.Ascending("AdItems._id")), new CreateIndexOptions() { Name = "AdItemId" }));
+
+            await _adNoteRepository.Collection.Indexes.CreateOneAsync(new CreateIndexModel<AdNote>((Builders<AdNote>.IndexKeys.Ascending(x => x.AdId).Descending(x => x.CreatedOnUtc)), new CreateIndexOptions() { Name = "Id", Unique = false, Background = true }));
+
             //permision
             await _permissionRepository.Collection.Indexes.CreateOneAsync(new CreateIndexModel<PermissionRecord>((Builders<PermissionRecord>.IndexKeys.Ascending(x => x.SystemName)), new CreateIndexOptions() { Name = "SystemName", Unique = true }));
             await _permissionAction.Collection.Indexes.CreateOneAsync(new CreateIndexModel<PermissionAction>((Builders<PermissionAction>.IndexKeys.Ascending(x => x.SystemName)), new CreateIndexOptions() { Name = "SystemName", Unique = false }));
@@ -10932,6 +10974,7 @@ namespace Grand.Services.Installation
                 await InstallVendors();
                 await InstallAffiliates();
                 await InstallOrderTags();
+                await InstallAdTags();
             }
         }
 

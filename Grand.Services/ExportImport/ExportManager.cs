@@ -1,5 +1,6 @@
 ﻿using Grand.Core;
 using Grand.Core.Extensions;
+using Grand.Domain.Ads;
 using Grand.Domain.Catalog;
 using Grand.Domain.Common;
 using Grand.Domain.Customers;
@@ -840,6 +841,30 @@ namespace Grand.Services.ExportImport
         }
 
         /// <summary>
+        /// Export order list to xml
+        /// </summary>
+        /// <param name="ads">Orders</param>
+        /// <returns>Result in XML format</returns>
+        public virtual async Task<string> ExportAdsToXml(IList<Ad> ads)
+        {
+            var sb = new StringBuilder();
+            var stringWriter = new StringWriter(sb);
+            var xwSettings = new XmlWriterSettings {
+                ConformanceLevel = ConformanceLevel.Auto,
+                Async = true
+            };
+            var xmlWriter = XmlWriter.Create(stringWriter, xwSettings);
+            await xmlWriter.WriteStartDocumentAsync();
+            xmlWriter.WriteStartElement("Orders");
+            xmlWriter.WriteAttributeString("Version", GrandVersion.FullVersion);
+
+            xmlWriter.WriteEndElement();
+            xmlWriter.WriteEndDocument();
+            await xmlWriter.FlushAsync();
+            return stringWriter.ToString();
+        }
+
+        /// <summary>
         /// Export orders to XLSX
         /// </summary>
         /// <param name="stream">Stream</param>
@@ -847,6 +872,16 @@ namespace Grand.Services.ExportImport
         public virtual byte[] ExportOrdersToXlsx(IList<Order> orders)
         {
             return ExportToXlsx(PropertyByOrder(), orders);
+        }
+
+        /// <summary>
+        /// Export orders to XLSX
+        /// </summary>
+        /// <param name="stream">Stream</param>
+        /// <param name="orders">Orders</param>
+        public virtual byte[] ExportAdsToXlsx(IList<Ad> ads)
+        {
+            return ExportToXlsx(PropertyByAd(), ads);
         }
 
         /// <summary>
@@ -1253,6 +1288,15 @@ namespace Grand.Services.ExportImport
                     new PropertyByName<Order>("ShippingZipPostalCode", p=>p.ShippingAddress.Return(shippingAddress=>shippingAddress.ZipPostalCode, "")),
                     new PropertyByName<Order>("ShippingPhoneNumber",p=>p.ShippingAddress.Return(shippingAddress=>shippingAddress.PhoneNumber, "")),
                     new PropertyByName<Order>("ShippingFaxNumber", p=>p.ShippingAddress.Return(shippingAddress=>shippingAddress.FaxNumber, ""))
+            };
+            return properties;
+        }
+
+        private PropertyByName<Ad>[] PropertyByAd()
+        {
+            var properties = new[]
+            {
+                    new PropertyByName<Ad>("AdNumber", p=>p.AdNumber)
             };
             return properties;
         }

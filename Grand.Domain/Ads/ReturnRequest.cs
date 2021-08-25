@@ -7,11 +7,11 @@ namespace Grand.Domain.Ads
     /// <summary>
     /// Represents a return request
     /// </summary>
-    public partial class ReturnRequest : BaseEntity
+    public partial class ReturnRequestAd : BaseEntity
     {
-        public ReturnRequest()
+        public ReturnRequestAd()
         {
-            ReturnRequestItems = new List<ReturnRequestItem>();
+            ReturnRequestItems = new List<ReturnRequestItemAd>();
         }
 
         public int ReturnNumber { get; set; }
@@ -39,7 +39,7 @@ namespace Grand.Domain.Ads
         /// <summary>
         /// Gets or sets the return request items
         /// </summary>
-        public IList<ReturnRequestItem> ReturnRequestItems { get; set; }
+        public IList<ReturnRequestItemAd> ReturnRequestItems { get; set; }
 
         /// <summary>
         /// Gets or sets the customer identifier

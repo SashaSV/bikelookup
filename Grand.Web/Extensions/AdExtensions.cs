@@ -20,7 +20,7 @@ namespace Grand.Web.Extensions
 
             return false;
         }
-        public static bool Access(this ReturnRequest returnRequest, Customer customer)
+        public static bool Access(this ReturnRequestAd returnRequest, Customer customer)
         {
             if (returnRequest == null)
                 return false;

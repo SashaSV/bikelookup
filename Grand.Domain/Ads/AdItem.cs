@@ -12,7 +12,7 @@ namespace Grand.Domain.Ads
         /// <summary>
         /// Gets or sets the Ads item identifier
         /// </summary>
-        public Guid AdsItemGuid { get; set; }
+        public Guid AdItemGuid { get; set; }
 
         /// <summary>
         /// Gets or sets the product identifier

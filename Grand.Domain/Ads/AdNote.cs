@@ -10,7 +10,7 @@ namespace Grand.Domain.Ads
         /// <summary>
         /// Gets or sets the order identifier
         /// </summary>
-        public string AdsId { get; set; }
+        public string AdId { get; set; }
 
         /// <summary>
         /// Gets or sets the note

@@ -6,9 +6,9 @@ namespace Grand.Domain.Ads
     /// <summary>
     /// Represents a return request reason
     /// </summary>
-    public partial class ReturnRequestReason : BaseEntity, ILocalizedEntity
+    public partial class ReturnRequestReasonAd : BaseEntity, ILocalizedEntity
     {
-        public ReturnRequestReason()
+        public ReturnRequestReasonAd()
         {
             Locales = new List<LocalizedProperty>();
         }

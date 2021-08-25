@@ -26,10 +26,10 @@ namespace Grand.Web.Commands.Handler.Ads
                 CreatedOnUtc = DateTime.UtcNow,
                 DisplayToCustomer = true,
                 Note = request.AdNote.Note,
-                AdsId = request.AdNote.AdId,
+                AdId = request.AdNote.AdId,
                 CreatedByCustomer = true
             };
-            await _adService.InsertAdsNote(adNote);
+            await _adService.InsertAdNote(adNote);
 
             //email
             await _workflowMessageService.SendNewAdNoteAddedCustomerNotification(request.Ad, adNote);

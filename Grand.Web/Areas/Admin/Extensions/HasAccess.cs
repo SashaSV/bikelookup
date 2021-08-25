@@ -1,4 +1,5 @@
 ﻿using Grand.Core;
+using Grand.Domain.Ads;
 using Grand.Domain.Catalog;
 using Grand.Domain.Orders;
 using Grand.Domain.Shipping;
@@ -36,6 +37,20 @@ namespace Grand.Web.Areas.Admin.Extensions
             return hasVendorProducts;
         }
 
+        public static bool HasAccessToAd(this IWorkContext _workContext, Ad ad)
+        {
+            if (ad == null)
+                throw new ArgumentNullException("ad");
+
+            if (_workContext.CurrentVendor == null)
+                //not a vendor; has access
+                return true;
+
+            var vendorId = _workContext.CurrentVendor.Id;
+            var hasVendorProducts = ad.AdItems.Any(orderItem => orderItem.VendorId == vendorId);
+            return hasVendorProducts;
+        }
+
         public static bool HasAccessToOrderItem(this IWorkContext _workContext, OrderItem orderItem)
         {
             if (orderItem == null)
@@ -48,6 +63,20 @@ namespace Grand.Web.Areas.Admin.Extensions
             var vendorId = _workContext.CurrentVendor.Id;
             return orderItem.VendorId == vendorId;
         }
+
+        public static bool HasAccessToAdItem(this IWorkContext _workContext, AdItem adItem)
+        {
+            if (adItem == null)
+                throw new ArgumentNullException("orderItem");
+
+            if (_workContext.CurrentVendor == null)
+                //not a vendor; has access
+                return true;
+
+            var vendorId = _workContext.CurrentVendor.Id;
+            return adItem.VendorId == vendorId;
+        }
+
         public static bool HasAccessToShipment(this IWorkContext _workContext, Order order, Shipment shipment)
         {
             if (shipment == null)

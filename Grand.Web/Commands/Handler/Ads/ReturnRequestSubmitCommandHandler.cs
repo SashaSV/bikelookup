@@ -17,12 +17,12 @@ using System.Threading.Tasks;
 
 namespace Grand.Web.Commands.Handler.Ads
 {
-    public class ReturnRequestSubmitCommandHandler : IRequestHandler<ReturnRequestSubmitCommandAd, (ReturnRequestModelAd model, ReturnRequest rr)>
+    public class ReturnRequestSubmitCommandHandler : IRequestHandler<ReturnRequestSubmitCommandAd, (ReturnRequestModelAd model, ReturnRequestAd rr)>
     {
         private readonly IWorkContext _workContext;
         private readonly IStoreContext _storeContext;
         private readonly IProductService _productService;
-        private readonly IReturnRequestService _returnRequestService;
+        private readonly IReturnRequestServiceAd _returnRequestService;
         private readonly IWorkflowMessageService _workflowMessageService;
         private readonly ILocalizationService _localizationService;
         private readonly LocalizationSettings _localizationSettings;
@@ -31,7 +31,7 @@ namespace Grand.Web.Commands.Handler.Ads
         public ReturnRequestSubmitCommandHandler(IWorkContext workContext,
             IStoreContext storeContext,
             IProductService productService,
-            IReturnRequestService returnRequestService,
+            IReturnRequestServiceAd returnRequestService,
             IWorkflowMessageService workflowMessageService,
             ILocalizationService localizationService,
             LocalizationSettings localizationSettings)
@@ -45,9 +45,9 @@ namespace Grand.Web.Commands.Handler.Ads
             _localizationSettings = localizationSettings;
         }
 
-        public async Task<(ReturnRequestModelAd model, ReturnRequest rr)> Handle(ReturnRequestSubmitCommandAd request, CancellationToken cancellationToken)
+        public async Task<(ReturnRequestModelAd model, ReturnRequestAd rr)> Handle(ReturnRequestSubmitCommandAd request, CancellationToken cancellationToken)
         {
-            var rr = new ReturnRequest {
+            var rr = new ReturnRequestAd {
                 StoreId = _storeContext.CurrentStore.Id,
                 AdId = request.Ad.Id,
                 CustomerId = _workContext.CurrentCustomer.Id,
@@ -94,7 +94,7 @@ namespace Grand.Web.Commands.Handler.Ads
                     {
                         var rrr = await _returnRequestService.GetReturnRequestReasonById(rrrId);
                         var rra = await _returnRequestService.GetReturnRequestActionById(rraId);
-                        rr.ReturnRequestItems.Add(new ReturnRequestItem {
+                        rr.ReturnRequestItems.Add(new ReturnRequestItemAd {
                             RequestedAction = rra != null ? rra.GetLocalized(x => x.Name, _workContext.WorkingLanguage.Id) : "not available",
                             ReasonForReturn = rrr != null ? rrr.GetLocalized(x => x.Name, _workContext.WorkingLanguage.Id) : "not available",
                             Quantity = quantity,

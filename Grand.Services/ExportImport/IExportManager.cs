@@ -1,4 +1,5 @@
-﻿using Grand.Domain.Catalog;
+﻿using Grand.Domain.Ads;
+using Grand.Domain.Catalog;
 using Grand.Domain.Customers;
 using Grand.Domain.Directory;
 using Grand.Domain.Messages;
@@ -57,10 +58,23 @@ namespace Grand.Services.ExportImport
         Task<string> ExportOrdersToXml(IList<Order> orders);
 
         /// <summary>
+        /// Export order list to xml
+        /// </summary>
+        /// <param name="ads">Orders</param>
+        /// <returns>Result in XML format</returns>
+        Task<string> ExportAdsToXml(IList<Ad> ads);
+
+        /// <summary>
         /// Export orders to XLSX
         /// </summary>
         /// <param name="orders">Orders</param>
         byte[] ExportOrdersToXlsx(IList<Order> orders);
+
+        /// <summary>
+        /// Export orders to XLSX
+        /// </summary>
+        /// <param name="ads">Orders</param>
+        byte[] ExportAdsToXlsx(IList<Ad> ads);
 
         /// <summary>
         /// Export customer list to XLSX

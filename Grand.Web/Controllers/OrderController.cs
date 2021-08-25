@@ -79,20 +79,20 @@ namespace Grand.Web.Controllers
             return View(model);
         }
 
-        //My account / Orders
-        public virtual async Task<IActionResult> CustomerAds()
-        {
-            if (!_workContext.CurrentCustomer.IsRegistered())
-                return Challenge();
+        ////My account / Orders
+        //public virtual async Task<IActionResult> CustomerAds()
+        //{
+        //    if (!_workContext.CurrentCustomer.IsRegistered())
+        //        return Challenge();
 
-            var model = await _mediator.Send(new GetCustomerOrderList() {
-                Customer = _workContext.CurrentCustomer,
-                Language = _workContext.WorkingLanguage,
-                Store = _storeContext.CurrentStore
-            });
+        //    var model = await _mediator.Send(new GetCustomerOrderList() {
+        //        Customer = _workContext.CurrentCustomer,
+        //        Language = _workContext.WorkingLanguage,
+        //        Store = _storeContext.CurrentStore
+        //    });
 
-            return View(model);
-        }
+        //    return View(model);
+        //}
 
         //My account / Orders / Cancel recurring order
         [HttpPost, ActionName("CustomerOrders")]

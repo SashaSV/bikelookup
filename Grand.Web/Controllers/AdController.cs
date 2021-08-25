@@ -32,7 +32,7 @@ namespace Grand.Web.Controllers
         private readonly IAdService _adService;
         private readonly IWorkContext _workContext;
         private readonly IStoreContext _storeContext;
-        private readonly IAdProcessingService _adsProcessingService;
+        //private readonly IAdProcessingService _adsProcessingService;
         private readonly ILocalizationService _localizationService;
         private readonly IMediator _mediator;
         private readonly AdSettings _adSettings;
@@ -44,7 +44,7 @@ namespace Grand.Web.Controllers
         public AdController(IAdService adService,
             IWorkContext workContext,
             IStoreContext storeContext,
-            IAdProcessingService adsProcessingService,
+            //IAdProcessingService adsProcessingService,
             ILocalizationService localizationService,
             IMediator mediator,
             AdSettings adSettings)
@@ -52,7 +52,7 @@ namespace Grand.Web.Controllers
             _adService = adService;
             _workContext = workContext;
             _storeContext = storeContext;
-            _adsProcessingService = adsProcessingService;
+            //_adsProcessingService = adsProcessingService;
             _localizationService = localizationService;
             _mediator = mediator;
             _adSettings = adSettings;
@@ -91,29 +91,30 @@ namespace Grand.Web.Controllers
                 if (formValue.StartsWith("cancelRecurringPayment", StringComparison.OrdinalIgnoreCase))
                     recurringPaymentId = formValue.Substring("cancelRecurringPayment".Length);
 
-            var recurringPayment = await _adService.GetRecurringPaymentById(recurringPaymentId);
-            if (recurringPayment == null)
-            {
-                return RedirectToRoute("CustomerAds");
-            }
+            //var recurringPayment = await _adService.GetRecurringPaymentById(recurringPaymentId);
+            //if (recurringPayment == null)
+            //{
+            //    return RedirectToRoute("CustomerAds");
+            //}
 
-            if (await _adsProcessingService.CanCancelRecurringPayment(_workContext.CurrentCustomer, recurringPayment))
-            {
-                var errors = await _adsProcessingService.CancelRecurringPayment(recurringPayment);
+            //if (await _adsProcessingService.CanCancelRecurringPayment(_workContext.CurrentCustomer, recurringPayment))
+            //{
+            //    var errors = await _adsProcessingService.CancelRecurringPayment(recurringPayment);
 
-                var model = await _mediator.Send(new GetCustomerAdList() {
-                    Customer = _workContext.CurrentCustomer,
-                    Language = _workContext.WorkingLanguage,
-                    Store = _storeContext.CurrentStore
-                });
-                model.CancelRecurringPaymentErrors = errors;
+            //    var model = await _mediator.Send(new GetCustomerAdList() {
+            //        Customer = _workContext.CurrentCustomer,
+            //        Language = _workContext.WorkingLanguage,
+            //        Store = _storeContext.CurrentStore
+            //    });
+            //    model.CancelRecurringPaymentErrors = errors;
 
-                return View(model);
-            }
-            else
-            {
-                return RedirectToRoute("CustomerAds");
-            }
+            //    return View(model);
+            //}
+            //else
+            //{
+            //    return RedirectToRoute("CustomerAds");
+            //}
+            return RedirectToRoute("CustomerAds");
         }
 
         //My account / Reward points
@@ -137,7 +138,7 @@ namespace Grand.Web.Controllers
         //My account / Ad details page
         public virtual async Task<IActionResult> Details(string AdId)
         {
-            var ad = await _adService.GetAdsById(AdId);
+            var ad = await _adService.GetAdById(AdId);
             if (!ad.Access(_workContext.CurrentCustomer))
                 return Challenge();
 
@@ -149,7 +150,7 @@ namespace Grand.Web.Controllers
         //My account / Ad details page / Print
         public virtual async Task<IActionResult> PrintAdDetails(string AdId)
         {
-            var Ad = await _adService.GetAdsById(AdId);
+            var Ad = await _adService.GetAdById(AdId);
             if (!Ad.Access(_workContext.CurrentCustomer))
                 return Challenge();
 
@@ -162,7 +163,7 @@ namespace Grand.Web.Controllers
         //My account / Ad details page / Cancel Unpaid Ad
         public virtual async Task<IActionResult> CancelAd(string AdId)
         {
-            var Ad = await _adService.GetAdsById(AdId);
+            var Ad = await _adService.GetAdById(AdId);
             if (!Ad.Access(_workContext.CurrentCustomer) || Ad.PaymentStatus != Domain.Payments.PaymentStatus.Pending
                 || (Ad.ShippingStatus != ShippingStatus.ShippingNotRequired && Ad.ShippingStatus != ShippingStatus.NotYetShipped)
                 || Ad.AdStatus != AdStatus.Pending
@@ -178,7 +179,7 @@ namespace Grand.Web.Controllers
         //My account / Ad details page / PDF invoice
         public virtual async Task<IActionResult> GetPdfInvoice(string AdId, [FromServices] IPdfService pdfService)
         {
-            var Ad = await _adService.GetAdsById(AdId);
+            var Ad = await _adService.GetAdById(AdId);
             if (!Ad.Access(_workContext.CurrentCustomer))
                 return Challenge();
 
@@ -199,7 +200,7 @@ namespace Grand.Web.Controllers
             if (!_adSettings.AllowCustomerToAddAdsNote)
                 return RedirectToRoute("HomePage");
 
-            var Ad = await _adService.GetAdsById(AdId);
+            var Ad = await _adService.GetAdById(AdId);
             if (!Ad.Access(_workContext.CurrentCustomer))
                 return Challenge();
 
@@ -221,7 +222,7 @@ namespace Grand.Web.Controllers
                 return View("AddAdNote", model);
             }
 
-            var Ad = await _adService.GetAdsById(model.AdId);
+            var Ad = await _adService.GetAdById(model.AdId);
             if (!Ad.Access(_workContext.CurrentCustomer))
                 return Challenge();
 
@@ -237,7 +238,7 @@ namespace Grand.Web.Controllers
         //My account / Ad details page / re-Ad
         public virtual async Task<IActionResult> ReAd(string AdId)
         {
-            var Ad = await _adService.GetAdsById(AdId);
+            var Ad = await _adService.GetAdById(AdId);
             if (!Ad.Access(_workContext.CurrentCustomer))
                 return Challenge();
 
@@ -255,7 +256,7 @@ namespace Grand.Web.Controllers
         [AutoValidateAntiforgeryToken]
         public virtual async Task<IActionResult> RePostPayment(string AdId, [FromServices] IWebHelper webHelper)
         {
-            var ad = await _adService.GetAdsById(AdId);
+            var ad = await _adService.GetAdById(AdId);
             if (!ad.Access(_workContext.CurrentCustomer))
                 return Challenge();
 
@@ -286,7 +287,7 @@ namespace Grand.Web.Controllers
             if (shipment == null)
                 return Challenge();
 
-            var Ad = await _adService.GetAdsById(shipment.AdId);
+            var Ad = await _adService.GetAdById(shipment.AdId);
             if (!Ad.Access(_workContext.CurrentCustomer))
                 return Challenge();
 

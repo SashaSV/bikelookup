@@ -9,27 +9,27 @@ namespace Grand.Services.Ads
     /// <summary>
     /// Return request service interface
     /// </summary>
-    public partial interface IReturnRequestService
+    public partial interface IReturnRequestServiceAd
     {
         /// <summary>
         /// Deletes a return request
         /// </summary>
         /// <param name="returnRequest">Return request</param>
-        Task DeleteReturnRequest(ReturnRequest returnRequest);
+        Task DeleteReturnRequest(ReturnRequestAd returnRequest);
 
         /// <summary>
         /// Gets a return request
         /// </summary>
         /// <param name="returnRequestId">Return request identifier</param>
         /// <returns>Return request</returns>
-        Task<ReturnRequest> GetReturnRequestById(string returnRequestId);
+        Task<ReturnRequestAd> GetReturnRequestById(string returnRequestId);
 
         /// <summary>
         /// Gets a return request
         /// </summary>
         /// <param name="id">Return request number</param>t
         /// <returns>Return request</returns>
-        Task<ReturnRequest> GetReturnRequestById(int id);
+        Task<ReturnRequestAd> GetReturnRequestById(int id);
 
         /// <summary>
         /// Search return requests
@@ -45,7 +45,7 @@ namespace Grand.Services.Ads
         /// <param name="pageIndex">Page index</param>
         /// <param name="pageSize">Page size</param>
         /// <returns>Return requests</returns>
-        Task<IPagedList<ReturnRequest>> SearchReturnRequests(string storeId = "", string customerId = "",
+        Task<IPagedList<ReturnRequestAd>> SearchReturnRequests(string storeId = "", string customerId = "",
             string orderItemId = "", string vendorId = "", string ownerId = "", ReturnRequestStatus? rs = null,
             int pageIndex = 0, int pageSize = int.MaxValue, DateTime? createdFromUtc = null, DateTime? createdToUtc = null);
 
@@ -78,7 +78,7 @@ namespace Grand.Services.Ads
         /// Inserts a return request
         /// </summary>
         /// <param name="returnRequest">Return request </param>
-        Task InsertReturnRequest(ReturnRequest returnRequest);
+        Task InsertReturnRequest(ReturnRequestAd returnRequest);
         /// <summary>
         /// Updates the  return request action
         /// </summary>
@@ -89,38 +89,38 @@ namespace Grand.Services.Ads
         /// Delete a return request reaspn
         /// </summary>
         /// <param name="returnRequestReason">Return request reason</param>
-        Task DeleteReturnRequestReason(ReturnRequestReason returnRequestReason);
+        Task DeleteReturnRequestReason(ReturnRequestReasonAd returnRequestReason);
 
         /// <summary>
         /// Gets all return request reaspns
         /// </summary>
         /// <returns>Return request reaspns</returns>
-        Task<IList<ReturnRequestReason>> GetAllReturnRequestReasons();
+        Task<IList<ReturnRequestReasonAd>> GetAllReturnRequestReasons();
 
         /// <summary>
         /// Gets a return request reaspn
         /// </summary>
         /// <param name="returnRequestReasonId">Return request reason identifier</param>
         /// <returns>Return request reaspn</returns>
-        Task<ReturnRequestReason> GetReturnRequestReasonById(string returnRequestReasonId);
+        Task<ReturnRequestReasonAd> GetReturnRequestReasonById(string returnRequestReasonId);
 
         /// <summary>
         /// Inserts a return request reaspn
         /// </summary>
         /// <param name="returnRequestReason">Return request reason</param>
-        Task InsertReturnRequestReason(ReturnRequestReason returnRequestReason);
+        Task InsertReturnRequestReason(ReturnRequestReasonAd returnRequestReason);
 
         /// <summary>
         /// Updates the return request reaspn
         /// </summary>
         /// <param name="returnRequestReason">Return request reason</param>
-        Task UpdateReturnRequestReason(ReturnRequestReason returnRequestReason);
+        Task UpdateReturnRequestReason(ReturnRequestReasonAd returnRequestReason);
 
         /// <summary>
         /// Update the return request
         /// </summary>
         /// <param name="returnRequest"></param>
-        Task UpdateReturnRequest(ReturnRequest returnRequest);
+        Task UpdateReturnRequest(ReturnRequestAd returnRequest);
 
         #region Return request notes
 
@@ -128,27 +128,27 @@ namespace Grand.Services.Ads
         /// Deletes a return request note
         /// </summary>
         /// <param name="returnRequestNote">The return request note</param>
-        Task DeleteReturnRequestNote(ReturnRequestNote returnRequestNote);
+        Task DeleteReturnRequestNote(ReturnRequestNoteAd returnRequestNote);
 
         /// <summary>
         /// Insert a return request note
         /// </summary>
         /// <param name="returnRequestNote">The return request note</param>
-        Task InsertReturnRequestNote(ReturnRequestNote returnRequestNote);
+        Task InsertReturnRequestNote(ReturnRequestNoteAd returnRequestNote);
 
         /// <summary>
         /// Get notes for return request
         /// </summary>
         /// <param name="returnRequestId">Return request identifier</param>
         /// <returns>ReturnRequestNote</returns>
-        Task<IList<ReturnRequestNote>> GetReturnRequestNotes(string returnRequestId);
+        Task<IList<ReturnRequestNoteAd>> GetReturnRequestNotes(string returnRequestId);
 
         /// <summary>
         /// Get return request note by id
         /// </summary>
         /// <param name="returnRequestNoteId">Return request note identifier</param>
         /// <returns>ReturnRequestNote</returns>
-        Task<ReturnRequestNote> GetReturnRequestNote(string returnRequestNoteId);
+        Task<ReturnRequestNoteAd> GetReturnRequestNote(string returnRequestNoteId);
 
         #endregion
     }

@@ -7,7 +7,7 @@ namespace Grand.Domain.Ads
     /// <summary>
     /// Represents a return request note
     /// </summary>
-    public partial class ReturnRequestNote : BaseEntity
+    public partial class ReturnRequestNoteAd : BaseEntity
     {
         /// <summary>
         /// Gets or sets the return request identifier

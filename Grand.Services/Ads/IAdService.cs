@@ -19,53 +19,53 @@ namespace Grand.Services.Ads
         /// <summary>
         /// Gets an Ads
         /// </summary>
-        /// <param name="AdsId">The Ads identifier</param>
+        /// <param name="AdId">The Ads identifier</param>
         /// <returns>Ads</returns>
-        Task<Ad> GetAdsById(string adsId);
+        Task<Ad> GetAdById(string adId);
 
         /// <summary>
         /// Gets an Ads
         /// </summary>
-        /// <param name="AdsItemId">The Ads item identifier</param>
+        /// <param name="AdItemId">The Ads item identifier</param>
         /// <returns>Ads</returns>
-        Task<Ad> GetAdsByAdsItemId(string AdsItemId);
+        Task<Ad> GetAdByAdItemId(string AdItemId);
 
         /// <summary>
         /// Gets an Ads
         /// </summary>
         /// <param name="AdsNumber">The Ads number</param>
         /// <returns>Ads</returns>
-        Task<Ad> GetAdsByNumber(int AdsNumber);
+        Task<Ad> GetAdByNumber(int AdsNumber);
 
         /// <summary>
         /// Gets Adss by code
         /// </summary>
         /// <param name="code">The Ads code</param>
         /// <returns>Ads</returns>
-        Task<IList<Ad>> GetAdssByCode(string code);
+        Task<IList<Ad>> GetAdsByCode(string code);
 
         /// <summary>
         /// Get Adss by identifiers
         /// </summary>
         /// <param name="AdsIds">Ads identifiers</param>
         /// <returns>Ads</returns>
-        Task<IList<Ad>> GetAdssByIds(string[] AdsIds);
+        Task<IList<Ad>> GetAdsByIds(string[] AdsIds);
 
         /// <summary>
         /// Gets an Ads
         /// </summary>
         /// <param name="AdsGuid">The Ads identifier</param>
         /// <returns>Ads</returns>
-        Task<Ad> GetAdsByGuid(Guid AdsGuid);
+        Task<Ad> GetAdByGuid(Guid AdsGuid);
 
         /// <summary>
         /// Deletes an Ads
         /// </summary>
         /// <param name="Ads">The Ads</param>
-        Task DeleteAds(Ad Ads);
+        Task DeleteAd(Ad Ads);
 
         /// <summary>
-        /// Search Adss
+        /// Search Ads
         /// </summary>
         /// <param name="storeId">Store identifier; null to load all Adss</param>
         /// <param name="vendorId">Vendor identifier; null to load all Adss</param>
@@ -88,20 +88,20 @@ namespace Grand.Services.Ads
         /// <param name="pageSize">Page size</param>
         /// <param name="AdsTagId">Ads tag identifier</param>
         /// <returns>Adss</returns>
-        Task<IPagedList<Ad>> SearchAdss(string storeId = "",
+        Task<IPagedList<Ad>> SearchAds(string storeId = "",
             string vendorId = "", string customerId = "",
             string productId = "", string affiliateId = "", string warehouseId = "",
             string billingCountryId = "", string ownerId = "", string paymentMethodSystemName = null,
             DateTime? createdFromUtc = null, DateTime? createdToUtc = null,
             AdStatus? os = null, PaymentStatus? ps = null, ShippingStatus? ss = null,
-            string billingEmail = null, string billingLastName = "", string AdsGuid = null,
-            string AdsCode = null, int pageIndex = 0, int pageSize = int.MaxValue, string AdsTagId = "");
+            string billingEmail = null, string billingLastName = "", string adGuid = null,
+            string adCode = null, int pageIndex = 0, int pageSize = int.MaxValue, string adTagId = "");
         
         /// <summary>
         /// Inserts an Ads
         /// </summary>
         /// <param name="Ad">Ads</param>
-        Task InsertAds(Ad Ad);
+        Task InsertAd(Ad Ad);
 
         /// <summary>
         /// Inserts an product also purchased
@@ -113,7 +113,7 @@ namespace Grand.Services.Ads
         /// Updates the Ads
         /// </summary>
         /// <param name="Ad">The Ads</param>
-        Task UpdateAds(Ad Ad);
+        Task UpdateAd(Ad Ad);
 
         /// <summary>
         /// Get an Ads by authorization transaction ID and payment method system name
@@ -121,7 +121,7 @@ namespace Grand.Services.Ads
         /// <param name="authorizationTransactionId">Authorization transaction ID</param>
         /// <param name="paymentMethodSystemName">Payment method system name</param>
         /// <returns>Ads</returns>
-        Task<Ad> GetAdsByAuthorizationTransactionIdAndPaymentMethod(string authorizationTransactionId, string paymentMethodSystemName);
+        Task<Ad> GetAdByAuthorizationTransactionIdAndPaymentMethod(string authorizationTransactionId, string paymentMethodSystemName);
 
         #endregion
 
@@ -148,13 +148,13 @@ namespace Grand.Services.Ads
         /// Deletes an Ads note
         /// </summary>
         /// <param name="AdsNote">The Ads note</param>
-        Task DeleteAdsNote(AdNote AdsNote);
+        Task DeleteAdNote(AdNote AdsNote);
 
         /// <summary>
         /// Insert an Ads note
         /// </summary>
         /// <param name="AdsNote">The Ads note</param>
-        Task InsertAdsNote(AdNote AdsNote);
+        Task InsertAdNote(AdNote AdsNote);
 
 
         /// <summary>
@@ -162,62 +162,62 @@ namespace Grand.Services.Ads
         /// </summary>
         /// <param name="AdsId">Ads identifier</param>
         /// <returns>AdsNote</returns>
-        Task<IList<AdNote>> GetAdsNotes(string AdsId);
+        Task<IList<AdNote>> GetAdNotes(string AdsId);
 
         /// <summary>
         /// Get Adsnote by id
         /// </summary>
         /// <param name="AdsnoteId">Ads note identifier</param>
         /// <returns>AdsNote</returns>
-        Task<AdNote> GetAdsNote(string AdsnoteId);
+        Task<AdNote> GetAdNote(string AdsnoteId);
 
 
         /// <summary>
         /// Cancel Expired UnPaid Adss
         /// </summary>
         /// <param name="expirationDateUTC">Date at which all unPaid  Adss and has pending status Would be Canceled</param>
-        Task CancelExpiredAdss(DateTime expirationDateUTC);
+        Task CancelExpiredAds(DateTime expirationDateUTC);
 
         #endregion
 
         #region Recurring payments
 
-        /// <summary>
-        /// Deletes a recurring payment
-        /// </summary>
-        /// <param name="recurringPayment">Recurring payment</param>
-        Task DeleteRecurringPayment(RecurringPayment recurringPayment);
+        ///// <summary>
+        ///// Deletes a recurring payment
+        ///// </summary>
+        ///// <param name="recurringPayment">Recurring payment</param>
+        //Task DeleteRecurringPayment(RecurringPayment recurringPayment);
 
-        /// <summary>
-        /// Gets a recurring payment
-        /// </summary>
-        /// <param name="recurringPaymentId">The recurring payment identifier</param>
-        /// <returns>Recurring payment</returns>
-        Task<RecurringPayment> GetRecurringPaymentById(string recurringPaymentId);
+        ///// <summary>
+        ///// Gets a recurring payment
+        ///// </summary>
+        ///// <param name="recurringPaymentId">The recurring payment identifier</param>
+        ///// <returns>Recurring payment</returns>
+        //Task<RecurringPayment> GetRecurringPaymentById(string recurringPaymentId);
 
-        /// <summary>
-        /// Inserts a recurring payment
-        /// </summary>
-        /// <param name="recurringPayment">Recurring payment</param>
-        Task InsertRecurringPayment(RecurringPayment recurringPayment);
+        ///// <summary>
+        ///// Inserts a recurring payment
+        ///// </summary>
+        ///// <param name="recurringPayment">Recurring payment</param>
+        //Task InsertRecurringPayment(RecurringPayment recurringPayment);
 
-        /// <summary>
-        /// Updates the recurring payment
-        /// </summary>
-        /// <param name="recurringPayment">Recurring payment</param>
-        Task UpdateRecurringPayment(RecurringPayment recurringPayment);
+        ///// <summary>
+        ///// Updates the recurring payment
+        ///// </summary>
+        ///// <param name="recurringPayment">Recurring payment</param>
+        //Task UpdateRecurringPayment(RecurringPayment recurringPayment);
 
-        /// <summary>
-        /// Search recurring payments
-        /// </summary>
-        /// <param name="storeId">The store identifier; "" to load all records</param>
-        /// <param name="customerId">The customer identifier; "" to load all records</param>
-        /// <param name="initialAdsId">The initial Ads identifier; "" to load all records</param>
-        /// <param name="initialAdsStatus">Initial Ads status identifier; null to load all records</param>
-        /// <param name="pageIndex">Page index</param>
-        /// <param name="pageSize">Page size</param>
-        /// <param name="showHidden">A value indicating whether to show hidden records</param>
-        /// <returns>Recurring payments</returns>
+        ///// <summary>
+        ///// Search recurring payments
+        ///// </summary>
+        ///// <param name="storeId">The store identifier; "" to load all records</param>
+        ///// <param name="customerId">The customer identifier; "" to load all records</param>
+        ///// <param name="initialAdsId">The initial Ads identifier; "" to load all records</param>
+        ///// <param name="initialAdsStatus">Initial Ads status identifier; null to load all records</param>
+        ///// <param name="pageIndex">Page index</param>
+        ///// <param name="pageSize">Page size</param>
+        ///// <param name="showHidden">A value indicating whether to show hidden records</param>
+        ///// <returns>Recurring payments</returns>
         Task<IPagedList<RecurringPayment>> SearchRecurringPayments(string storeId = "",
             string customerId = "", string initialAdsId = "", AdStatus? initialAdsStatus = null,
             int pageIndex = 0, int pageSize = int.MaxValue, bool showHidden = false);

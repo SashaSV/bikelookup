@@ -10,6 +10,7 @@ namespace Grand.Domain.Catalog
         public string ProductId { get; set; }
         public string ProductId2 { get; set; }
         public string OrderId { get; set; }
+        public string AdId { get; set; }
         public DateTime CreatedOrderOnUtc { get; set; }
         public int Quantity { get; set; }
         public string StoreId { get; set; }

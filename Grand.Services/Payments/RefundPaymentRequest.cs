@@ -1,4 +1,5 @@
-﻿using Grand.Domain.Orders;
+﻿using Grand.Domain.Ads;
+using Grand.Domain.Orders;
 
 namespace Grand.Services.Payments
 {
@@ -12,6 +13,7 @@ namespace Grand.Services.Payments
         /// </summary>
         public Order Order { get; set; }
 
+        public Ad Ad { get; set; }
         /// <summary>
         /// Gets or sets an amount
         /// </summary>
