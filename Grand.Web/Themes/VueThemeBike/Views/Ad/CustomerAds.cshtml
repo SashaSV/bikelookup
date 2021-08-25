@@ -14,3 +14,51 @@
     <h1 class="generalTitle h2">@T("Account.MyAds")</h1>
 
 </div>
+
+ @if (Model.Ads.Any())
+    {
+        <div class="account-order">
+            <div class="row">
+                @foreach (var order in Model.Ads)
+                {
+                    <div class="col-lg-4 col-md-6 col-12 mb-3">
+                        <div class="card">
+                            <h6 class="card-header">
+                                <strong>
+                                    <span>
+                                        @T("Account.CustomerOrders.OrderNumber"):
+                                    </span>
+                                    <span>
+                                        @order.AdNumber
+                                    </span>
+                                </strong>
+                            </h6>
+                            <div class="card-body small">
+                                <ul class="info mb-0">
+                                    <li><span>@T("Account.CustomerOrders.OrderStatus"):</span> <span class="order-status @order.AdStatusEnum.ToString().ToLowerInvariant()">@order.AdStatus</span></li>
+                                    <li><span class="order-date"><span>@T("Account.CustomerOrders.OrderDate"):</span> <span>@order.CreatedOn.ToString()</span></span></li>
+                                    <li><span>@T("Account.CustomerOrders.OrderTotal"):</span> <span class="order-total">@order.AdTotal</span></li>
+                                </ul>
+                            </div>
+                            <div class="card-footer">
+                                <div class="buttons">
+                                    <input type="button" value="@T("Account.CustomerOrders.OrderDetails")" class="btn btn-sm btn-info order-details-button" onclick="setLocation('@Url.RouteUrl("OrderDetails", new { orderId = order.Id })')" />
+
+                                    @if (order.IsReturnRequestAllowed)
+                                    {
+                                        <input type="button" value="@T("Account.CustomerOrders.ReturnItems")" class="btn btn-sm btn-warning text-white return-items-button" onclick="setLocation('@Url.RouteUrl("ReturnRequest", new { orderId = order.Id })')" />
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="no-data">
+            @T("Account.CustomerOrders.NoAds")
+        </div>
+    }
