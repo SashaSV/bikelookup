@@ -1,7 +1,7 @@
 ﻿@model ProductDetailsModel
 
 @{
-    var firstPicture = Model.PictureModels.First();
+    var firstPicture = Model.PictureModels.First(p=>p.Geometry);
 }
 
 <div class="geometry-image-block">
