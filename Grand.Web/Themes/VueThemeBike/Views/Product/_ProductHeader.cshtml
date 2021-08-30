@@ -1,4 +1,3 @@
-@using NPOI.SS.Formula.Functions
 @using ColorHelper
 @model ProductDetailsModel
 @{
@@ -18,33 +17,6 @@
         .Distinct()
         .OrderBy(p=>p).Select(d=>d.ToString	()).ToList	();
 }
-<script src="~/Themes/VueThemeBike/Content/script/chart.js/dist/chart.js"></script>  
-    <script>  
-    
-        var LineChartData =  
-            {  
-                labels:@Html.Raw(Json.Serialize(lables)),  
-                datasets: @Html.Raw(Json.Serialize(chartDatasets))
-            };  
-            /*debugger*/
-        
-            window.onload = function () {  
-                var ctx1 = document.getElementById("Linecanvas").getContext("2d");  
-                window.myBar = new Chart(ctx1,  
-                    {  
-                        type: 'line',  
-                        data: LineChartData,  
-                        options:  
-                            {  
-                                title:  
-                                {  
-                                    display: false,  
-                                    text: "ProductWise Sales Count"  
-                                }
-                            }  
-                    });  
-            }  
-    </script>  
 <b-container class="position-relative">
     <b-row class="mb-4">
         <b-col class="pl-0">

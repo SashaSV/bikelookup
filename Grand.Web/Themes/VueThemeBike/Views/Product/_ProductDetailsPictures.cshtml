@@ -153,6 +153,16 @@
                           },
                     });
                 </script>
+                @if (Model.OpenedPage == "pictures")
+                {
+                    <script>
+                    debugger
+                     window.onload = function () 
+                     {
+                        vm.onzoom(1)
+                     }
+                </script>
+                }
             }
         }
         else
