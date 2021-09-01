@@ -21,9 +21,7 @@
 
 <script>  
 debugger
-
-
-var LineChartData =  
+       var LineChartData =  
         {  
             labels:@Html.Raw(Json.Serialize(lables)),  
             datasets: @Html.Raw(Json.Serialize(chartDatasets))
@@ -31,6 +29,7 @@ var LineChartData =
        debugger
     
         window.onload = function () {  
+           debugger
             var ctx1 = document.getElementById("Linecanvas1").getContext("2d");  
             window.myBar = new Chart(ctx1,  
                 {  
@@ -47,8 +46,8 @@ var LineChartData =
                 });  
         }  
 debugger
-                                       
-                                    </script>  
+                                      
+</script>  
 
 <b-container class="position-relative">
     <b-row class="mb-4">
@@ -78,7 +77,7 @@ debugger
                   @T("Products.PriceDinamics")
               </div>
               <div>
-                   <canvas id="Linecanvas1"></canvas>
+                   <canvas id="Linecanvas"></canvas>
               </div>
           </b-row>
           @if (Model.AssociatedProducts.Any())
