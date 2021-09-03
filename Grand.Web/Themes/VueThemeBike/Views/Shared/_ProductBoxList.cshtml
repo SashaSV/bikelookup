@@ -384,7 +384,7 @@
                         <span>Фото</span>
                     </b-link>
                     <div class="btn-list-count">
-                        <span>(2)</span>
+                        <span>(@Model.PictureModels.Count)</span>
                     </div>
                 </div>
                 <div class="btn-list">
@@ -397,19 +397,19 @@
                 </div>
 
                 <div class="btn-list">
-                    <b-link class="btn-list-name">
+                    <b-link class="btn-list-name" href="@Url.RouteUrl("Product", new { SeName = Model.SeName})">
                         <span>Где купить</span>
                     </b-link>
                     <div class="btn-list-count">
-                        <span>(2)</span>
+                        <span>(@Model.AssociatedProducts.Count)</span>
                     </div>
                 </div>
                 <div class="btn-list">
-                    <b-link class="btn-list-name">
+                    <b-link class="btn-list-name" href="@Url.RouteUrl("Product", new { SeName = Model.SeName})">
                         <span>Акции</span>
                     </b-link>
                     <div class="btn-list-count">
-                        <span>(2)</span>
+                        <span>(@Model.AssociatedProducts.Where(a=>a.ProductPrice.PriceValue<a.ProductPrice.OldPriceValue).Count())</span>
                     </div>
                 </div>
                 <div class="btn-list">
@@ -417,7 +417,7 @@
                         <span>Отзывы</span>
                     </b-link>
                     <div class="btn-list-count">
-                        <span>(2)</span>
+                        <span>(@Model.ReviewOverviewModel.TotalReviews)</span>
                     </div>
                 </div>
                 <div class="btn-list">

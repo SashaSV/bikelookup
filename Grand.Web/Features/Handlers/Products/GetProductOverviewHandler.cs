@@ -539,9 +539,18 @@ namespace Grand.Web.Features.Handlers.Products
 
                 return pictureModel;
             };
-
-            //prepare picture model
-            result.Add(await PreparePictureModel(product.ProductPictures.OrderBy(x => x.DisplayOrder).FirstOrDefault()));
+            
+            if(product.ProductPictures.Any())
+            {
+               //prepare picture model
+               var picturesTasks = product.ProductPictures.Select(PreparePictureModel).ToList();
+                await Task.WhenAll(picturesTasks);
+                result.AddRange(picturesTasks.Select(t=>t.Result));
+            }
+            else
+            {
+                result.Add(await PreparePictureModel(new ProductPicture()));
+            }
 
             //prepare second picture model
             if (_catalogSettings.SecondPictureOnCatalogPages)
