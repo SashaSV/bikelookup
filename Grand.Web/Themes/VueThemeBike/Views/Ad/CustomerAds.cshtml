@@ -12,10 +12,7 @@
 }
 <div class="page account-page order-list-page pl-lg-3 pt-lg-0 pt-3">
     <h1 class="generalTitle h2">@T("Account.MyAds")</h1>
-
-</div>
-
- @if (Model.Ads.Any())
+    @if (Model.Ads.Any())
     {
         <div class="account-order">
             <div class="row">
@@ -58,7 +55,8 @@
     }
     else
     {
-        <div class="no-data">
+        <div class="no-data alert alert-info">
             @T("Account.CustomerOrders.NoAds")
         </div>
     }
+</div>
