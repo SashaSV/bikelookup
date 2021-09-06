@@ -1,8 +1,8 @@
 ﻿@model ProductDetailsModel
 
-@{
+@*@{
     var firstPicture = Model.PictureModels.First(p=>p.Geometry);
-}
+}*@
 
 <div class="geometry-image-block">
     @if (Model.PictureModels.Count == 0)
@@ -14,10 +14,11 @@
     }
     else
     {
-
+        @foreach (var firstPicture in Model.PictureModels.Where(p => p.Geometry).ToList()) {
         <img id="geometry-product-img-@Model.Id" class="image geometry-image"
              src="@firstPicture.FullSizeImageUrl"
              alt="@firstPicture.AlternateText"
              title="@firstPicture.Title" />
-    }
+            }
+        }
 </div>

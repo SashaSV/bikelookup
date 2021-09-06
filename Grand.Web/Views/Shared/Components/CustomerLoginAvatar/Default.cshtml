@@ -1,0 +1,12 @@
+﻿@model CustomerLoginAvatarModel
+
+@if (string.IsNullOrEmpty(Model.CustomerAvatarUrl))
+{
+    <b-icon icon="gear" variant="light" v-b-toggle.sidebar-right></b-icon>
+}
+else
+{
+    <b-link href="@Url.RouteUrl("CustomerProfile", new {id = Model.CustomerId})" class="avatar-img-link">
+        <b-img rounded src="@(Model.CustomerAvatarUrl)" class="avatar-img border" alt="avatar" />
+    </b-link>
+}

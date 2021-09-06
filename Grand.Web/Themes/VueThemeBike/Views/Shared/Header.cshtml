@@ -57,9 +57,9 @@
                         </b-sidebar>
                     </template>
                     @await Component.InvokeAsync("ShoppingCartLinks")
-                    <b-nav-item>
-                        <b-icon icon="gear" variant="light" v-b-toggle.sidebar-right></b-icon>
-                    </b-nav-item>
+                <b-nav-item>
+                    @await Component.InvokeAsync("CustomerLoginAvatar")
+                </b-nav-item>
                 </b-navbar-nav>
                 </b-container>
             </b-navbar>
