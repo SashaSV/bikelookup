@@ -57,14 +57,14 @@
                                                 </text>
                                             }
                                             { key: 'product', label: '@T("ShoppingCart.Product(s)")', class: 'text-center' },
-                                            { key: 'unit', label: '@T("ShoppingCart.UnitPrice")', sortable: true, class: 'text-center' },
-                                            { key: 'qty', label: '@T("ShoppingCart.Quantity")', sortable: true, class: 'text-center'  },
-                                            { key: 'total', label: '@T("ShoppingCart.ItemTotal")', sortable: true, class: 'text-center'  },
+                                            { key: 'unit', label: '@T("ShoppingCart.UnitPrice")', sortable: false, class: 'text-center' },
+                                            @*{ key: 'qty', label: '@T("ShoppingCart.Quantity")', sortable: true, class: 'text-center'  },*@
+                                            @*{ key: 'total', label: '@T("ShoppingCart.ItemTotal")', sortable: true, class: 'text-center'  },*@
                                             @if (Model.IsEditable || Model.DisplayAddToCart){
                                                 <text>
-                                                    { key: 'remove', label: '@T("Remove")' },
+                                                { key: 'remove', label: '@T("Remove")', class: 'text-center' },
                                                 </text>
-                                                @if (Model.DisplayAddToCart)
+                                                @if (Model.DisplayAddToCart && false)
                                                 {
                                                     <text>
                                                         { key: 'addtocart', label: '@T("addToCart")' },
@@ -107,7 +107,7 @@
                                                         </text>
                                                     }
                                                 },
-                                                qty: {
+                                                @*qty: {
                                                     @if (Model.IsEditable)
                                                     {
                                                         <text>
@@ -118,11 +118,11 @@
                                                         selector: '<input id="itemquantity@(item.Id)" name="itemquantity@(item.Id)" type="text" value="@(item.Quantity)" class="qty-input-ro form-control text-center" readonly />'
                                                         </text>
                                                     }
-                                                },
+                                                },*@
                                                 unit: {
                                                     unitprice: '<span class="product-unit-price price">@item.UnitPrice</span>'
                                                 },
-                                                total: {
+                                                @*total: {
                                                     @if (!String.IsNullOrEmpty(item.Discount)) {
                                                         <text>
                                                             subtotal: '<div class="d-flex flex-column"><p class="mb-0 prod-total">@item.SubTotal</p><div class="discount text-success text-center"><span>@T("ShoppingCart.ItemYouSave"): </span><span>@item.Discount</span></div>',
@@ -132,7 +132,7 @@
                                                             subtotal: '<p class="mb-0 prod-total">@item.SubTotal</p>'
                                                         </text>
                                                     }
-                                                },
+                                                },*@
                                                 @if (Model.IsEditable || Model.DisplayAddToCart)
                                                 {
                                                     @if (Model.IsEditable) {
@@ -142,7 +142,7 @@
                                                         },
                                                         </text>
                                                     }
-                                                    @if (Model.DisplayAddToCart)
+                                                    @if (Model.DisplayAddToCart && false)
                                                     {
                                                         <text>
                                                         addtocart: {
@@ -180,7 +180,7 @@
                             <span>@T("Wishlist.UpdateCart")</span>
                         </b-button>
                     }
-                    @if (Model.DisplayAddToCart)
+                    @if (Model.DisplayAddToCart && false)
                     {
                         <b-button type="submit" name="addtocartbutton" variant="info" class="wishlist-add-to-cart-button d-flex align-items-center ml-1">
                             <b-icon font-scale="2" icon="cart" class="pr-2"></b-icon>
