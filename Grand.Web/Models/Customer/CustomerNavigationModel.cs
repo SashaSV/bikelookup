@@ -46,6 +46,7 @@ namespace Grand.Web.Models.Customer
         Reviews = 140,
         Courses = 150,
         SubAccounts = 160,
-        Ads = 170
+        Ads = 170,
+        Messages = 180
     }
 }

@@ -304,8 +304,14 @@
     align-items: center;
     -ms-flex-pack: justify;
     justify-content: space-between;
-    padding: .25rem 0.25rem;
+    padding: 0rem 0rem;
 }
+
+.navbar-expand .navbar-nav .nav-link {
+    padding-right: .5rem;
+    padding-left: 1.1rem;
+}
+
 .header-menu {
     position: relative;
     /*will-change: transform;

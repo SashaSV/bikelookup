@@ -18,7 +18,7 @@
         <div class="product-review-list">
             @foreach (var review in Model.Reviews)
             {
-                int ratingStars = review.Rating;
+                int ratingStars = review.Rating; 
                 <b-card header-tag="header" footer-tag="footer" class="product-review-item mb-3">
                     <template v-slot:header>
                         <div class="review-info d-inline-flex w-100">

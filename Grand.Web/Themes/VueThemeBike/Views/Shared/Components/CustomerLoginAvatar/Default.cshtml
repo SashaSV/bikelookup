@@ -1,0 +1,31 @@
+﻿@model CustomerLoginAvatarModel
+
+@inject IWorkContext workContext
+@{
+    var supportRtl = workContext.WorkingLanguage.Rtl;
+}
+
+@*<template>
+    <b-sidebar id="sidebar-right" body-class="user-panel" title="@T("Account.MyAccount")" @if (supportRtl) { <text> left</text> } else { <text>right</text> } backdrop>
+        <div class="d-inline-flex flex-wrap mb-2">
+            @await Component.InvokeAsync("TaxTypeSelector")
+            @await Component.InvokeAsync("CurrencySelector")
+            @await Component.InvokeAsync("LanguageSelector")
+            @await Component.InvokeAsync("StoreSelector")
+            @await Component.InvokeAsync("Widget", new { widgetZone = "header_selectors" })
+        </div>
+        @await Component.InvokeAsync("HeaderLinks")
+    </b-sidebar>
+</template>*@
+
+@if (string.IsNullOrEmpty(Model.CustomerAvatarUrl))
+{
+    <b-icon icon="gear" variant="light" v-b-toggle.sidebar-right></b-icon>
+}
+else
+{
+    <b-avatar src="@(Model.CustomerAvatarUrl)" size="2.3rem" v-b-toggle.sidebar-right></b-avatar>
+    @*<b-link href="@Url.RouteUrl("CustomerProfile", new {id = Model.CustomerId})" class="avatar-img-link">
+            <b-img rounded src="@(Model.CustomerAvatarUrl)" class="avatar-img border" alt="avatar" />
+        </b-link>*@
+}
