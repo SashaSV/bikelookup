@@ -26,6 +26,9 @@
     outline: none;
     border-style: none !important;
 }
+.ad-addnew-button{
+    margin:0px 10px ;
+}
 
 .collapsed > .when-open{
     display: none;

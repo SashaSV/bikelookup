@@ -856,10 +856,26 @@ namespace Grand.Web.Infrastructure
                             pattern + "ad/history",
                             new { controller = "Ad", action = "CustomerAds" });
 
-            //orders
+            //ads
             routeBuilder.MapControllerRoute("AdDetails",
                             pattern + "addetails/{adId}",
                             new { controller = "Ad", action = "Details" });
+            //"addetails/cancel/{adId}
+            routeBuilder.MapControllerRoute("CancelAd",
+                pattern + "adcancel/{adId}",
+                new { controller = "Ad", action = "CancelAd" });
+            //addetails / delete /{ adId}
+            routeBuilder.MapControllerRoute("DeleteAd",
+                pattern + "addelete/{adId}",
+                new { controller = "Ad", action = "DeleteAd" });
+
+            routeBuilder.MapControllerRoute("MessagesAd",
+                pattern + "addetails/Messages/{adId}",
+                new { controller = "Ad", action = "MessagesAd" });
+
+            routeBuilder.MapControllerRoute("NewAd",
+                pattern + "ad/new",
+                new { controller = "Ad", action = "NewAd" });
         }
 
         private void RegisterBackInStockSubscriptionRoute(IEndpointRouteBuilder routeBuilder, string pattern)
