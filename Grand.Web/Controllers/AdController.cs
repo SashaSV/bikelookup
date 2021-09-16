@@ -76,6 +76,66 @@ namespace Grand.Web.Controllers
             return View(model);
         }
 
+        public virtual async Task<IActionResult> NewAd()
+        {
+            if (!_workContext.CurrentCustomer.IsRegistered())
+                return Challenge();
+
+            var model = await _mediator.Send(new GetNewAd() {
+                Customer = _workContext.CurrentCustomer,
+                Language = _workContext.WorkingLanguage,
+                Store = _storeContext.CurrentStore
+            });
+            return View(model);
+        }
+
+        //My account / Ad details page / Cancel Unpaid Ad
+        public virtual async Task<IActionResult> CancelAd(string AdId)
+        {
+            var Ad = await _adService.GetAdById(AdId);
+            if (!_workContext.CurrentCustomer.IsRegistered())
+                return Challenge();
+
+            await _mediator.Send(new CancelAdCommand() { Ad = Ad, NotifyCustomer = true, NotifyStoreOwner = true });
+
+            return RedirectToRoute("CancelAd", new { AdId = AdId });
+        }
+
+
+
+        //My account / Ad details page / Cancel Unpaid Ad
+        public virtual async Task<IActionResult> DeleteAd(string AdId)
+        {
+            var Ad = await _adService.GetAdById(AdId);
+            //if (!Ad.Access(_workContext.CurrentCustomer) || Ad.PaymentStatus != Domain.Payments.PaymentStatus.Pending
+            //    || (Ad.ShippingStatus != ShippingStatus.ShippingNotRequired && Ad.ShippingStatus != ShippingStatus.NotYetShipped)
+            //    || Ad.AdStatus != AdStatus.Pending
+            //    || !_adSettings.UserCanCancelUnpaidAd)
+            
+            if (!_workContext.CurrentCustomer.IsRegistered())
+                return Challenge();
+
+            await _mediator.Send(new CancelAdCommand() { Ad = Ad, NotifyCustomer = true, NotifyStoreOwner = true });
+
+            return RedirectToRoute("DeleteAd", new { AdId = AdId });
+        }
+
+        public virtual async Task<IActionResult> MessagesAd(string AdId)
+        {
+            var Ad = await _adService.GetAdById(AdId);
+            //if (!Ad.Access(_workContext.CurrentCustomer) || Ad.PaymentStatus != Domain.Payments.PaymentStatus.Pending
+            //    || (Ad.ShippingStatus != ShippingStatus.ShippingNotRequired && Ad.ShippingStatus != ShippingStatus.NotYetShipped)
+            //    || Ad.AdStatus != AdStatus.Pending
+            //    || !_adSettings.UserCanCancelUnpaidAd)
+
+            if (!_workContext.CurrentCustomer.IsRegistered())
+                return Challenge();
+
+            await _mediator.Send(new CancelAdCommand() { Ad = Ad, NotifyCustomer = true, NotifyStoreOwner = true });
+
+            return RedirectToRoute("MessagesAd", new { AdId = AdId });
+        }
+
         //My account / Ads / Cancel recurring Ad
         [HttpPost, ActionName("CustomerAds")]
         [AutoValidateAntiforgeryToken]
@@ -117,6 +177,19 @@ namespace Grand.Web.Controllers
             return RedirectToRoute("CustomerAds");
         }
 
+        //My account / Ad details page
+        public virtual async Task<IActionResult> Details(string AdId)
+        {
+            var ad = await _adService.GetAdById(AdId);
+            if (!ad.Access(_workContext.CurrentCustomer))
+                return Challenge();
+
+            var model = await _mediator.Send(new GetAdDetails() { Ad = ad, Language = _workContext.WorkingLanguage });
+
+            return View(model);
+        }
+
+
         //My account / Reward points
         public virtual async Task<IActionResult> CustomerRewardPoints([FromServices] RewardPointsSettings rewardPointsSettings)
         {
@@ -135,18 +208,6 @@ namespace Grand.Web.Controllers
             return Challenge();
         }
 
-        //My account / Ad details page
-        public virtual async Task<IActionResult> Details(string AdId)
-        {
-            var ad = await _adService.GetAdById(AdId);
-            if (!ad.Access(_workContext.CurrentCustomer))
-                return Challenge();
-
-            var model = await _mediator.Send(new GetAdDetails() { Ad = ad, Language = _workContext.WorkingLanguage });
-
-            return View(model);
-        }
-
         //My account / Ad details page / Print
         public virtual async Task<IActionResult> PrintAdDetails(string AdId)
         {
@@ -158,22 +219,6 @@ namespace Grand.Web.Controllers
             model.PrintMode = true;
 
             return View("Details", model);
-        }
-
-        //My account / Ad details page / Cancel Unpaid Ad
-        public virtual async Task<IActionResult> CancelAd(string AdId)
-        {
-            var Ad = await _adService.GetAdById(AdId);
-            if (!Ad.Access(_workContext.CurrentCustomer) || Ad.PaymentStatus != Domain.Payments.PaymentStatus.Pending
-                || (Ad.ShippingStatus != ShippingStatus.ShippingNotRequired && Ad.ShippingStatus != ShippingStatus.NotYetShipped)
-                || Ad.AdStatus != AdStatus.Pending
-                || !_adSettings.UserCanCancelUnpaidAd)
-
-                return Challenge();
-
-            await _mediator.Send(new CancelAdCommand() { Ad = Ad, NotifyCustomer = true, NotifyStoreOwner = true });
-
-            return RedirectToRoute("AdDetails", new { AdId = AdId });
         }
 
         //My account / Ad details page / PDF invoice
