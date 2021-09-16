@@ -95,48 +95,53 @@
                     <b-row>
                         <b-col cols="12" class="px-0 my-3">
                             <b-row>
+                                <div style="height: 350px; width: 100%"  >
+                                    <canvas id="Linecanvas"></canvas>
+                                </div>
+                            </b-row>
+                            <b-row>
                                 <b-tabs class="w-100" content-class="mt-3" align="left" lazy="true">
-                                    
+
                                     <b-tab title="@T("Products.Sellers")">
-                                        <partial name="_ProductHeader" model="Model" />
-                                        <partial name="_ProductVendorList" model="Model" />
+                                        <partial name="_ProductHeader" model="Model"/>
+                                        <partial name="_ProductVendorList" model="Model"/>
                                     </b-tab>
 
                                     <b-tab title="@T("Products.Specs")">
-                                        <partial name="_ProductProposals" model="Model" />
+                                        <partial name="_ProductProposals" model="Model"/>
                                         <div class="spec-group container">
-                                            <partial name="ProductDescBox" model="Model" />
+                                            <partial name="ProductDescBox" model="Model"/>
                                         </div>
                                     </b-tab>
-                                    
+
                                     <b-tab title="@T("Products.Geometry")">
-                                        <partial name="_ProductProposals" model="Model" />
-                                        <partial name="_ProductGeometryPictures" model="Model" />
+                                        <partial name="_ProductProposals" model="Model"/>
+                                        <partial name="_ProductGeometryPictures" model="Model"/>
                                     </b-tab>
                                     @*<b-tab title="@T("Products.ContactUs")">
                                         <partial name="_ProductProposals" model="Model"/>
                                         <partial name="_AskQuestionOnProduct" model="Model.ProductAskQuestion"/>
                                     </b-tab>*@
 
-                                    @if(Model.OpenedPage == "review")
-                                    { 
+                                    @if (Model.OpenedPage == "review")
+                                    {
                                         <b-tab id="review-tab" title="@T("Products.Reviews")" active>
                                             <partial name="_ProductProposals" model="Model"/>
-                                            @await Component.InvokeAsync("ProductReviews", new {productId = Model.Id})
+                                            @await Component.InvokeAsync("ProductReviews", new { productId = Model.Id })
                                         </b-tab>
-                                      
+
                                     }
                                     else
                                     {
                                         <b-tab id="review-tab" title="@T("Products.Reviews")">
                                             <partial name="_ProductProposals" model="Model"/>
-                                            @await Component.InvokeAsync("ProductReviews", new {productId = Model.Id})
+                                            @await Component.InvokeAsync("ProductReviews", new { productId = Model.Id })
                                         </b-tab>
                                     }
-                                   
+
                                 </b-tabs>
-                                
-                            </b-row>      
+
+                            </b-row>
                         </b-col>
                     </b-row>
              

@@ -30,13 +30,15 @@ debugger
     
         window.onload = function () {  
            debugger
-            var ctx1 = document.getElementById("Linecanvas1").getContext("2d");  
+            var ctx1 = document.getElementById("Linecanvas").getContext("2d");  
             window.myBar = new Chart(ctx1,  
                 {  
                     type: 'line',  
                     data: LineChartData,  
                     options:  
                         {  
+                            responsive: true,
+                            maintainAspectRatio: false,
                             title:  
                             {  
                                 display: false,  
@@ -75,9 +77,6 @@ debugger
           <b-row class="dinamics-price">
               <div class="dinamics-price-label">
                   @T("Products.PriceDinamics")
-              </div>
-              <div>
-                   <canvas id="Linecanvas"></canvas>
               </div>
           </b-row>
           @if (Model.AssociatedProducts.Any())
