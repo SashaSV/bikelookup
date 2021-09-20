@@ -124,7 +124,7 @@
                 
                     Vue.component('gallery-images', {
                           props: ['picturenum'],
-                          template: '<div><template><div><vue-gallery-slideshow :images="images" :index="this.picturenum" @@close="index = null"></vue-gallery-slideshow></div></template></div>',
+                          template: '<div><template><div><vue-gallery-slideshow :images="images" :index="this.picturenum" @@close=" debuggindex = null; this.picturenum=null; vm.pictureToZoom=0"></vue-gallery-slideshow></div></template></div>',
                           data() {
                               return {
                                     images: [
