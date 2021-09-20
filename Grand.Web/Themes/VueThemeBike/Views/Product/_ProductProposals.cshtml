@@ -30,7 +30,7 @@ debugger
     
         window.onload = function () {  
            debugger
-            var ctx1 = document.getElementById("Linecanvas").getContext("2d");  
+            var ctx1 = document.getElementById("Linecanvas2").getContext("2d");  
             window.myBar = new Chart(ctx1,  
                 {  
                     type: 'line',  
@@ -75,9 +75,15 @@ debugger
               </b-button-group>
           </b-row>
           <b-row class="dinamics-price">
-              <div class="dinamics-price-label">
-                  @T("Products.PriceDinamics")
-              </div>
+              <b-button v-b-modal.modal-1>@T("Products.PriceDinamics")</b-button>
+                             
+                 <b-modal id="modal-1" title="BootstrapVue" @@shown="resetModal">
+                       <b-row>
+                         <div style="height: 350px; width: 100%"  >
+                             <canvas id="Linecanvas2"></canvas>
+                         </div>
+                     </b-row>
+                 </b-modal>
           </b-row>
           @if (Model.AssociatedProducts.Any())
           {

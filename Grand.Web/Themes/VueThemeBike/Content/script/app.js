@@ -388,6 +388,27 @@ var vm = new Vue({
 
             this.$forceUpdate();
         },
+        resetModal: function ()
+        {
+            debugger
+            
+            var ctx1 = document.getElementById("Linecanvas2").getContext("2d");
+            window.myBar = new Chart(ctx1,
+                {
+                    type: 'line',
+                    data: LineChartData,
+                    options:
+                        {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            title:
+                                {
+                                    display: false,
+                                    text: "ProductWise Sales Count"
+                                }
+                        }
+                });
+        },
         opengalery: function (index, id)
         {
              debugger
