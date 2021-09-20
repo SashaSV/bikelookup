@@ -41,12 +41,15 @@
                 </b-button-group>
             </b-row>
             <b-row class="dinamics-price">
-                <div class="dinamics-price-label">
-                    @T("Products.PriceDinamics")
-                </div>
-                 <div>
-                     <canvas id="Linecanvas1"></canvas>
-                 </div>
+                <b-button v-b-modal.modal-1>@T("Products.PriceDinamics")</b-button>
+                
+                <b-modal id="modal-1" title="BootstrapVue" @@shown="resetModal">
+                      <b-row>
+                        <div style="height: 350px; width: 100%"  >
+                            <canvas id="Linecanvas2"></canvas>
+                        </div>
+                    </b-row>
+                </b-modal>
             </b-row>
             @if (Model.ProductSpecifications.Any())
             {
