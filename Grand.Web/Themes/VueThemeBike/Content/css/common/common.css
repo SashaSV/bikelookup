@@ -439,12 +439,13 @@ ul.Menu.-vertical {
 }
 .btn-secondary {
     background-color: #FFFFFF;
-    border-color: #FFFFFF;
+    /* border-color: #FFFFFF; */
+    border: 2px solid #F15A24 !important;
     color: black;
 }
 
 .btn-secondary:hover, .btn-secondary.focus, .btn-secondary:focus, .btn-secondary:not(:disabled):not(.disabled).active, .btn-secondary:not(:disabled):not(.disabled):active, .show>.btn-secondary.dropdown-toggle {
-    background-color: #333;
+    background-color: #F15A24;
     border-color: #333;
 }
 
@@ -1062,7 +1063,7 @@ input:checked ~ .color-container .color::before {
 } */
 .product-box .card-footer {
     position: relative;
-    bottom: 40px;
+    bottom: 45px;
     left: 0;
     right: 0;
     opacity: 0;
@@ -1490,9 +1491,9 @@ input:checked ~ .color-container .color::before {
     color: #fff;
 }
 .newsletter-email-button {
-    border: 2px solid #fff;
+    border: 2px solid #fff !important;
     background-color: transparent;
-    color: #fff;
+    color: #fff !important;
 }
 .newsletter-result, .newsletter-validation {
     position: relative;
