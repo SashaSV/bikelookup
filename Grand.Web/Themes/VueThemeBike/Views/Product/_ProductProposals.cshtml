@@ -6,50 +6,7 @@
     string addtowishlistlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = Model.Id, shoppingCartTypeId = (int)ShoppingCartType.Wishlist, quantity = 1});
     var shoppingCartTypeId = (int)ShoppingCartType.ShoppingCart;
     var addtocomparelink = Url.RouteUrl("AddProductToCompare", new { productId = Model.Id });
-    
-    var chartDatasets = Model.AssociatedProducts.Select((a)=>new
-    {
-        label = a.VendorModel.Name,
-        backgroundColor = ColorHelper.ColorGenerator.GetRandomColor<RGB>().ToString(),
-        data = a.TierPrices.Select(p=>p.PriceValue)
-    }).ToList();
-
-    var lables = Model.AssociatedProducts.SelectMany(a=>a.TierPrices.Select	(tp=>tp.DateStart))
-        .Distinct()
-        .OrderBy(p=>p).Select(d=>d.ToString	()).ToList	();
 }
-
-<script>  
-debugger
-       var LineChartData =  
-        {  
-            labels:@Html.Raw(Json.Serialize(lables)),  
-            datasets: @Html.Raw(Json.Serialize(chartDatasets))
-        };  
-       debugger
-    
-        window.onload = function () {  
-           debugger
-            var ctx1 = document.getElementById("Linecanvas2").getContext("2d");  
-            window.myBar = new Chart(ctx1,  
-                {  
-                    type: 'line',  
-                    data: LineChartData,  
-                    options:  
-                        {  
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            title:  
-                            {  
-                                display: false,  
-                                text: "ProductWise Sales Count"  
-                            }
-                        }  
-                });  
-        }  
-debugger
-                                      
-</script>  
 
 <b-container class="position-relative">
     <b-row class="mb-4">
@@ -77,9 +34,9 @@ debugger
           <b-row class="dinamics-price">
               <b-button v-b-modal.modal-1>@T("Products.PriceDinamics")</b-button>
                              
-                 <b-modal id="modal-1" title="BootstrapVue" @@shown="resetModal">
+                 <b-modal id="modal-1" title="@T("Products.PriceDinamics")" @@shown="resetModal" ok-disabled=true cancel-disabled=true>
                        <b-row>
-                         <div style="height: 350px; width: 100%"  >
+                         <div style="height: 550px; width: 100%"  >
                              <canvas id="Linecanvas2"></canvas>
                          </div>
                      </b-row>

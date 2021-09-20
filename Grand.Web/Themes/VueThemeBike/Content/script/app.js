@@ -390,7 +390,7 @@ var vm = new Vue({
         },
         resetModal: function ()
         {
-            debugger
+       
             
             var ctx1 = document.getElementById("Linecanvas2").getContext("2d");
             window.myBar = new Chart(ctx1,
