@@ -439,13 +439,14 @@ ul.Menu.-vertical {
 }
 .btn-secondary {
     background-color: #FFFFFF;
-    /* border-color: #FFFFFF; */
-    border: 2px solid #F15A24 !important;
+    border-color: #FFFFFF; 
+    /* border: 2px solid #F15A24 !important; */
     color: black;
 }
 
 .btn-secondary:hover, .btn-secondary.focus, .btn-secondary:focus, .btn-secondary:not(:disabled):not(.disabled).active, .btn-secondary:not(:disabled):not(.disabled):active, .show>.btn-secondary.dropdown-toggle {
-    background-color: #F15A24;
+    /* background-color: #F15A24; */
+    background-color: #333;
     border-color: #333;
 }
 

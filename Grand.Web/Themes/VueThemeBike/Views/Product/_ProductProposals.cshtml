@@ -20,16 +20,16 @@
 }
 
 <script>  
-debugger
+/*debugger*/
        var LineChartData =  
         {  
             labels:@Html.Raw(Json.Serialize(lables)),  
             datasets: @Html.Raw(Json.Serialize(chartDatasets))
         };  
-       debugger
+/*       debugger*/
     
         window.onload = function () {  
-           debugger
+/*           debugger*/
             var ctx1 = document.getElementById("Linecanvas2").getContext("2d");  
             window.myBar = new Chart(ctx1,  
                 {  
@@ -47,7 +47,7 @@ debugger
                         }  
                 });  
         }  
-debugger
+/*debugger*/
                                       
 </script>  
 
