@@ -12,10 +12,11 @@
 }
 <div class="page account-page order-list-page pl-lg-3 pt-lg-0 pt-3">
     <h1 class="generalTitle h2">@T("Account.MyAds")</h1>
+    <input type="button" value="@T("Account.CustomerAds.AddNewAd")" class="btn btn-sm btn-info ad-addnew-button" onclick="location = ('@Url.RouteUrl("NewAd")')" />
+        
     @if (Model.Ads.Any())
     {
 <div class="account-order">
-    <input type="button" value="@T("Account.CustomerAds.AddNewAd")" class="btn btn-sm btn-info ad-addnew-button" onclick="location = ('@Url.RouteUrl("NewAd")')" />
     
     <div class="product-review-list">
         @foreach (var ad in Model.Ads)
