@@ -4,18 +4,27 @@
 @using Grand.Web.Models.Customer;
 @using Grand.Core;
 @{
+    
     Layout = "_ColumnsTwo";
 
     //title
     pagebuilder.AddTitleParts(T("PageTitle.Account").Text);
-}
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/admin.search.js", excludeFromBundle: true);
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/jquery-ui-1.12.1.custom/jquery-ui.min.js", excludeFromBundle: true);
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/jquery.validate.unobtrusive.min.js", excludeFromBundle: true);
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/jquery.validate.min.js", excludeFromBundle: true);
+    
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/typeahead.js", excludeFromBundle: true);
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/administration/build/js/jquery.min.js", excludeFromBundle: true);
+    
+
+}   
 @section left
 {
     @await Component.InvokeAsync("CustomerNavigation", new { selectedTabId = CustomerNavigationEnum.Info })
 }
 
-@if (Model.CountryEnabled && Model.StateProvinceEnabled)
-{
+@Html.AntiForgeryToken()
 @*<script asp-location="Footer">
             document.getElementById("@Html.IdFor(model => model.CountryId)").addEventListener('change',function () {
                 var selectedItem = this.value;
@@ -539,6 +548,19 @@
             <input type="submit" value="@T("Common.Save")" name="save-info-button" class="btn btn-secondary save-customer-info-button" />
         </div>
     </form>*@
+</div>
+
+
+<div class="admin-search-input-container">
+    <input id="searchInput" type="text" class="form-control" placeholder="@T("Admin.AdminSearch.Placeholder")">
+    <script>
+   
+   
+         $(document).ready(function () {
+            Admin.Search.init("/Admin/Search");
+          });
+    
+    </script>
 </div>
 
 <script asp-location="Footer">
