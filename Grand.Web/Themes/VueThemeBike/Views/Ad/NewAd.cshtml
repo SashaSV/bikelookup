@@ -1,4 +1,4 @@
-﻿@*@model CustomerAdModel*@
+﻿@model NewAdModel
 @inject Grand.Domain.Customers.CustomerSettings customerSettings
 @inject IPageHeadBuilder pagebuilder
 @using Grand.Web.Models.Customer;
@@ -8,6 +8,15 @@
 
     //title
     pagebuilder.AddTitleParts(T("PageTitle.Account").Text);
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/admin.search.js", excludeFromBundle: true);
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/jquery-ui-1.12.1.custom/jquery-ui.min.js", excludeFromBundle: true);
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/jquery.validate.unobtrusive.min.js", excludeFromBundle: true);
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/jquery.validate.min.js", excludeFromBundle: true);
+    
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/typeahead.js", excludeFromBundle: true);
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/administration/build/js/jquery.min.js", excludeFromBundle: true);
+
+
 }
 @section left
 {
@@ -46,6 +55,17 @@
                         <legend class="sr-only">@T("Ad.Fields.SearchBike")</legend>
                         <label asp-for="SearchBike" class="col-form-label">@T("Ad.Fields.SearchBike"):</label>
                         <input type="search" asp-for="SearchBike" class="form-control" />
+                        <div class="admin-search-input-container">
+                            <input id="searchInput" type="text" class="form-control" placeholder="@T("Admin.AdminSearch.Placeholder")">
+                            <script>
+                           
+                           
+                                 $(document).ready(function () {
+                                    Admin.Search.init("/Admin/Search");
+                                  });
+                            
+                            </script>
+                        </div>
                     </fieldset>
                 </div>
                     <div class="form-row">
@@ -190,19 +210,6 @@
             <input type="submit" value="@T("Common.Save")" name="save-ad-button" class="btn btn-secondary save-ad-button" />
         </div>
     </form>
-</div>
-
-
-<div class="admin-search-input-container">
-    <input id="searchInput" type="text" class="form-control" placeholder="@T("Admin.AdminSearch.Placeholder")">
-    <script>
-   
-   
-         $(document).ready(function () {
-            Admin.Search.init("/Admin/Search");
-          });
-    
-    </script>
 </div>
 
 @*@if (customerSettings.AllowUsersToExportData || true)
