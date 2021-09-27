@@ -29,7 +29,7 @@
                                                                         {<text>inactive</text>}"><b-icon icon="file-earmark-richtext"></b-icon> <span>@T("Account.CustomerAddresses")</span></a>
                                                                     </li>
                                                                 }
-        @if (!Model.HideOrders && true)
+        @*@if (!Model.HideOrders && true)
         {
             <li class="customer-orders">
                 <a href="@Url.RouteUrl("CustomerOrders")" class="@if (Model.SelectedTab == CustomerNavigationEnum.Orders)
@@ -37,7 +37,7 @@
                                                                         else
                                                                         {<text>inactive</text>}"><b-icon icon="cart-check"></b-icon> <span>@T("Account.CustomerOrders")</span></a>
                                                                     </li>
-                                                                }
+                                                                }*@
         @if (!Model.HideAds)
         {
             <li class="customer-ads">

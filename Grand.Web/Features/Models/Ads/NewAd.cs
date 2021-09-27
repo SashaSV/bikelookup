@@ -8,7 +8,7 @@ using MediatR;
 
 namespace Grand.Web.Features.Models.Ads
 {
-    public class GetNewAd : IRequest<AdDetailsModel>
+    public class NewAd : IRequest<NewAdModel>
     {
         public Ad Ad { get; set; }
         public Customer Customer { get; set; }

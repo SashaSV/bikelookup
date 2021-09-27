@@ -81,7 +81,7 @@ namespace Grand.Web.Controllers
             if (!_workContext.CurrentCustomer.IsRegistered())
                 return Challenge();
 
-            var model = await _mediator.Send(new GetNewAd() {
+            var model = await _mediator.Send(new NewAd() {
                 Customer = _workContext.CurrentCustomer,
                 Language = _workContext.WorkingLanguage,
                 Store = _storeContext.CurrentStore

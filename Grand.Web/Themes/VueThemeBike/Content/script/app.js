@@ -382,7 +382,7 @@ var vm = new Vue({
         
         onzoom: function (index)
         {
-            debugger
+            //debugger
             this.pictureToZoom = 0;
             this.pictureToZoom = index
 
@@ -411,7 +411,7 @@ var vm = new Vue({
         },
         opengalery: function (index, id)
         {
-             debugger
+            //debugger
             this.pictureToZoom = 0;
             this.pictureToZoom = index;
             this.prodToZoom = id;
@@ -440,7 +440,7 @@ var vm = new Vue({
         },
         setslide :function(index)
         {
-            debugger
+            //debugger
             this.$refs.bigimgcarousel.setSlide(index)
         },
         applyPriceFilter()

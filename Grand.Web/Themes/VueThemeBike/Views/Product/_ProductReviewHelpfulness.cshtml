@@ -18,7 +18,7 @@
                     params: { "productReviewId": '@(Model.ProductReviewId)', "productId": '@(Model.ProductId)' ,"washelpful": wasHelpful }
                 })
                 .then(function (response) {
-                    debugger
+                    //debugger
                     document.getElementById("helpfulness-vote-yes-@(Model.ProductReviewId)").innerHTML = response.data.TotalYes
                     document.getElementById("helpfulness-vote-no-@(Model.ProductReviewId)").innerHTML = response.data.TotalNo;
                     new Vue({
