@@ -76,6 +76,7 @@ namespace Grand.Web.Controllers
             return View(model);
         }
 
+
         public virtual async Task<IActionResult> NewAd()
         {
             if (!_workContext.CurrentCustomer.IsRegistered())
@@ -87,6 +88,13 @@ namespace Grand.Web.Controllers
                 Store = _storeContext.CurrentStore
             });
             return View(model);
+        }
+        
+        [HttpPost]
+        public virtual async Task<IActionResult> NewAd(NewAdModel model)
+        {
+
+            return View();
         }
 
         //My account / Ad details page / Cancel Unpaid Ad
