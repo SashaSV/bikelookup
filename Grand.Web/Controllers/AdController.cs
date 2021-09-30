@@ -91,10 +91,10 @@ namespace Grand.Web.Controllers
         }
         
         [HttpPost]
-        public virtual async Task<IActionResult> NewAd(NewAdModel model)
+        public virtual async Task<IActionResult> NewAd([FromForm]NewAdModel newAdModel)
         {
 
-            return View();
+            return RedirectToRoute("CustomerAds");
         }
 
         //My account / Ad details page / Cancel Unpaid Ad
