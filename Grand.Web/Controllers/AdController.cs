@@ -93,7 +93,13 @@ namespace Grand.Web.Controllers
         [HttpPost]
         public virtual async Task<IActionResult> NewAd([FromForm]NewAdModel newAdModel)
         {
-
+            var saved = await _mediator.Send(new SaveAd()
+            {
+                AdToSave = newAdModel,
+                Customer  = _workContext.CurrentCustomer,
+                Store =  _storeContext.CurrentStore
+            });
+            
             return RedirectToRoute("CustomerAds");
         }
 
