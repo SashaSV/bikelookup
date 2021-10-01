@@ -4131,6 +4131,12 @@
   <LocaleResource Name="Admin.Catalog.Products.List.SearchProductType.Hint">
     <Value>Search by a product type.</Value>
   </LocaleResource>
+    <LocaleResource Name="Ad.Fields.ShippingMethodType">
+	    <Value>Shipping method type</Value>
+    </LocaleResource>
+    <LocaleResource Name="Ad.Fields.ShippingMethodType.Hint">
+	    <Value>Search by a shipping method type.</Value>
+    </LocaleResource>
   <LocaleResource Name="Admin.Catalog.Products.List.SearchPublished">
     <Value>Published</Value>
   </LocaleResource>

@@ -1,4 +1,4 @@
-﻿@model NewAdModel
+﻿@model DeleteAdModel
 @inject Grand.Domain.Customers.CustomerSettings customerSettings
 @inject IPageHeadBuilder pagebuilder
 @using Grand.Web.Models.Customer;
@@ -26,25 +26,19 @@
 @Html.AntiForgeryToken()
 
 <div class="page account-page customer-info-page pl-lg-3 pt-3 pt-lg-0">
-    <h2 class="generalTitle">@T("Ads.AddNewAd")</h2>
+    <h2 class="generalTitle">@T("Ads.DeleteAd")</h2>
     <form asp-route="NewAd" method="post" v-on:submit.prevent="validateBeforeSubmit($event)">
-        <div asp-validation-summary="ModelOnly" class="message-error"></div>
         <div class="generalMarginSupporter">
-            <input type="submit" value="@T(" Common.Save")" name="save-ad-button" class="btn btn-secondary save-ad-button" />
+            <input type="submit" value="@T("Common.Delete")" name="delete-ad-button" class="btn btn-secondary delete-ad-button" />
         </div>
+        <div asp-validation-summary="ModelOnly" class="message-error"></div>
         <div class="card mb-3">
             <h3 class="card-header">@T("Ads.Photos")</h3>
             <div class="card-body">
                 <div class="form-fields">
                     <div class="fieldset">
-                        @*@if (!String.IsNullOrEmpty(Model.AvatarUrl))
-                        {
-                        <b-avatar src="@(Model.AvatarUrl)" size="6rem"></b-avatar>
-                        }*@
-                        <label class="btn btn-info" for="my-file-selector">
-                            <input id="my-file-selector" name="uploadedFile" type="file" accept="image/*">
-                        </label>
-                        <span class='label label-info' id="upload-file-info"></span>
+
+                        
                     </div>
                 </div>
             </div>
@@ -53,24 +47,6 @@
         <div class="card mb-3">
             <h3 class="card-header">@T("Ads.BaseInformation")</h3>
             <div class="card-body">
-                <div class="form-fields">
-                    <fieldset class="form-group search-bike">
-                        <legend class="sr-only">@T("Ad.Fields.SearchBike")</legend>
-                        <label asp-for="SearchBike" class="col-form-label">@T("Ad.Fields.SearchBike"):</label>
-                        <input type="search" asp-for="SearchBike" class="form-control" />
-                        <div class="admin-search-input-container">
-                            <input id="searchInput" type="text" class="form-control" placeholder="@T(" Admin.AdminSearch.Placeholder")">
-                            <script>
-
-
-                                 $(document).ready(function () {
-                                    Admin.Search.init("/Admin/Search");
-                                  });
-
-                            </script>
-                        </div>
-                    </fieldset>
-                </div>
                 <div class="form-row">
                     <fieldset class="form-group col-sm-6 col-12">
                         <legend class="sr-only">@T("Ad.Fields.ManufactureName")</legend>
@@ -150,15 +126,6 @@
                     <label class="col-form-label">
                         @T("Ad.Fields.isAuction"):
                     </label>
-
-                    <label class="mt-checkbox mt-checkbox-outline control control-checkbox">
-                        <input-form asp-for="IsAuction" />
-                        <div class="control__indicator"></div>
-                    </label>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked="@(Model.IsAuction == true)">
-                        <label class="form-check-label" for="flexSwitchCheckDefault">@T("Ad.Fields.Auction.True")</label>
-                    </div>
                     <div class="form-group doc">
                         <div class="flex-row">
                             <div class="custom-control custom-radio male custom-control-inline">
@@ -181,13 +148,6 @@
                         <div class="form-body">
                             <div class="form-group">
                                 <label-ext asp-for="ShippingMethodId" />
-                                <script asp-location="Footer">
-                                    $('[data-toggle="tooltip"]').tooltip({
-                                        animated: 'fade',
-                                        placement: 'right',
-                                        html: true
-                                    });
-                                </script>
                                 <div class="col-md-84 col-sm-86">
                                     <select-box asp-for="ShippingMethodId" asp-items="Model.ShippingMethodType" />
                                 </div>
@@ -235,83 +195,7 @@
             </div>
         </div>
         <div class="generalMarginSupporter">
-            <input type="submit" value="@T(" Common.Save")" name="save-ad-button" class="btn btn-secondary save-ad-button" />
+            <input type="submit" value="@T("Common.Delete")" name="delete-ad-button" class="btn btn-secondary delete-ad-button" />
         </div>
     </form>
 </div>
-
-@*@if (customerSettings.AllowUsersToExportData || true)
-    {
-        <b-button variant="info" class="float-sm-right mt-2" onclick="location.href='/customer/export'">
-            <b-icon icon="server"></b-icon> @T("Account.CustomerExportToXls")
-        </b-button>
-    }*@
-
-@*<script asp-location="Footer">
-        function removeexternalassociation(itemId) {
-            if (confirm('@T("Common.AreYouSure")')) {
-                var bodyFormData = new FormData();
-                bodyFormData.append('Id', itemId);
-                bodyFormData.append('__RequestVerificationToken', document.querySelector('input[name=__RequestVerificationToken]').value);
-                axios({
-                    method: 'POST',
-                    url: '@Url.Action("RemoveExternalAssociation", "Customer")',
-                    data: bodyFormData,
-                }).then(function (response) {
-                    location = response.data.redirect;
-                }).catch(function (error) {
-                    alert(error);
-                })
-            }
-            return false;
-        }
-    </script>*@
-
-@*@if (Model.CountryEnabled && Model.StateProvinceEnabled)
-    {*@
-@*<script asp-location="Footer">
-                document.getElementById("@Html.IdFor(model => model.CountryId)").addEventListener('change',function () {
-                    var selectedItem = this.value;
-                    var ddlStates = document.getElementById("@Html.IdFor(model => model.StateProvinceId)");
-                    var statesProgress = document.getElementById("states-loading-progress");
-                    statesProgress.style.display = "block";
-                    axios({
-                        method: 'get',
-                        url: '@(Url.RouteUrl("GetStatesByCountryId"))',
-                        params: { "countryId": selectedItem, "addSelectStateItem": "true" },
-                    }).then(function (response) {
-                        ddlStates.innerHTML = "";
-                        response.data.forEach(function (id, option) {
-                            elChild = document.createElement('option');
-                            elChild.setAttribute('value', id.id);
-                            elChild.innerHTML = id.name;
-                            ddlStates.appendChild(elChild);
-                        });
-                        statesProgress.style.display = "none";
-                    }).catch(function (error) {
-                        alert(error);
-                        statesProgress.style.display = "none";
-                    })
-                });
-    </script>*@
-@*}*@
-@*<script asp-location="Footer">
-
-            toggleNewsletterCat();
-
-            function toggleNewsletterCat() {
-                var element = document.getElementById('@Html.FieldIdFor(model => model.Newsletter)');
-                if (element) {
-                    if (document.getElementById('@Html.FieldIdFor(model => model.Newsletter)').checked) {
-                        if (document.querySelector('.register-category-newsletter')) {
-                            document.querySelector('.register-category-newsletter').style.display = "block";
-                        }
-                    }
-                    else {
-                        if (document.querySelector('.register-category-newsletter')) {
-                            document.querySelector('.register-category-newsletter').style.display = "none";
-                        }
-                    }
-                }
-            }
-    </script>*@

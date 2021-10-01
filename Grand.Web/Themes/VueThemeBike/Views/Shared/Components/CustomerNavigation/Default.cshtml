@@ -6,6 +6,7 @@
 @{ 
     var supportRtl = workContext.WorkingLanguage.Rtl;
     var themeName = themeContext.WorkingThemeName;
+    var kendoVersion = "2019.2.514";
 
     if (supportRtl)
     {
@@ -14,6 +15,17 @@
     else
     {
         pagebuilder.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/css/customer/customer.css", themeName));
+        pagebuilder.AppendCssFileParts(ResourceLocation.Head, string.Format("~/content/kendo/{0}/kendo.common-material.min.css", kendoVersion), excludeFromBundle: true);
+        pagebuilder.AppendCssFileParts(ResourceLocation.Head, $"~/content/kendo/{kendoVersion}/kendo.material.min.css", excludeFromBundle: true);
+        pagebuilder.AppendCssFileParts(ResourceLocation.Head, $"~/content/kendo/{kendoVersion}/kendo.material.mobile.min.css", excludeFromBundle: true);
+        pagebuilder.AppendCssFileParts(ResourceLocation.Head, "~/administration/simple-line-icons/simple-line-icons.min.css", excludeFromBundle: true);
+
+        //js
+        //available list of culture https://github.com/telerik/kendo-ui-core/tree/master/src/cultures
+        pagebuilder.AppendScriptParts(ResourceLocation.Head, string.Format("~/scripts/kendo/{0}/cultures/kendo.culture.{1}.min.js", kendoVersion, "en-US"), excludeFromBundle: true);
+        pagebuilder.AppendScriptParts(ResourceLocation.Head, string.Format("~/scripts/kendo/{0}/kendo.grid.js", kendoVersion), excludeFromBundle: true);
+        pagebuilder.AppendScriptParts(ResourceLocation.Head, string.Format("~/scripts/kendo/{0}/kendo.ui.core.min.js", kendoVersion), excludeFromBundle: true);
+        pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/administration/build/js/jquery.min.js", excludeFromBundle: true);
     }
 }
 <div id="block-account-navigation" class="block block-account-navigation mt-2">

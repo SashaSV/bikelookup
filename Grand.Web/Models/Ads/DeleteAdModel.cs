@@ -8,9 +8,9 @@ using System.Collections.Generic;
 
 namespace Grand.Web.Models.Ads
 {
-    public partial class NewAdModel : BaseEntityModel
+    public partial class DeleteAdModel : BaseEntityModel
     {
-        public NewAdModel()
+        public DeleteAdModel()
         {
             Items = new List<AdItemModel>();
             Shipments = new List<ShipmentBriefModel>();

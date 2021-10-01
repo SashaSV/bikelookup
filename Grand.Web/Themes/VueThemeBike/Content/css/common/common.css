@@ -1691,7 +1691,8 @@ footer .list-group-item span:last-child {
     user-select: none;
     background-color: transparent;
     /*border: 2px solid #F15A24;*/
-    border: 1px solid transparent;
+    /* border: 1px solid transparent; */
+    border: 1px solid #212529;
     padding: .1rem 0.25rem;
     font-size: 1rem;
     line-height: 1.5;

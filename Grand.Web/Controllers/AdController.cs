@@ -103,6 +103,18 @@ namespace Grand.Web.Controllers
             return RedirectToRoute("CustomerAds");
         }
 
+        public virtual async Task<IActionResult> EditAd(string AdId)
+        {
+            if (!_workContext.CurrentCustomer.IsRegistered())
+                return Challenge();
+            
+            var Ad = await _adService.GetAdById(AdId);
+
+            var model = await _mediator.Send(new EditAd() { Ad = Ad, Language = _workContext.WorkingLanguage });
+
+            return View(model);
+        }
+
         //My account / Ad details page / Cancel Unpaid Ad
         public virtual async Task<IActionResult> CancelAd(string AdId)
         {
@@ -129,11 +141,33 @@ namespace Grand.Web.Controllers
             if (!_workContext.CurrentCustomer.IsRegistered())
                 return Challenge();
 
-            await _mediator.Send(new CancelAdCommand() { Ad = Ad, NotifyCustomer = true, NotifyStoreOwner = true });
+            var model = await _mediator.Send(new DeleteAd() { Ad = Ad, Language = _workContext.WorkingLanguage });
 
-            return RedirectToRoute("DeleteAd", new { AdId = AdId });
+            return View(model);
+        }
+        //My account / Ad details page
+        public virtual async Task<IActionResult> Details(string AdId)
+        {
+            var ad = await _adService.GetAdById(AdId);
+            if (!ad.Access(_workContext.CurrentCustomer))
+                return Challenge();
+
+            var model = await _mediator.Send(new GetAdDetails() { Ad = ad, Language = _workContext.WorkingLanguage });
+
+            return View(model);
         }
 
+        public virtual async Task<IActionResult> ViewAd(string AdId)
+        {
+            var ad = await _adService.GetAdById(AdId);
+            if (!ad.Access(_workContext.CurrentCustomer))
+                return Challenge();
+
+            var model = await _mediator.Send(new ViewAd() { Ad = ad, Language = _workContext.WorkingLanguage });
+
+            return View(model);
+        }
+        
         public virtual async Task<IActionResult> MessagesAd(string AdId)
         {
             var Ad = await _adService.GetAdById(AdId);
@@ -191,17 +225,7 @@ namespace Grand.Web.Controllers
             return RedirectToRoute("CustomerAds");
         }
 
-        //My account / Ad details page
-        public virtual async Task<IActionResult> Details(string AdId)
-        {
-            var ad = await _adService.GetAdById(AdId);
-            if (!ad.Access(_workContext.CurrentCustomer))
-                return Challenge();
 
-            var model = await _mediator.Send(new GetAdDetails() { Ad = ad, Language = _workContext.WorkingLanguage });
-
-            return View(model);
-        }
 
 
         //My account / Reward points
