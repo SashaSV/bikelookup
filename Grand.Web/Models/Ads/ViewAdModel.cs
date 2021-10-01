@@ -1,32 +1,46 @@
-﻿using Grand.Core.ModelBinding;
-using Grand.Core.Models;
+﻿using Grand.Core.Models;
 using Grand.Web.Models.Common;
 using Grand.Web.Models.Media;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 
 namespace Grand.Web.Models.Ads
 {
-    public partial class NewAdModel : BaseEntityModel
+    public partial class ViewAdModel : BaseEntityModel
     {
-        public NewAdModel()
+        public ViewAdModel()
         {
+            TaxRates = new List<TaxRate>();
+            GiftCards = new List<GiftCard>();
             Items = new List<AdItemModel>();
+            AdNotes = new List<AdNote>();
             Shipments = new List<ShipmentBriefModel>();
+
             BillingAddress = new AddressModel();
             ShippingAddress = new AddressModel();
+            PickupAddress = new AddressModel();
+            CustomValues = new Dictionary<string, object>();
         }
+
+        public bool PrintMode { get; set; }
+        public bool PdfInvoiceDisabled { get; set; }
+
+        public bool UserCanCancelUnpaidAd { get; set; }
 
         public DateTime CreatedOn { get; set; }
 
         public string AdStatus { get; set; }
+
+        public bool IsReAdAllowed { get; set; }
+
+        public bool IsReturnRequestAllowed { get; set; }
+
+        public bool IsShippable { get; set; }
+        public bool PickUpInStore { get; set; }
+        public AddressModel PickupAddress { get; set; }
         public string ShippingStatus { get; set; }
         public AddressModel ShippingAddress { get; set; }
-        public IList<SelectListItem> ShippingMethodType { get; set; }
-        
-        [GrandResourceDisplayName("Ad.Fields.ShippingMethodType")]
-        public string ShippingMethodId { get; set; }
+        public string ShippingMethod { get; set; }
         public string ShippingAdditionDescription { get; set; }
         public IList<ShipmentBriefModel> Shipments { get; set; }
 
@@ -37,23 +51,35 @@ namespace Grand.Web.Models.Ads
         public string AdCode { get; set; }
         public string PaymentMethod { get; set; }
         public string PaymentMethodStatus { get; set; }
+        public bool CanRePostProcessPayment { get; set; }
+        public Dictionary<string, object> CustomValues { get; set; }
+
+        public string AdSubtotal { get; set; }
+        public string AdSubTotalDiscount { get; set; }
         public string AdShipping { get; set; }
+        public string PaymentMethodAdditionalFee { get; set; }
+        public string CheckoutAttributeInfo { get; set; }
+
+        public bool PricesIncludeTax { get; set; }
+        public bool DisplayTaxShippingInfo { get; set; }
+        public string Tax { get; set; }
+        public IList<TaxRate> TaxRates { get; set; }
+        public bool DisplayTax { get; set; }
+        public bool DisplayTaxRates { get; set; }
+
+        public string AdTotalDiscount { get; set; }
+        public int RedeemedRewardPoints { get; set; }
+        public string RedeemedRewardPointsAmount { get; set; }
+        public string AdTotal { get; set; }
+
+        public IList<GiftCard> GiftCards { get; set; }
+
         public bool ShowSku { get; set; }
         public IList<AdItemModel> Items { get; set; }
 
-        [GrandResourceDisplayName("Ad.Fields.isDocument")]
-        public bool WithDocuments { get; set; }
-        public string ManufactureName { get; set; }
-        public string Model { get; set; }
-        public int? Year { get; set; }
-        public string Weeldiam { get; set; }
-        public string Size { get; set; }
-        public string Color { get; set; }
-        public string AdComment { get; set; }
-        public decimal Price { get; set; }
-        public int Mileage { get; set; }
-        public bool IsAuction { get; set; }
-        public string SearchBike { get; set; }
+        public IList<AdNote> AdNotes { get; set; }
+
+        public bool ShowAddAdNote { get; set; }
 
         #region Nested Classes
 

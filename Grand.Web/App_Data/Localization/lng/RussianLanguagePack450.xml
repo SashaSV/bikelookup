@@ -3813,6 +3813,12 @@
   <LocaleResource Name="Admin.Catalog.Products.List.SearchProductType.Hint">
     <Value>Поиск по типу продукта.</Value>
   </LocaleResource>
+	<LocaleResource Name="Ad.Fields.ShippingMethodType">
+		<Value>Метод доставки</Value>
+	</LocaleResource>
+	<LocaleResource Name="Ad.Fields.ShippingMethodType.Hint">
+		<Value>Выбор среди доступных методов доставки.</Value>
+	</LocaleResource>
   <LocaleResource Name="Admin.Catalog.Products.List.SearchPublished">
     <Value>опубликованный</Value>
   </LocaleResource>

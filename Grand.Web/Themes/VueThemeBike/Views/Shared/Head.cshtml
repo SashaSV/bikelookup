@@ -18,6 +18,7 @@
     }
 
     pagebuilder.AppendCssFileParts(ResourceLocation.Head, "~/content/custom/style.css");
+    //pagebuilder.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/css/custom.css", themeName));
     pagebuilder.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/css/animate.min.css", themeName));
     pagebuilder.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/bootstrap-vue/bootstrap-vue.min.css", themeName));
     pagebuilder.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/bootstrap-vue/bootstrap.min.css", themeName));
@@ -37,6 +38,7 @@
     pagebuilder.AppendScriptParts(ResourceLocation.Footer, string.Format("~/Themes/{0}/Content/script/menu.js", themeName));
     pagebuilder.AppendScriptParts(ResourceLocation.Footer, "~/content/bootstrap/popper.min.js");
     pagebuilder.AppendScriptParts(ResourceLocation.Footer, "~/content/custom/script.js");
+    pagebuilder.AppendScriptParts(location: ResourceLocation.Footer, src: "~/administration/build/js/custom.js", excludeFromBundle: true);
 
 }
 <link rel="preconnect" href="https://fonts.gstatic.com">

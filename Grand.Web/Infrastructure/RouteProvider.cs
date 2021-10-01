@@ -857,16 +857,21 @@ namespace Grand.Web.Infrastructure
                             new { controller = "Ad", action = "CustomerAds" });
 
             //ads
-            routeBuilder.MapControllerRoute("AdDetails",
-                            pattern + "addetails/{adId}",
-                            new { controller = "Ad", action = "Details" });
+            routeBuilder.MapControllerRoute("ViewAd",
+                            pattern + "viewad/{adId}",
+                            new { controller = "Ad", action = "ViewAd" });
+
+            routeBuilder.MapControllerRoute("EditAd",
+                            pattern + "editad/{adId}",
+                            new { controller = "Ad", action = "EditAd" });
+            
             //"addetails/cancel/{adId}
             routeBuilder.MapControllerRoute("CancelAd",
-                pattern + "adcancel/{adId}",
+                pattern + "cancelad/{adId}",
                 new { controller = "Ad", action = "CancelAd" });
             //addetails / delete /{ adId}
             routeBuilder.MapControllerRoute("DeleteAd",
-                pattern + "addelete/{adId}",
+                pattern + "deletead/{adId}",
                 new { controller = "Ad", action = "DeleteAd" });
 
             routeBuilder.MapControllerRoute("MessagesAd",

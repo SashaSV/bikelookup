@@ -1,0 +1,32 @@
+﻿@model ViewAdModel
+@inject Grand.Domain.Customers.CustomerSettings customerSettings
+@inject IPageHeadBuilder pagebuilder
+@using Grand.Web.Models.Customer;
+@using Grand.Core;
+@{
+    Layout = "_ColumnsTwo";
+
+    //title
+    pagebuilder.AddTitleParts(T("PageTitle.Account").Text);
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/admin.search.js", excludeFromBundle: true);
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/jquery-ui-1.12.1.custom/jquery-ui.min.js", excludeFromBundle: true);
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/jquery.validate.unobtrusive.min.js", excludeFromBundle: true);
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/jquery.validate.min.js", excludeFromBundle: true);
+    
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/typeahead.js", excludeFromBundle: true);
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/administration/build/js/jquery.min.js", excludeFromBundle: true);
+
+
+}
+@section left
+{
+    @await Component.InvokeAsync("CustomerNavigation", new { selectedTabId = CustomerNavigationEnum.Ads })
+}
+
+@Html.AntiForgeryToken()
+
+<div class="page account-page customer-info-page pl-lg-3 pt-3 pt-lg-0">
+    <h2 class="generalTitle">@T("Ads.ViewAd")</h2>
+
+</div>
+
