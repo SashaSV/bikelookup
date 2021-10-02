@@ -44,7 +44,7 @@ namespace Grand.Web.Features.Handlers.Ads
 
         public async Task<NewAdModel> Handle(NewAd request, CancellationToken cancellationToken)
         {
-            var model = new NewAdModel() { WithDocuments = true};
+            var model = new NewAdModel() { WithDocuments = true, Year = DateTime.Now.Year};
 
             //await PrepareAd(model, request);
             //await PrepareRecurringPayments(model, request);

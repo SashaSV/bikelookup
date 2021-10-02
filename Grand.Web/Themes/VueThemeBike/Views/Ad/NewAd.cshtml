@@ -141,7 +141,7 @@
                     <legend class="sr-only">@T("Ad.Fields.Priсe")</legend>
                     <label asp-for="Price" class="col-form-label">@T("Ad.Fields.Priсe"):</label>
                     <span class="required">*</span>
-                    <input type="number" asp-for="Price" class="form-control" v-validate="'required'" />
+                    <input asp-for="Price" class="form-control" v-validate="'required'" />
                     <span class="field-validation-error">{{veeErrors.first('Priсe')}}</span>
                     <span asp-validation-for="Price"></span>
                 </fieldset>
@@ -176,7 +176,6 @@
                 <fieldset class="form-group col-sm-6 col-12">
                     <legend class="sr-only">@T("Ad.Fields.ShippingMethod")</legend>
                     <label asp-for="ShippingMethodId" class="col-form-label">@T("Ad.Fields.ShippingMethod"):</label>
-                    @*<input asp-for="ShippingMethod" class="form-control" />*@
                     <div class="form-horizontal">
                         <div class="form-body">
                             <div class="form-group">

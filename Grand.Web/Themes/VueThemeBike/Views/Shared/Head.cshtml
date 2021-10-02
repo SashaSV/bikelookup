@@ -19,6 +19,7 @@
 
     pagebuilder.AppendCssFileParts(ResourceLocation.Head, "~/content/custom/style.css");
     //pagebuilder.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/css/custom.css", themeName));
+    //pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/jquery-ui-1.12.1.custom/jquery-ui.min.js", excludeFromBundle: true);
     pagebuilder.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/css/animate.min.css", themeName));
     pagebuilder.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/bootstrap-vue/bootstrap-vue.min.css", themeName));
     pagebuilder.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/bootstrap-vue/bootstrap.min.css", themeName));
@@ -34,7 +35,7 @@
     pagebuilder.AppendScriptParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/vue/bootstrap-vue.min.js", themeName));
     pagebuilder.AppendScriptParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/vue/portal-vue.umd.min.js", themeName));
     pagebuilder.AppendScriptParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/vue/vue.min.js", themeName));
-    pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/jquery-ui-1.12.1.custom/jquery-ui.min.js", excludeFromBundle: true);
+    //pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/jquery-ui-1.12.1.custom/jquery-ui.min.js", excludeFromBundle: true);
 
     pagebuilder.AppendScriptParts(location: ResourceLocation.Footer, src: "~/administration/bootstrap/js/bootstrap.min.js", excludeFromBundle: true);
     pagebuilder.AppendScriptParts(location: ResourceLocation.Footer, src: "~/administration/bootstrap/js/popper.min.js", excludeFromBundle: true);
