@@ -68,10 +68,10 @@ a:hover {
     align-items: center;
 }
 
-.col align-self-center
+/* .col align-self-center
 {
 
-}
+} */
 .eu-cookie-bar-notification {
     position: fixed;
     bottom: 0;
@@ -1846,7 +1846,8 @@ button, input, optgroup, select, textarea {
     /*color: #fff;
     background-color: #F15A24;
     border-color: #F15A24;*/
-    border: 2px solid #F15A24!important;
+    /* border: 2px solid #F15A24!important; */
+    border: 1px solid #212529!important;
 }
 
 .btn-info:hover
@@ -1864,4 +1865,10 @@ button, input, optgroup, select, textarea {
     border-color:#F15A24 !important;
     filter: brightness(150%);
     box-shadow: 0 0 5px 1px #F15A24 !important;
+}
+
+.btn-info.ad-addnew-button{
+    padding: 0.5rem;
+    margin-bottom: 10px;
+    border: 2px solid #F15A24!important;
 }

@@ -90,12 +90,12 @@ namespace Grand.Web.Controllers
             return View(model);
         }
         
-        [HttpPost]
-        public virtual async Task<IActionResult> NewAd(NewAdModel model)
-        {
+        //[HttpPost]
+        //public virtual async Task<IActionResult> NewAd(NewAdModel model)
+        //{
 
-            return View();
-        }
+        //    return View();
+        //}
 
         public virtual async Task<IActionResult> EditAd(string AdId)
         {
