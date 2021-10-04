@@ -327,6 +327,7 @@ var vm = new Vue({
             maxAngle: maxPrice,
             pictureToZoom: null,
             prodToZoom: null,
+            busy: false,
         }
     },
     props: {

@@ -78,7 +78,24 @@
                     <input type="button" value="@T("Account.CustomerAds.AdEdit")" class="btn btn-sm btn-info ad-details-button" onclick="location = ('@Url.RouteUrl("EditAd", new { adId = ad.Id })')" />
                     <input type="button" value="@T("Account.CustomerAds.AdDetails")" class="btn btn-sm btn-info ad-details-button" onclick="location = ('@Url.RouteUrl("ViewAd", new { adId = ad.Id })')" />
                     <input type="button" value="@T("Account.CustomerAds.AdCancle")" class="btn btn-sm btn-info ad-cancle-button" onclick="location = ('@Url.RouteUrl("CancelAd", new { adId = ad.Id })')" />
-                    <input type="button" value="@T("Account.CustomerAds.AdDelete")" class="btn btn-sm btn-info ad-delete-button" onclick="location = ('@Url.RouteUrl("DeleteAd", new { adId = ad.Id })')" />
+                    <b-button ref="submit" type="submit" :disabled="busy" v-on:click="busy = true">@T("Account.CustomerAds.AdDelete")</b-button>
+                    <b-modal v-model="busy" hide-header no-wrap>
+                            <template #default="{  }">
+                                   @T("Account.CustomerAds.ConfirmDelete")
+                            </template>
+                        <template #modal-footer="{ ok, cancel }">
+                            <b-row>
+                                <!-- Emulate built in modal footer ok and cancel button actions -->
+                                <b-button variant="outline-primary" class="mr-3" v-on:click="busy = false">
+                                    @T("Account.CustomerAds.Cancel")
+                                </b-button>
+                                <b-button variant="danger" onclick="location = ('@Url.RouteUrl("DeleteAd", new { adId = ad.Id })')">
+                                    @T("Account.CustomerAds.Ok")
+                                </b-button>
+                                <!-- Button with custom close trigger value -->
+                            </b-row>
+                        </template>
+                    </b-modal>
                     <input type="button" value="@T("Account.CustomerAds.AdMessages")" class="btn btn-sm btn-info ad-message-button" onclick="location = ('@Url.RouteUrl("MessagesAd", new { adId = ad.Id })')" />
                 </template>
             </b-card>

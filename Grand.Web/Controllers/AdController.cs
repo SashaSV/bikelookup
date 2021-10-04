@@ -124,7 +124,7 @@ namespace Grand.Web.Controllers
 
             await _mediator.Send(new CancelAdCommand() { Ad = Ad, NotifyCustomer = true, NotifyStoreOwner = true });
 
-            return RedirectToRoute("CancelAd", new { AdId = AdId });
+            return RedirectToRoute("CustomerAds", new { AdId = AdId });
         }
 
 
@@ -143,7 +143,7 @@ namespace Grand.Web.Controllers
 
             var model = await _mediator.Send(new DeleteAd() { Ad = Ad, Language = _workContext.WorkingLanguage });
 
-            return View(model);
+            return RedirectToRoute("CustomerAds");
         }
         //My account / Ad details page
         public virtual async Task<IActionResult> Details(string AdId)

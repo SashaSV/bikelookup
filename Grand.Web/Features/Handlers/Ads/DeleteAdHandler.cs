@@ -1,54 +1,34 @@
-﻿using Grand.Domain.Customers;
-using Grand.Services.Ads;
-using Grand.Services.Catalog;
-using Grand.Services.Directory;
-using Grand.Services.Helpers;
-using Grand.Services.Localization;
-using Grand.Services.Queries.Models.Ads;
+﻿using Grand.Domain.Ads;
+using Grand.Domain.Data;
 using Grand.Web.Features.Models.Ads;
 using Grand.Web.Models.Ads;
 using MediatR;
-using System;
+using NPOI.SS.Formula.Functions;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Grand.Web.Features.Handlers.Ads
 {
-    public class DeleteAdHandler : IRequestHandler<DeleteAd, DeleteAdModel>
+    public class DeleteAdHandler : IRequestHandler<DeleteAd, DeleteAdResult>
     {
-        private readonly IAdService _adService;
-        private readonly IDateTimeHelper _dateTimeHelper;
-        private readonly ILocalizationService _localizationService;
-        private readonly IAdProcessingService _adProcessingService;
-        private readonly ICurrencyService _currencyService;
-        private readonly IPriceFormatter _priceFormatter;
-        private readonly IMediator _mediator;
+        private readonly IRepository<Ad> _adRepository;
 
-        public DeleteAdHandler(
-            IAdService adService,
-            IDateTimeHelper dateTimeHelper,
-            ILocalizationService localizationService,
-            IAdProcessingService adProcessingService,
-            ICurrencyService currencyService,
-            IMediator mediator,
-            IPriceFormatter priceFormatter)
+        public DeleteAdHandler(IRepository<Ad> adRepository)
         {
-            _adService = adService;
-            _dateTimeHelper = dateTimeHelper;
-            _localizationService = localizationService;
-            _adProcessingService = adProcessingService;
-            _currencyService = currencyService;
-            _priceFormatter = priceFormatter;
-            _mediator = mediator;
+            _adRepository = adRepository;
         }
-
-        public async Task<DeleteAdModel> Handle(DeleteAd request, CancellationToken cancellationToken)
+        
+        public async Task<DeleteAdResult> Handle(DeleteAd request, CancellationToken cancellationToken)
         {
-            var model = new DeleteAdModel() { WithDocuments = true};
+            var ad = await _adRepository.GetByIdAsync(request.Ad.Id);
+            if (ad == null)
+            {
+                return new DeleteAdResult(false, "Not found");
+            }
 
-            //await PrepareAd(model, request);
-            //await PrepareRecurringPayments(model, request);
-            return model;
+            await _adRepository.DeleteAsync(ad);
+
+            return new DeleteAdResult(false, string.Empty);
         }
     }
 }
