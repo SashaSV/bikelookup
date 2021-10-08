@@ -1,4 +1,7 @@
-﻿using Grand.Domain.Customers;
+﻿using Grand.Domain.Ads;
+using Grand.Domain.Catalog;
+using Grand.Domain.Customers;
+using Grand.Domain.Data;
 using Grand.Services.Ads;
 using Grand.Services.Catalog;
 using Grand.Services.Directory;
@@ -16,7 +19,8 @@ namespace Grand.Web.Features.Handlers.Ads
 {
     public class EditAdHandler : IRequestHandler<EditAd, EditAdModel>
     {
-        private readonly IAdService _adService;
+        private readonly  IRepository<Ad>  _adRepository;
+        private readonly IProductService _productService;
         private readonly IDateTimeHelper _dateTimeHelper;
         private readonly ILocalizationService _localizationService;
         private readonly IAdProcessingService _adProcessingService;
@@ -25,33 +29,50 @@ namespace Grand.Web.Features.Handlers.Ads
         private readonly IMediator _mediator;
 
         public EditAdHandler(
-            IAdService adService,
+            IRepository<Ad> adRepository,
             IDateTimeHelper dateTimeHelper,
             ILocalizationService localizationService,
             IAdProcessingService adProcessingService,
             ICurrencyService currencyService,
             IMediator mediator,
-            IPriceFormatter priceFormatter)
+            IPriceFormatter priceFormatter,
+            IProductService productService)
         {
-            _adService = adService;
+            _adRepository = adRepository;
             _dateTimeHelper = dateTimeHelper;
             _localizationService = localizationService;
             _adProcessingService = adProcessingService;
             _currencyService = currencyService;
             _priceFormatter = priceFormatter;
             _mediator = mediator;
+            _productService = productService;
         }
 
         public async Task<EditAdModel> Handle(EditAd request, CancellationToken cancellationToken)
         {
-            var model = new EditAdModel() { WithDocuments = true};
+            var ad = await _adRepository.GetByIdAsync(request.Ad.Id);
+            var product = await _productService.GetProductById(ad.AdItem.ProductId);
 
+            if (product == null)
+            {
+                product = new Product() {
+                  
+                };
+            }
+
+            var model = new EditAdModel() { WithDocuments = true};
+            model.Items = new EditAdModel.AdItemModel() {
+                ProductId = ad.AdItem.ProductId,
+                ProductName = product.Name,
+            };
             model.Id = request.Ad.Id;
             model.AdNumber = request.Ad.AdNumber;
             model.AdCode = request.Ad.Code;
             model.CreatedOn = _dateTimeHelper.ConvertToUserTime(request.Ad.CreatedOnUtc, DateTimeKind.Utc);
             model.AdStatus = request.Ad.AdStatus.GetLocalizedEnum(_localizationService, request.Language.Id);
-
+            model.ManufactureName = product.ManufactureName;
+            model.Price = product.Price;
+            
             //await PrepareAd(model, request);
             //await PrepareRecurringPayments(model, request);
             return model;

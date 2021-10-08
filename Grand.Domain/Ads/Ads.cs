@@ -381,6 +381,8 @@ namespace Grand.Domain.Ads
         /// </summary>
         public virtual RewardPointsHistory RedeemedRewardPointsEntry { get; set; }
 
+        public virtual AdItem AdItem {get; set;}
+
         /// <summary>
         /// Gets or sets Ads items
         /// </summary>

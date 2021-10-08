@@ -12,7 +12,7 @@ namespace Grand.Web.Models.Ads
     {
         public EditAdModel()
         {
-            Items = new List<AdItemModel>();
+            Items = new AdItemModel();
             Shipments = new List<ShipmentBriefModel>();
             BillingAddress = new AddressModel();
             ShippingAddress = new AddressModel();
@@ -39,7 +39,7 @@ namespace Grand.Web.Models.Ads
         public string PaymentMethodStatus { get; set; }
         public string AdShipping { get; set; }
         public bool ShowSku { get; set; }
-        public IList<AdItemModel> Items { get; set; }
+        public AdItemModel Items { get; set; }
 
         [GrandResourceDisplayName("Ad.Fields.isDocument")]
         public bool WithDocuments { get; set; }

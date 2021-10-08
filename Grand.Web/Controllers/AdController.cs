@@ -126,9 +126,7 @@ namespace Grand.Web.Controllers
 
             return RedirectToRoute("CustomerAds", new { AdId = AdId });
         }
-
-
-
+        
         //My account / Ad details page / Cancel Unpaid Ad
         public virtual async Task<IActionResult> DeleteAd(string AdId)
         {

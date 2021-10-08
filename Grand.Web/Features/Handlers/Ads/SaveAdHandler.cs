@@ -1,6 +1,8 @@
 using Grand.Domain.Ads;
+using Grand.Domain.Catalog;
 using Grand.Domain.Customers;
 using Grand.Domain.Data;
+using Grand.Services.Catalog;
 using Grand.Web.Features.Models.Ads;
 using Grand.Web.Models.Ads;
 using MediatR;
@@ -14,18 +16,39 @@ namespace Grand.Web.Features.Handlers.Ads
     {
         private readonly IRepository<Ad> _adRepository;
 
-        public SaveAdHandler(IRepository<Ad> adRepository)
+        private readonly IProductService _productService;
+
+        public SaveAdHandler(IRepository<Ad> adRepository, IProductService productService)
         {
             _adRepository = adRepository;
+            _productService = productService;
+
         }
         
         public async Task<bool>  Handle(SaveAd request, CancellationToken cancellationToken)
         {
+            var product = new Product
+            {
+                Name = request.AdToSave.Model,
+                ManufactureName = request.AdToSave.ManufactureName,
+                Price = request.AdToSave.Price,
+                Year = request.AdToSave.Year.ToString()
+            };
+
+            await _productService.InsertProduct(product);
+            
+           
             var ad = new Ad() {
+                AdItem = new AdItem()
+                {
+                    ProductId = product.Id,
+                    VendorId = request.Customer.Id
+                },
                 CreatedOnUtc = DateTime.Now,
                 AdStatus = AdStatus.Processing,
 
             };
+            
             ad.StoreId = request.Store.Id;
             if (!request.Customer.IsOwner())
                 ad.CustomerId = request.Customer.Id;
