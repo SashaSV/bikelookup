@@ -1,0 +1,39 @@
+﻿@model CustomerAdListModel.AdDetailsModel
+@{
+    <b-card header-tag="header" footer-tag="footer" class="ads-item mb-3">
+        <template v-slot:header>
+            <div class="review-info d-inline-flex w-100">
+                <b-icon icon="calendar2-check" variant="info" class="mx-2"></b-icon>
+                <small class="date text-muted">
+                    <span>@T("Account.CustomerAds.AdDate"):</span>
+                    <span>@Model.CreatedOn.ToString("g")</span>
+                </small>
+            </div>
+        </template>
+        <div class="review-title mb-3">
+            <div class="user d-inline-flex align-items-center w-100">
+                <span>@T("Account.CustomerAds.AdStatus"):</span> <span class="ad-status @Model.AdStatusEnum.ToString().ToLowerInvariant()">@Model.AdStatus</span>
+                <span>@T("Account.CustomerAds.AdNumber"):</span> <span class="ad-number @Model.AdNumber.ToString().ToLowerInvariant()">@Model.AdNumber</span>
+            </div>
+        </div>
+        <div class="review-content">
+            <div class="review-text">
+                @Html.Raw(Grand.Core.Html.HtmlHelper.FormatText("текст обьявления"))
+            </div>
+        </div>
+        <template v-slot:footer>
+            @if (Model.IsOpenFromMenu)
+            {
+                <input type="button" value="@T("Account.CustomerAds.AdEdit")" class="btn btn-sm btn-service ad-details-button" onclick="location = ('@Url.RouteUrl("EditAd", new { adId = Model.Id })')" />
+            }
+
+            <input type="button" value="@T("Account.CustomerAds.AdDetails")" class="btn btn-sm btn-service ad-details-button" onclick="location = ('@Url.RouteUrl("ViewAd", new { adId = Model.Id })')" />
+            @if (Model.IsOpenFromMenu)
+            {
+                <input type="button" value="@T("Account.CustomerAds.AdCancle")" class="btn btn-sm btn-service ad-cancle-button" onclick="location = ('@Url.RouteUrl("CancelAd", new { adId = Model.Id })')" />
+                <input type="button" value="@T("Account.CustomerAds.AdDelete")" class="btn btn-sm btn-service ad-delete-button" onclick="location = ('@Url.RouteUrl("DeleteAd", new { adId = Model.Id })')" />
+                <input type="button" value="@T("Account.CustomerAds.AdMessages")" class="btn btn-sm btn-service ad-message-button" onclick="location = ('@Url.RouteUrl("MessagesAd", new { adId = Model.Id })')" />
+            }
+            </template>
+    </b-card>
+}

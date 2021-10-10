@@ -24,7 +24,7 @@ namespace Grand.Web.Models.Ads
         public partial class AdDetailsModel : BaseEntityModel
         {
             public string AdTotal { get; set; }
-            public bool IsReturnRequestAllowed { get; set; }
+            public bool IsOpenFromMenu { get; set; }
             public AdStatus AdStatusEnum { get; set; }
             public string AdStatus { get; set; }
             public string PaymentStatus { get; set; }

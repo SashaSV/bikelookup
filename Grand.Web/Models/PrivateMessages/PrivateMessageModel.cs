@@ -1,4 +1,5 @@
 ﻿using Grand.Core.Models;
+using Grand.Domain.Ads;
 using System;
 
 namespace Grand.Web.Models.PrivateMessages
@@ -11,6 +12,8 @@ namespace Grand.Web.Models.PrivateMessages
 
         public string ToCustomerId { get; set; }
         public string CustomerToName { get; set; }
+        public string AdId { get; set; }
+        public string AdProductName { get; set; }
         public bool AllowViewingToProfile { get; set; }
 
         public string Subject { get; set; }

@@ -13,6 +13,11 @@ namespace Grand.Domain.Forums
         public string StoreId { get; set; }
 
         /// <summary>
+        /// Gets or sets the Ad identifier
+        /// </summary>
+        public string AdId { get; set; }
+
+        /// <summary>
         /// Gets or sets the customer identifier who sent the message
         /// </summary>
         public string FromCustomerId { get; set; }

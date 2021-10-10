@@ -21,67 +21,7 @@
     <div class="product-review-list">
         @foreach (var ad in Model.Ads)
         {
-            @*<div class="col-lg-4 col-md-6 col-12 mb-3">
-                    <div class="card">
-                        <h6 class="card-header">
-                            <strong>
-                                <span>
-                                    @T("Account.CustomerAds.AdNumber"):
-                                </span>
-                                <span>
-                                    @order.AdNumber
-                                </span>
-                            </strong>
-                        </h6>
-                        <div class="card-body small">
-                            <ul class="info mb-0">
-                                <li><span>@T("Account.CustomerAds.AdStatus"):</span> <span class="order-status @order.AdStatusEnum.ToString().ToLowerInvariant()">@order.AdStatus</span></li>
-                                <li><span class="order-date"><span>@T("Account.CustomerAds.AdDate"):</span> <span>@order.CreatedOn.ToString()</span></span></li>
-                                <li><span>@T("Account.CustomerAds.AdTotal"):</span> <span class="order-total">@order.AdTotal</span></li>
-                            </ul>
-                        </div>
-                        <div class="card-footer">
-                            <div class="buttons">
-                                <input type="button" value="@T("Account.CustomerAds.AdDetails")" class="btn btn-sm btn-info order-details-button" onclick="setLocation('@Url.RouteUrl("AdDetails", new { orderId = order.Id })')" />
-
-                                @if (order.IsReturnRequestAllowed)
-                                {
-                                    <input type="button" value="@T("Account.CustomerAds.ReturnItems")" class="btn btn-sm btn-warning text-white return-items-button" onclick="setLocation('@Url.RouteUrl("ReturnRequest", new { orderId = order.Id })')" />
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </div>*@
-
-            <b-card header-tag="header" footer-tag="footer" class="ads-item mb-3">
-                <template v-slot:header>
-                    <div class="review-info d-inline-flex w-100">
-                        <b-icon icon="calendar2-check" variant="info" class="mx-2"></b-icon>
-                        <small class="date text-muted">
-                            <span>@T("Account.CustomerAds.AdDate"):</span>
-                            <span>@ad.CreatedOn.ToString("g")</span>
-                        </small>
-                    </div>
-                </template>
-                <div class="review-title mb-3">
-                    <div class="user d-inline-flex align-items-center w-100">
-                        <span>@T("Account.CustomerAds.AdStatus"):</span> <span class="ad-status @ad.AdStatusEnum.ToString().ToLowerInvariant()">@ad.AdStatus</span>
-                        <span>@T("Account.CustomerAds.AdNumber"):</span> <span class="ad-number @ad.AdNumber.ToString().ToLowerInvariant()">@ad.AdNumber</span>
-                    </div>
-                </div>
-                <div class="review-content">
-                    <div class="review-text">
-                        @Html.Raw(Grand.Core.Html.HtmlHelper.FormatText("текст обьявления"))
-                    </div>
-                </div>
-                <template v-slot:footer>
-                    <input type="button" value="@T("Account.CustomerAds.AdEdit")" class="btn btn-sm btn-info ad-details-button" onclick="location = ('@Url.RouteUrl("EditAd", new { adId = ad.Id })')" />
-                    <input type="button" value="@T("Account.CustomerAds.AdDetails")" class="btn btn-sm btn-info ad-details-button" onclick="location = ('@Url.RouteUrl("ViewAd", new { adId = ad.Id })')" />
-                    <input type="button" value="@T("Account.CustomerAds.AdCancle")" class="btn btn-sm btn-info ad-cancle-button" onclick="location = ('@Url.RouteUrl("CancelAd", new { adId = ad.Id })')" />
-                    <input type="button" value="@T("Account.CustomerAds.AdDelete")" class="btn btn-sm btn-info ad-delete-button" onclick="location = ('@Url.RouteUrl("DeleteAd", new { adId = ad.Id })')" />
-                    <input type="button" value="@T("Account.CustomerAds.AdMessages")" class="btn btn-sm btn-info ad-message-button" onclick="location = ('@Url.RouteUrl("MessagesAd", new { adId = ad.Id })')" />
-                </template>
-            </b-card>
+            <partial name="_AdsList" model="ad" />
         }
     </div>
 </div>

@@ -79,7 +79,7 @@ namespace Grand.Web.ViewComponents
             {
                 var forumservice = HttpContext.RequestServices.GetRequiredService<IForumService>();
                 var privateMessages = await forumservice.GetAllPrivateMessages(_storeContext.CurrentStore.Id,
-                    "", customer.Id, false, null, false, string.Empty, 0, 1);
+                    "", customer.Id, "", false, null, false, string.Empty, 0, 1);
 
                 if (privateMessages.Any())
                 {

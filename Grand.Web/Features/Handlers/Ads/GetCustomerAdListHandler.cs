@@ -46,7 +46,7 @@ namespace Grand.Web.Features.Handlers.Ads
         {
             var model = new CustomerAdListModel();
             await PrepareAd(model, request);
-            await PrepareRecurringPayments(model, request);
+            //await PrepareRecurringPayments(model, request);
             return model;
         }
 
@@ -75,6 +75,7 @@ namespace Grand.Web.Features.Handlers.Ads
                     AdStatus = ad.AdStatus.GetLocalizedEnum(_localizationService, request.Language.Id),
                     PaymentStatus = ad.PaymentStatus.GetLocalizedEnum(_localizationService, request.Language.Id),
                     ShippingStatus = ad.ShippingStatus.GetLocalizedEnum(_localizationService, request.Language.Id),
+                    IsOpenFromMenu = true
                     //IsReturnRequestAllowed = await _mediator.Send(new IsReturnRequestAllowedQuery() { Ad = ad })
                 };
                 //var adTotalInCustomerCurrency = _currencyService.ConvertCurrency(ad.AdTotal, ad.CurrencyRate);

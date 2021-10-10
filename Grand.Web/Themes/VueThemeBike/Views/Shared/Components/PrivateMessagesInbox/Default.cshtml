@@ -87,7 +87,12 @@
                                                 }
                                             </div>
                                             <div class="subject col-sm-5 col-12">
-                                                @Html.RouteLink(item.Subject, "ViewPM", new { privateMessageId = item.Id }, new { @class = (item.IsRead) ? "pm-read" : "pm-unread col-form-label" })
+                                                <div class="main-subj">
+                                                    @Html.RouteLink(item.AdProductName, "ViewAdPM", new { AdId = item.AdId, toCustomerId = item.FromCustomerId }, new { @class = (item.IsRead) ? "pm-read" : "pm-unread col-form-label" })
+                                                </div>
+                                                <div class="sec-subj">
+                                                    @Html.RouteLink(item.Subject, "ViewAdPM", new { AdId = item.AdId, toCustomerId = item.FromCustomerId }, new { @class = (item.IsRead) ? "pm-read" : "pm-unread col-form-label" })
+                                                </div>
                                             </div>
                                             <div class="date col-sm-4 col-12">
                                                 @item.CreatedOn
@@ -101,7 +106,10 @@
                     </tbody>
                 </table>
             </div>
-            @{ var pager = Html.Pager(localizationService, Model.PagerModel); }
+            @{ 
+                var pager = Html.Pager(localizationService, Model.PagerModel);
+            }
+
             @if (pager != null)
             {
                 <div class="pager">
