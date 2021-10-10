@@ -35,6 +35,11 @@ namespace Grand.Web.Features.Handlers.Ads
                 Year = request.AdToSave.Year.ToString()
             };
 
+            if (string.IsNullOrEmpty(request.AdToSave.SearchBike))
+            {
+                product.ParentGroupedProductId = request.AdToSave.SearchBike;
+            }
+
             await _productService.InsertProduct(product);
             
            

@@ -57,18 +57,8 @@
                     <fieldset class="form-group search-bike">
                         <legend class="sr-only">@T("Ad.Fields.SearchBike")</legend>
                         <label asp-for="SearchBike" class="col-form-label">@T("Ad.Fields.SearchBike"):</label>
-                        <input type="search" asp-for="SearchBike" class="form-control" />
-                        <div class="admin-search-input-container">
-                            <input id="searchInput" type="text" class="form-control" placeholder="@T(" Admin.AdminSearch.Placeholder")">
-                            <script>
-
-
-                                 $(document).ready(function () {
-                                    Admin.Search.init("/Admin/Search");
-                                  });
-
-                            </script>
-                        </div>
+                        <input type="search" asp-for="SearchBike" v-model="baseProductId" class="form-control" />
+                        <findautocomplete v-on:select="baseProductId=$event"></findautocomplete>
                     </fieldset>
                 </div>
                 <div class="form-row">

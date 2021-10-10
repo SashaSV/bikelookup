@@ -107,7 +107,7 @@ namespace Grand.Web.Features.Handlers.Catalog
                 SearchDescriptions = _catalogSettings.SearchByDescription,
                 LanguageId = request.Language.Id,
                 VisibleIndividuallyOnly = true,
-                PageSize = productNumber
+                PageSize = productNumber,
             })).products;
 
             var categories = new List<string>();
@@ -134,6 +134,7 @@ namespace Grand.Web.Features.Handlers.Catalog
 
                 model.Add(new SearchAutoCompleteModel() {
                     SearchType = "Product",
+                    ProductId = item.Id,
                     Label = item.GetLocalized(x => x.Name, request.Language.Id) ?? "",
                     Desc = item.GetLocalized(x => x.ShortDescription, request.Language.Id) ?? "",
                     PictureUrl = pictureUrl,

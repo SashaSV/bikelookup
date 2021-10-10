@@ -11,5 +11,7 @@
         public bool AllowCustomerReviews { get; set; }
         public int Rating { get; set; }
         public string PictureUrl { get; set; }
+
+        public string ProductId { get; set; }
     }
 }
