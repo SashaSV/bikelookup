@@ -1,0 +1,28 @@
+﻿@model ProfileAdsModel
+@inject Grand.Services.Localization.ILocalizationService localizationService
+@if (Model.Ads.Any())
+{
+<div class="latest-posts">
+
+    @foreach (var ad in Model.Ads)
+    {
+        <partial name="_AdsList" model="ad" />
+    }
+</div>
+}
+else
+{
+    <div class="no-data alert alert-info">
+        @T("Account.CustomerAds.NoAds")
+    </div>
+}
+@{
+    var pager = Html.Pager(localizationService, Model.PagerModel);
+}
+@if (pager != null)
+{
+    <nav aria-label="Page navigation">
+        @pager
+    </nav>
+}
+ 

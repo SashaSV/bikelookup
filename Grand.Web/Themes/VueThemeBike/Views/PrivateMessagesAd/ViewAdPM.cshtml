@@ -1,0 +1,87 @@
+﻿@model PrivateMessageChatModel
+@inject IPageHeadBuilder pagebuilder
+@{
+    var dates = Model.Messages.GroupBy(x => x.CreatedOn.Date).OrderBy(x => x.Key);
+    Layout = "_ColumnsOne";
+
+    pagebuilder.AddTitleParts(T("PageTitle.ViewPM").Text);
+}
+<div class="page private-messages private-message-view-page">
+    <div class="view-ad">
+        <partial name="_AdsList" model="Model.Ad" />
+    </div>
+    <h1 class="h4 generalTitle text-xs-center">@T("PrivateMessages.View.ViewMessage")</h1>
+    @foreach (var date in dates)
+    {
+        <div class="date-message">@date.Key.ToString("D")</div>
+        <ul class="messages">
+            @foreach (var message in date)
+            {
+                <li class="view-message">
+                    @if (!string.IsNullOrEmpty(message.FromCustomerId))
+                    {
+                        <div class="message-body-from">
+                            <div class="message-label">
+                                <label>@message.CustomerFromName</label>
+                            </div>
+                            <div class="message-text-from">
+                                <div class="message">
+                                    <span>@Html.Raw(message.Message)</span>
+                                </div>
+
+                                <div class="msg-right"></div>
+                            </div>
+                            <div class="message-time">
+                                @(message.CreatedOn.Hour.ToString() + ":" + message.CreatedOn.Minute.ToString())
+                            </div>
+                        </div>
+                    }
+                    @if (!string.IsNullOrEmpty(message.ToCustomerId))
+                    {
+                        <div class="message-body-to">
+                            <div class="message-label"> <label>@T("PrivateMessagesAd.View.YourMessage")</label> </div>
+                            <div class="@(message.IsRead ? "message-text-to pm-read" : "message-text-to pm-unread")">
+                                <div class="message">
+                                    <span>@Html.Raw(message.Message)</span>
+                                    <div class="chat-status-icon">
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-check2-all @(message.IsRead ? "read" : "unread")" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M12.354 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                            <path d="M6.25 8.043l-.896-.897a.5.5 0 1 0-.708.708l.897.896.707-.707zm1 2.414l.896.897a.5.5 0 0 0 .708 0l7-7a.5.5 0 0 0-.708-.708L8.5 10.293l-.543-.543-.707.707z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="msg-left"></div>
+                            </div>
+                            <div class="message-time">@(message.CreatedOn.Hour.ToString() + ":" + message.CreatedOn.Minute.ToString())</div>
+                        </div>
+                    }
+                </li>
+            }
+        </ul>
+    }
+    @*asp-route="SentPMChat"*@
+    <form method="post" action="/privatemessagesad/sentpmchat/">
+        @Html.AntiForgeryToken()
+        <div class="page private-messages private-message-send-page">
+            <h1 class="text-center h2 generalTitle">@T("PrivateMessages.Send.PostMessage")</h1>
+            @*<div asp-validation-summary="ModelOnly" class="message-error alert alert-danger my-3"></div>*@
+            <input asp-for="ToCustomerId" type="hidden" />
+            <input asp-for="AdId" type="hidden" />
+            <input asp-for="Subject" type="hidden" />
+            <b-card no-footer>
+                <div class="form-group message">
+                    <label>@T("PrivateMessages.Send.Message")</label>
+                    <bbc-code asp-name="Message" />
+                    <textarea asp-for="SendPrivateMessage.Message" class="form-control bb-editor-text" rows="6"></textarea>
+                    @*<span asp-validation-for="SendPrivateMessage.Message"></span>*@
+                </div>
+            </b-card>
+            <b-btn-group class="mt-3">
+                <input type="submit" class="btn btn-info send-pm-button" value="@T("PrivateMessages.Send.SendButton")" />
+                <b-button variant="secondary" class="back-pm-button" onclick="location = ('@Url.RouteUrl("PrivateMessages")')">
+                    @T("PrivateMessages.View.BackButton")
+                </b-button>
+            </b-btn-group>
+        </div>
+    </form>
+</div>

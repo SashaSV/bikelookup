@@ -47,7 +47,12 @@
             </b-col>
         </b-row>
     </b-card>
-    @if (Model.PMEnabled)
+    <b-btn-group class="mt-3">
+        <b-button variant="secondary" class="back-pm-button" onclick="location = ('@Url.RouteUrl("PrivateMessages")')">
+            @T("PrivateMessages.View.BackButton")
+        </b-button>
+    </b-btn-group>
+    @if (Model.PMEnabled && false)
     {
         <div class="send-pm my-3 w-100">
             @Html.RouteLink(T("Forum.PrivateMessages.PM").Text, "SendPM", new { toCustomerId = Model.CustomerProfileId }, new { @class = "btn btn-secondary pm-button" })

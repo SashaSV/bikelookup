@@ -86,8 +86,21 @@
                                                 @item.CustomerFromName
                                             }
                                         </div>
+                                        @*<div class="subject col-sm-5 col-12">
+                                            <div class="main-subj">
+                                                @Html.RouteLink(item.AdProductName, "ViewPM", new { privateMessageId = item.Id }, new { @class = (item.IsRead) ? "pm-read" : "pm-unread col-form-label" })
+                                            </div>
+                                            <div class="sec-subj">
+                                                @Html.RouteLink(item.Subject, "ViewPM", new { privateMessageId = item.Id }, new { @class = (item.IsRead) ? "pm-read" : "pm-unread col-form-label" })
+                                            </div>
+                                        </div>*@
                                         <div class="subject col-sm-5 col-12">
-                                            @Html.RouteLink(item.Subject, "ViewPM", new { privateMessageId = item.Id }, new { @class = (item.IsRead) ? "pm-read" : "pm-unread col-form-label" })
+                                            <div class="main-subj">
+                                                @Html.RouteLink(item.AdProductName, "ViewAdPM", new { AdId = item.AdId, toCustomerId = item.ToCustomerId }, new { @class = (item.IsRead) ? "pm-read" : "pm-unread col-form-label" })
+                                            </div>
+                                            <div class="sec-subj">
+                                                @Html.RouteLink(item.Subject, "ViewAdPM", new { AdId = item.AdId, toCustomerId = item.ToCustomerId }, new { @class = (item.IsRead) ? "pm-read" : "pm-unread col-form-label" })
+                                            </div>
                                         </div>
                                         <div class="date col-sm-4 col-12">
                                             @item.CreatedOn
@@ -108,9 +121,10 @@
                     @pager
                 </div>
             }
-            <div class="buttons mb-2">
-                <input class="btn btn-secondary delete-selected-pm-button" name="delete-sent" type="submit" value="@T("PrivateMessages.Inbox.DeleteSelected")" />
-            </div>
+        <div class="buttons mb-2">
+            <input class="btn btn-secondary delete-selected-pm-button" name="delete-sent" type="submit" value="@T("PrivateMessages.Inbox.DeleteSelected")" />
+            <input class="btn btn-secondary mark-unread-pm-button" name="mark-unread" type="submit" value="@T("PrivateMessages.Inbox.MarkAsUnread")" />
+        </div>
         </form>
     }
 </div>

@@ -1,7 +1,8 @@
 ﻿/* commons */
 
 a {
-    color: rgb(241, 90, 36);
+        /* color: rgb(241, 90, 36); */
+        color: #333;
 }
 
 h6{
@@ -18,7 +19,7 @@ h6{
 
 a:hover {
     color: #F15A24;
-    text-decoration: none;
+    text-decoration: underline;
 }
 
 .carousel {
@@ -38,7 +39,7 @@ a:hover {
     color: #dc3545;
 }
 .col-form-label {
-    font-weight: 500;
+    font-weight: 650;
 }
 .field-validation-error {
     color: #dc3545;
@@ -1869,6 +1870,199 @@ button, input, optgroup, select, textarea {
 
 .btn-info.ad-addnew-button{
     padding: 0.5rem;
-    margin-bottom: 10px;
+    margin-bottom: 0.6rem;
     border: 2px solid #F15A24!important;
+}
+
+.btn-service {
+    padding: 0.15rem 0.8rem!important;
+    margin-right: 0.2rem!important;
+    border: 1px solid #212529!important;
+}
+
+.btn-service:focus
+{
+    color:#fff;
+    background-color:#F15A24 !important;
+    border-color:#F15A24 !important;
+    filter: brightness(150%);
+    box-shadow: 0 0 5px 1px #F15A24 !important;
+}
+
+.btn-service:hover
+{
+    color:#fff;
+    background-color:#F15A24 !important;
+    border-color:#F15A24 !important;
+    filter: brightness(150%);
+}
+.sec-subj{
+    font-size: 0.8rem;
+}
+
+.view-message {
+    flex: 1 0 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+    position: relative;
+}
+
+
+
+.message-body-to {
+    min-width: 40%;
+    max-width: calc(100% - 72px);
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 auto;
+    overflow: hidden;
+    align-self: flex-start;
+}
+
+.message-body-from {
+    min-width: 40%;
+    max-width: calc(100% - 72px);
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 auto;
+    overflow: hidden;
+    align-self: flex-end;
+}
+
+.message-time {
+    font-size: 12px;
+    line-height: 14px;
+    color: rgb(64, 99, 103);
+    margin: 2px 0px;
+    padding-right: 12px;
+    text-align: right;
+    width: 100%;
+}
+
+.message-text-from {
+    border-radius: 4px;
+    padding: 8px;
+    position: relative;
+    width: 100%;
+    background: rgb(206, 221, 255);
+}
+
+.message-text-to{
+    border-radius: 4px;
+    padding: 8px;
+    position: relative;
+    width: 100%;
+    background: rgb(242, 244, 245);
+}
+
+.message-label {
+    font-size: 14px;
+    line-height: 18px;
+    color: rgb(0, 47, 52);
+    margin: 0px 0px 4px;
+    text-decoration: none;
+}
+
+
+.message {
+    word-break: break-word;
+    color: rgb(0, 47, 52);
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.msg-left {
+    border-bottom: 10px solid rgb(255, 255, 255);
+    border-left: 25px solid transparent;
+    border-right: 0px solid transparent;
+    bottom: -5px;
+    box-sizing: content-box;
+    display: block;
+    height: 0px;
+    left: 0px;
+    position: absolute;
+    transform: rotate(190deg);
+    width: 5px;
+    border-bottom-color: rgb(242, 244, 245);
+}
+.msg-right {
+    border-bottom: 15px solid rgb(206, 221, 255);
+    border-left: 0px solid transparent;
+    border-right: 25px solid transparent;
+    border-top-left-radius: 1px;
+    border-top-right-radius: 8px;
+    bottom: -5px;
+    box-sizing: content-box;
+    display: block;
+    height: 0px;
+    position: absolute;
+    right: 0px;
+    transform: rotate(169deg);
+    width: 5px;
+}
+/* .message-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: rgb(0, 47, 52);
+    text-transform: uppercase;
+    display: flex;
+    align-items: flex-end;
+    margin: 8px 0px 24px;
+} */
+.date-message{
+    font-size: 12px;
+    font-weight: 700;
+    color: rgb(0, 47, 52);
+    text-transform: uppercase;
+    display: flex;
+    align-items: flex-end;
+    margin: 8px 0px 24px;   
+}
+
+.date-message::before {
+    content: "";
+    display: block;
+    border-bottom: 1px solid rgb(216, 223, 224);
+    margin-right: 6px;
+    flex: 1 1 0%;
+    margin-bottom: 4px;
+}
+
+.date-message::after {
+    content: "";
+    display: block;
+    border-bottom: 1px solid rgb(216, 223, 224);
+    margin-left: 6px;
+    flex: 1 1 0%;
+    margin-bottom: 4px;
+}
+
+.bi.bi-check2-all {
+    align-self: flex-end;
+    height: 24px;
+    margin-left: 12px;
+    min-height: 24px;
+    min-width: 24px;
+    width: 24px;
+}
+
+.bi.bi-check2-all.read {
+    color: rgb(58, 119, 255);
+}
+
+.bi.bi-check2-all.unread {
+    color: rgb(0, 47, 52);
+}
+
+.chat-status-icon {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    margin-left: auto;
+}
+
+.view-ad{
+    margin-top: 15px;
 }

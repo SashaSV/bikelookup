@@ -54,6 +54,8 @@ namespace Grand.Web.Infrastructure
 
             RegisterPrivateMessagesRoute(routeBuilder, pattern);
 
+            RegisterPrivateMessagesAdRoute(routeBuilder, pattern);
+
             RegisterBlogRoute(routeBuilder, pattern);
 
             RegisterNewsletterRoute(routeBuilder, pattern);
@@ -582,6 +584,18 @@ namespace Grand.Web.Infrastructure
                             new { controller = "PrivateMessages", action = "DeletePM" });
         }
 
+        private void RegisterPrivateMessagesAdRoute(IEndpointRouteBuilder routeBuilder, string pattern)
+        {
+            //private messages
+            routeBuilder.MapControllerRoute("ViewAdPM",
+                            pattern + "sentpmchat/{AdId}/{toCustomerId}",
+                            new { controller = "PrivateMessagesAd", action = "ViewAdPM" });
+
+            routeBuilder.MapControllerRoute("SentPMChat",
+                pattern + "sentpmchat/{AdId}/{toCustomerId}",
+                new { controller = "PrivateMessagesAd", action = "SentPMChat" });
+            
+        }
         private void RegisterBoardsRoute(IEndpointRouteBuilder routeBuilder, string pattern)
         {
             //forum

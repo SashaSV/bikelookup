@@ -53,6 +53,11 @@ namespace Grand.Domain.Ads
         public string OwnerId { get; set; }
 
         /// <summary>
+        /// Gets or sets the owner identifier
+        /// </summary>
+        public string ProductId { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether a customer chose "pick up in store" shipping option
         /// </summary>
         public bool PickUpInStore { get; set; }
@@ -62,6 +67,7 @@ namespace Grand.Domain.Ads
         /// </summary>
         public int AdStatusId { get; set; }
 
+        
         /// <summary>
         /// Gets or sets the shipping status identifier
         /// </summary>

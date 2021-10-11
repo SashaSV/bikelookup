@@ -983,7 +983,7 @@ namespace Grand.Services.Forums
         /// <param name="pageSize">Page size</param>
         /// <returns>Private messages</returns>
         public virtual async Task<IPagedList<PrivateMessage>> GetAllPrivateMessages(string storeId, string fromCustomerId,
-            string toCustomerId, bool? isRead, bool? isDeletedByAuthor, bool? isDeletedByRecipient,
+            string toCustomerId, string adId, bool? isRead, bool? isDeletedByAuthor, bool? isDeletedByRecipient,
             string keywords, int pageIndex = 0, int pageSize = int.MaxValue)
         {
             var query = _forumPrivateMessageRepository.Table;
@@ -994,6 +994,8 @@ namespace Grand.Services.Forums
                 query = query.Where(pm => fromCustomerId == pm.FromCustomerId);
             if (!String.IsNullOrEmpty(toCustomerId))
                 query = query.Where(pm => toCustomerId == pm.ToCustomerId);
+            if (!String.IsNullOrEmpty(adId))
+                query = query.Where(pm => adId == pm.AdId);
             if (isRead.HasValue)
                 query = query.Where(pm => isRead.Value == pm.IsRead);
             if (isDeletedByAuthor.HasValue)

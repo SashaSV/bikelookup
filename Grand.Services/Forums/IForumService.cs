@@ -222,7 +222,7 @@ namespace Grand.Services.Forums
         /// <param name="pageSize">Page size</param>
         /// <returns>Private messages</returns>
         Task<IPagedList<PrivateMessage>> GetAllPrivateMessages(string storeId, string fromCustomerId,
-            string toCustomerId, bool? isRead, bool? isDeletedByAuthor, bool? isDeletedByRecipient,
+            string toCustomerId, string adId, bool? isRead, bool? isDeletedByAuthor, bool? isDeletedByRecipient,
             string keywords, int pageIndex = 0, int pageSize = int.MaxValue);
 
         /// <summary>
