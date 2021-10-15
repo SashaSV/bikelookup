@@ -10,6 +10,7 @@
     <ServerGarbageCollection>false</ServerGarbageCollection>
     <PreserveCompilationReferences>true</PreserveCompilationReferences>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <LangVersion>9</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Grand.Core\Grand.Core.csproj" />
