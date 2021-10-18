@@ -1,3 +1,4 @@
+using Grand.Core;
 using Grand.Domain.Ads;
 using Grand.Domain.Catalog;
 using Grand.Domain.Customers;
@@ -23,13 +24,14 @@ namespace Grand.Web.Features.Handlers.Ads
         private readonly IVendorService _vendorService;
 
         private readonly IPictureService _pictureService;
-
-        public SaveAdHandler(IRepository<Ad> adRepository, IProductService productService, IVendorService vendorService, IPictureService pictureService)
+        private readonly IWorkContext _workContext;
+        public SaveAdHandler(IRepository<Ad> adRepository, IProductService productService, IVendorService vendorService, IPictureService pictureService, IWorkContext workContext)
         {
             _adRepository = adRepository;
             _productService = productService;
             _vendorService = vendorService;
             _pictureService = pictureService;
+            _workContext = workContext;
 
         }
         
@@ -37,8 +39,8 @@ namespace Grand.Web.Features.Handlers.Ads
         {
             var vendor = await _vendorService.GetVendorByName(request.Customer.Username);
             var pictureBites = request.AdToSave.ImageFile.GetPictureBits();
-           
-            var product = new Product
+            
+             var product = new Product
             {
                 Name = request.AdToSave.Model,
                 ManufactureName = request.AdToSave.ManufactureName,
@@ -84,7 +86,10 @@ namespace Grand.Web.Features.Handlers.Ads
                 },
                 CreatedOnUtc = DateTime.Now,
                 AdStatus = AdStatus.Processing,
-
+                ProductId = request.AdToSave.SearchBike,
+                Price = request.AdToSave.Price,
+                EndDateTimeUtc = DateTime.Now.AddMonths(1),
+                CustomerCurrencyCode = _workContext.WorkingCurrency.CurrencyCode
             };
             
             ad.StoreId = request.Store.Id;
@@ -92,6 +97,7 @@ namespace Grand.Web.Features.Handlers.Ads
                 ad.CustomerId = request.Customer.Id;
             else
                 ad.OwnerId = request.Customer.Id;
+            
             
             await _adRepository.InsertAsync(ad);
             
