@@ -2,15 +2,19 @@
 using Grand.Domain.Customers;
 using Grand.Domain.Forums;
 using Grand.Domain.Localization;
+using Grand.Domain.Media;
 using Grand.Framework.Components;
+using Grand.Services.Catalog;
 using Grand.Services.Customers;
 using Grand.Services.Forums;
 using Grand.Services.Helpers;
 using Grand.Services.Localization;
+using Grand.Services.Media;
 using Grand.Services.Queries.Models.Ads;
 using Grand.Services.Seo;
 using Grand.Web.Models.Ads;
 using Grand.Web.Models.Common;
+using Grand.Web.Models.Media;
 using Grand.Web.Models.Profile;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -28,14 +32,19 @@ namespace Grand.Web.ViewComponents
         private readonly IWorkContext _workContext;
         private readonly IStoreContext _storeContext;
         readonly IMediator _mediator;
-
+        private readonly IPictureService _pictureService;
+        private readonly MediaSettings _mediaSettings;
+        private readonly IProductService _productService;
         public ProfileAdsViewComponent(
             ICustomerService customerService,
             IDateTimeHelper dateTimeHelper,
             ILocalizationService localizationService,
             IMediator mediator,
             IWorkContext workContext,
-            IStoreContext storeContext)
+            IStoreContext storeContext,
+            IPictureService pictureService,
+            MediaSettings mediaSettings,
+            IProductService productService)
         {
             _workContext = workContext;
             _storeContext = storeContext;
@@ -43,6 +52,9 @@ namespace Grand.Web.ViewComponents
             _dateTimeHelper = dateTimeHelper;
             _localizationService = localizationService;
             _mediator = mediator;
+            _pictureService = pictureService;
+            _mediaSettings = mediaSettings;
+            _productService = productService;
         }
 
         public async Task<IViewComponentResult> InvokeAsync(string customerProfileId, int pageNumber)
@@ -89,16 +101,30 @@ namespace Grand.Web.ViewComponents
 
             foreach (var ad in ads)
             {
+                var rp = await _productService.GetProductById(ad.ProductId);
+
+                var pictureModel = new PictureModel {
+                    Id = ad.PictureId,
+                    FullSizeImageUrl = await _pictureService.GetPictureUrl(ad.PictureId),
+                    ImageUrl = await _pictureService.GetPictureUrl(ad.PictureId, _mediaSettings.VendorThumbPictureSize),
+                    Title = string.Format(_localizationService.GetResource("Media.Vendor.ImageLinkTitleFormat"), rp.Name),
+                    AlternateText = string.Format(_localizationService.GetResource("Media.Ad.ImageAlternateTextFormat"), rp.Name),
+                };
+
                 var adModel = new CustomerAdListModel.AdDetailsModel {
                     Id = ad.Id,
                     AdNumber = ad.AdNumber,
                     AdCode = ad.Code,
                     CustomerEmail = ad.BillingAddress?.Email,
                     CreatedOn = _dateTimeHelper.ConvertToUserTime(ad.CreatedOnUtc, DateTimeKind.Utc),
+                    EndDateTimeUtc = _dateTimeHelper.ConvertToUserTime(ad.EndDateTimeUtc, DateTimeKind.Utc),
+                    Price = ad.Price,
                     AdStatusEnum = ad.AdStatus,
                     AdStatus = ad.AdStatus.GetLocalizedEnum(_localizationService, curLanguage.Id),
                     PaymentStatus = ad.PaymentStatus.GetLocalizedEnum(_localizationService, curLanguage.Id),
                     ShippingStatus = ad.ShippingStatus.GetLocalizedEnum(_localizationService, curLanguage.Id),
+                    PictureModel = pictureModel,
+                    ProductName = rp.Name,
                     IsOpenFromMenu = false
                     //IsReturnRequestAllowed = await _mediator.Send(new IsReturnRequestAllowedQuery() { Ad = ad })
                 };

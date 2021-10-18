@@ -1,12 +1,16 @@
-﻿using Grand.Domain.Customers;
+﻿using Grand.Domain.Ads;
+using Grand.Domain.Customers;
+using Grand.Domain.Media;
 using Grand.Services.Ads;
 using Grand.Services.Catalog;
 using Grand.Services.Directory;
 using Grand.Services.Helpers;
 using Grand.Services.Localization;
+using Grand.Services.Media;
 using Grand.Services.Queries.Models.Ads;
 using Grand.Web.Features.Models.Ads;
 using Grand.Web.Models.Ads;
+using Grand.Web.Models.Media;
 using MediatR;
 using System;
 using System.Threading;
@@ -23,6 +27,9 @@ namespace Grand.Web.Features.Handlers.Ads
         private readonly ICurrencyService _currencyService;
         private readonly IPriceFormatter _priceFormatter;
         private readonly IMediator _mediator;
+        private readonly IPictureService _pictureService;
+        private readonly MediaSettings _mediaSettings;
+        private readonly IProductService _productService;
 
         public GetCustomerAdListHandler(
             IAdService adService,
@@ -31,7 +38,10 @@ namespace Grand.Web.Features.Handlers.Ads
             IAdProcessingService adProcessingService,
             ICurrencyService currencyService,
             IMediator mediator,
-            IPriceFormatter priceFormatter)
+            IPriceFormatter priceFormatter,
+            IPictureService pictureService,
+            MediaSettings mediaSettings,
+            IProductService productService)
         {
             _adService = adService;
             _dateTimeHelper = dateTimeHelper;
@@ -40,6 +50,9 @@ namespace Grand.Web.Features.Handlers.Ads
             _currencyService = currencyService;
             _priceFormatter = priceFormatter;
             _mediator = mediator;
+            _pictureService = pictureService;
+            _mediaSettings = mediaSettings;
+            _productService = productService;
         }
 
         public async Task<CustomerAdListModel> Handle(GetCustomerAdList request, CancellationToken cancellationToken)
@@ -65,21 +78,39 @@ namespace Grand.Web.Features.Handlers.Ads
 
             foreach (var ad in ads)
             {
+                
+                var rp = await _productService.GetProductById(ad.ProductId);
+
+                var nameProduct = rp == null ? "" : rp.Name;
+
+                var pictureModel = new PictureModel {
+                    Id = ad.PictureId,
+                    FullSizeImageUrl = await _pictureService.GetPictureUrl(ad.PictureId),
+                    ImageUrl = await _pictureService.GetPictureUrl(ad.PictureId, _mediaSettings.VendorThumbPictureSize),
+                    Title = string.Format(_localizationService.GetResource("Media.Vendor.ImageLinkTitleFormat"), nameProduct),
+                    AlternateText = string.Format(_localizationService.GetResource("Media.Ad.ImageAlternateTextFormat"), nameProduct),
+                };
+
                 var adModel = new CustomerAdListModel.AdDetailsModel {
                     Id = ad.Id,
                     AdNumber = ad.AdNumber,
                     AdCode = ad.Code,
                     CustomerEmail = ad.BillingAddress?.Email,
                     CreatedOn = _dateTimeHelper.ConvertToUserTime(ad.CreatedOnUtc, DateTimeKind.Utc),
+                    EndDateTimeUtc = _dateTimeHelper.ConvertToUserTime(ad.EndDateTimeUtc, DateTimeKind.Utc),
                     AdStatusEnum = ad.AdStatus,
                     AdStatus = ad.AdStatus.GetLocalizedEnum(_localizationService, request.Language.Id),
                     PaymentStatus = ad.PaymentStatus.GetLocalizedEnum(_localizationService, request.Language.Id),
                     ShippingStatus = ad.ShippingStatus.GetLocalizedEnum(_localizationService, request.Language.Id),
-                    IsOpenFromMenu = true
+                    PictureModel = pictureModel,
+                    ProductName = nameProduct,
+                    Price = ad.Price,
+                    IsOpenFromMenu = true,
+                    IsCancel = (ad.AdStatus == AdStatus.Cancelled)
                     //IsReturnRequestAllowed = await _mediator.Send(new IsReturnRequestAllowedQuery() { Ad = ad })
                 };
                 //var adTotalInCustomerCurrency = _currencyService.ConvertCurrency(ad.AdTotal, ad.CurrencyRate);
-                var adTotalInCustomerCurrency = 0;
+                var adTotalInCustomerCurrency = ad.Price;
                 adModel.AdTotal = await _priceFormatter.FormatPrice(adTotalInCustomerCurrency, true, ad.CustomerCurrencyCode, false, request.Language);
 
                 model.Ads.Add(adModel);

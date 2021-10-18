@@ -1,26 +1,49 @@
 ﻿@model CustomerAdListModel.AdDetailsModel
 @{
-    <b-card header-tag="header" footer-tag="footer" class="ads-item mb-3">
-        <template v-slot:header>
-            <div class="review-info d-inline-flex w-100">
-                <b-icon icon="calendar2-check" variant="info" class="mx-2"></b-icon>
-                <small class="date text-muted">
-                    <span>@T("Account.CustomerAds.AdDate"):</span>
-                    <span>@Model.CreatedOn.ToString("g")</span>
-                </small>
+    <b-card header-tag="header"  footer-tag="footer" class="ads-item mb-3 @((Model.IsCancel) ? "cancel" : "")">
+        <template v-slot:header >
+            <div class="title d-inline-flex align-items-center w-100">
+                <h3 class="vendor-title" itemprop="name" align="center">@Model.ProductName</h3>
+            </div>
+            <div class="price d-inline-flex align-items-end w-100">
+                <span class="vendor-title" itemprop="name" align="center">@Model.AdTotal</span>
             </div>
         </template>
         <div class="review-title mb-3">
+        </div>
+        <div class="justify-content-left">
+            <div class="rounded-photo">
+                <b-card-img fluid-grow="true" fluid="true" id="main-product-img-@Model.Id"
+                            alt="@Model.PictureModel.AlternateText"
+                            src="@Model.PictureModel.ImageUrl" class="rounded-0"></b-card-img>
+            </div>
+        </div>
+        <div class="justify-content-right">
+            @*<div class="title d-inline-flex align-items-center w-100">
+                    <h3 class="vendor-title" itemprop="name" align="center">@Model.ProductName</h3>
+                </div>*@
+            <div class="review-info d-inline-flex w-100">
+                @*<b-icon icon="calendar2-check" variant="info" class="mx-2"></b-icon>*@
+                <small class="date text-muted">
+                    <span> @T("Account.CustomerAds.AdDateFrom"):</span>
+                    <span> @Model.CreatedOn.ToString("d")</span>
+                </small>
+            </div>
+            <small class="date text-muted">
+                <span> @T("Account.CustomerAds.AdDateTo"):</span>
+                <span> @Model.EndDateTimeUtc.ToString("d") </span>
+            </small>
             <div class="user d-inline-flex align-items-center w-100">
                 <span>@T("Account.CustomerAds.AdStatus"):</span> <span class="ad-status @Model.AdStatusEnum.ToString().ToLowerInvariant()">@Model.AdStatus</span>
                 <span>@T("Account.CustomerAds.AdNumber"):</span> <span class="ad-number @Model.AdNumber.ToString().ToLowerInvariant()">@Model.AdNumber</span>
             </div>
-        </div>
-        <div class="review-content">
-            <div class="review-text">
-                @Html.Raw(Grand.Core.Html.HtmlHelper.FormatText("текст обьявления"))
+            <div class="review-content">
+                <div class="review-text">
+                    @Html.Raw(Grand.Core.Html.HtmlHelper.FormatText("текст обьявления"))
+                </div>
             </div>
         </div>
+
         <template v-slot:footer>
             @if (Model.IsOpenFromMenu)
             {

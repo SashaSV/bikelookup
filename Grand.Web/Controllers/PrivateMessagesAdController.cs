@@ -4,6 +4,7 @@ using Grand.Domain.Catalog;
 using Grand.Domain.Customers;
 using Grand.Domain.Forums;
 using Grand.Domain.Localization;
+using Grand.Domain.Media;
 using Grand.Framework.Controllers;
 using Grand.Services.Ads;
 using Grand.Services.Catalog;
@@ -12,9 +13,11 @@ using Grand.Services.Forums;
 using Grand.Services.Helpers;
 using Grand.Services.Localization;
 using Grand.Services.Logging;
+using Grand.Services.Media;
 using Grand.Services.Queries.Models.Ads;
 using Grand.Web.Models.Ads;
 using Grand.Web.Models.Common;
+using Grand.Web.Models.Media;
 using Grand.Web.Models.PrivateMessages;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -42,7 +45,7 @@ namespace Grand.Web.Controllers
         readonly IMediator _mediator;
         private readonly ForumSettings _forumSettings;
         private readonly CustomerSettings _customerSettings;
-
+        
         #endregion
 
         #region Constructors
@@ -384,7 +387,9 @@ namespace Grand.Web.Controllers
                 AdCode = ad.Code,
                 CustomerEmail = ad.BillingAddress?.Email,
                 CreatedOn = _dateTimeHelper.ConvertToUserTime(ad.CreatedOnUtc, DateTimeKind.Utc),
+                EndDateTimeUtc = _dateTimeHelper.ConvertToUserTime(ad.EndDateTimeUtc, DateTimeKind.Utc),
                 AdStatusEnum = ad.AdStatus,
+                Price = ad.Price,
                 AdStatus = ad.AdStatus.GetLocalizedEnum(_localizationService, curLanguage.Id),
                 PaymentStatus = ad.PaymentStatus.GetLocalizedEnum(_localizationService, curLanguage.Id),
                 ShippingStatus = ad.ShippingStatus.GetLocalizedEnum(_localizationService, curLanguage.Id),

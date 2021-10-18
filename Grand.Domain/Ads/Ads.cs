@@ -66,22 +66,11 @@ namespace Grand.Domain.Ads
         /// Gets or sets an Ads status identifier
         /// </summary>
         public int AdStatusId { get; set; }
-
         
         /// <summary>
         /// Gets or sets the shipping status identifier
         /// </summary>
         public int ShippingStatusId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the payment status identifier
-        /// </summary>
-        public int PaymentStatusId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the payment method system name
-        /// </summary>
-        public string PaymentMethodSystemName { get; set; }
 
         /// <summary>
         /// Gets or sets the customer currency code (at the moment of Ads placing)
@@ -98,6 +87,53 @@ namespace Grand.Domain.Ads
         /// </summary>
         [BsonRepresentation(BsonType.Decimal128, AllowTruncation = true)]
         public decimal CurrencyRate { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the entity has been deleted
+        /// </summary>
+        public bool Deleted { get; set; }
+
+        /// <summary>
+        /// Gets or sets the date and time of Ads creation
+        /// </summary>
+        public DateTime CreatedOnUtc { get; set; }
+        /// <summary>
+        /// Gets or sets the date and time of Ads end
+        /// </summary>
+        public DateTime EndDateTimeUtc { get; set; }
+        /// <summary>
+        /// Gets or sets the shipping address
+        /// </summary>
+        public virtual Address ShippingAddress { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the entity has been imported
+        /// </summary>
+        public bool Imported { get; set; }
+
+        /// <summary>
+        /// Gets or sets the customer IP address
+        /// </summary>
+        public string CustomerIp { get; set; }
+        /// <summary>
+        /// Gets or sets the price
+        /// </summary>
+        public decimal Price { get; set; }
+        /// <summary>
+        /// Gets or sets the old price
+        /// </summary>
+        public decimal OldPrice { get; set; }
+        public string PictureId { get; set; }
+        #region Не нужные свойства
+        /// <summary>
+        /// Gets or sets the payment status identifier
+        /// </summary>
+        public int PaymentStatusId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the payment method system name
+        /// </summary>
+        public string PaymentMethodSystemName { get; set; }
 
         /// <summary>
         /// Gets or sets the customer tax display type identifier
@@ -238,12 +274,6 @@ namespace Grand.Domain.Ads
         /// Gets or sets the affiliate identifier
         /// </summary>
         public string AffiliateId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the customer IP address
-        /// </summary>
-        public string CustomerIp { get; set; }
-
         /// <summary>
         /// Gets or sets a value indicating whether storing of credit card number is allowed
         /// </summary>
@@ -335,21 +365,6 @@ namespace Grand.Domain.Ads
         public string CustomValuesXml { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the entity has been deleted
-        /// </summary>
-        public bool Deleted { get; set; }
-
-        /// <summary>
-        /// Gets or sets the date and time of Ads creation
-        /// </summary>
-        public DateTime CreatedOnUtc { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether the entity has been imported
-        /// </summary>
-        public bool Imported { get; set; }
-
-        /// <summary>
         /// Gets or sets a value indicating whether the url referrer exists
         /// </summary>
         public string UrlReferrer { get; set; }
@@ -373,11 +388,6 @@ namespace Grand.Domain.Ads
         public virtual Address BillingAddress { get; set; }
 
         /// <summary>
-        /// Gets or sets the shipping address
-        /// </summary>
-        public virtual Address ShippingAddress { get; set; }
-
-        /// <summary>
         /// Gets or sets the pickup point
         /// </summary>
         public virtual PickupPoint PickupPoint { get; set; }
@@ -386,7 +396,7 @@ namespace Grand.Domain.Ads
         /// Gets or sets the reward points history record
         /// </summary>
         public virtual RewardPointsHistory RedeemedRewardPointsEntry { get; set; }
-
+        #endregion
         public virtual AdItem AdItem {get; set;}
 
         /// <summary>

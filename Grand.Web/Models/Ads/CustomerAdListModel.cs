@@ -2,6 +2,7 @@
 using Grand.Core.Models;
 using System;
 using System.Collections.Generic;
+using Grand.Web.Models.Media;
 
 namespace Grand.Web.Models.Ads
 {
@@ -30,9 +31,14 @@ namespace Grand.Web.Models.Ads
             public string PaymentStatus { get; set; }
             public string ShippingStatus { get; set; }
             public DateTime CreatedOn { get; set; }
+            public DateTime EndDateTimeUtc { get; set; }
+            public decimal Price { get; set; }
             public int AdNumber { get; set; }
             public string AdCode { get; set; }
             public string CustomerEmail { get; set; }
+            public string ProductName { get; set; }
+            public PictureModel PictureModel { get; set; }
+            public bool IsCancel { get; set; }
         }
 
         public partial class RecurringAdsModel : BaseEntityModel

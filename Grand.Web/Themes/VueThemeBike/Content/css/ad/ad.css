@@ -1,0 +1,102 @@
+.row .justify-content-left {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    margin: 5px;
+    /* margin-left: 5px; */
+    padding: 5px 10px;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: nowrap;
+    align-items: center;
+    /* background-color: rgb(255,255,0,0.08); */
+    /* box-shadow: 0px 3px 13px rgb(0 0 0 / 20%); */
+}
+.rounded-photo {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 100%!important;
+    border: 3px solid #F15A24;
+    box-shadow: 0 0 7px #666;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: white;
+}
+
+.row .justify-content-right {
+    width: 100%;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    /* margin-right: 5px; */
+    margin: 5px;
+    padding: 5px 10px;
+    flex-direction: column;
+    /* justify-content: center; */
+}
+
+.card-body {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: row;
+    min-width: 0;
+    word-wrap: break-word;
+    /* background-color: rgb(255,255,0,0.08); */
+    /* opacity: 0.4; */
+    background-clip: border-box;
+    /* border: 1px solid rgba(0,0,0,.125); */
+    border-radius: .25rem;
+    justify-content: center;
+    /* align-items: center; */
+    width: 100%;
+    /* box-shadow: 0px 3px 13px rgb(0 0 0 / 20%); */
+}
+
+/* .card-header {
+    padding: .75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: #ffc1071c;
+    border-bottom: 1px solid #ffc107;
+}
+
+.card-footer {
+    padding: .75rem 1.25rem;
+    background-color: #ffc1071c;
+    border-top: 1px solid #ffc107;
+}
+
+.card {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid #ffc107;
+    border-radius: .25rem;
+}
+
+.card {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid #ffc107;
+    border-radius: .25rem;
+} */
+
+.cancel{
+    background-color: #dee2e6!important
+}
