@@ -384,6 +384,7 @@ var vm = new Vue({
     el: '#app',
     data() {
         return {
+            file1 : null,
             show: false,
             fluid: false,
             hover: false,

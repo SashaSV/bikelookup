@@ -42,7 +42,17 @@
                         <b-avatar src="@(Model.AvatarUrl)" size="6rem"></b-avatar>
                         }*@
                         <label class="btn btn-info" for="my-file-selector">
-                            <input id="my-file-selector" name="ImageFile" type="file" accept="image/*">
+                           
+                            <b-form-file
+                                multiple
+                                name="ImageFile"
+                                type="file" 
+                                accept="image/*"
+                              v-model="file1"
+                              :state="Boolean(file1)"
+                              placeholder="Choose a file or drop it here..."
+                              drop-placeholder="Drop file here..."
+                            ></b-form-file>
                         </label>
                         <span class='label label-info' id="upload-file-info"></span>
                     </div>

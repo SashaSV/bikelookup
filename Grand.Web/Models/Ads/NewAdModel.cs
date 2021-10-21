@@ -56,7 +56,7 @@ namespace Grand.Web.Models.Ads
         public bool IsAuction { get; set; }
         public string SearchBike { get; set; }
 
-        public IFormFile ImageFile { get; set; }  
+        public IFormFile [] ImageFile { get; set; }  
         
         #region Nested Classes
 

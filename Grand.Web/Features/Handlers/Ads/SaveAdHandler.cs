@@ -37,9 +37,33 @@ namespace Grand.Web.Features.Handlers.Ads
         
         public async Task<bool>  Handle(SaveAd request, CancellationToken cancellationToken)
         {
-            var vendor = await _vendorService.GetVendorByName(request.Customer.Username);
-            var pictureBites = request.AdToSave.ImageFile.GetPictureBits();
+            var groupedProductId = request.AdToSave.SearchBike;
             
+            if ( string.IsNullOrEmpty(request.AdToSave.SearchBike))
+            {
+                var groupedProduct = new Product
+                {
+                    Name = request.AdToSave.Model,
+                    ManufactureName = request.AdToSave.ManufactureName,
+                    Price = request.AdToSave.Price,
+                    Year = request.AdToSave.Year.ToString(),
+                    ProductType = ProductType.GroupedProduct,
+                    Published = true,
+                    Weeldiam = request.AdToSave.Weeldiam,
+                    Color = request.AdToSave.Color,
+                    Model = request.AdToSave.Model,
+                    Size = request.AdToSave.Size,
+                    AvailableStartDateTimeUtc = DateTime.Today,
+                    AvailableEndDateTimeUtc = DateTime.Today.AddMonths(3),
+                    UpdatedOnUtc = DateTime.Now
+                };
+                await _productService.InsertProduct(groupedProduct);
+                
+                groupedProductId = groupedProduct.Id;
+            }
+            
+            var vendor = await _vendorService.GetVendorByName(request.Customer.Username);
+         
              var product = new Product
             {
                 Name = request.AdToSave.Model,
@@ -58,30 +82,35 @@ namespace Grand.Web.Features.Handlers.Ads
                 UpdatedOnUtc = DateTime.Now
             };
             
-            if (!string.IsNullOrEmpty(request.AdToSave.SearchBike))
+            if (!string.IsNullOrEmpty(groupedProductId))
             {
-                product.ParentGroupedProductId = request.AdToSave.SearchBike;
+                product.ParentGroupedProductId = groupedProductId;
             }
 
             await _productService.InsertProduct(product);
-            
-            var picture = await _pictureService.InsertPicture(pictureBites, request.AdToSave.ImageFile.ContentType,_pictureService.GetPictureSeName(request.AdToSave.Model));
 
-            if (picture != null)
+            foreach (var pirctureFile in request.AdToSave.ImageFile)
             {
-                await _pictureService.UpdatePicture(picture.Id, await _pictureService.LoadPictureBinary(picture),
-                    picture.MimeType,
-                    picture.SeoFilename);
+                var pictureBites = pirctureFile.GetPictureBits();
 
-                await _productService.InsertProductPicture(new ProductPicture {
-                    PictureId = picture.Id,
-                    ProductId = product.Id,
-                    DisplayOrder = 1,
-                    MimeType = picture.MimeType,
-                    SeoFilename = picture.SeoFilename
-                });
+                var picture = await _pictureService.InsertPicture(pictureBites, pirctureFile.ContentType,_pictureService.GetPictureSeName(request.AdToSave.Model));
+
+                if (picture != null)
+                {
+                    await _pictureService.UpdatePicture(picture.Id, await _pictureService.LoadPictureBinary(picture),
+                        picture.MimeType,
+                        picture.SeoFilename);
+
+                    await _productService.InsertProductPicture(new ProductPicture {
+                        PictureId = picture.Id,
+                        ProductId = product.Id,
+                        DisplayOrder = 1,
+                        MimeType = picture.MimeType,
+                        SeoFilename = picture.SeoFilename
+                    });
+                }
             }
-
+            
             var ad = new Ad() {
                 AdItem = new AdItem()
                 {
