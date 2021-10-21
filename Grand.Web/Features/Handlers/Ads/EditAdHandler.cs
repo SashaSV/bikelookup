@@ -51,30 +51,23 @@ namespace Grand.Web.Features.Handlers.Ads
         public async Task<EditAdModel> Handle(EditAd request, CancellationToken cancellationToken)
         {
             var ad = await _adRepository.GetByIdAsync(request.Ad.Id);
-            //var product = await _productService.GetProductById(ad.ProductId);
-
-            //if (product == null)
-            //{
-            //    product = new Product() {
-                  
-            //    };
-            //}
-
+            var product = await _productService.GetProductById(ad.AdItem.ProductId);
+            
             var model = new EditAdModel() { WithDocuments = true};
-            //model.Items = new EditAdModel.AdItemModel() {
-            //    ProductId = ad.AdItem.ProductId,
-            //    ProductName = product.Name,
-            //};
+      
             model.Id = request.Ad.Id;
             model.AdNumber = request.Ad.AdNumber;
             model.AdCode = request.Ad.Code;
             model.CreatedOn = _dateTimeHelper.ConvertToUserTime(request.Ad.CreatedOnUtc, DateTimeKind.Utc);
             model.AdStatus = request.Ad.AdStatus.GetLocalizedEnum(_localizationService, request.Language.Id);
-            //model.ManufactureName = product.ManufactureName;
-            //model.Price = product.Price;
+            model.ManufactureName = product.ManufactureName;
+            model.Price = product.Price;
+            model.Model = product.Model;
+            model.Color = product.Color;
+            model.Size = product.Size;
+            model.Weeldiam = product.Weeldiam;
+            model.Year = string.IsNullOrEmpty(product.Year)? 0 :  int.Parse(product.Year);
             
-            //await PrepareAd(model, request);
-            //await PrepareRecurringPayments(model, request);
             return model;
         }
     }
