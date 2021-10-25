@@ -42,10 +42,12 @@ namespace Grand.Web.Controllers
         private readonly IDateTimeHelper _dateTimeHelper;
         private readonly IAdService _adService;
         private readonly IProductService _productService;
+        private readonly IPictureService _pictureService;
         readonly IMediator _mediator;
         private readonly ForumSettings _forumSettings;
         private readonly CustomerSettings _customerSettings;
-        
+        private readonly MediaSettings _mediaSettings;
+
         #endregion
 
         #region Constructors
@@ -55,7 +57,7 @@ namespace Grand.Web.Controllers
             ILocalizationService localizationService, IWorkContext workContext,
             IStoreContext storeContext, IDateTimeHelper dateTimeHelper,
             ForumSettings forumSettings, CustomerSettings customerSettings,
-            IAdService adService, IProductService productService, IMediator mediator)
+            IAdService adService, IProductService productService, IPictureService pictureService, IMediator mediator, MediaSettings mediaSettings)
         {
             _forumService = forumService;
             _customerService = customerService;
@@ -68,7 +70,9 @@ namespace Grand.Web.Controllers
             _customerSettings = customerSettings;
             _adService = adService;
             _productService = productService;
+            _pictureService = pictureService;
             _mediator = mediator;
+            _mediaSettings = mediaSettings;
         }
 
         #endregion
@@ -381,6 +385,21 @@ namespace Grand.Web.Controllers
 
         public virtual async Task<CustomerAdListModel.AdDetailsModel> PrepareAd(Language curLanguage, Ad ad)
         {
+            var rp = await _productService.GetProductById(ad.ProductId);
+            var nameProduct = rp == null ? "" : rp.Name;
+
+            var productIdAd = ad.AdItem == null ? "" : ad.AdItem.ProductId;
+            var rpAd = await _productService.GetProductById(productIdAd);
+            var firstPictureId = rpAd == null || rpAd.ProductPictures == null ? "" : rpAd.ProductPictures.First().PictureId;
+
+            var pictureModel = new PictureModel {
+                Id = firstPictureId,
+                FullSizeImageUrl = await _pictureService.GetPictureUrl(firstPictureId),
+                ImageUrl = await _pictureService.GetPictureUrl(firstPictureId, _mediaSettings.VendorThumbPictureSize),
+                Title = string.Format(_localizationService.GetResource("Media.Vendor.ImageLinkTitleFormat"), nameProduct),
+                AlternateText = string.Format(_localizationService.GetResource("Media.Ad.ImageAlternateTextFormat"), nameProduct),
+            };
+
             var adModel = new CustomerAdListModel.AdDetailsModel {
                 Id = ad.Id,
                 AdNumber = ad.AdNumber,
@@ -393,7 +412,9 @@ namespace Grand.Web.Controllers
                 AdStatus = ad.AdStatus.GetLocalizedEnum(_localizationService, curLanguage.Id),
                 PaymentStatus = ad.PaymentStatus.GetLocalizedEnum(_localizationService, curLanguage.Id),
                 ShippingStatus = ad.ShippingStatus.GetLocalizedEnum(_localizationService, curLanguage.Id),
-                IsOpenFromMenu = false
+                IsOpenFromMenu = false,
+                PictureModel = pictureModel,
+                AdComment = ad.AdComment
             };
             return adModel;
         }

@@ -233,6 +233,8 @@ namespace Grand.Web.Features.Handlers.Products
             if (product.ProductSpecificationAttributes.Any())
             {
                 model.SpecificationAttributeModels = await _mediator.Send(new GetProductSpecification() { Language = _workContext.WorkingLanguage, Product = product });
+                var available = model.SpecificationAttributeModels.FirstOrDefault(a => a.SpecificationAttributeCode == "sp_available");
+                model.IsAvailable = available == null ? "" : available.ValueRaw;
             }
             
 

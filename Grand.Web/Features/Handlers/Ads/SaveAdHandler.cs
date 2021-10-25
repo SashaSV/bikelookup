@@ -122,7 +122,8 @@ namespace Grand.Web.Features.Handlers.Ads
                 ProductId = request.AdToSave.SearchBike,
                 Price = request.AdToSave.Price,
                 EndDateTimeUtc = DateTime.Now.AddMonths(1),
-                CustomerCurrencyCode = _workContext.WorkingCurrency.CurrencyCode
+                CustomerCurrencyCode = _workContext.WorkingCurrency.CurrencyCode,
+                AdComment = request.AdToSave.AdComment
             };
             
             ad.StoreId = request.Store.Id;

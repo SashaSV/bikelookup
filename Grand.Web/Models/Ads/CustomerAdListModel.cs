@@ -39,6 +39,7 @@ namespace Grand.Web.Models.Ads
             public string ProductName { get; set; }
             public PictureModel PictureModel { get; set; }
             public bool IsCancel { get; set; }
+            public string AdComment { get; set; }
         }
 
         public partial class RecurringAdsModel : BaseEntityModel

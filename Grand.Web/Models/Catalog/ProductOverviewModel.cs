@@ -57,7 +57,7 @@ namespace Grand.Web.Models.Catalog
         public Int64 Viewed { get; set; }
 
         public IList<ProductOverviewModel> AssociatedProducts { get; set; }
-
+        public string IsAvailable { get; set; }
         //price
         public ProductPriceModel ProductPrice { get; set; }
         

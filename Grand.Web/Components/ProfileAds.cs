@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace Grand.Web.ViewComponents
 {
@@ -103,10 +104,14 @@ namespace Grand.Web.ViewComponents
             {
                 var rp = await _productService.GetProductById(ad.ProductId);
 
+                var productIdAd = ad.AdItem == null ? "" : ad.AdItem.ProductId;
+                var rpAd = await _productService.GetProductById(productIdAd);
+                var firstPictureId = rpAd == null || rpAd.ProductPictures == null ? "" : rpAd.ProductPictures.First().PictureId;
+
                 var pictureModel = new PictureModel {
-                    Id = ad.PictureId,
-                    FullSizeImageUrl = await _pictureService.GetPictureUrl(ad.PictureId),
-                    ImageUrl = await _pictureService.GetPictureUrl(ad.PictureId, _mediaSettings.VendorThumbPictureSize),
+                    Id = firstPictureId,
+                    FullSizeImageUrl = await _pictureService.GetPictureUrl(firstPictureId),
+                    ImageUrl = await _pictureService.GetPictureUrl(firstPictureId, _mediaSettings.VendorThumbPictureSize),
                     Title = string.Format(_localizationService.GetResource("Media.Vendor.ImageLinkTitleFormat"), rp.Name),
                     AlternateText = string.Format(_localizationService.GetResource("Media.Ad.ImageAlternateTextFormat"), rp.Name),
                 };
@@ -125,7 +130,8 @@ namespace Grand.Web.ViewComponents
                     ShippingStatus = ad.ShippingStatus.GetLocalizedEnum(_localizationService, curLanguage.Id),
                     PictureModel = pictureModel,
                     ProductName = rp.Name,
-                    IsOpenFromMenu = false
+                    IsOpenFromMenu = false,
+                    AdComment = ad.AdComment
                     //IsReturnRequestAllowed = await _mediator.Send(new IsReturnRequestAllowedQuery() { Ad = ad })
                 };
                 var adTotalInCustomerCurrency = 0;

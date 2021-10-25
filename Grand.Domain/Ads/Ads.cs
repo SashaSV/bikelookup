@@ -123,7 +123,7 @@ namespace Grand.Domain.Ads
         /// Gets or sets the old price
         /// </summary>
         public decimal OldPrice { get; set; }
-        public string PictureId { get; set; }
+        public string AdComment { get; set; }
         #region Не нужные свойства
         /// <summary>
         /// Gets or sets the payment status identifier

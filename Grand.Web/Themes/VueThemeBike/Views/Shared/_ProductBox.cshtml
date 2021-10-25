@@ -227,7 +227,8 @@
                                 @assocProduct.UpdatedOnUtc.Value.ToString()
                             </div>
                             <div class="spec-avaliable">
-                                @assocProduct.SpecificationAttributeModels.FirstOrDefault(a => a.SpecificationAttributeCode == "sp_available").ValueRaw
+                                @*@assocProduct.SpecificationAttributeModels.FirstOrDefault(a => a.SpecificationAttributeCode == "sp_available").ValueRaw*@
+                                @assocProduct.IsAvailable;
                             </div>
                         </div>
                         <div class="proposal-value">

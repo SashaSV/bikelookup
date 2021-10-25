@@ -15,6 +15,7 @@ using MediatR;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace Grand.Web.Features.Handlers.Ads
 {
@@ -82,11 +83,14 @@ namespace Grand.Web.Features.Handlers.Ads
                 var rp = await _productService.GetProductById(ad.ProductId);
 
                 var nameProduct = rp == null ? "" : rp.Name;
+                var productIdAd = ad.AdItem == null ? "" : ad.AdItem.ProductId;
+                var rpAd = await _productService.GetProductById(productIdAd);
+                var firstPictureId = rpAd == null || rpAd.ProductPictures == null ? "": rpAd.ProductPictures.First().PictureId;
 
                 var pictureModel = new PictureModel {
-                    Id = ad.PictureId,
-                    FullSizeImageUrl = await _pictureService.GetPictureUrl(ad.PictureId),
-                    ImageUrl = await _pictureService.GetPictureUrl(ad.PictureId, _mediaSettings.VendorThumbPictureSize),
+                    Id = firstPictureId,
+                    FullSizeImageUrl = await _pictureService.GetPictureUrl(firstPictureId),
+                    ImageUrl = await _pictureService.GetPictureUrl(firstPictureId, _mediaSettings.VendorThumbPictureSize),
                     Title = string.Format(_localizationService.GetResource("Media.Vendor.ImageLinkTitleFormat"), nameProduct),
                     AlternateText = string.Format(_localizationService.GetResource("Media.Ad.ImageAlternateTextFormat"), nameProduct),
                 };
@@ -106,7 +110,8 @@ namespace Grand.Web.Features.Handlers.Ads
                     ProductName = nameProduct,
                     Price = ad.Price,
                     IsOpenFromMenu = true,
-                    IsCancel = (ad.AdStatus == AdStatus.Cancelled)
+                    IsCancel = (ad.AdStatus == AdStatus.Cancelled),
+                    AdComment = ad.AdComment
                     //IsReturnRequestAllowed = await _mediator.Send(new IsReturnRequestAllowedQuery() { Ad = ad })
                 };
                 //var adTotalInCustomerCurrency = _currencyService.ConvertCurrency(ad.AdTotal, ad.CurrencyRate);

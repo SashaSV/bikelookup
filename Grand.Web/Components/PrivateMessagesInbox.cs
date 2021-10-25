@@ -82,23 +82,25 @@ namespace Grand.Web.ViewComponents
                 var fromCustomer = await _customerService.GetCustomerById(pm.FromCustomerId);
                 var toCustomer = await _customerService.GetCustomerById(lastMessage.ToCustomerId);
                 var ad = await _adService.GetAdById(pm.AdId);
-                var rp = await _productService.GetProductById(ad.ProductId);
-                inbox.Add(new PrivateMessageModel
+                if (ad != null)
                 {
-                    Id = lastMessage.Id,
-                    FromCustomerId = fromCustomer.Id,
-                    CustomerFromName = fromCustomer.FormatUserName(_customerSettings.CustomerNameFormat),
-                    AllowViewingFromProfile = _customerSettings.AllowViewingProfiles && fromCustomer != null && !fromCustomer.IsGuest(),
-                    ToCustomerId = toCustomer.Id,
-                    CustomerToName = toCustomer.FormatUserName(_customerSettings.CustomerNameFormat),
-                    AllowViewingToProfile = _customerSettings.AllowViewingProfiles && toCustomer != null && !toCustomer.IsGuest(),
-                    Subject = lastMessage.Subject,
-                    Message = lastMessage.Text,
-                    CreatedOn = _dateTimeHelper.ConvertToUserTime(lastMessage.CreatedOnUtc, DateTimeKind.Utc),
-                    IsRead = lastMessage.IsRead,
-                    AdId = pm.AdId,
-                    AdProductName = rp.Name
-                });
+                    var rp = await _productService.GetProductById(ad.ProductId);
+                    inbox.Add(new PrivateMessageModel {
+                        Id = lastMessage.Id,
+                        FromCustomerId = fromCustomer.Id,
+                        CustomerFromName = fromCustomer.FormatUserName(_customerSettings.CustomerNameFormat),
+                        AllowViewingFromProfile = _customerSettings.AllowViewingProfiles && fromCustomer != null && !fromCustomer.IsGuest(),
+                        ToCustomerId = toCustomer.Id,
+                        CustomerToName = toCustomer.FormatUserName(_customerSettings.CustomerNameFormat),
+                        AllowViewingToProfile = _customerSettings.AllowViewingProfiles && toCustomer != null && !toCustomer.IsGuest(),
+                        Subject = lastMessage.Subject,
+                        Message = lastMessage.Text,
+                        CreatedOn = _dateTimeHelper.ConvertToUserTime(lastMessage.CreatedOnUtc, DateTimeKind.Utc),
+                        IsRead = lastMessage.IsRead,
+                        AdId = pm.AdId,
+                        AdProductName = rp.Name
+                    });
+                }
             }
 
             var pagerModel = new PagerModel(_localizationService)

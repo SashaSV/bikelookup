@@ -1,5 +1,14 @@
 ﻿@model PrivateMessageChatModel
 @inject IPageHeadBuilder pagebuilder
+@inject IWorkContext workContext
+@inject IThemeContext themeContext
+@{
+    var themeName = themeContext.WorkingThemeName;
+    var supportRtl = workContext.WorkingLanguage.Rtl;
+
+    pagebuilder.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/css/ad/ad.css", themeName));
+
+}
 @{
     var dates = Model.Messages.GroupBy(x => x.CreatedOn.Date).OrderBy(x => x.Key);
     Layout = "_ColumnsOne";
