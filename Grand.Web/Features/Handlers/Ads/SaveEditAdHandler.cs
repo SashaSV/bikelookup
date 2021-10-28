@@ -42,14 +42,14 @@ namespace Grand.Web.Features.Handlers.Ads
            
             ad.Price = request.Model.Price;
             ad.AdComment = request.Model.AdComment;
+            await _productService.UpdateProduct(product);
             
             if(product!=null)
             {
               product.Price = request.Model.Price;
+              await _adRepository.UpdateAsync(ad);
+                
             }
-    
-            await _adRepository.UpdateAsync(ad);
-            await _productService.UpdateProduct(product);
 
             return true;
         }
