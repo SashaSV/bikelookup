@@ -21,6 +21,7 @@ using Grand.Services.Ads;
 using Grand.Web.Features.Models.Ads;
 using Grand.Services.Commands.Models.Ads;
 using Grand.Web.Commands.Models.Ads;
+using Grand.Web.Features.Handlers.Ads;
 using Grand.Web.Models.Ads;
 
 namespace Grand.Web.Controllers
@@ -113,6 +114,17 @@ namespace Grand.Web.Controllers
             var model = await _mediator.Send(new EditAd() { Ad = Ad, Language = _workContext.WorkingLanguage });
 
             return View(model);
+        }
+        
+        [HttpPost]
+        public virtual async Task<IActionResult> EditAd([FromForm]EditAdModel editAdModel)
+        {
+            if (!_workContext.CurrentCustomer.IsRegistered())
+                return Challenge();
+            
+            await _mediator.Send(new EditAdSave { Model = editAdModel });
+           
+            return RedirectToRoute("CustomerAds");
         }
 
         //My account / Ad details page / Cancel Unpaid Ad
