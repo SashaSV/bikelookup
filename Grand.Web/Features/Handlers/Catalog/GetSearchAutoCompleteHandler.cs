@@ -44,6 +44,7 @@ namespace Grand.Web.Features.Handlers.Catalog
         private readonly CatalogSettings _catalogSettings;
         private readonly MediaSettings _mediaSettings;
         private readonly BlogSettings _blogSettings;
+        private readonly ISpecificationAttributeService _specificationAttributeService;
 
         public GetSearchAutoCompleteHandler(
             IWebHelper webHelper,
@@ -61,7 +62,8 @@ namespace Grand.Web.Features.Handlers.Catalog
             IMediator mediator,
             CatalogSettings catalogSettings,
             MediaSettings mediaSettings,
-            BlogSettings blogSettings)
+            BlogSettings blogSettings,
+            ISpecificationAttributeService specificationAttributeService)
         {
             _webHelper = webHelper;
             _pictureService = pictureService;
@@ -79,6 +81,7 @@ namespace Grand.Web.Features.Handlers.Catalog
             _catalogSettings = catalogSettings;
             _mediaSettings = mediaSettings;
             _blogSettings = blogSettings;
+            _specificationAttributeService = specificationAttributeService;
         }
 
         public async Task<IList<SearchAutoCompleteModel>> Handle(GetSearchAutoComplete request, CancellationToken cancellationToken)
@@ -115,8 +118,10 @@ namespace Grand.Web.Features.Handlers.Catalog
 
             var storeurl = _webHelper.GetStoreLocation();
 
+            var atribute = await _specificationAttributeService.GetSpecificationAttributeBySeName("sp_color");
+            
             foreach (var item in products)
-            {
+            { 
                 var pictureUrl = "";
                 if (_catalogSettings.ShowProductImagesInSearchAutoComplete)
                 {
@@ -132,18 +137,39 @@ namespace Grand.Web.Features.Handlers.Catalog
 
                 var price = await PreparePrice(item, request);
 
-                model.Add(new SearchAutoCompleteModel() {
-                    SearchType = "Product",
-                    ProductId = item.Id,
-                    Label = item.GetLocalized(x => x.Name, request.Language.Id) ?? "",
-                    Desc = item.GetLocalized(x => x.ShortDescription, request.Language.Id) ?? "",
-                    PictureUrl = pictureUrl,
-                    AllowCustomerReviews = rating.AllowCustomerReviews,
-                    Rating = rating.TotalReviews > 0 ? (((rating.RatingSum * 100) / rating.TotalReviews) / 5) : 0,
-                    Price = price.Price,
-                    PriceWithDiscount = price.PriceWithDiscount,
-                    Url = $"{storeurl}{item.SeName}"
-                });
+                var prodModel = 
+                    new SearchAutoCompleteModel() {
+                        SearchType = "Product",
+                        ProductId = item.Id,
+                        ManufactureName = item.ManufactureName,
+                        Size = item.Size,
+                        Weeldiam = item.Weeldiam,
+                        Model = item.Model,
+                        Year = item.Year,
+                        Label = item.GetLocalized(x => x.Name, request.Language.Id) ?? "",
+                        Desc = item.GetLocalized(x => x.ShortDescription, request.Language.Id) ?? "",
+                        PictureUrl = pictureUrl,
+                        AllowCustomerReviews = rating.AllowCustomerReviews,
+                        Rating = rating.TotalReviews > 0 ? (((rating.RatingSum * 100) / rating.TotalReviews) / 5) : 0,
+                        Price = price.Price,
+                        PriceWithDiscount = price.PriceWithDiscount,
+                        Url = $"{storeurl}{item.SeName}"
+                    };
+                model.Add(prodModel);
+                
+                if (atribute != null)
+                {
+                    var option =
+                        item.ProductSpecificationAttributes.FirstOrDefault(o =>
+                            o.SpecificationAttributeId == atribute.Id);
+
+                    var optionDetails =
+                        atribute.SpecificationAttributeOptions.FirstOrDefault(o =>
+                            o.Id == option.SpecificationAttributeOptionId);
+
+                    prodModel.Color = optionDetails.ColorSquaresRgb;
+                }
+
                 foreach (var category in item.ProductCategories)
                 {
                     categories.Add(category.CategoryId);

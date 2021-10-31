@@ -13,5 +13,17 @@
         public string PictureUrl { get; set; }
 
         public string ProductId { get; set; }
+
+        public string Year { get; set; }
+
+        public string Weeldiam { get; set; }
+
+        public string Model { get; set; }
+
+        public string ManufactureName { get; set; }
+        
+        public string Color { get; set; }
+        
+        public string Size { get; set; }
     }
 }
