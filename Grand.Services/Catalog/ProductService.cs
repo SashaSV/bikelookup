@@ -647,7 +647,7 @@ namespace Grand.Services.Catalog
             //ACL mapping
             if (!showHidden)
             {
-                products = products.Where(x => _aclService.Authorize(x)).ToList();
+               products = products.Where(x => _aclService.Authorize(x)).ToList();
             }
             //Store mapping
             if (!showHidden && !string.IsNullOrEmpty(storeId))

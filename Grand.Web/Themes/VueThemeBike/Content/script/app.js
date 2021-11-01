@@ -123,7 +123,7 @@ Vue.component('findautocomplete', {
                       <div class="search-underline"> </div>
                       <ul v-if="showResults" class="autocomplete-results">
                         <li class="autocomplete-result" v-for="item in Items" :key="item.Label">
-                            <div v-on:click="onselect(item.ProductId, item.Label)">{{item.Label}}</div>
+                            <div v-on:click="onselect(item, item.Label)">{{item.Label}}</div>
                         </li>
                      </ul>
                 </div>
@@ -401,6 +401,7 @@ var vm = new Vue({
             pictureToZoom: null,
             prodToZoom: null,
             busy: false,
+            baseProduct : {Id : ""},
             baseProductId: ""
         }
     },
