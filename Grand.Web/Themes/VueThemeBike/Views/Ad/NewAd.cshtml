@@ -41,19 +41,19 @@
                         {
                         <b-avatar src="@(Model.AvatarUrl)" size="6rem"></b-avatar>
                         }*@
-                        <label class="btn btn-info" for="my-file-selector">
-                           
-                            <b-form-file
+                       
+                        <b-form-file
                                 multiple
                                 name="ImageFile"
                                 type="file" 
                                 accept="image/*"
-                              v-model="file1"
-                              :state="Boolean(file1)"
-                              placeholder="Choose a file or drop it here..."
-                              drop-placeholder="Drop file here..."
-                            ></b-form-file>
-                        </label>
+                                v-model="file1"
+                                :state="Boolean(file1)"
+                                placeholder="Choose a file or drop it here..."
+                                drop-placeholder="Drop file here..."
+                                ></b-form-file>
+                            <b-img v-for="file in file1" :src="window.URL.createObjectURL(file)" fluid alt="Responsive image"></b-img>
+                       
                         <span class='label label-info' id="upload-file-info"></span>
                     </div>
                 </div>
