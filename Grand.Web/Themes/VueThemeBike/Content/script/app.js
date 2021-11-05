@@ -119,7 +119,7 @@ Vue.component('findautocomplete', {
         ` <div id="searchbar">  
                 <div class="find-mini">
                    <a class="search-box">
-                      <b-form-input type="text" v-bind:placeholder="Placeholder" v-model="TextToSearch" v-on:input="lookup()" v-on:keypress.enter ="onsearch()">
+                      <input type="text" v-bind:placeholder="Placeholder" v-model="TextToSearch" v-on:input="lookup()" v-on:keypress.enter ="onsearch()">
                       <div class="search-underline"> </div>
                       <ul v-if="showResults" class="autocomplete-results">
                         <li class="autocomplete-result" v-for="item in Items" :key="item.Label">
