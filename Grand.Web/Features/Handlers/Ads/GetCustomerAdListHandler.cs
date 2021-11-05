@@ -85,7 +85,7 @@ namespace Grand.Web.Features.Handlers.Ads
                 var nameProduct = rp == null ? "" : rp.Name;
                 var productIdAd = ad.AdItem == null ? "" : ad.AdItem.ProductId;
                 var rpAd = await _productService.GetProductById(productIdAd);
-                var firstPictureId = rpAd == null || rpAd.ProductPictures == null ? "": rpAd.ProductPictures.First().PictureId;
+                var firstPictureId = rpAd == null || rpAd.ProductPictures == null || rpAd.ProductPictures.Count == 0 ? "": rpAd.ProductPictures.First().PictureId;
 
                 var pictureModel = new PictureModel {
                     Id = firstPictureId,
