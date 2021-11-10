@@ -401,6 +401,7 @@ var vm = new Vue({
             pictureToZoom: null,
             prodToZoom: null,
             busy: false,
+            idtoremove: "",
             baseProduct : {Id : ""},
             baseProductId: ""
         }
@@ -543,6 +544,12 @@ var vm = new Vue({
             {
                 this.maxAngle = parseInt( minAv);
             }
+        },
+        clickOnDelete(link)
+        {
+            this.idtoremove = link
+            this.busy = true
+            
         },
         updateFly() {
             axios({
