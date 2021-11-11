@@ -23,6 +23,7 @@
     @await Component.InvokeAsync("CustomerNavigation", new { selectedTabId = CustomerNavigationEnum.Ads })
 }
 
+
 @Html.AntiForgeryToken()
 
 <div class="page account-page customer-info-page pl-lg-3 pt-3 pt-lg-0">
@@ -43,16 +44,17 @@
                         }*@
                        
                         <b-form-file
-                                multiple
-                                name="ImageFile"
-                                type="file" 
-                                accept="image/*"
-                                v-model="file1"
-                                :state="Boolean(file1)"
-                                placeholder="Choose a file or drop it here..."
-                                drop-placeholder="Drop file here..."
-                                ></b-form-file>
-                            <b-img v-for="file in file1" :src="window.URL.createObjectURL(file)" fluid alt="Responsive image"></b-img>
+                            multiple
+                            name="ImageFile"
+                            type="file" 
+                            accept="image/*"
+                            v-model="file1"
+                            :state="Boolean(file1)"
+                            placeholder="Choose a file or drop it here..."
+                            drop-placeholder="Drop file here..."
+                        ></b-form-file>
+                  
+                         <b-img class="mr-2 mt-2" v-for="file in file1"  rounded="true" :src="window.URL.createObjectURL(file)" fluid alt="Responsive image" width="300" height="auto"></b-img>
                        
                         <span class='label label-info' id="upload-file-info"></span>
                     </div>
@@ -112,13 +114,7 @@
                     </span>
                     <span class="required">*</span>
                     <div class="input-group">
-                        <year-picker-dropdown control-year="@Html.IdFor(x => x.Year)"
-                          begin-year="@(DateTime.Now.Year - 10)"
-                          end-year="DateTime.Now.Year"
-                          selected-year="(Model.Year.HasValue ? Model.Year.Value : 0)"
-                          v-model="baseProduct.Year"
-                          class="col-12 input-group px-0" />
-
+                        <b-form-select asp-for="Year" v-model="baseProduct.Year" :options="years"></b-form-select>
                         <span asp-validation-for="Year"></span>
                     </div>
                 </fieldset>
@@ -315,3 +311,11 @@
                 }
             }
     </script>*@
+<script>
+$("#yearpicker").datepicker({
+    format: "yyyy",
+    viewMode: "years", 
+    minViewMode: "years",
+    autoclose:true //to close picker once year is selected
+});
+</script>
