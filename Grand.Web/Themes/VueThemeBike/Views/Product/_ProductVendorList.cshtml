@@ -12,7 +12,7 @@
 
             }
 
-            <b-card no-body class="overflow-hidden associatedItem mb-3">
+            <b-card no-body class="row associatedItem mb-3">
                 <div class="justify-content-left">
                     <div class="rounded-photo">
                         <a href="@variant.Url">
@@ -36,6 +36,10 @@
                         <b-link href="@Url.RouteUrl("Vendor", new {SeName = variant.VendorModel.SeName})">@string.Format("({0})", variant.VendorModel.ApprovedTotalReviews)</b-link>
 
                     </div>
+                </div>
+                <div class="card-body">
+
+
                 </div>
                 <div class="justify-content-right">
                     <div class="justify-content-center title">
@@ -78,27 +82,6 @@
                                 </div>
                             </div>
                         }
-
-                        <b-col lg="3" md="4" class="prices align-self-center justify-content-prices">
-                            @{
-                                var dataDictPrice = new ViewDataDictionary(ViewData);
-                                dataDictPrice.TemplateInfo.HtmlFieldPrefix = string.Format("price_{0}", variant.Id);
-                                <a href="@variant.Url">
-                                    <span class="vendor-price">@Html.Raw(variant.ProductPrice.Price)</span>
-                                </a>
-
-                                <span class="vendor-old-price">@Html.Raw(variant.ProductPrice.OldPrice)</span>
-
-                                <span class="vendor-update-date">@Html.Raw(variant.UpdatedOnUtc.Value.ToString())</span>
-
-                                <span class="vendor-avaliable">
-                                    @{
-                                        var avalible = variant.ProductSpecifications.FirstOrDefault(a => a.SpecificationAttributeCode == "sp_available");
-                                    }
-                                    @avalible?.ValueRaw;
-                                </span>
-                            }
-                        </b-col>
                     </div>
                     <div class="justify-content-bottom vendor-adress">
                         <div class="vendor-adress-list">
@@ -108,13 +91,43 @@
                             <div class="adress-list">
                                 @foreach (var addrs in variant.VendorModel.Addresses)
                                 {
-                                <div class="vendor-adress-1">
-                                    @(T("Vendor.CityNameAttribute")+" "+addrs.City + ", " + addrs.Address1)
-                                </div>
+                                    <div class="vendor-adress-1">
+                                        @(T("Vendor.CityNameAttribute")+" "+addrs.City + ", " + addrs.Address1)
+                                    </div>
                                 }
                             </div>
                         </div>
                     </div>
+                    <b-col lg="3" md="4" class="prices align-self-center justify-content-prices">
+                        <b-button-group>
+                            <b-button v-b-tooltip.hover.bottom title="@T("VendorCard.ViewMessages")" class="btn btn-secondary" onclick="location = ('@Url.RouteUrl("ViewAdPM", new { AdId = variant.AdId, toCustomerId = variant.CustomerOwnerId })')">
+                                <b-icon icon="envelope"></b-icon>
+                                <span class="sr-only">ViewMessages</span>
+                            </b-button>
+                            <b-button v-b-tooltip.hover.bottom title="@T("ShoppingCart.AddToWishlist")" class="btn btn-secondary" onclick="location = ('@Url.RouteUrl("ViewAdPM", new { AdId = ""@*variant.AdId*@, toCustomerId = ""@*variant.FromCustomerId*@ })')">
+                                <b-icon icon="heart"></b-icon>
+                                <span class="sr-only">AddToWishlist</span>
+                            </b-button>
+                        </b-button-group>
+                        @{
+                            var dataDictPrice = new ViewDataDictionary(ViewData);
+                            dataDictPrice.TemplateInfo.HtmlFieldPrefix = string.Format("price_{0}", variant.Id);
+                            <a href="@variant.Url">
+                                <span class="vendor-price">@Html.Raw(variant.ProductPrice.Price)</span>
+                            </a>
+
+                            <span class="vendor-old-price">@Html.Raw(variant.ProductPrice.OldPrice)</span>
+
+                            <span class="vendor-update-date">@Html.Raw(variant.UpdatedOnUtc.Value.ToString())</span>
+
+                            <span class="vendor-avaliable">
+                                @{
+                                    var avalible = variant.ProductSpecifications.FirstOrDefault(a => a.SpecificationAttributeCode == "sp_available");
+                                }
+                                @avalible?.ValueRaw;
+                            </span>
+                        }
+                    </b-col>
                 </div>
             </b-card>
         }

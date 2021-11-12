@@ -83,7 +83,13 @@ namespace Grand.Web.ViewComponents
                 var fromCustomer = await _customerService.GetCustomerById(lastMessage.FromCustomerId);
                 var toCustomer = await _customerService.GetCustomerById(pm.ToCustomerId);
                 var ad = await _adService.GetAdById(pm.AdId);
-                var rp = await _productService.GetProductById(ad.ProductId);
+                var rpName = "";
+                
+                if (ad != null)
+                { 
+                    var rp = await _productService.GetProductById(ad.ProductId);
+                    rpName =  rp.Name;
+                }
 
                 sentItems.Add(new PrivateMessageModel
                 {
@@ -99,7 +105,7 @@ namespace Grand.Web.ViewComponents
                     CreatedOn = _dateTimeHelper.ConvertToUserTime(lastMessage.CreatedOnUtc, DateTimeKind.Utc),
                     IsRead = lastMessage.IsRead,
                     AdId = pm.AdId,
-                    AdProductName = rp.Name
+                    AdProductName = rpName
                 });
             }
 

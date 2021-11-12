@@ -1169,6 +1169,20 @@ input:checked ~ .color-container .color::before {
     /*width: 100%;*/
     /*margin: 10px 0 0 0;*/
 }
+
+.btn-group-sm>.btn, .btn-sm {
+    border: 1px solid transparent !important;
+}
+
+.btn-group>.btn-secondary, .btn-secondary {
+    border: 1px solid transparent !important;
+}
+
+.btn-sm:hover{
+    cursor: pointer;
+    border: 1px solid #212529!important;
+}
+
 .product-box .add-cart-text {
     font-size: 16px;
     font-weight: 500;

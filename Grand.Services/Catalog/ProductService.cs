@@ -617,7 +617,6 @@ namespace Grand.Services.Catalog
         public virtual async Task<IList<Product>> GetAssociatedProducts(string parentGroupedProductId,
             string storeId = "", string vendorId = "", bool showHidden = false)
         {
-
             var builder = Builders<Product>.Filter;
             var filter = FilterDefinition<Product>.Empty;
 

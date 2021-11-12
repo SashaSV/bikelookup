@@ -78,7 +78,20 @@ namespace Grand.Web.Features.Handlers.Ads
             vendor.PictureId = pictureId;
 
             await _vendorService.UpdateVendor(vendor);
-             var product = new Product
+            
+            var ad = new Ad() {
+                CreatedOnUtc = DateTime.Now,
+                AdStatus = AdStatus.Processing,
+                ProductId = request.AdToSave.SearchBike,
+                Price = request.AdToSave.Price,
+                EndDateTimeUtc = DateTime.Now.AddMonths(1),
+                CustomerCurrencyCode = _workContext.WorkingCurrency.CurrencyCode,
+                AdComment = request.AdToSave.AdComment
+            };
+
+            var newAd = await _adRepository.InsertAsync(ad);
+
+            var product = new Product
             {
                 Name = request.AdToSave.Model,
                 ManufactureName = request.AdToSave.ManufactureName,
@@ -93,8 +106,9 @@ namespace Grand.Web.Features.Handlers.Ads
                 AvailableStartDateTimeUtc = DateTime.Today,
                 AvailableEndDateTimeUtc = DateTime.Today.AddMonths(3),
                 VendorId = vendor.Id,
-                UpdatedOnUtc = DateTime.Now
-            };
+                UpdatedOnUtc = DateTime.Now,
+                AdId = newAd.Id
+        };
             
             if (!string.IsNullOrEmpty(groupedProductId))
             {
@@ -102,6 +116,7 @@ namespace Grand.Web.Features.Handlers.Ads
             }
 
             await _productService.InsertProduct(product);
+
             if (request.AdToSave.ImageFile != null)
             {
                 foreach (var pirctureFile in request.AdToSave.ImageFile)
@@ -126,30 +141,24 @@ namespace Grand.Web.Features.Handlers.Ads
                     }
                 }
             }
-            var ad = new Ad() {
-                AdItem = new AdItem()
-                {
-                    ProductId = product.Id,
-                    VendorId = request.Customer.Id
-                },
-                CreatedOnUtc = DateTime.Now,
-                AdStatus = AdStatus.Processing,
-                ProductId = request.AdToSave.SearchBike,
-                Price = request.AdToSave.Price,
-                EndDateTimeUtc = DateTime.Now.AddMonths(1),
-                CustomerCurrencyCode = _workContext.WorkingCurrency.CurrencyCode,
-                AdComment = request.AdToSave.AdComment
+
+            newAd.AdItem = new AdItem() {
+                ProductId = product.Id,
+                VendorId = request.Customer.Id
             };
-            
-            ad.StoreId = request.Store.Id;
+
+            newAd.StoreId = request.Store.Id;
             if (!request.Customer.IsOwner())
-                ad.CustomerId = request.Customer.Id;
+                newAd.CustomerId = request.Customer.Id;
             else
-                ad.OwnerId = request.Customer.Id;
+                newAd.OwnerId = request.Customer.Id;
+
+            await _adRepository.UpdateAsync(newAd);
+            //var newAd = await _adRepository.InsertAsync(ad);
+
             
-            
-            await _adRepository.InsertAsync(ad);
-            
+            //await _productService.UpdateProduct(product);
+
             return await Task.FromResult(true);
         }
     }

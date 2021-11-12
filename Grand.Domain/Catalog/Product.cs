@@ -592,6 +592,11 @@ namespace Grand.Domain.Catalog
         /// Gets or sets the flag
         /// </summary>
         public string Flag { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the Ad
+        /// </summary>
+        public string AdId { get; set; }
 
         /// <summary>
         /// Gets or sets the collection of locales

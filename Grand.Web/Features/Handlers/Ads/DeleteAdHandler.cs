@@ -1,5 +1,6 @@
 ﻿using Grand.Domain.Ads;
 using Grand.Domain.Data;
+using Grand.Services.Catalog;
 using Grand.Web.Features.Models.Ads;
 using Grand.Web.Models.Ads;
 using MediatR;
@@ -12,10 +13,12 @@ namespace Grand.Web.Features.Handlers.Ads
     public class DeleteAdHandler : IRequestHandler<DeleteAd, DeleteAdResult>
     {
         private readonly IRepository<Ad> _adRepository;
+        private readonly IProductService _productService;
 
-        public DeleteAdHandler(IRepository<Ad> adRepository)
+        public DeleteAdHandler(IRepository<Ad> adRepository, IProductService productService)
         {
             _adRepository = adRepository;
+            _productService = productService;
         }
         
         public async Task<DeleteAdResult> Handle(DeleteAd request, CancellationToken cancellationToken)
@@ -25,7 +28,8 @@ namespace Grand.Web.Features.Handlers.Ads
             {
                 return new DeleteAdResult(false, "Not found");
             }
-
+            var p = await _productService.GetProductById(ad.AdItem.ProductId);
+            await _productService.DeleteProduct(p);
             await _adRepository.DeleteAsync(ad);
 
             return new DeleteAdResult(false, string.Empty);
