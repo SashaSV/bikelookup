@@ -55,7 +55,7 @@
             {
                 <input type="button" value="@T("Account.CustomerAds.AdCancle")" class="btn btn-secondary ad-cancle-button" onclick="location = ('@Url.RouteUrl("CancelAd", new { adId = Model.Id })')" />
                 @*<input type="button" value="@T("Account.CustomerAds.AdDelete")" class="btn btn-secondary ad-delete-button" onclick="location = ('@Url.RouteUrl("DeleteAd", new { adId = Model.Id })')" />*@
-                <b-button ref="submit" type="submit" :disabled="busy" v-on:click="busy = true">@T("Account.CustomerAds.AdDelete")</b-button>
+                <b-button ref="submit" type="submit" :disabled="busy" v-on:click="clickOnDelete('@Url.RouteUrl("DeleteAd", new { adId = Model.Id })')"  >@T("Account.CustomerAds.AdDelete")</b-button>
                 <b-modal v-model="busy" hide-header no-wrap>
                     <template #default="{  }">
                         @T("Account.CustomerAds.ConfirmDelete")
@@ -66,7 +66,7 @@
                             <b-button variant="outline-primary" class="mr-3" v-on:click="busy = false">
                                 @T("Account.CustomerAds.Cancel")
                             </b-button>
-                            <b-button variant="danger" onclick="location = ('@Url.RouteUrl("DeleteAd", new { adId = Model.Id })')">
+                            <b-button variant="danger" v-on:click="location = idtoremove">
                                 @T("Account.CustomerAds.Ok")
                             </b-button>
                             <!-- Button with custom close trigger value -->

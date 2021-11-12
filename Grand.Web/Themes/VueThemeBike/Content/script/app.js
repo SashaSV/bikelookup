@@ -379,6 +379,8 @@ if (typeof minPrice === "undefined")
     var maxPrice = 0;
     var maxAv = 0;
     var minAv = 0;
+    
+    var baseYar = new Date().getFullYear()
 }
 var vm = new Vue({
     el: '#app',
@@ -401,8 +403,10 @@ var vm = new Vue({
             pictureToZoom: null,
             prodToZoom: null,
             busy: false,
-            baseProduct : {Id : ""},
-            baseProductId: ""
+            idtoremove: "",
+            baseProduct : {Id : "", Year: new Date().getFullYear()},
+            baseProductId: "",
+            yearselected : new Date().getFullYear(),
         }
     },
     props: {
@@ -422,6 +426,21 @@ var vm = new Vue({
         },
     },
     computed: {
+        years: {
+            get: function ()
+            {
+                var currentYear = new Date().getFullYear(), years = [];
+                var startYear = 1980;
+                while ( startYear <= currentYear ) {
+                    years.push(startYear++);
+                }
+                return years;
+            },
+            set : function (val)
+            {
+                
+            }
+        },
         sliderMin: {
             get: function () {
                 var val = parseInt(this.minAngle);
@@ -543,6 +562,12 @@ var vm = new Vue({
             {
                 this.maxAngle = parseInt( minAv);
             }
+        },
+        clickOnDelete(link)
+        {
+            this.idtoremove = link
+            this.busy = true
+            
         },
         updateFly() {
             axios({
