@@ -117,6 +117,22 @@
     flex-direction: column;
     align-items: flex-start;
 }
+.autocomplete-results-large {
+    padding: 0px;
+    margin-top: 50px;
+    overflow: auto;
+    width: 100%;
+    margin-left: 0;
+    position: absolute;
+    line-height: 30px;
+    max-height: 300px;
+    text-align: left;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 1);
+    /* needed styles for the overlay */
+    z-index: 10; /* keep on top of other elements on the page */
+}
+
 .autocomplete-results {
     padding: 0px;
     margin-top: 50px;

@@ -89,6 +89,9 @@ Vue.component('findautocomplete', {
                 }
                 if (response.data) {
                     this.Items = response.data
+                    this.Items = response.data.filter(function (item) {
+                        return item.ProductId !== null
+                    })
                     this.showResults = true;
                 }else {
                     this.Items = [];
@@ -116,19 +119,19 @@ Vue.component('findautocomplete', {
         }
     },
     template:
-        ` <div id="searchbar">  
-                <div class="find-mini">
-                   <a class="search-box">
-                      <input type="text" v-bind:placeholder="Placeholder" v-model="TextToSearch" v-on:input="lookup()" v-on:keypress.enter ="onsearch()">
-                      <div class="search-underline"> </div>
-                      <ul v-if="showResults" class="autocomplete-results">
-                        <li class="autocomplete-result" v-for="item in Items" :key="item.Label">
-                            <div v-on:click="onselect(item, item.Label)">{{item.Label}}</div>
-                        </li>
-                     </ul>
-                </div>
-                <div class="magnifying-glass-1" v-on:click="onsearch()">
-                    <svg class="glass"><path class="glass" xmlns="http://www.w3.org/2000/svg" d="M14.1893 2.28851C11.1399 -0.762513 6.17672 -0.762513 3.12728 2.28851C0.0785038 5.3402 0.0785038 10.3053 3.12728 13.357C5.84289 16.0734 10.0723 16.3644 13.1198 14.2433C13.1839 14.5469 13.3306 14.8365 13.5666 15.0727L18.0076 19.5159C18.6548 20.1621 19.7006 20.1621 20.3444 19.5159C20.9909 18.8691 20.9909 17.8228 20.3444 17.1779L15.9035 12.7333C15.6688 12.4992 15.3786 12.3517 15.0752 12.2875C17.1965 9.23782 16.9056 5.00686 14.1893 2.28851ZM12.7873 11.9542C10.5106 14.232 6.80538 14.232 4.52938 11.9542C2.25403 9.67633 2.25403 5.96985 4.52938 3.692C6.80538 1.41481 10.5106 1.41481 12.7873 3.692C15.0639 5.96985 15.0639 9.67633 12.7873 11.9542Z" fill="white"/></svg>
+        `        <div>  
+                  <div>
+                    <b-input-group>
+                          <b-input-group-prepend is-text>
+                             <b-icon icon="search"></b-icon>
+                         </b-input-group-prepend>
+                         <b-form-input type="search" v-bind:placeholder="Placeholder" v-model="TextToSearch" v-on:input="lookup()" v-on:keypress.enter ="onsearch()"></b-form-input>
+                    <b-input-group>
+                  <b-list-group v-if="showResults" class="autocomplete-results-large">
+                    <b-list-group-item  class="autocomplete-result" v-for="item in Items" :key="item.Label">
+                        <div v-if="item.ProductId !== null" v-on:click="onselect(item, item.Label)">{{item.Label}}</div>
+                    </b-list-group-item>
+                  </b-list-group>
                 </div>
                  <div v-if="showResults" class="overlay" @click="onoverlayclick()"><div>
               </div>`
