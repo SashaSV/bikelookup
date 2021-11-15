@@ -76,6 +76,8 @@ namespace Grand.Web.Models.Catalog
         //price
         public ProductReviewOverviewModel ReviewOverviewModel { get; set; }
         public decimal BestDiscount { get; set; }
+        public string AdId { get; set; }
+        public bool IsAd { get; set; }
         #region Nested Classes
         public partial class ProductPriceModel : BaseModel
         {

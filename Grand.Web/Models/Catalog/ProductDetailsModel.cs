@@ -112,7 +112,9 @@ namespace Grand.Web.Models.Catalog
         public DateTime? EndTime { get; set; }
         public DateTime? EndTimeLocalTime { get; set; }
         public bool AuctionEnded { get; set; }
-
+        public string AdId { get; set; }
+        public string CustomerOwnerId { get; set; }
+        public Boolean IsAd { get; set; }
         #region Nested Classes
         public partial class ProductBreadcrumbModel : BaseModel
         {

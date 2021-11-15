@@ -16,6 +16,8 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Linq;
+using Grand.Services.Forums;
+using Grand.Domain.Forums;
 
 namespace Grand.Web.Features.Handlers.Ads
 {
@@ -31,6 +33,8 @@ namespace Grand.Web.Features.Handlers.Ads
         private readonly IPictureService _pictureService;
         private readonly MediaSettings _mediaSettings;
         private readonly IProductService _productService;
+        private readonly IForumService _forumService;
+        private readonly ForumSettings _forumSettings;
 
         public GetCustomerAdListHandler(
             IAdService adService,
@@ -42,7 +46,9 @@ namespace Grand.Web.Features.Handlers.Ads
             IPriceFormatter priceFormatter,
             IPictureService pictureService,
             MediaSettings mediaSettings,
-            IProductService productService)
+            IProductService productService, 
+            IForumService forumService,
+            ForumSettings forumSettings)
         {
             _adService = adService;
             _dateTimeHelper = dateTimeHelper;
@@ -54,6 +60,8 @@ namespace Grand.Web.Features.Handlers.Ads
             _pictureService = pictureService;
             _mediaSettings = mediaSettings;
             _productService = productService;
+            _forumService = forumService;
+            _forumSettings = forumSettings;
         }
 
         public async Task<CustomerAdListModel> Handle(GetCustomerAdList request, CancellationToken cancellationToken)
@@ -117,7 +125,11 @@ namespace Grand.Web.Features.Handlers.Ads
                 //var adTotalInCustomerCurrency = _currencyService.ConvertCurrency(ad.AdTotal, ad.CurrencyRate);
                 var adTotalInCustomerCurrency = ad.Price;
                 adModel.AdTotal = await _priceFormatter.FormatPrice(adTotalInCustomerCurrency, true, ad.CustomerCurrencyCode, false, request.Language);
-
+                
+                var pageSize = _forumSettings.PrivateMessagesPageSize;
+                var listMsg = await _forumService.GetAllPrivateMessages(request.Store.Id,
+                    "", "", adModel.Id, null, false, null, string.Empty, 0, pageSize);
+                adModel.CountMsg = listMsg.Count;
                 model.Ads.Add(adModel);
             }
         }

@@ -22,6 +22,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Grand.Framework.Controllers;
 
 namespace Grand.Web.Features.Handlers.Products
 {
@@ -40,6 +42,7 @@ namespace Grand.Web.Features.Handlers.Products
         private readonly IDateTimeHelper _dateTimeHelper;
         private readonly IMediator _mediator;
         private readonly IVendorService _vendorService;
+        //private readonly IUrlHelper _baseController;
 
         private readonly MediaSettings _mediaSettings;
         private readonly CatalogSettings _catalogSettings;
@@ -59,7 +62,9 @@ namespace Grand.Web.Features.Handlers.Products
             IMediator mediator,
             IVendorService vendorService,
             MediaSettings mediaSettings,
-            CatalogSettings catalogSettings)
+            CatalogSettings catalogSettings
+            //, IUrlHelper baseController
+            )
         {
             _permissionService = permissionService;
             _workContext = workContext;
@@ -76,6 +81,7 @@ namespace Grand.Web.Features.Handlers.Products
             _mediaSettings = mediaSettings;
             _catalogSettings = catalogSettings;
             _vendorService = vendorService;
+            //_baseController = baseController;
         }
 
         public async Task<IEnumerable<ProductOverviewModel>> Handle(GetProductOverview request, CancellationToken cancellationToken)
@@ -100,11 +106,11 @@ namespace Grand.Web.Features.Handlers.Products
 
             var tasks = new List<Task<ProductOverviewModel>>();
 
-            var associatedProducts = await _productService.GetAssociatedProducts(request.Products.Select(p=>p.Id));
-            
+            var associatedProducts = await _productService.GetAssociatedProducts(request.Products.Select(p => p.Id));
+
             foreach (var product in request.Products)
             {
-                if (!associatedProducts.TryGetValue(product.Id, out var currentAssociatedProducts ))
+                if (!associatedProducts.TryGetValue(product.Id, out var currentAssociatedProducts))
                 {
                     currentAssociatedProducts = new List<Product>();
                 }
@@ -113,39 +119,45 @@ namespace Grand.Web.Features.Handlers.Products
             var result = await Task.WhenAll<ProductOverviewModel>(tasks);
             return result;
         }
-        
+
         private async Task<ProductOverviewModel> GetProductOverviewModel(Product product, GetProductOverview request,
             bool displayPrices, bool enableShoppingCart, bool enableWishlist, int pictureSize, bool priceIncludesTax, Dictionary<string, string> res,
             IEnumerable<Product> associatedProducts)
         {
             var model = await PrepareProductOverviewModel(product);
-            
-             #region Associated products
-             
-             if (product.ProductType == ProductType.GroupedProduct)
-             {
+
+            #region Associated products
+
+            if (product.ProductType == ProductType.GroupedProduct)
+            {
                 var bestDiscount = 0m;
-                 foreach (var associatedProduct in associatedProducts)
-                 {
-                     var associatedProductOverview =
-                         await PrepareProductOverviewModel(associatedProduct, true);
-                     associatedProductOverview.ProductPrice = await PreparePriceModel(associatedProduct, res,
-                         request.ForceRedirectionAfterAddingToCart,
-                         enableShoppingCart, displayPrices, enableWishlist, priceIncludesTax,
-                         new List<Product>());
-                    
-                     if (associatedProductOverview.ProductPrice.OldPriceValue > 0)
-                     {
+                //if (product.Id == "60b8659a286161a000a41b82")
+                //{
+
+                //}
+
+                foreach (var associatedProduct in associatedProducts)
+                {
+                    var associatedProductOverview =
+                        await PrepareProductOverviewModel(associatedProduct, true);
+                    associatedProductOverview.ProductPrice = await PreparePriceModel(associatedProduct, res,
+                        request.ForceRedirectionAfterAddingToCart,
+                        enableShoppingCart, displayPrices, enableWishlist, priceIncludesTax,
+                        new List<Product>());
+
+                    if (associatedProductOverview.ProductPrice.OldPriceValue > 0)
+                    {
                         bestDiscount = Math.Round(
                             (associatedProductOverview.ProductPrice.OldPriceValue - associatedProductOverview.ProductPrice.PriceValue)
                             / associatedProductOverview.ProductPrice.OldPriceValue, 2);
-                     }
-                     model.BestDiscount = model.BestDiscount > bestDiscount ? model.BestDiscount : bestDiscount;
-                     model.AssociatedProducts.Add(associatedProductOverview);
-                 }
-             }
-             #endregion
-                        
+                    }
+                    model.BestDiscount = model.BestDiscount > bestDiscount ? model.BestDiscount : bestDiscount;
+
+                    model.AssociatedProducts.Add(associatedProductOverview);
+                }
+            }
+            #endregion
+
             //price
             if (request.PreparePriceModel)
             {
@@ -159,11 +171,11 @@ namespace Grand.Web.Features.Handlers.Products
                 var pictureModels = await PreparePictureModel(product, model.Name, res, pictureSize);
                 model.DefaultPictureModel = pictureModels.FirstOrDefault();
                 if (pictureModels.Count > 1) model.SecondPictureModel = pictureModels.ElementAtOrDefault(1);
-                
-                
+
+
                 model.PictureModels = pictureModels;
             }
-            
+
             //attributes
             model.ProductAttributeModels = await PrepareAttributesModel(product);
 
@@ -173,7 +185,7 @@ namespace Grand.Web.Features.Handlers.Products
             return model;
         }
 
- 
+
 
         private async Task<VendorBriefInfoModel> PrepareVendorBriefInfoModel(Product product)
         {
@@ -194,13 +206,15 @@ namespace Grand.Web.Features.Handlers.Products
 
         private async Task<ProductOverviewModel> PrepareProductOverviewModel(Product product, bool isAssociatedProduct = false)
         {
+            //var url = !string.IsNullOrEmpty(product.AdId) ? _baseController.RouteUrl("ViewAd", new { adId = product.AdId }) : product.Url;
+            var url = !string.IsNullOrEmpty(product.AdId) ? product.Url : product.Url;
 
             var model = new ProductOverviewModel {
                 Id = product.Id,
                 Name = product.GetLocalized(x => x.Name, _workContext.WorkingLanguage.Id),
                 ShortDescription = product.GetLocalized(x => x.ShortDescription, _workContext.WorkingLanguage.Id),
                 FullDescription = product.GetLocalized(x => x.FullDescription, _workContext.WorkingLanguage.Id),
-                Url = product.Url,
+                Url = url,
                 Weeldiam = product.Weeldiam,
                 ManufactureName = product.ManufactureName,
                 Model = product.Model,
@@ -226,9 +240,11 @@ namespace Grand.Web.Features.Handlers.Products
                 VendorId = product.VendorId,
                 MarkAsNew = product.MarkAsNew &&
                         (!product.MarkAsNewStartDateTimeUtc.HasValue || product.MarkAsNewStartDateTimeUtc.Value < DateTime.UtcNow) &&
-                        (!product.MarkAsNewEndDateTimeUtc.HasValue || product.MarkAsNewEndDateTimeUtc.Value > DateTime.UtcNow)
+                        (!product.MarkAsNewEndDateTimeUtc.HasValue || product.MarkAsNewEndDateTimeUtc.Value > DateTime.UtcNow),
+                AdId = product.AdId,
+                IsAd = !string.IsNullOrEmpty(product.AdId)
             };
-            
+
             //specs
             if (product.ProductSpecificationAttributes.Any())
             {
@@ -236,9 +252,9 @@ namespace Grand.Web.Features.Handlers.Products
                 var available = model.SpecificationAttributeModels.FirstOrDefault(a => a.SpecificationAttributeCode == "sp_available");
                 model.IsAvailable = available == null ? "" : available.ValueRaw;
             }
-            
 
-            
+
+
             if (isAssociatedProduct)
             {
                 model.Vendor = await PrepareVendorBriefInfoModel(product);
@@ -263,7 +279,7 @@ namespace Grand.Web.Features.Handlers.Products
                     {
                         #region Grouped product
 
-                       
+
                         //add to cart button (ignore "DisableBuyButton" property for grouped products)
                         priceModel.DisableBuyButton = !enableShoppingCart || !displayPrices;
 
@@ -281,90 +297,90 @@ namespace Grand.Web.Features.Handlers.Products
                         }
 
                         var enumerable = associatedProducts.ToList();
-                        if(enumerable.Any())
+                        if (enumerable.Any())
                         {
-                                    //we have at least one associated product
-                                    //compare products
-                                    priceModel.DisableAddToCompareListButton = !_catalogSettings.CompareProductsEnabled;
-                                    if (displayPrices)
+                            //we have at least one associated product
+                            //compare products
+                            priceModel.DisableAddToCompareListButton = !_catalogSettings.CompareProductsEnabled;
+                            if (displayPrices)
+                            {
+                                //find a minimum possible price
+                                decimal? minPossiblePrice = null;
+                                Product minPriceProduct = null;
+                                var maxPrice = default(decimal);
+                                Product maxPriceProduct = null;
+                                foreach (var associatedProduct in enumerable)
+                                {
+                                    //calculate for the maximum quantity (in case if we have tier prices)
+                                    var tmpPrice = (await _priceCalculationService.GetFinalPrice(associatedProduct,
+                                        _workContext.CurrentCustomer, decimal.Zero, true, int.MaxValue)).finalPrice;
+                                    if (!minPossiblePrice.HasValue || tmpPrice < minPossiblePrice.Value)
                                     {
-                                        //find a minimum possible price
-                                        decimal? minPossiblePrice = null;
-                                        Product minPriceProduct = null;
-                                        var maxPrice = default(decimal);
-                                        Product maxPriceProduct = null;
-                                        foreach (var associatedProduct in enumerable)
-                                        {
-                                            //calculate for the maximum quantity (in case if we have tier prices)
-                                            var tmpPrice = (await _priceCalculationService.GetFinalPrice(associatedProduct,
-                                                _workContext.CurrentCustomer, decimal.Zero, true, int.MaxValue)).finalPrice;
-                                            if (!minPossiblePrice.HasValue || tmpPrice < minPossiblePrice.Value)
-                                            {
-                                                minPriceProduct = associatedProduct;
-                                                minPossiblePrice = tmpPrice;
-                                            }
-                                            if (maxPrice < tmpPrice)
-                                            {
-                                                maxPrice = tmpPrice;
-                                                maxPriceProduct = associatedProduct;
-                                            }
-                                        }
-                                        if (minPriceProduct != null && !minPriceProduct.CustomerEntersPrice)
-                                        {
-                                            if (minPriceProduct.CallForPrice)
-                                            {
-                                                priceModel.OldPrice = null;
-                                                priceModel.Price = res["Products.CallForPrice"];
-                                            }
-                                            else if (minPossiblePrice.HasValue)
-                                            {
-                                                //calculate prices
-                                                //decimal finalPriceBase = (await _taxService.GetProductPrice(minPriceProduct, minPossiblePrice.Value, priceIncludesTax, _workContext.CurrentCustomer)).productprice;
-                                                //decimal finalPrice = await _currencyService.ConvertFromPrimaryStoreCurrency(finalPriceBase, _workContext.WorkingCurrency);
-                                                var finalPrice = minPossiblePrice.Value;
-                                                
-                                                //var maxPriceBase = (await _taxService.GetProductPrice(maxPriceProduct, maxPrice, priceIncludesTax, _workContext.CurrentCustomer)).productprice;
-                                                //var finalMaxPrice = await _currencyService.ConvertFromPrimaryStoreCurrency(maxPriceBase, _workContext.WorkingCurrency);
-                                                var finalMaxPrice = maxPrice;
-                                                
-                                                priceModel.OldPrice = null;
+                                        minPriceProduct = associatedProduct;
+                                        minPossiblePrice = tmpPrice;
+                                    }
+                                    if (maxPrice < tmpPrice)
+                                    {
+                                        maxPrice = tmpPrice;
+                                        maxPriceProduct = associatedProduct;
+                                    }
+                                }
+                                if (minPriceProduct != null && !minPriceProduct.CustomerEntersPrice)
+                                {
+                                    if (minPriceProduct.CallForPrice)
+                                    {
+                                        priceModel.OldPrice = null;
+                                        priceModel.Price = res["Products.CallForPrice"];
+                                    }
+                                    else if (minPossiblePrice.HasValue)
+                                    {
+                                        //calculate prices
+                                        //decimal finalPriceBase = (await _taxService.GetProductPrice(minPriceProduct, minPossiblePrice.Value, priceIncludesTax, _workContext.CurrentCustomer)).productprice;
+                                        //decimal finalPrice = await _currencyService.ConvertFromPrimaryStoreCurrency(finalPriceBase, _workContext.WorkingCurrency);
+                                        var finalPrice = minPossiblePrice.Value;
 
-                                                var diffPrice = finalPrice != finalMaxPrice;
-                                        
-                                                if (diffPrice)
-                                                {
-                                                    priceModel.Price = String.Format(res["Products.PriceRangeFromTo"],
-                                                              _priceFormatter.FormatPrice(finalPrice, true, _workContext.WorkingCurrency, _workContext.WorkingLanguage, priceIncludesTax),
-                                                              _priceFormatter.FormatPrice(finalMaxPrice, true, _workContext.WorkingCurrency, _workContext.WorkingLanguage, priceIncludesTax));
-                                                }
-                                                else
-                                                {
-                                                    priceModel.Price = String.Format(res["Products.PriceRangeFrom"],
-                                                              _priceFormatter.FormatPrice(finalPrice, true, _workContext.WorkingCurrency, _workContext.WorkingLanguage, priceIncludesTax));
-                                                }
-                                                priceModel.PriceValue = finalPrice;
+                                        //var maxPriceBase = (await _taxService.GetProductPrice(maxPriceProduct, maxPrice, priceIncludesTax, _workContext.CurrentCustomer)).productprice;
+                                        //var finalMaxPrice = await _currencyService.ConvertFromPrimaryStoreCurrency(maxPriceBase, _workContext.WorkingCurrency);
+                                        var finalMaxPrice = maxPrice;
 
-                                                //PAngV baseprice (used in Germany)
-                                                if (product.BasepriceEnabled)
-                                                    priceModel.BasePricePAngV = await _mediator.Send(new GetFormatBasePrice() { Currency = _workContext.WorkingCurrency, Product = product, ProductPrice = finalPrice });
-                                            }
-                                            else
-                                            {
-                                                //Actually it's not possible (we presume that minimalPrice always has a value)
-                                                //We never should get here
-                                                Debug.WriteLine("Cannot calculate minPrice for product #{0}", product.Id);
-                                            }
+                                        priceModel.OldPrice = null;
+
+                                        var diffPrice = finalPrice != finalMaxPrice;
+
+                                        if (diffPrice)
+                                        {
+                                            priceModel.Price = String.Format(res["Products.PriceRangeFromTo"],
+                                                      _priceFormatter.FormatPrice(finalPrice, true, _workContext.WorkingCurrency, _workContext.WorkingLanguage, priceIncludesTax),
+                                                      _priceFormatter.FormatPrice(finalMaxPrice, true, _workContext.WorkingCurrency, _workContext.WorkingLanguage, priceIncludesTax));
                                         }
+                                        else
+                                        {
+                                            priceModel.Price = String.Format(res["Products.PriceRangeFrom"],
+                                                      _priceFormatter.FormatPrice(finalPrice, true, _workContext.WorkingCurrency, _workContext.WorkingLanguage, priceIncludesTax));
+                                        }
+                                        priceModel.PriceValue = finalPrice;
+
+                                        //PAngV baseprice (used in Germany)
+                                        if (product.BasepriceEnabled)
+                                            priceModel.BasePricePAngV = await _mediator.Send(new GetFormatBasePrice() { Currency = _workContext.WorkingCurrency, Product = product, ProductPrice = finalPrice });
                                     }
                                     else
                                     {
-                                        //hide prices
-                                        priceModel.OldPrice = null;
-                                        priceModel.Price = null;
+                                        //Actually it's not possible (we presume that minimalPrice always has a value)
+                                        //We never should get here
+                                        Debug.WriteLine("Cannot calculate minPrice for product #{0}", product.Id);
                                     }
                                 }
-                           
-                        
+                            }
+                            else
+                            {
+                                //hide prices
+                                priceModel.OldPrice = null;
+                                priceModel.Price = null;
+                            }
+                        }
+
+
 
                         #endregion
                     }
@@ -541,13 +557,13 @@ namespace Grand.Web.Features.Handlers.Products
 
                 return pictureModel;
             };
-            
-            if(product.ProductPictures.Any())
+
+            if (product.ProductPictures.Any())
             {
-               //prepare picture model
-               var picturesTasks = product.ProductPictures.Select(PreparePictureModel).ToList();
+                //prepare picture model
+                var picturesTasks = product.ProductPictures.Select(PreparePictureModel).ToList();
                 await Task.WhenAll(picturesTasks);
-                result.AddRange(picturesTasks.Select(t=>t.Result));
+                result.AddRange(picturesTasks.Select(t => t.Result));
             }
             else
             {
@@ -584,6 +600,7 @@ namespace Grand.Web.Features.Handlers.Products
                         productAttributeModel.IsRequired = attribute.IsRequired;
                         productAttributeModel.AttributeControlType = attribute.AttributeControlType;
                         productAttributeModel.GenericAttributes = pa.GenericAttributes;
+                        
                         foreach (var item in attribute.ProductAttributeValues)
                         {
                             var value = new ProductOverviewModel.ProductAttributeValueModel();

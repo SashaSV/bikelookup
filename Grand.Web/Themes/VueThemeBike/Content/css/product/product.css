@@ -333,7 +333,8 @@
     display: -ms-flexbox;
     display: flex;
     -ms-flex-direction: column;
-    flex-direction: row;
+    /* flex-direction: row; */
+    flex-direction: column;
     min-width: 0;
     word-wrap: break-word;
     /* background-color: rgb(255,255,0,0.08); */
@@ -346,10 +347,15 @@
     width: 100%;
     box-shadow: 0px 3px 13px rgb(0 0 0 / 20%);
 }
+.card.row{
+    flex-direction: row;
+    flex-wrap: nowrap;
+}   
 
 .product-collateral .add-to-wishlist-button {
     width: 235px;
 }
+
 .vendor-spec-name
 {
     font-size: 1rem;
@@ -553,7 +559,9 @@
     background-color: rgb(255,255,0,0.08);
     /*box-shadow: 0px 3px 13px rgb(0 0 0 / 20%);*/
 }
-
+.row .justify-content-left.isad{
+    background-color: rgba(0, 204, 255, 0.08)!important;
+}
 .price-graf{
     height: 100px;
 }

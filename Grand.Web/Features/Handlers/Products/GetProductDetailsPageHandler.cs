@@ -38,6 +38,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Grand.Web.Features.Models.Vendors;
+using Grand.Services.Ads;
 
 namespace Grand.Web.Features.Handlers.Products
 {
@@ -67,6 +68,7 @@ namespace Grand.Web.Features.Handlers.Products
         private readonly IProductReservationService _productReservationService;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IMediator _mediator;
+        private readonly IAdService _adService;
 
         private readonly MediaSettings _mediaSettings;
         private readonly CatalogSettings _catalogSettings;
@@ -99,7 +101,8 @@ namespace Grand.Web.Features.Handlers.Products
             IDownloadService downloadService, 
             IProductReservationService productReservationService,
             IHttpContextAccessor httpContextAccessor,
-            IMediator mediator, 
+            IMediator mediator,
+            IAdService adService,
             MediaSettings mediaSettings, 
             CatalogSettings catalogSettings, 
             SeoSettings seoSettings, 
@@ -131,6 +134,7 @@ namespace Grand.Web.Features.Handlers.Products
             _productReservationService = productReservationService;
             _httpContextAccessor = httpContextAccessor;
             _mediator = mediator;
+            _adService = adService;
             _mediaSettings = mediaSettings;
             _catalogSettings = catalogSettings;
             _seoSettings = seoSettings;
@@ -294,10 +298,20 @@ namespace Grand.Web.Features.Handlers.Products
             });
 
             #endregion
+            #region Ad
+            if (!string.IsNullOrEmpty(model.AdId))
+            {
+                var ad = await _adService.GetAdById(model.AdId);
+                if (ad != null)
+                {
+                    model.IsAd = true;
+                    model.CustomerOwnerId = string.IsNullOrEmpty(ad.OwnerId) ? ad.CustomerId : ad.OwnerId;
+                }
+            }
+			#endregion
+			#region Associated products
 
-            #region Associated products
-
-            if (product.ProductType == ProductType.GroupedProduct)
+			if (product.ProductType == ProductType.GroupedProduct)
             {
                 //ensure no circular references
                 if (!isAssociatedProduct)
@@ -384,7 +398,8 @@ namespace Grand.Web.Features.Handlers.Products
                 DisplayDiscontinuedMessage =
                     (!product.Published && _catalogSettings.DisplayDiscontinuedMessageForUnpublishedProducts) ||
                     (product.ProductType == ProductType.Auction && product.AuctionEnded) ||
-                    (product.AvailableEndDateTimeUtc.HasValue && product.AvailableEndDateTimeUtc.Value < DateTime.UtcNow)
+                    (product.AvailableEndDateTimeUtc.HasValue && product.AvailableEndDateTimeUtc.Value < DateTime.UtcNow),
+                AdId = product.AdId
 
             };
 

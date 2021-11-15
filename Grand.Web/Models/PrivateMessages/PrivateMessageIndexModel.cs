@@ -5,5 +5,6 @@
         public int InboxPage { get; set; }
         public int SentItemsPage { get; set; }
         public bool SentItemsTabSelected { get; set; }
+        public string AdId { get; set; }
     }
 }

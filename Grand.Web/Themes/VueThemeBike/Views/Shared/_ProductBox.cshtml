@@ -37,7 +37,7 @@
 @await Component.InvokeAsync("Widget", new { widgetZone = "productbox_before_content", additionalData = Model})
 <b-card no-body tag="article" v-bind:class="{ mobile: isMobile()}" class="product-box mb-2">
     <div class="prod-controls">
-        <div class="view-block">
+        <div v-b-tooltip.hover.bottom title="@T("Vendor.ViewCount")" class="view-block">
             <div class="view-block-img">
                 <svg width="17" height="14" viewBox="0 0 17 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -127,15 +127,16 @@
             }
 
         </div>
+        @if (Model.ShowSku && !string.IsNullOrEmpty(Model.Sku))
+        {
+            <span class="sku">@Model.Sku</span>
+        }
         <h3 class="card-title mb-0">
             <a href="@Url.RouteUrl("Product", new {SeName = Model.SeName})">
                 @Model.Name
             </a>
         </h3>
-        @if (Model.ShowSku && !string.IsNullOrEmpty(Model.Sku))
-        {
-            <span class="sku">@Model.Sku</span>
-        }
+
         @if (Model.ProductType == ProductType.Auction)
         {
 
@@ -211,28 +212,41 @@
             <div class="proposals">
                 @foreach (var assocProduct in Model.AssociatedProducts)
                 {
-
+                    
                     @if (assocProduct.Vendor == null)
                     {
                         continue;
                     }
+                    
+                    var url = !string.IsNullOrEmpty(assocProduct.AdId) ? Url.RouteUrl("ViewAd", new { adId = assocProduct.AdId }) : assocProduct.Url;
+
                     <div class="proposal">
                         <div class="aaa">
-                            <a href="@assocProduct.Url">
-                                <div class="proposal-name">
-                                    @assocProduct.Vendor.Name
-                                </div>
+                            <a href="@url">
+                                @if (assocProduct.IsAd)
+                                {
+                                    <div class="proposal-name isad">
+                                        @assocProduct.Vendor.Name
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="proposal-name">
+                                        @assocProduct.Vendor.Name
+                                    </div>
+                                }
+
                             </a>
-                            <div class="proposal-update-date">
+                            <div v-b-tooltip.hover.left title="@T("Vendor.PriceUpdate")" class="proposal-update-date">
                                 @assocProduct.UpdatedOnUtc.Value.ToString()
                             </div>
                             <div class="spec-avaliable">
                                 @*@assocProduct.SpecificationAttributeModels.FirstOrDefault(a => a.SpecificationAttributeCode == "sp_available").ValueRaw*@
-                                @assocProduct.IsAvailable;
+                                @assocProduct.IsAvailable
                             </div>
                         </div>
                         <div class="proposal-value">
-                            <a href="@assocProduct.Url">
+                            <a href="@url">
                                 <div class="proposal-value-cur-price">
                                     @assocProduct.ProductPrice.Price
                                 </div>

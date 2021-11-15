@@ -100,7 +100,7 @@ namespace Grand.Web.Controllers
                 Customer  = _workContext.CurrentCustomer,
                 Store =  _storeContext.CurrentStore
             });
-            
+            //Url.RouteUrl("ViewAd", new { adId = product.AdId })
             return RedirectToRoute("CustomerAds");
         }
 
@@ -155,17 +155,6 @@ namespace Grand.Web.Controllers
 
             return RedirectToRoute("CustomerAds");
         }
-        //My account / Ad details page
-        public virtual async Task<IActionResult> Details(string AdId)
-        {
-            var ad = await _adService.GetAdById(AdId);
-            if (!ad.Access(_workContext.CurrentCustomer))
-                return Challenge();
-
-            var model = await _mediator.Send(new GetAdDetails() { Ad = ad, Language = _workContext.WorkingLanguage });
-
-            return View(model);
-        }
 
         public virtual async Task<IActionResult> ViewAd(string AdId)
         {
@@ -189,11 +178,23 @@ namespace Grand.Web.Controllers
             if (!_workContext.CurrentCustomer.IsRegistered())
                 return Challenge();
 
-            await _mediator.Send(new CancelAdCommand() { Ad = Ad, NotifyCustomer = true, NotifyStoreOwner = true });
+            var model = await _mediator.Send(new MessagesAd() { Ad = Ad, Language = _workContext.WorkingLanguage });
 
-            return RedirectToRoute("MessagesAd", new { AdId = AdId });
+            //return RedirectToRoute("MessagesAd", new { AdId = AdId });
+            return View(model);
         }
 
+        //My account / Ad details page
+        public virtual async Task<IActionResult> Details(string AdId)
+        {
+            var ad = await _adService.GetAdById(AdId);
+            if (!ad.Access(_workContext.CurrentCustomer))
+                return Challenge();
+
+            var model = await _mediator.Send(new GetAdDetails() { Ad = ad, Language = _workContext.WorkingLanguage });
+
+            return View(model);
+        }
         //My account / Ads / Cancel recurring Ad
         [HttpPost, ActionName("CustomerAds")]
         [AutoValidateAntiforgeryToken]

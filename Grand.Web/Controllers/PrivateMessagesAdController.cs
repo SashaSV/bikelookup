@@ -347,7 +347,7 @@ namespace Grand.Web.Controllers
 
             if (_workContext.CurrentCustomer.IsGuest())
             {
-                return Challenge();
+                return RedirectToRoute("HomePage");
             }
            
             var messages = new List<PrivateMessageModel>();
@@ -355,6 +355,13 @@ namespace Grand.Web.Controllers
             var fromCustomer = await _customerService.GetCustomerById(_workContext.CurrentCustomer.Id);
             var toCustomer = await _customerService.GetCustomerById(toCustomerId);
             var ad = await _adService.GetAdById(AdId);
+
+
+            if (ad == null)
+			{
+                return Challenge();
+            }
+
             var rp = await _productService.GetProductById(ad.ProductId);
 
             messages = await GetMessage(messages, ad, rp, fromCustomer, toCustomer);

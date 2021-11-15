@@ -47,13 +47,13 @@
         <template v-slot:footer>
             @if (Model.IsOpenFromMenu)
             {
-                <input type="button" value="@T("Account.CustomerAds.AdEdit")" class="btn btn-secondary ad-details-button" onclick="location = ('@Url.RouteUrl("EditAd", new { adId = Model.Id })')" />
+                <input v-b-tooltip.hover.bottom title="@T("Account.CustomerAds.AdEditTitle")" type="button" value="@T("Account.CustomerAds.AdEdit")" class="btn btn-secondary ad-details-button" onclick="location = ('@Url.RouteUrl("EditAd", new { adId = Model.Id })')" />
             }
 
-            <input type="button" value="@T("Account.CustomerAds.AdDetails")" class="btn btn-secondary ad-details-button" onclick="location = ('@Url.RouteUrl("ViewAd", new { adId = Model.Id })')" />
+            <input v-b-tooltip.hover.bottom title="@T("Account.CustomerAds.AdDetailsTitle")" type="button" value="@T("Account.CustomerAds.AdDetails")" class="btn btn-secondary ad-details-button" onclick="location = ('@Url.RouteUrl("ViewAd", new { adId = Model.Id })')" />
             @if (Model.IsOpenFromMenu)
             {
-                <input type="button" value="@T("Account.CustomerAds.AdCancle")" class="btn btn-secondary ad-cancle-button" onclick="location = ('@Url.RouteUrl("CancelAd", new { adId = Model.Id })')" />
+                <input v-b-tooltip.hover.bottom title="@T("Account.CustomerAds.AdCancleTitle")" type="button" value="@T("Account.CustomerAds.AdCancle")" class="btn btn-secondary ad-cancle-button" onclick="location = ('@Url.RouteUrl("CancelAd", new { adId = Model.Id })')" />
                 @*<input type="button" value="@T("Account.CustomerAds.AdDelete")" class="btn btn-secondary ad-delete-button" onclick="location = ('@Url.RouteUrl("DeleteAd", new { adId = Model.Id })')" />*@
                 <b-button ref="submit" type="submit" :disabled="busy" v-on:click="clickOnDelete('@Url.RouteUrl("DeleteAd", new { adId = Model.Id })')"  >@T("Account.CustomerAds.AdDelete")</b-button>
                 <b-modal v-model="busy" hide-header no-wrap>
@@ -73,7 +73,7 @@
                         </b-row>
                     </template>
                 </b-modal>
-                <input type="button" value="@T("Account.CustomerAds.AdMessages")" class="btn btn-secondary ad-message-button" onclick="location = ('@Url.RouteUrl("MessagesAd", new { adId = Model.Id })')" />
+                <input type="button" value="@(T("Account.CustomerAds.AdMessages")+" ("+Model.CountMsg.ToString()+")")" class="btn btn-secondary ad-message-button" onclick="location = ('@Url.RouteUrl("MessagesAd", new { adId = Model.Id })')" />
             }
         </template>
     </b-card>
