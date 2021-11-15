@@ -173,38 +173,74 @@ namespace Grand.Services.Queries.Handlers.Catalog
             //searching by keyword
             if (!String.IsNullOrWhiteSpace(request.Keywords))
             {
-                if (_commonSettings.UseFullTextSearch)
+                foreach (var k in request.Keywords.Split(' '))
                 {
-                    request.Keywords = "\"" + request.Keywords + "\"";
-                    request.Keywords = request.Keywords.Replace("+", "\" \"");
-                    request.Keywords = request.Keywords.Replace(" ", "\" \"");
-                    filter = filter & builder.Text(request.Keywords);
-                }
-                else
-                {
-                    if (!request.SearchDescriptions)
-                        filter = filter & builder.Where(p =>
-                            p.Name.ToLower().Contains(request.Keywords.ToLower())
-                            ||
-                            p.Locales.Any(x => x.LocaleKey == "Name" && x.LocaleValue != null && x.LocaleValue.ToLower().Contains(request.Keywords.ToLower()))
-                            ||
-                            (request.SearchSku && p.Sku.ToLower().Contains(request.Keywords.ToLower()))
-                            );
+                    var keyword = k;
+                    if (_commonSettings.UseFullTextSearch)
+                    {
+                        keyword = "\"" + request.Keywords + "\"";
+                        keyword = request.Keywords.Replace("+", "\" \"");
+                        keyword = request.Keywords.Replace(" ", "\" \"");
+                        filter = filter & builder.Text(keyword);
+                    }
                     else
                     {
-                        filter = filter & builder.Where(p =>
-                                (p.Name != null && p.Name.ToLower().Contains(request.Keywords.ToLower()))
+                        if (!request.SearchDescriptions)
+                            filter = filter & builder.Where(p =>
+                                p.Name.ToLower().Contains(keyword.ToLower())
                                 ||
-                                (p.ShortDescription != null && p.ShortDescription.ToLower().Contains(request.Keywords.ToLower()))
+                                p.Locales.Any(x => x.LocaleKey == "Name" && x.LocaleValue != null && x.LocaleValue.ToLower().Contains(keyword.ToLower()))
                                 ||
-                                (p.FullDescription != null && p.FullDescription.ToLower().Contains(request.Keywords.ToLower()))
-                                ||
-                                (p.Locales.Any(x => x.LocaleValue != null && x.LocaleValue.ToLower().Contains(request.Keywords.ToLower())))
-                                ||
-                                (request.SearchSku && p.Sku.ToLower().Contains(request.Keywords.ToLower()))
+                                (request.SearchSku && p.Sku.ToLower().Contains(keyword.ToLower()))
                                 );
+                        else
+                        {
+                            filter = filter & builder.Where(p =>
+                                    (p.Name != null && p.Name.ToLower().Contains(keyword.ToLower()))
+                                    ||
+                                    (p.ShortDescription != null && p.ShortDescription.ToLower().Contains(keyword.ToLower()))
+                                    ||
+                                    (p.FullDescription != null && p.FullDescription.ToLower().Contains(keyword.ToLower()))
+                                    ||
+                                    (p.Locales.Any(x => x.LocaleValue != null && x.LocaleValue.ToLower().Contains(keyword.ToLower())))
+                                    ||
+                                    (request.SearchSku && p.Sku.ToLower().Contains(keyword.ToLower()))
+                                    );
+                        }
                     }
                 }
+                //if (_commonSettings.UseFullTextSearch)
+                //{
+                //    request.Keywords = "\"" + request.Keywords + "\"";
+                //    request.Keywords = request.Keywords.Replace("+", "\" \"");
+                //    request.Keywords = request.Keywords.Replace(" ", "\" \"");
+                //    filter = filter & builder.Text(request.Keywords);
+                //}
+                //else
+                //{
+                //    if (!request.SearchDescriptions)
+                //        filter = filter & builder.Where(p =>
+                //            p.Name.ToLower().Contains(request.Keywords.ToLower())
+                //            ||
+                //            p.Locales.Any(x => x.LocaleKey == "Name" && x.LocaleValue != null && x.LocaleValue.ToLower().Contains(request.Keywords.ToLower()))
+                //            ||
+                //            (request.SearchSku && p.Sku.ToLower().Contains(request.Keywords.ToLower()))
+                //            );
+                //    else
+                //    {
+                //        filter = filter & builder.Where(p =>
+                //                (p.Name != null && p.Name.ToLower().Contains(request.Keywords.ToLower()))
+                //                ||
+                //                (p.ShortDescription != null && p.ShortDescription.ToLower().Contains(request.Keywords.ToLower()))
+                //                ||
+                //                (p.FullDescription != null && p.FullDescription.ToLower().Contains(request.Keywords.ToLower()))
+                //                ||
+                //                (p.Locales.Any(x => x.LocaleValue != null && x.LocaleValue.ToLower().Contains(request.Keywords.ToLower())))
+                //                ||
+                //                (request.SearchSku && p.Sku.ToLower().Contains(request.Keywords.ToLower()))
+                //                );
+                //    }
+                //}
 
             }
 
