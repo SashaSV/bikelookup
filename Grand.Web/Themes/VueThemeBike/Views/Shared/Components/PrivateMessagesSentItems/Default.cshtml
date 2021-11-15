@@ -77,13 +77,13 @@
                                             </label>
                                         </div>
                                         <div class="from col-sm-2 col-12 pb-1">
-                                            @if (item.AllowViewingFromProfile && !string.IsNullOrEmpty(item.CustomerFromName))
+                                            @if (item.AllowViewingFromProfile && !string.IsNullOrEmpty(item.CustomerToName))
                                             {
-                                                @Html.RouteLink(item.CustomerFromName, "CustomerProfile", new { Id = item.FromCustomerId })
+                                                @Html.RouteLink(item.CustomerToName, "CustomerProfile", new { Id = item.ToCustomerId })
                                             }
                                             else
                                             {
-                                                @item.CustomerFromName
+                                                @item.CustomerToName
                                             }
                                         </div>
                                         @*<div class="subject col-sm-5 col-12">
@@ -99,7 +99,7 @@
                                                 @Html.RouteLink(item.AdProductName, "ViewAdPM", new { AdId = item.AdId, toCustomerId = item.ToCustomerId }, new { @class = (item.IsRead) ? "pm-read" : "pm-unread col-form-label" })
                                             </div>
                                             <div class="sec-subj">
-                                                @Html.RouteLink(item.Subject, "ViewAdPM", new { AdId = item.AdId, toCustomerId = item.ToCustomerId }, new { @class = (item.IsRead) ? "pm-read" : "pm-unread col-form-label" })
+                                                @Html.RouteLink(item.Message, "ViewAdPM", new { AdId = item.AdId, toCustomerId = item.ToCustomerId }, new { @class = (item.IsRead) ? "pm-read" : "pm-unread col-form-label" })
                                             </div>
                                         </div>
                                         <div class="date col-sm-4 col-12">

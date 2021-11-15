@@ -13,7 +13,7 @@
             }
 
             <b-card no-body class="row associatedItem mb-3">
-                <div class="justify-content-left">
+                <div class="justify-content-left @(variant.IsAd ? "isad" : "")" >
                     <div class="rounded-photo">
                         <a href="@variant.Url">
                             <b-card-img fluid-grow="true" fluid="true" id="main-product-img-@variant.Id"
@@ -43,7 +43,7 @@
                 </div>
                 <div class="justify-content-right">
                     <div class="justify-content-center title">
-                        <a href="@variant.Url">
+                        <a href="@(variant.IsAd ? Url.RouteUrl("ViewAd", new { adId = variant.AdId }) : variant.Url)">
                             <h3 class="vendor-title" itemprop="name" align="center">@variant.VendorModel.Name</h3>
                         </a>
                     </div>
@@ -118,13 +118,13 @@
 
                             <span class="vendor-old-price">@Html.Raw(variant.ProductPrice.OldPrice)</span>
 
-                            <span class="vendor-update-date">@Html.Raw(variant.UpdatedOnUtc.Value.ToString())</span>
+                            <span v-b-tooltip.hover.bottom title="@T("Vendor.PriceUpdate")" class="vendor-update-date">@Html.Raw(variant.UpdatedOnUtc.Value.ToString())</span>
 
                             <span class="vendor-avaliable">
                                 @{
                                     var avalible = variant.ProductSpecifications.FirstOrDefault(a => a.SpecificationAttributeCode == "sp_available");
                                 }
-                                @avalible?.ValueRaw;
+                                @avalible?.ValueRaw
                             </span>
                         }
                     </b-col>

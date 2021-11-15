@@ -73,7 +73,8 @@ namespace Grand.Web.Features.Handlers.Ads
             var model = new PrivateMessageIndexModel {
                 InboxPage = inboxPage,
                 SentItemsPage = sentItemsPage,
-                SentItemsTabSelected = sentItemsTabSelected
+                SentItemsTabSelected = sentItemsTabSelected,
+                AdId = request.Ad.Id
             };
 
             return model;

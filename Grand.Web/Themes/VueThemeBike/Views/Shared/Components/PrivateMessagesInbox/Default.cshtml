@@ -91,7 +91,7 @@
                                                     @Html.RouteLink(item.AdProductName, "ViewAdPM", new { AdId = item.AdId, toCustomerId = item.FromCustomerId }, new { @class = (item.IsRead) ? "pm-read" : "pm-unread col-form-label" })
                                                 </div>
                                                 <div class="sec-subj">
-                                                    @Html.RouteLink(item.Subject, "ViewAdPM", new { AdId = item.AdId, toCustomerId = item.FromCustomerId }, new { @class = (item.IsRead) ? "pm-read" : "pm-unread col-form-label" })
+                                                    @Html.RouteLink(item.Message, "ViewAdPM", new { AdId = item.AdId, toCustomerId = item.FromCustomerId }, new { @class = (item.IsRead) ? "pm-read" : "pm-unread col-form-label" })
                                                 </div>
                                             </div>
                                             <div class="date col-sm-4 col-12">

@@ -100,7 +100,7 @@ namespace Grand.Web.Controllers
                 Customer  = _workContext.CurrentCustomer,
                 Store =  _storeContext.CurrentStore
             });
-            
+            //Url.RouteUrl("ViewAd", new { adId = product.AdId })
             return RedirectToRoute("CustomerAds");
         }
 

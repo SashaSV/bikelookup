@@ -52,7 +52,7 @@ namespace Grand.Web.ViewComponents
             _productService = productService;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(int pageNumber, string tab)
+        public async Task<IViewComponentResult> InvokeAsync(int pageNumber, string tab, string adId = "")
         {
             if (pageNumber > 0)
             {
@@ -62,15 +62,15 @@ namespace Grand.Web.ViewComponents
             var pageSize = _forumSettings.PrivateMessagesPageSize;
 
             var list = await _forumService.GetAllPrivateMessages(_storeContext.CurrentStore.Id,
-                _workContext.CurrentCustomer.Id, "", "", null, false, null, string.Empty, pageNumber, pageSize);
+                _workContext.CurrentCustomer.Id, "", adId, null, false, null, string.Empty, pageNumber, pageSize);
 
             var sentItems = new List<PrivateMessageModel>();
-            var query = new GetAdQuery {
-                //StoreId = request.Store.Id
-                CustomerId = _workContext.CurrentCustomer.Id
-            };
+            //var query = new GetAdQuery {
+            //    //StoreId = request.Store.Id
+            //    CustomerId = _workContext.CurrentCustomer.Id
+            //};
 
-            var ads = await _mediator.Send(query);
+            //var ads = await _mediator.Send(query);
 
             var inbox = new List<PrivateMessageModel>();
             var groupAd = list.GroupBy(x => new { x.AdId, x.ToCustomerId });

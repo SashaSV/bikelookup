@@ -1,6 +1,7 @@
 using Grand.Core;
 using Grand.Domain.Ads;
 using Grand.Domain.Catalog;
+using Grand.Domain.Common;
 using Grand.Domain.Customers;
 using Grand.Domain.Data;
 using Grand.Services.Catalog;
@@ -14,6 +15,7 @@ using MediatR;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace Grand.Web.Features.Handlers.Ads
 {
@@ -43,10 +45,11 @@ namespace Grand.Web.Features.Handlers.Ads
         public async Task<bool>  Handle(SaveAd request, CancellationToken cancellationToken)
         {
             var groupedProductId = request.AdToSave.SearchBike;
-            
+            var groupedProduct = await _productService.GetProductById(groupedProductId);
+
             if ( string.IsNullOrEmpty(request.AdToSave.SearchBike))
             {
-                var groupedProduct = new Product
+                groupedProduct = new Product
                 {
                     Name = request.AdToSave.Model,
                     ManufactureName = request.AdToSave.ManufactureName,
@@ -73,9 +76,16 @@ namespace Grand.Web.Features.Handlers.Ads
             //customerAd.FormatUserName(_customerSettings.CustomerNameFormat);
             
             var vendor = await _vendorService.GetVendorByName(customerName);
+            
             vendor.Email = customerAd.Email;
             var pictureId = customerAd.GetAttributeFromEntity<string>(SystemCustomerAttributeNames.AvatarPictureId);
             vendor.PictureId = pictureId;
+            
+            foreach (var addr in customerAd.Addresses) 
+            {
+                vendor.Addresses.Add(addr);
+            }
+            var addressCustomer = customerAd.ShippingAddress;
 
             await _vendorService.UpdateVendor(vendor);
             
@@ -86,25 +96,26 @@ namespace Grand.Web.Features.Handlers.Ads
                 Price = request.AdToSave.Price,
                 EndDateTimeUtc = DateTime.Now.AddMonths(1),
                 CustomerCurrencyCode = _workContext.WorkingCurrency.CurrencyCode,
-                AdComment = request.AdToSave.AdComment
+                AdComment = request.AdToSave.AdComment,
+                ShippingAddress = addressCustomer
             };
 
             var newAd = await _adRepository.InsertAsync(ad);
 
             var product = new Product
             {
-                Name = request.AdToSave.Model,
-                ManufactureName = request.AdToSave.ManufactureName,
+                Name = string.Format("{0} {1} {2}", groupedProduct.Name, customerName, request.AdToSave.Price),
                 Price = request.AdToSave.Price,
                 Year = request.AdToSave.Year.ToString(),
                 ProductType = ProductType.SimpleProduct,
                 Published = true,
+                ManufactureName = request.AdToSave.ManufactureName,
                 Weeldiam = request.AdToSave.Weeldiam,
                 Color = request.AdToSave.Color,
                 Model = request.AdToSave.Model,
                 Size = request.AdToSave.Size,
                 AvailableStartDateTimeUtc = DateTime.Today,
-                AvailableEndDateTimeUtc = DateTime.Today.AddMonths(3),
+                AvailableEndDateTimeUtc = DateTime.Today.AddMonths(1),
                 VendorId = vendor.Id,
                 UpdatedOnUtc = DateTime.Now,
                 AdId = newAd.Id

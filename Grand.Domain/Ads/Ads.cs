@@ -58,11 +58,6 @@ namespace Grand.Domain.Ads
         public string ProductId { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether a customer chose "pick up in store" shipping option
-        /// </summary>
-        public bool PickUpInStore { get; set; }
-
-        /// <summary>
         /// Gets or sets an Ads status identifier
         /// </summary>
         public int AdStatusId { get; set; }
@@ -125,6 +120,10 @@ namespace Grand.Domain.Ads
         public decimal OldPrice { get; set; }
         public string AdComment { get; set; }
         #region Не нужные свойства
+        /// <summary>
+        /// Gets or sets a value indicating whether a customer chose "pick up in store" shipping option
+        /// </summary>
+        public bool PickUpInStore { get; set; }
         /// <summary>
         /// Gets or sets the payment status identifier
         /// </summary>

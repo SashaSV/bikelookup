@@ -661,6 +661,7 @@ namespace Grand.Services.Catalog
         {
             var builder = Builders<Product>.Filter;
             var filter = builder.In(p => p.ParentGroupedProductId, parentProducts);
+            filter = filter & builder.Where(p => p.Published);
             var products = await _productRepository.Collection.Find(filter).ToListAsync();
             return products.GroupBy(p=>p.ParentGroupedProductId).
                 ToDictionary(p=>p.Key, p=>(IList<Product>)p);

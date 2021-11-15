@@ -17,10 +17,10 @@
         <b-card no-body class="tabs inbox-tabs" id="tabs">
             <b-tabs card>
                 <b-tab title="@T("PrivateMessages.Inbox")" active>
-                    <b-card-text>@await Component.InvokeAsync("PrivateMessagesInbox", new { pageNumber = Model.InboxPage, tab = "inbox" })</b-card-text>
+                    <b-card-text>@await Component.InvokeAsync("PrivateMessagesInbox", new { pageNumber = Model.InboxPage, tab = "inbox", adId = Model.AdId })</b-card-text>
                 </b-tab>
                 <b-tab title="@T("PrivateMessages.SentItems")">
-                    <b-card-text>@await Component.InvokeAsync("PrivateMessagesSentItems", new { pageNumber = Model.SentItemsPage, tab = "sent" })</b-card-text>
+                    <b-card-text>@await Component.InvokeAsync("PrivateMessagesSentItems", new { pageNumber = Model.SentItemsPage, tab = "sent", adId = Model.AdId })</b-card-text>
                 </b-tab>
             </b-tabs>
         </b-card>
