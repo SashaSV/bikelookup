@@ -77,6 +77,9 @@ Vue.component('findautocompletespec', {
     methods: {
         lookup: function() {
             //console.debug(this.TextToSearch);
+
+            this.$emit('select', { Name: this.TextToSearch})
+            
             axios({
                 url: '/catalog/searchspecautocomplete',
                 method: 'get',
