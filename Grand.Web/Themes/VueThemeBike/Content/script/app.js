@@ -93,7 +93,7 @@ Vue.component('findautocompletespec', {
                     this.Items = response.data.filter(function (item) {
                         return item.Name !== null
                     })
-                    this.showResults = true;
+                    this.showResults = this.Items.length > 0;
                 }else {
                     this.Items = [];
                     this.showResults = false;
@@ -108,7 +108,6 @@ Vue.component('findautocompletespec', {
         onoverlayclick: function ()
         {
             this.showResults = false;
-            this.TextToSearch = "";
             this.Items = [];
         },
         onselect: function (item, text)
