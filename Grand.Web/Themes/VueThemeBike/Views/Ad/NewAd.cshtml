@@ -97,6 +97,7 @@
                         <label asp-for="Weeldiam" class="col-form-label">@T("Ad.Fields.Wheeldiam"):</label>
                         <span class="required">*</span>
                         <input asp-for="Weeldiam" class="form-control" v-model="baseProduct.Weeldiam" v-validate="'required'" />
+                        <findautocompletespec spec="sp_wheeldiams" v-on:select="baseProduct.Weeldiam=$event.Name"/>
                         <span class="field-validation-error">{{veeErrors.first('Wheeldiam')}}</span>
                         <span asp-validation-for="Weeldiam"></span>
                     </fieldset>
@@ -105,6 +106,7 @@
                         <label asp-for="Size" class="col-form-label">@T("Ad.Fields.Size"):</label>
                         <span class="required">*</span>
                         <input asp-for="Size" class="form-control" v-model="baseProduct.Size" v-validate="'required'" />
+                          <findautocompletespec spec="sp_size" v-on:select="baseProduct.Size=$event.Name"/>
                         <span class="field-validation-error">{{veeErrors.first('Size')}}</span>
                         <span asp-validation-for="Size"></span>
                     </fieldset>

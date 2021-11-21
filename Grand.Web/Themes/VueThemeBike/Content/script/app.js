@@ -483,7 +483,7 @@ var vm = new Vue({
             prodToZoom: null,
             busy: false,
             idtoremove: "",
-            baseProduct : {Id : "", Year: new Date().getFullYear(), ManufactureName:"", Model:""},
+            baseProduct : {Id : "", Year: new Date().getFullYear(), ManufactureName:"", Model:"", Weeldiam:"", Size:""},
             baseProductId: "",
             yearselected : new Date().getFullYear(),
         }
