@@ -62,6 +62,82 @@ Vue.component('langsellector',{
           </div>
 `
 });
+Vue.component('findautocompletespec', {
+    props: ['spec'],
+    data: function () {
+        return {
+            Placeholder: "",
+            TextToSearch: "",
+            HasAny: false,
+            Items: [],
+            showResults: false,
+            stopResults: false
+        }
+    },
+    methods: {
+        lookup: function() {
+            //console.debug(this.TextToSearch);
+            axios({
+                url: '/catalog/searchspecautocomplete',
+                method: 'get',
+                params: {
+                    term: this.TextToSearch,
+                    specification: this.spec}}).then(function (response)
+            {
+                if(this.stopResults)
+                {
+                    return ;
+                }
+                if (response.data) {
+                    this.Items = response.data
+                    this.Items = response.data.filter(function (item) {
+                        return item.Name !== null
+                    })
+                    this.showResults = true;
+                }else {
+                    this.Items = [];
+                    this.showResults = false;
+                }
+            }.bind(this));
+        },
+        onsearch: function()
+        {
+            window.location.href = "/search?q="+this.TextToSearch
+            this.stopResults = true;
+        },
+        onoverlayclick: function ()
+        {
+            this.showResults = false;
+            this.TextToSearch = "";
+            this.Items = [];
+        },
+        onselect: function (item, text)
+        {
+            this.$emit('select', item)
+            this.showResults = false;
+            this.TextToSearch = item.Name;
+            this.Items = [];
+        }
+    },
+    template:
+        `        <div>  
+                  <div>
+                    <b-input-group>
+                          <b-input-group-prepend is-text>
+                             <b-icon icon="search"></b-icon>
+                         </b-input-group-prepend>
+                         <b-form-input type="search" v-bind:placeholder="Placeholder" v-model="TextToSearch" v-on:input="lookup()" v-on:keypress.enter ="onsearch()"></b-form-input>
+                    <b-input-group>
+                  <b-list-group v-if="showResults" class="autocomplete-results-large">
+                    <b-list-group-item  class="autocomplete-result" v-for="item in Items" :key="item.Label">
+                        <div v-if="item.Name !== null" v-on:click="onselect(item, item.Name)">{{item.Name}}</div>
+                    </b-list-group-item>
+                  </b-list-group>
+                </div>
+                 <div v-if="showResults" class="overlay" @click="onoverlayclick()"><div>
+              </div>`
+});
+
 Vue.component('findautocomplete', {
     data: function () {
         return {
@@ -407,7 +483,7 @@ var vm = new Vue({
             prodToZoom: null,
             busy: false,
             idtoremove: "",
-            baseProduct : {Id : "", Year: new Date().getFullYear()},
+            baseProduct : {Id : "", Year: new Date().getFullYear(), ManufactureName:"", Model:""},
             baseProductId: "",
             yearselected : new Date().getFullYear(),
         }

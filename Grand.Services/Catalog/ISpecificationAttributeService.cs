@@ -26,7 +26,14 @@ namespace Grand.Services.Catalog
         /// <param name="sename">Sename</param>
         /// <returns>Specification attribute</returns>
         Task<SpecificationAttribute> GetSpecificationAttributeBySeName(string sename);
-
+        
+        /// <summary>
+        /// Gets a specification attribute by sename
+        /// </summary>
+        /// <param name="sename">Sename</param>
+        /// <returns>Specification attribute</returns>
+        Task<SpecificationAttribute> GetSpecificationAttributeBySeNameAutocomplete(string sename);
+        
         /// <summary>
         /// Gets specification attributes
         /// </summary>
@@ -78,6 +85,9 @@ namespace Grand.Services.Catalog
         /// <param name="specificationAttributeOptionName">The specification attribute option name</param>
         /// <returns>Specification attribute option</returns>
         Task<SpecificationAttributeOption> GetSpecificationAttributeByOptionName(string specificationAttributeId, string specificationAttributeOptionName);
+
+        Task<IEnumerable<SpecificationAttributeOption>> GetSpecificationAttributeByOptionNameAutocomplete(
+            string specificationAttributeId, string specificationAttributeOptionName);
         
         /// <summary>
         /// Deletes a specification attribute option
@@ -175,6 +185,7 @@ namespace Grand.Services.Catalog
             string productId = "",
             string specificationAttributeId = "",
             string specificationAttributeOptionId = "");
+        
         #endregion
 
         Task DeleteVendorSpecificationAttribute(VendorSpecificationAttribute vendorSpecificationAttribute);

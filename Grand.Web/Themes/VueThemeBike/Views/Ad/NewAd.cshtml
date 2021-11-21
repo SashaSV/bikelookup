@@ -79,6 +79,7 @@
                         <label asp-for="ManufactureName" class="col-form-label">@T("Ad.Fields.ManufactureName"):</label>
                         <span class="required">*</span>
                         <input asp-for="ManufactureName" class="form-control" v-model="baseProduct.ManufactureName" v-validate="'required'" />
+                        <findautocompletespec spec="manufacturer" v-on:select="baseProduct.ManufactureName=$event.Name"/>
                         <span class="field-validation-error">{{veeErrors.first('ManufactureName')}}</span>
                         <span asp-validation-for="ManufactureName"></span>
                     </fieldset>
@@ -87,6 +88,7 @@
                         <label asp-for="Model" class="col-form-label">@T("Ad.Fields.Model"):</label>
                         <span class="required">*</span>
                         <input asp-for="Model" class="form-control" v-model="baseProduct.Model" v-validate="'required'" />
+                         <findautocompletespec spec="sp_model" v-on:select="baseProduct.Model=$event.Name"/>
                         <span class="field-validation-error">{{veeErrors.first('Model')}}</span>
                         <span asp-validation-for="Model"></span>
                     </fieldset>

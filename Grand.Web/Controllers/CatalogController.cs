@@ -525,6 +525,22 @@ namespace Grand.Web.Controllers
             });
             return View(searchmodel);
         }
+        
+        public virtual async Task<IActionResult> SearchSpecAutoComplete(string term, string specification, [FromServices] CatalogSettings catalogSettings)
+        {
+            if (String.IsNullOrWhiteSpace(term) || term.Length < catalogSettings.ProductSearchTermMinimumLength)
+                return Content("");
+
+            var result = await _mediator.Send(new GetSpecAutoComplete() {
+                Spec = specification,
+                Term = term,
+                Customer = _workContext.CurrentCustomer,
+                Store = _storeContext.CurrentStore,
+                Language = _workContext.WorkingLanguage,
+                Currency = _workContext.WorkingCurrency
+            });
+            return Json(result);
+        }
 
         public virtual async Task<IActionResult> SearchTermAutoComplete(string term, string categoryId, [FromServices] CatalogSettings catalogSettings)
         {
