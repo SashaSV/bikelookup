@@ -140,8 +140,30 @@ namespace Grand.Services.Catalog
             var key = string.Format(SPECIFICATION_BY_SENAME, sename);
             return await _cacheManager.GetAsync(key, async () => await _specificationAttributeRepository.Table.Where(x => x.SeName.ToLower() == sename.ToLower()).FirstOrDefaultAsync());
         }
+        
+        /// <summary>
+        /// Gets a specification attribute by sename
+        /// </summary>
+        /// <param name="sename">Sename</param>
+        public virtual async Task<SpecificationAttribute> GetSpecificationAttributeBySeNameAutocomplete(string sename)
+        {
+            if (string.IsNullOrEmpty(sename))
+                return await Task.FromResult<SpecificationAttribute>(null);
 
+            sename = sename.ToLowerInvariant();
+            
+            var filter = FilterDefinition<SpecificationAttribute>.Empty;
+            var builder = Builders<SpecificationAttribute>.Filter;
+            
+            foreach (var term in sename.Split(" "))
+            {
+                filter = filter & builder.Where(sp=>sp.SeName.Contains(term));
+            }
 
+            var key = string.Format(SPECIFICATION_BY_SENAME, sename);
+            return await _specificationAttributeRepository.Collection.Find(filter).FirstOrDefaultAsync();
+        }
+        
         /// <summary>
         /// Gets specification attributes
         /// </summary>
@@ -260,6 +282,23 @@ namespace Grand.Services.Catalog
             return specificationAttribute.SpecificationAttributeOptions.Where(x => x.Name.ToLower() == specificationAttributeOptionName.ToLower()).FirstOrDefault();
         }
 
+        /// <summary>
+        /// Gets a specification attribute option
+        /// </summary>
+        /// <param name="specificationAttributeOptionId">The specification attribute option identifier</param>
+        /// <returns>Specification attribute option</returns>
+        public virtual async Task<IEnumerable<SpecificationAttributeOption>> GetSpecificationAttributeByOptionNameAutocomplete(string specificationAttributeId, string specificationAttributeOptionName)
+        {
+            if (string.IsNullOrEmpty(specificationAttributeOptionName))
+                return await Task.FromResult<IEnumerable<SpecificationAttributeOption>>(null);
+            
+            string key = string.Format(SPECIFICATION_BY_ID_KEY, specificationAttributeId);
+            var specificationAttribute = await _cacheManager.GetAsync(key, () => _specificationAttributeRepository.GetByIdAsync(specificationAttributeId));
+
+            var terms = specificationAttributeOptionName.Split(" ");
+            
+            return specificationAttribute.SpecificationAttributeOptions.Where(x => terms.All(t =>x.Name.ToLower().Contains(t.ToLower())));
+        }
         
         /// <summary>
         /// Deletes a specification attribute option
