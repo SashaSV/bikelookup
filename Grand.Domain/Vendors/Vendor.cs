@@ -133,7 +133,7 @@ namespace Grand.Domain.Vendors
         /// <summary>
         /// Gets or sets the vendor address
         /// </summary>
-        public virtual IList<Address> Addresses { get; set; }
+        public virtual ICollection<Address> Addresses { get; set; }
 
         public void RemoveAddress()
         {

@@ -34,67 +34,65 @@
                         }
                         <b-form-rating id="rating-inline-grid-@Model.Id" aria-label="Rating" class="p-0" variant="warning" no-border size="sm" readonly inline value="@(ratingValue)" color="#F15A24"></b-form-rating>
                         <b-link href="@Url.RouteUrl("Vendor", new {SeName = variant.VendorModel.SeName})">@string.Format("({0})", variant.VendorModel.ApprovedTotalReviews)</b-link>
-
                     </div>
-                </div>
-                <div class="card-body">
-
-
                 </div>
                 <div class="justify-content-right">
-                    <div class="justify-content-center title">
-                        <a href="@(variant.IsAd ? Url.RouteUrl("ViewAd", new { adId = variant.AdId }) : variant.Url)">
-                            <h3 class="vendor-title" itemprop="name" align="center">@variant.VendorModel.Name</h3>
-                        </a>
-                    </div>
-                    <div class="justify-content-center vendor-content">
+                    <div class="card-body">
 
-                        @if (@variant.VendorModel.VendorSpecificationAttributes.Any())
-                        {
-                            <div class="vendor-spec">
-                                <div class="spec-container">
+                        <div class="justify-content-center title">
+                            <a href="@(variant.IsAd ? Url.RouteUrl("ViewAd", new { adId = variant.AdId }) : variant.Url)">
+                                <h3 class="vendor-title" itemprop="name" align="center">@variant.VendorModel.Name</h3>
+                            </a>
+                        </div>
+                        <div class="justify-content-center vendor-content">
 
-                                    @{
-                                        var group = @variant.VendorModel.VendorSpecificationAttributes.GroupBy(x => x.SpecificationAttributeName);
-                                    }
+                            @if (@variant.VendorModel.VendorSpecificationAttributes.Any())
+                            {
+                                <div class="vendor-spec">
+                                    <div class="spec-container">
 
-                                    @foreach (var item in group)
+                                        @{
+                                            var group = @variant.VendorModel.VendorSpecificationAttributes.GroupBy(x => x.SpecificationAttributeName);
+                                        }
+
+                                        @foreach (var item in group)
+                                        {
+                                            <div class="vendor-spec-row">
+                                                <div class="vendor-spec-name">
+                                                    @{
+                                                        var groupList = item.ToList();
+                                                    }
+                                                    @groupList[0].SpecificationAttributeName:
+                                                </div>
+                                                <div class="vendor-spec-value">
+                                                    @foreach (var spec in groupList)
+                                                    {
+                                                        <a href="@spec.DetailsUrl">
+                                                            <span>
+                                                                @Html.Raw(spec.ValueRaw)
+                                                            </span>
+                                                        </a>
+                                                    }
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <div class="justify-content-bottom vendor-adress">
+                            <div class="vendor-adress-list">
+                                <div class="vendor-adress-label">
+                                    @T("Vendor.StoreAdresses")
+                                </div>
+                                <div class="adress-list">
+                                    @foreach (var addrs in variant.VendorModel.Addresses)
                                     {
-                                        <div class="vendor-spec-row">
-                                            <div class="vendor-spec-name">
-                                                @{
-                                                    var groupList = item.ToList();
-                                                }
-                                                @groupList[0].SpecificationAttributeName:
-                                            </div>
-                                            <div class="vendor-spec-value">
-                                                @foreach (var spec in groupList)
-                                                {
-                                                    <a href="@spec.DetailsUrl">
-                                                        <span>
-                                                            @Html.Raw(spec.ValueRaw)
-                                                        </span>
-                                                    </a>
-                                                }
-                                            </div>
+                                        <div class="vendor-adress-1">
+                                            @(T("Vendor.CityNameAttribute")+" "+addrs.City + ", " + addrs.Address1)
                                         </div>
                                     }
                                 </div>
-                            </div>
-                        }
-                    </div>
-                    <div class="justify-content-bottom vendor-adress">
-                        <div class="vendor-adress-list">
-                            <div class="vendor-adress-label">
-                                @T("Vendor.StoreAdresses")
-                            </div>
-                            <div class="adress-list">
-                                @foreach (var addrs in variant.VendorModel.Addresses)
-                                {
-                                    <div class="vendor-adress-1">
-                                        @(T("Vendor.CityNameAttribute")+" "+addrs.City + ", " + addrs.Address1)
-                                    </div>
-                                }
                             </div>
                         </div>
                     </div>

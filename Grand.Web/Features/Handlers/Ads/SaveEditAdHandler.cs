@@ -66,10 +66,7 @@ namespace Grand.Web.Features.Handlers.Ads
                     var customerName = customerAd.GetFullName();
                     var vendor = await _vendorService.GetVendorByName(customerName);
 
-                    foreach (var addr in customerAd.Addresses)
-                    {
-                        vendor.Addresses.Add(addr);
-                    }
+                    vendor.Addresses = customerAd.Addresses;
 
                     await _vendorService.UpdateVendor(vendor);
                     ad.ShippingAddress = customerAd.ShippingAddress;

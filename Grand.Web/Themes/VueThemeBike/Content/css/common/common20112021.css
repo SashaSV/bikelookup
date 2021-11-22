@@ -605,7 +605,7 @@ input:checked ~ .color-container .color::before {
 
 .product-slider{
     /* z-index: 0; */
-    margin-bottom: 0rem;
+    margin-bottom: 3rem;
 }
 
 .row .product-slider{
@@ -745,12 +745,10 @@ input:checked ~ .color-container .color::before {
     z-index: 10;
 }
 
-/*.product-box *,
-.product-box *,
-.product-box .card-footer * {
+/*.product-box *,*/
+.product-box *, .product-box .card-footer * {
         z-index: 2;
-        text-align: center;
-}*/
+}
 
 .sku {
     font-size: 0.65rem;
@@ -790,22 +788,6 @@ input:checked ~ .color-container .color::before {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 }
-
-.product-box.list::before {
-    content: "";
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    bottom: -10px;
-    left: -10px;
-    background: #fff;
-    border: 1px solid transparent;
-    border-bottom: 0;
-    border-radius: .25rem;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-}
-
 .product-box:hover::before {
     border-color: rgba(0,0,0,.2);
     box-shadow: 0 0 10px rgba(0,0,0,.2);
@@ -850,27 +832,6 @@ input:checked ~ .color-container .color::before {
     visibility: visible;
     z-index: 2;
 }
-
-.product-box.list .card-body {
-    position:relative;
-    padding: 5px 0;
-    align-items: center;
-    /*justify-content: center;*/
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    transform: none;
-    -webkit-transform: none;
-    margin-bottom: 0;
-    flex: none;
-    min-height: 0;
-
-}
-
-
 .product-box .card-body {
     position: absolute;
     align-items: center;
@@ -891,15 +852,8 @@ input:checked ~ .color-container .color::before {
 }
 
 .view-btn-group{
-    position: absolute;
-    /* display: flex; */
-    width: 100%;
-    top: -5px;
-    left: -20px;
-}
-.service-attr{
     display: flex;
-    flex-direction: row;
+    width: 100%;
 }
 .bottom-list-nav{
     display: flex;
@@ -939,10 +893,6 @@ input:checked ~ .color-container .color::before {
     -webkit-transform: translateY(0);
 }
 
-.product-box.list:hover .quick-view-button {
-    transform: translateY(0);
-    -webkit-transform: translateY(0);
-}
 .sku-btn-group{
     display: flex;
     width: 100%;
@@ -950,7 +900,6 @@ input:checked ~ .color-container .color::before {
     justify-content: space-between;
     flex-direction: row;
     align-items: center;
-    padding: 15px 0;
 }
 
 .heart_prod * {
@@ -1244,9 +1193,6 @@ input:checked ~ .color-container .color::before {
     flex-wrap: nowrap;
     justify-content: center;
 }
-.product-box.list .view-block{
-    padding-right: 20px;
-}
 
 .product-box .view-block
 {
@@ -1348,10 +1294,6 @@ input:checked ~ .color-container .color::before {
     background: #ffffff;
     padding-right: 5px;
 }
-.product-box.list .proposal-name {
-    font-size: 1rem;
-}
-
 .product-box .proposal-name {
     font-family: Montserrat;
     font-style: normal;
@@ -1532,7 +1474,7 @@ input:checked ~ .color-container .color::before {
 
 .listbox-right
 {
-    /*align-self: end;*/
+    align-self: end;
     padding: 0px;
 }
 
@@ -1697,12 +1639,12 @@ footer .list-group-item span:last-child {
 }
 
 .pt-4, .py-4 {
-    padding-top: 1rem!important;
+    padding-top: 0.6rem!important;
 }
 
 .pb-4, .py-4 {
-    padding-bottom: 15rem!important;
-    /*margin-bottom: -2rem;*/
+    padding-bottom: 14.6rem!important;
+    margin-bottom: -2rem;
 }
 
 @media (min-width: 1400px) {
@@ -2207,7 +2149,7 @@ button, input, optgroup, select, textarea {
     padding: 10px;
 }
 .spec-name-list{
-    padding-right: 1.5rem;
+    padding-right: 0.3rem;
 }
 .spec-tr{
     padding-bottom: 3px;
@@ -2236,22 +2178,4 @@ button, input, optgroup, select, textarea {
 .product-box.carousel .actual-price{
     font-size: 1.1rem!important;
     font-weight: 700!important;
-}
-.prices-rating-list{
-    padding-bottom: 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-}
-
-.actual-price span {
-    font-size: 0.8rem!important;
-    font-weight: 400!important;
-    color:#000000;
-}
-
-.proposal-value .proposal-price {
-    font-size: 1rem!important;
-    font-weight: 600!important;
 }

@@ -17,7 +17,12 @@
           <b-row class="mb-4">
               <b-col class="pl-0">
                   <div class="actual-price details-price">
-                      @Model.ProductPrice.Price
+                      <span>@T("Products.PriceFrom")</span> @Model.ProductPrice.PriceMin
+                      @if (!string.IsNullOrEmpty(Model.ProductPrice.PriceMax))
+                      {
+                          <span>@T("Products.PriceTo")</span> @Model.ProductPrice.PriceMax
+                      }
+                      <span>@Model.ProductPrice.Currency</span>
                   </div>
               </b-col>
               <b-button-group>

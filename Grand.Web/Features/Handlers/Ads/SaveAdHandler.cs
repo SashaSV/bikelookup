@@ -81,10 +81,7 @@ namespace Grand.Web.Features.Handlers.Ads
             var pictureId = customerAd.GetAttributeFromEntity<string>(SystemCustomerAttributeNames.AvatarPictureId);
             vendor.PictureId = pictureId;
             
-            foreach (var addr in customerAd.Addresses) 
-            {
-                vendor.Addresses.Add(addr);
-            }
+            vendor.Addresses = customerAd.Addresses;
             var addressCustomer = customerAd.ShippingAddress;
 
             await _vendorService.UpdateVendor(vendor);

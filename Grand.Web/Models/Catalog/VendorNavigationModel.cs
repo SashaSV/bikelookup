@@ -35,7 +35,7 @@ namespace Grand.Web.Models.Catalog
 
         public PictureModel PictureModel { get; set; }
 
-        public IList<Address> Addresses { get; set; }
+        public ICollection<Address> Addresses { get; set; }
 
         public IList<ProductSpecificationModel> VendorSpecificationAttributes { get; set; }
     }

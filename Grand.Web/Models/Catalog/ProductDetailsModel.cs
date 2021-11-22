@@ -179,6 +179,11 @@ namespace Grand.Web.Models.Catalog
             public string Price { get; set; }
             public string PriceWithDiscount { get; set; }
             public decimal PriceValue { get; set; }
+            public string PriceMin { get; set; }
+            public decimal PriceMinValue { get; set; }
+            public string PriceMax { get; set; }
+            public decimal PriceMaxValue { get; set; }
+            public string Currency { get; set; }
             public bool CustomerEntersPrice { get; set; }
             public bool CallForPrice { get; set; }
             public string ProductId { get; set; }

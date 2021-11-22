@@ -69,7 +69,7 @@
                     <fieldset class="form-group search-bike">
                         <legend class="sr-only">@T("Ad.Fields.SearchBike")</legend>
                         <label asp-for="SearchBike" class="col-form-label">@T("Ad.Fields.SearchBike"):</label>
-                        <input type="search" asp-for="SearchBike" v-model="baseProduct.ProductId" class="form-control" />
+                        <input type="hidden" asp-for="SearchBike" v-model="baseProduct.ProductId" class="form-control" />
                         <findautocomplete v-on:select="baseProduct=$event"></findautocomplete>
                     </fieldset>
                 </div>

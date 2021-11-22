@@ -7,6 +7,7 @@
     var isAssociatedProductWithDiscount = Model.AssociatedProducts.Any(a => !String.IsNullOrEmpty(a.ProductPrice.OldPrice));
     var shoppingCartTypeId = (int)ShoppingCartType.ShoppingCart;
     var quantity = 1;
+    var countVendorOnTitle = 3;
     if (!Model.ShowQty)
     {
         if (Model.ProductPrice.ForceRedirectionAfterAddingToCart)
@@ -171,9 +172,14 @@
         <div class="prices @if (Model.ProductType == ProductType.Reservation) { <text>reservation-price</text> } ">
             @if (Model.ProductType != ProductType.Auction)
             {
-                <div class="actual-price price">
-                    @Model.ProductPrice.Price
-                </div>
+            <div class="actual-price price">
+                <span>@T("Products.PriceFrom")</span> @Model.ProductPrice.PriceMin
+                @if (!string.IsNullOrEmpty(Model.ProductPrice.PriceMax))
+                {
+                    <span>@T("Products.PriceTo")</span> @Model.ProductPrice.PriceMax
+                }
+                <span>@Model.ProductPrice.Currency</span>
+            </div>
             }
             else
             {
@@ -199,8 +205,8 @@
     </b-card-body>
     <template v-slot:footer>
         @*<svg class = "line" width="268" height="3" viewBox="0 0 268 3" fill="none" xmlns="http://www.w3.org/2000/svg">
-                     <path d="M0 3H268" stroke="#444444"/>
-            </svg>*@
+                 <path d="M0 3H268" stroke="#444444"/>
+        </svg>*@
         @if (Model.ShowQty)
         {
             var qtyId = "addtocart_" + @Model.Id + "_EnteredQuantity";
@@ -208,25 +214,30 @@
         }
         @if (Model.AssociatedProducts.Any())
         {
-
+            var countVendor = 0;
             <div class="proposals">
                 @foreach (var assocProduct in Model.AssociatedProducts)
                 {
-                    
+                    countVendor++;
                     @if (assocProduct.Vendor == null)
                     {
                         continue;
                     }
-                    
+
+                    if (countVendor > countVendorOnTitle)
+                    {
+                        break;
+                    }
+
                     var url = !string.IsNullOrEmpty(assocProduct.AdId) ? Url.RouteUrl("ViewAd", new { adId = assocProduct.AdId }) : assocProduct.Url;
 
                     <div class="proposal">
-                        <div class="aaa">
+                        <div class="proposal-group">
                             <a href="@url">
                                 @if (assocProduct.IsAd)
                                 {
                                     <div class="proposal-name isad">
-                                        @assocProduct.Vendor.Name
+                                        @(assocProduct.Vendor.Name.Length >17 ? assocProduct.Vendor.Name.Substring(0,17)+"..." : assocProduct.Vendor.Name)
                                     </div>
                                 }
                                 else
@@ -240,10 +251,6 @@
                             <div v-b-tooltip.hover.left title="@T("Vendor.PriceUpdate")" class="proposal-update-date">
                                 @assocProduct.UpdatedOnUtc.Value.ToString()
                             </div>
-                            <div class="spec-avaliable">
-                                @*@assocProduct.SpecificationAttributeModels.FirstOrDefault(a => a.SpecificationAttributeCode == "sp_available").ValueRaw*@
-                                @assocProduct.IsAvailable
-                            </div>
                         </div>
                         <div class="proposal-value">
                             <a href="@url">
@@ -255,13 +262,23 @@
                             <div class="proposal-value-old-price">
                                 @assocProduct.ProductPrice.OldPrice
                             </div>
+                            <div class="spec-avaliable">
+                                @*@assocProduct.SpecificationAttributeModels.FirstOrDefault(a => a.SpecificationAttributeCode == "sp_available").ValueRaw*@
+                                @assocProduct.IsAvailable
+                            </div>
                         </div>
                         @*<div class="proposal-value-old-price">
-                                //@assocProduct.SpecificationAttributeModels.
-                            </div>*@
+                            //@assocProduct.SpecificationAttributeModels.
+                        </div>*@
                     </div>
                 }
             </div>
+        }
+        @if (Model.AssociatedProducts.Count() > countVendorOnTitle)
+        {
+            <b-link class="other-vendors" href="@Url.RouteUrl("Product", new { SeName = Model.SeName})">
+                <span>@(string.Format("{0} {1} ...",T("Vendor.List.OtherCont"), Model.AssociatedProducts.Count() - 3))</span>
+            </b-link>
         }
 
     </template>

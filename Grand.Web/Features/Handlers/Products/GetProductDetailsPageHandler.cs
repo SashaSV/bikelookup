@@ -668,7 +668,9 @@ namespace Grand.Web.Features.Handlers.Products
 
                         if (finalPriceWithoutDiscountBase != oldPriceBase && oldPriceBase > decimal.Zero)
                             model.OldPrice = _priceFormatter.FormatPrice(oldPrice);
-                        
+
+                        model.Currency = string.IsNullOrEmpty(_workContext.WorkingCurrency.Name) ? _workContext.WorkingCurrency.CurrencyCode : _workContext.WorkingCurrency.Name;
+
                         if (associatedProducts.Any())
                         {
                             //find a minimum possible price
@@ -705,13 +707,18 @@ namespace Grand.Web.Features.Handlers.Products
                                  model.Price = String.Format(fromTo,
                                           _priceFormatter.FormatPrice(minPossiblePrice, true, _workContext.WorkingCurrency, _workContext.WorkingLanguage, false),
                                           _priceFormatter.FormatPrice(maxPrice, true, _workContext.WorkingCurrency, _workContext.WorkingLanguage, false));
-
+                                model.PriceMin = _priceFormatter.FormatPrice(minPossiblePrice, false, _workContext.WorkingCurrency, _workContext.WorkingLanguage, false);
+                                model.PriceMinValue = minPossiblePrice;
+                                model.PriceMax = _priceFormatter.FormatPrice(maxPrice, false, _workContext.WorkingCurrency, _workContext.WorkingLanguage, false);
+                                model.PriceMaxValue = maxPrice;
                             }
                             else
                             {
                                 model.Price = String.Format(from,
                                   _priceFormatter.FormatPrice(minPossiblePrice, true, _workContext.WorkingCurrency, _workContext.WorkingLanguage, false));
-
+                                
+                                model.PriceMin = _priceFormatter.FormatPrice(minPossiblePrice, false, _workContext.WorkingCurrency, _workContext.WorkingLanguage, false);
+                                model.PriceMinValue = minPossiblePrice;
                             }
                         }
                         else

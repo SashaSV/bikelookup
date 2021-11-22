@@ -288,7 +288,7 @@ namespace Grand.Web.Features.Handlers.Products
 
                         //compare products
                         priceModel.DisableAddToCompareListButton = !_catalogSettings.CompareProductsEnabled;
-
+                        priceModel.Currency = string.IsNullOrEmpty(_workContext.WorkingCurrency.Name) ? _workContext.WorkingCurrency.CurrencyCode : _workContext.WorkingCurrency.Name;
                         //catalog price, not used in views, but it's for front developer
                         if (product.CatalogPrice > 0)
                         {
@@ -352,14 +352,20 @@ namespace Grand.Web.Features.Handlers.Products
                                             priceModel.Price = String.Format(res["Products.PriceRangeFromTo"],
                                                       _priceFormatter.FormatPrice(finalPrice, true, _workContext.WorkingCurrency, _workContext.WorkingLanguage, priceIncludesTax),
                                                       _priceFormatter.FormatPrice(finalMaxPrice, true, _workContext.WorkingCurrency, _workContext.WorkingLanguage, priceIncludesTax));
+                                            priceModel.PriceMin = _priceFormatter.FormatPrice(finalPrice, false, _workContext.WorkingCurrency, _workContext.WorkingLanguage, priceIncludesTax);
+                                            priceModel.PriceMax = _priceFormatter.FormatPrice(finalMaxPrice, false, _workContext.WorkingCurrency, _workContext.WorkingLanguage, priceIncludesTax);
                                         }
                                         else
                                         {
                                             priceModel.Price = String.Format(res["Products.PriceRangeFrom"],
                                                       _priceFormatter.FormatPrice(finalPrice, true, _workContext.WorkingCurrency, _workContext.WorkingLanguage, priceIncludesTax));
-                                        }
-                                        priceModel.PriceValue = finalPrice;
 
+                                            priceModel.PriceMin = _priceFormatter.FormatPrice(finalPrice, false, _workContext.WorkingCurrency, _workContext.WorkingLanguage, priceIncludesTax);
+                                        }
+
+                                        priceModel.PriceValue = finalPrice;
+                                        priceModel.PriceMinValue = finalPrice;
+                                        priceModel.PriceMaxValue = finalMaxPrice;
                                         //PAngV baseprice (used in Germany)
                                         if (product.BasepriceEnabled)
                                             priceModel.BasePricePAngV = await _mediator.Send(new GetFormatBasePrice() { Currency = _workContext.WorkingCurrency, Product = product, ProductPrice = finalPrice });

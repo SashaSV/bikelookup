@@ -16,7 +16,12 @@
             <b-row class="mb-4">
                 <b-col>
                     <div class="actual-price details-price">
-                        @Model.ProductPrice.Price
+                        <span>@T("Products.PriceFrom")</span> @Model.ProductPrice.PriceMin
+                        @if (!string.IsNullOrEmpty(Model.ProductPrice.PriceMax))
+                        {
+                            <span>@T("Products.PriceTo")</span> @Model.ProductPrice.PriceMax
+                        }
+                        <span>@Model.ProductPrice.Currency</span>
                     </div>
                 </b-col>
                 <b-button-group>
@@ -58,14 +63,15 @@
                                                 @{
                                                     var groupList = item.ToList();
                                                 }
-                                                @groupList[0].SpecificationAttributeName:
+                                                <span>@groupList[0].SpecificationAttributeName</span>
                                             </div>
                                         </td>
                                         <td>
                                             @{
                                                 var groupList2 = item.ToList();
                                             }
-                                            <div class="product-des-spec-value">
+                                            @*product-des-spec-value*@
+                                            <div class="spec-value">
                                                 @foreach (var spec in groupList)
                                                 {
                                                     <span>
