@@ -289,11 +289,16 @@ namespace Grand.Services.Catalog
         /// <returns>Specification attribute option</returns>
         public virtual async Task<IEnumerable<SpecificationAttributeOption>> GetSpecificationAttributeByOptionNameAutocomplete(string specificationAttributeId, string specificationAttributeOptionName)
         {
-            if (string.IsNullOrEmpty(specificationAttributeOptionName))
+            if (string.IsNullOrEmpty(specificationAttributeId))
                 return await Task.FromResult<IEnumerable<SpecificationAttributeOption>>(null);
             
             string key = string.Format(SPECIFICATION_BY_ID_KEY, specificationAttributeId);
             var specificationAttribute = await _cacheManager.GetAsync(key, () => _specificationAttributeRepository.GetByIdAsync(specificationAttributeId));
+
+            if (string.IsNullOrEmpty(specificationAttributeOptionName))
+            {
+                return specificationAttribute.SpecificationAttributeOptions;
+            }
 
             var terms = specificationAttributeOptionName.Split(" ");
             
