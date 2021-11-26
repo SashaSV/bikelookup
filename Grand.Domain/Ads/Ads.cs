@@ -18,8 +18,6 @@ namespace Grand.Domain.Ads
         private ICollection<AdItem> _AdItems;
         private ICollection<string> _AdTags;
 
-
-
         #region Properties
 
         /// <summary>

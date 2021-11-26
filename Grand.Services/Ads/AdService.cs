@@ -233,7 +233,7 @@ namespace Grand.Services.Ads
         /// Inserts an ad
         /// </summary>
         /// <param name="ad">Ad</param>
-        public virtual async Task InsertAd(Ad ad)
+        public virtual async Task<Ad> InsertAd(Ad ad)
         {
             if (ad == null)
                 throw new ArgumentNullException("ad");
@@ -241,10 +241,11 @@ namespace Grand.Services.Ads
             var adExists = _adRepository.Table.OrderByDescending(x => x.AdNumber).Select(x => x.AdNumber).FirstOrDefault();
             ad.AdNumber = adExists != 0 ? adExists + 1 : 1;
 
-            await _adRepository.InsertAsync(ad);
+            var retAd = await _adRepository.InsertAsync(ad);
 
             //event notification
             await _mediator.EntityInserted(ad);
+            return retAd;
         }
 
         /// <summary>

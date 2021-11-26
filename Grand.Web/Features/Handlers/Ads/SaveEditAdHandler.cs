@@ -63,8 +63,11 @@ namespace Grand.Web.Features.Handlers.Ads
                 if (userId != null)
                 {
                     var customerAd = await _customerService.GetCustomerById(userId);
-                    var customerName = customerAd.GetFullName();
-                    var vendor = await _vendorService.GetVendorByName(customerName);
+                    var customerName = string.Format("{0} ({1})", 
+                            customerAd.FormatUserName(CustomerNameFormat.ShowFirstName), 
+                                customerAd.Addresses.First().City);
+                    
+                    var vendor = await _vendorService.GetVendorByEmail(customerAd.Email, customerName);
 
                     vendor.Addresses = customerAd.Addresses;
 

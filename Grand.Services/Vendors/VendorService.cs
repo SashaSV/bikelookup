@@ -107,6 +107,57 @@ namespace Grand.Services.Vendors
         }
 
         /// <summary>
+        /// Gets a vendor by vendor name
+        /// </summary>
+        /// <param Email="vendorEmail"></param>
+        /// <returns>vendor</returns>
+        public virtual async Task<Vendor> GetVendorByEmail(string vendorEmail, string vendorName)
+        {
+            if (string.IsNullOrEmpty(vendorEmail))
+                return null;
+
+            await GetAllVendors(name: vendorEmail.Trim());
+
+            var query = _vendorRepository.Table;
+            
+            if (!String.IsNullOrWhiteSpace(vendorName))
+                query = query.Where(v => v.Name.ToLower().Contains(vendorName.ToLower()));
+
+            if (!String.IsNullOrWhiteSpace(vendorEmail))
+                query = query.Where(v => v.Email.ToLower() == vendorEmail.ToLower());
+            
+            query = query.Where(v => v.Active);
+            query = query.Where(v => !v.Deleted);
+            query = query.OrderBy(v => v.DisplayOrder).ThenBy(v => v.Name);
+
+            var vendors = await PagedList<Vendor>.Create(query, 0, int.MaxValue);
+
+            var vendor = vendors.FirstOrDefault();
+
+            var isNew = vendor == null;
+            if (isNew)
+            {
+                vendor ??= new Vendor();
+                vendor.Name = vendorName.Trim();
+                vendor.Email = vendorEmail.Trim();
+                vendor.Active = true;
+                vendor.PageSize = 20;
+                vendor.AllowCustomersToSelectPageSize = true;
+                vendor.AllowCustomerReviews = true;
+
+                var seName = vendor.Name;
+                await _urlRecordService.SaveSlug(vendor, await vendor.ValidateSeName(seName, vendor.Name, true, _seoSetting, _urlRecordService, _languageService), "");
+                var _seName = await vendor.ValidateSeName(seName, vendor.Name, true, _seoSetting, _urlRecordService, _languageService);
+
+                //search engine name
+                await _urlRecordService.SaveSlug(vendor, _seName, "");
+                vendor.SeName = _seName;
+
+                await InsertVendor(vendor);
+            }
+            return vendor;
+        }
+        /// <summary>
         /// Delete a vendor
         /// </summary>
         /// <param name="vendor">Vendor</param>

@@ -101,7 +101,7 @@ namespace Grand.Services.Ads
         /// Inserts an Ads
         /// </summary>
         /// <param name="Ad">Ads</param>
-        Task InsertAd(Ad Ad);
+        Task<Ad> InsertAd(Ad Ad);
 
         /// <summary>
         /// Inserts an product also purchased

@@ -78,7 +78,7 @@
                         <legend class="sr-only">@T("Ad.Fields.ManufactureName")</legend>
                         <label asp-for="ManufactureName" class="col-form-label">@T("Ad.Fields.ManufactureName"):</label>
                         <span class="required">*</span>
-                        <input asp-for="ManufactureName" class="form-control" v-model="baseProduct.ManufactureName" v-validate="'required'" />
+                        <input type="hidden" asp-for="ManufactureName" class="form-control" v-model="baseProduct.ManufactureName" v-validate="'required'" />
                         <findautocompletespec spec="manufacturer" v-on:select="baseProduct.ManufactureName=$event.Name"/>
                         <span class="field-validation-error">{{veeErrors.first('ManufactureName')}}</span>
                         <span asp-validation-for="ManufactureName"></span>
@@ -87,7 +87,7 @@
                         <legend class="sr-only">@T("Ad.Fields.Model")</legend>
                         <label asp-for="Model" class="col-form-label">@T("Ad.Fields.Model"):</label>
                         <span class="required">*</span>
-                        <input asp-for="Model" class="form-control" v-model="baseProduct.Model" v-validate="'required'" />
+                        <input type="hidden" asp-for="Model" class="form-control" v-model="baseProduct.Model" v-validate="'required'" />
                          <findautocompletespec spec="sp_model" v-on:select="baseProduct.Model=$event.Name"/>
                         <span class="field-validation-error">{{veeErrors.first('Model')}}</span>
                         <span asp-validation-for="Model"></span>
@@ -96,7 +96,7 @@
                         <legend class="sr-only">@T("Ad.Fields.Wheeldiam")</legend>
                         <label asp-for="Weeldiam" class="col-form-label">@T("Ad.Fields.Wheeldiam"):</label>
                         <span class="required">*</span>
-                        <input asp-for="Weeldiam" class="form-control" v-model="baseProduct.Weeldiam" v-validate="'required'" />
+                        <input type="hidden" asp-for="Weeldiam" class="form-control" v-model="baseProduct.Weeldiam" v-validate="'required'" />
                         <findautocompletespec spec="sp_wheeldiams" v-on:select="baseProduct.Weeldiam=$event.Name"/>
                         <span class="field-validation-error">{{veeErrors.first('Wheeldiam')}}</span>
                         <span asp-validation-for="Weeldiam"></span>
@@ -105,7 +105,7 @@
                         <legend class="sr-only">@T("Ad.Fields.Size")</legend>
                         <label asp-for="Size" class="col-form-label">@T("Ad.Fields.Size"):</label>
                         <span class="required">*</span>
-                        <input asp-for="Size" class="form-control" v-model="baseProduct.Size" v-validate="'required'" />
+                        <input type="hidden" asp-for="Size" class="form-control" v-model="baseProduct.Size" v-validate="'required'" />
                           <findautocompletespec spec="sp_size" v-on:select="baseProduct.Size=$event.Name"/>
                         <span class="field-validation-error">{{veeErrors.first('Size')}}</span>
                         <span asp-validation-for="Size"></span>

@@ -781,7 +781,7 @@ input:checked ~ .color-container .color::before {
     position: absolute;
     top: -10px;
     right: -10px;
-    bottom: -60px;
+    bottom: -80px;
     left: -10px;
     background: #fff;
     border: 1px solid transparent;
@@ -1176,7 +1176,7 @@ input:checked ~ .color-container .color::before {
     background: #fff;
     border: 0;
     padding: 0;
-    margin-bottom: -1.9rem;
+    margin-bottom: -2.5rem;
     z-index: 2;
 }
 
@@ -1197,7 +1197,7 @@ input:checked ~ .color-container .color::before {
     border-top-right-radius: 0;
     transition: all .1s ease;
     -webkit-transition: all .1s ease;
-    margin-bottom: -20px;
+    margin-bottom: -10px;
     z-index: -1;
 } 
 

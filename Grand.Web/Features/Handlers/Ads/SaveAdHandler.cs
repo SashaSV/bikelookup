@@ -16,12 +16,13 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Linq;
+using Grand.Services.Ads;
 
 namespace Grand.Web.Features.Handlers.Ads
 {
     public class SaveAdHandler : IRequestHandler<SaveAd, bool>
     {
-        private readonly IRepository<Ad> _adRepository;
+        private readonly IAdService _adRepository;
         private readonly IProductService _productService;
         private readonly IVendorService _vendorService;
         private readonly IPictureService _pictureService;
@@ -29,7 +30,7 @@ namespace Grand.Web.Features.Handlers.Ads
         private readonly ICustomerService _customerService;
         private readonly CustomerSettings _customerSettings;
 
-        public SaveAdHandler(IRepository<Ad> adRepository, IProductService productService, IVendorService vendorService, IPictureService pictureService, 
+        public SaveAdHandler(IAdService adRepository, IProductService productService, IVendorService vendorService, IPictureService pictureService, 
             IWorkContext workContext, ICustomerService customerService, CustomerSettings customerSettings)
         {
             _adRepository = adRepository;
@@ -72,10 +73,15 @@ namespace Grand.Web.Features.Handlers.Ads
 
             //var customerAd = await _customerService.GetCustomerById(request.Customer.Id);
             var customerAd = _workContext.CurrentCustomer;
-            var customerName = customerAd.GetFullName();
-            //customerAd.FormatUserName(_customerSettings.CustomerNameFormat);
             
-            var vendor = await _vendorService.GetVendorByName(customerName);
+            //customerAd.FormatUserName(_customerSettings.CustomerNameFormat);
+
+            var customerName = string.Format("{0} ({1})",
+                customerAd.FormatUserName(CustomerNameFormat.ShowFirstName),
+                    customerAd.Addresses.First().City);
+
+            var vendor = await _vendorService.GetVendorByEmail(customerAd.Email, customerName);
+            
             
             vendor.Email = customerAd.Email;
             var pictureId = customerAd.GetAttributeFromEntity<string>(SystemCustomerAttributeNames.AvatarPictureId);
@@ -97,7 +103,7 @@ namespace Grand.Web.Features.Handlers.Ads
                 ShippingAddress = addressCustomer
             };
 
-            var newAd = await _adRepository.InsertAsync(ad);
+            var newAd = await _adRepository.InsertAd(ad);
 
             var product = new Product
             {
@@ -161,7 +167,7 @@ namespace Grand.Web.Features.Handlers.Ads
             else
                 newAd.OwnerId = request.Customer.Id;
 
-            await _adRepository.UpdateAsync(newAd);
+            await _adRepository.UpdateAd(newAd);
             //var newAd = await _adRepository.InsertAsync(ad);
 
             
