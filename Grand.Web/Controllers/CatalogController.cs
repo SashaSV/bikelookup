@@ -528,9 +528,6 @@ namespace Grand.Web.Controllers
         
         public virtual async Task<IActionResult> SearchSpecAutoComplete(string term, string specification, [FromServices] CatalogSettings catalogSettings)
         {
-            if (String.IsNullOrWhiteSpace(term) || term.Length < 1)
-                return Content("");
-
             var result = await _mediator.Send(new GetSpecAutoComplete() {
                 Spec = specification,
                 Term = term,
