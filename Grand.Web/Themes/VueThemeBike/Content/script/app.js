@@ -63,7 +63,7 @@ Vue.component('langsellector',{
 `
 });
 Vue.component('findautocompletespec', {
-    props: ['spec'],
+    props: ['spec', 'text', 'disable'],
     data: function () {
         return {
             Placeholder: "",
@@ -154,7 +154,7 @@ Vue.component('findautocompletespec', {
                           <b-input-group-prepend is-text>
                              <b-icon icon="search"></b-icon>
                          </b-input-group-prepend>
-                         <b-form-input type="search" v-on:focus.native="onFocus()" v-bind:placeholder="Placeholder" v-model="TextToSearch" v-on:input="lookup()" v-on:keypress.enter ="onsearch()"></b-form-input>
+                         <b-form-input type="search" :disabled="this.disable" v-on:focus.native="onFocus()" v-bind:placeholder="Placeholder" v-model="this.text" v-on:input="lookup()" v-on:keypress.enter ="onsearch()"></b-form-input>
                     <b-input-group>
                   <b-list-group v-if="showResults" class="autocomplete-results-large">
                     <b-list-group-item  class="autocomplete-result" v-for="item in Items" :key="item.Label">
@@ -218,7 +218,7 @@ Vue.component('findautocomplete', {
         {
             this.$emit('select', item)
             this.showResults = false;
-            this.TextToSearch = "";
+            this.TextToSearch = text
             this.Items = [];
         }
     },
@@ -533,6 +533,16 @@ var vm = new Vue({
         },
     },
     computed: {
+        baseProductSelected:{
+            get: function ()
+            {
+                return this.baseProduct.Id !== ""
+            },
+            set : function (val)
+            {
+                
+            }
+        },
         years: {
             get: function ()
             {

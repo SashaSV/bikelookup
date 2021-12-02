@@ -79,7 +79,7 @@
                         <label asp-for="ManufactureName" class="col-form-label">@T("Ad.Fields.ManufactureName"):</label>
                         <span class="required">*</span>
                         <input type="hidden" asp-for="ManufactureName" class="form-control" v-model="baseProduct.ManufactureName" v-validate="'required'" />
-                        <findautocompletespec spec="manufacturer" v-on:select="baseProduct.ManufactureName=$event.Name"/>
+                        <findautocompletespec :text="baseProduct.ManufactureName" :disable="baseProductSelected"  spec="manufacturer" v-on:select="baseProduct.ManufactureName=$event.Name"/>
                         <span class="field-validation-error">{{veeErrors.first('ManufactureName')}}</span>
                         <span asp-validation-for="ManufactureName"></span>
                     </fieldset>
