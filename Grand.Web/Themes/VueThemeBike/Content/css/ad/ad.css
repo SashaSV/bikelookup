@@ -110,3 +110,27 @@
 .cancel{
     background-color: #dee2e6!important
 }
+
+.autocomplete-input-results-spec {
+    padding: 0px;
+    margin-top: 10px;
+    overflow: auto;
+    width: 100%;
+    margin-left: 0;
+    position: absolute;
+    line-height: 30px;
+    max-height: 300px;
+    text-align: left;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 1);
+    /* needed styles for the overlay */
+    z-index: 10; /* keep on top of other elements on the page */
+}
+
+.ad-title-gr{
+    display: flex;
+}
+
+.ad-title-gr .id-ad{
+    display: flex;
+}

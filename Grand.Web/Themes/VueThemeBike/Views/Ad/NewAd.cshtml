@@ -1,10 +1,14 @@
 ﻿@model NewAdModel
 @inject Grand.Domain.Customers.CustomerSettings customerSettings
 @inject IPageHeadBuilder pagebuilder
+@inject IThemeContext themeContext
 @using Grand.Web.Models.Customer;
 @using Grand.Core;
 @{
     Layout = "_ColumnsTwo";
+    var themeName = themeContext.WorkingThemeName;
+
+    //pagebuilder.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/css/ad/ad.css", themeName));
 
     //title
     pagebuilder.AddTitleParts(T("PageTitle.Account").Text);
@@ -12,7 +16,7 @@
     pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/jquery-ui-1.12.1.custom/jquery-ui.min.js", excludeFromBundle: true);
     pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/jquery.validate.unobtrusive.min.js", excludeFromBundle: true);
     pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/jquery.validate.min.js", excludeFromBundle: true);
-    
+
     pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/typeahead.js", excludeFromBundle: true);
     pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/administration/build/js/jquery.min.js", excludeFromBundle: true);
 
@@ -39,23 +43,21 @@
                 <div class="form-fields">
                     <div class="fieldset">
                         @*@if (!String.IsNullOrEmpty(Model.AvatarUrl))
-                        {
-                        <b-avatar src="@(Model.AvatarUrl)" size="6rem"></b-avatar>
-                        }*@
-                       
-                        <b-form-file
-                            multiple
-                            name="ImageFile"
-                            type="file" 
-                            accept="image/*"
-                            v-model="file1"
-                            :state="Boolean(file1)"
-                            placeholder="Choose a file or drop it here..."
-                            drop-placeholder="Drop file here..."
-                        ></b-form-file>
-                  
-                         <b-img class="mr-2 mt-2" v-for="file in file1"  rounded="true" :src="window.URL.createObjectURL(file)" fluid alt="Responsive image" width="300" height="auto"></b-img>
-                       
+                            {
+                            <b-avatar src="@(Model.AvatarUrl)" size="6rem"></b-avatar>
+                            }*@
+
+                        <b-form-file multiple
+                                     name="ImageFile"
+                                     type="file"
+                                     accept="image/*"
+                                     v-model="file1"
+                                     :state="Boolean(file1)"
+                                     placeholder="Choose a file or drop it here..."
+                                     drop-placeholder="Drop file here..."></b-form-file>
+
+                        <b-img class="mr-2 mt-2" v-for="file in file1" rounded="true" :src="window.URL.createObjectURL(file)" fluid alt="Responsive image" width="300" height="auto"></b-img>
+
                         <span class='label label-info' id="upload-file-info"></span>
                     </div>
                 </div>
@@ -127,7 +129,7 @@
                         <legend class="sr-only">@T("Ad.Fields.Color")</legend>
                         <label asp-for="Color" class="col-form-label">@T("Ad.Fields.Color"):</label>
                         <span class="required">*</span>
-                        <b-form-input  type="color" v-model="baseProduct.Color" asp-for="Color" class="form-control" v-validate="'required'" />
+                        <b-form-input type="color" v-model="baseProduct.Color" asp-for="Color" class="form-control" v-validate="'required'" />
                         <span class="field-validation-error">{{veeErrors.first('Color')}}</span>
                         <span asp-validation-for="Color"></span>
                     </fieldset>
@@ -316,10 +318,10 @@
             }
     </script>*@
 <script>
-$("#yearpicker").datepicker({
-    format: "yyyy",
-    viewMode: "years", 
-    minViewMode: "years",
-    autoclose:true //to close picker once year is selected
-});
+    $("#yearpicker").datepicker({
+        format: "yyyy",
+        viewMode: "years",
+        minViewMode: "years",
+        autoclose: true //to close picker once year is selected
+    });
 </script>

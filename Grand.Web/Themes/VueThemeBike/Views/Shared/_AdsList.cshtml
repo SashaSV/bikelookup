@@ -2,18 +2,18 @@
 @{
     <b-card header-tag="header"  footer-tag="footer" class="ads-item mb-3 @((Model.IsCancel) ? "cancel" : "")">
         <template v-slot:header>
-            <div>
+            <div class="ad-title-gr">
                 <div class="title d-inline-flex align-items-center w-100">
                     <h3 class="vendor-title" itemprop="name" align="center">@Model.ProductName</h3>
                 </div>
 
-                <div class="id-ad">
-                   Id:
-                    <span> @Model.AdNumber </span>
+                <div class="price align-items-end flex">
+                    <span class="vendor-title" itemprop="name" align="center">@Model.AdTotal</span>
                 </div>
             </div>
-            <div class="price d-inline-flex align-items-end w-100">
-                <span class="vendor-title" itemprop="name" align="center">@Model.AdTotal</span>
+            <div class="id-ad">
+                Id:
+                <span> @Model.AdNumber </span>
             </div>
         </template>
         <div class="review-title mb-3">
