@@ -179,6 +179,11 @@ Vue.component('findautocomplete', {
     },
     methods: {
         lookup: function() {
+            if(this.TextToSearch == "")
+            {
+                this.TextToSearch = "";
+                this.$emit('select', {Id : "", Year: new Date().getFullYear(), ManufactureName:"", Model:"", Weeldiam:"", Size:""})
+            }
             //console.debug(this.TextToSearch);
             axios({
                 url: '/catalog/searchtermautocomplete',
