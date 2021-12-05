@@ -197,7 +197,7 @@ namespace Grand.Web.Areas.Admin.Services
         {
             //order statuses
             var model = new AdListModel {
-                AvailableAdStatuses = AdStatus.Pending.ToSelectList(_localizationService, _workContext, false).ToList()
+                AvailableAdStatuses = AdStatus.Active.ToSelectList(_localizationService, _workContext, false).ToList()
             };
             model.AvailableAdStatuses.Insert(0, new SelectListItem { Text = _localizationService.GetResource("Admin.Common.All"), Value = " " });
             if (orderStatusId.HasValue)

@@ -29,10 +29,19 @@
 .toolbar{
     visibility: hidden;
 }
+
 .message{
     width: 100%;
 }
+.rounded-photo::before{
+    content: "";
+    display: block;
+    padding-top: 100%;
+}
+
 .rounded-photo {
+    display: block;
+    position: relative;
     width: 150px;
     height: 150px;
     margin: 0 auto;
@@ -45,7 +54,20 @@
     background-color: white;
 }
 
-
+.ad-image-0{
+    border-radius: 0!important;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    max-width: 100%;
+    max-height: 100%;
+    min-height: 100%;
+    background-size: contain;
+    background-position: center;
+    margin: auto;
+}
 
 .card-body {
     position: relative;
@@ -129,8 +151,77 @@
 
 .ad-title-gr{
     display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
 }
 
 .ad-title-gr .id-ad{
     display: flex;
+}
+
+.ad-title-gr .adtotal {
+    -ms-flex-align: end!important;
+    align-items: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.ad-title-gr .ad-status.active
+{
+    color: green;
+}
+
+.ad-title-gr .ad-status.cancelled
+{
+    color: red;
+}
+
+.ad-title-gr .adtotal span {
+
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.ad-header .interval-work{
+    margin: 3px;
+}
+
+.ad-interval-date{
+    display: flex;
+    padding-left: 15px;
+}
+
+.ad-header{
+    padding: 0px;
+}
+
+.ad-interval-date:before {
+    border-left: 1px solid #839b9c;
+    height: 16px;
+    width: 0;
+    /* position: absolute; */
+    left: 0;
+    top: 0;
+    transform: translate(0, 20%);
+    padding: 5px;
+    content: '';
+}
+.ad-footer-btn{
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn.ad-activeted-button{
+    font-weight: 600;
+}
+.ads-item .card-body {
+    padding: 0.5rem;
+}
+
+.ads-item  .card-header {
+    padding: 0.3rem 1.25rem;
 }

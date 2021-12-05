@@ -1,20 +1,38 @@
 ﻿@model CustomerAdListModel.AdDetailsModel
 @{
+    var adComment = "";
+
     <b-card header-tag="header"  footer-tag="footer" class="ads-item mb-3 @((Model.IsCancel) ? "cancel" : "")">
         <template v-slot:header>
             <div class="ad-title-gr">
-                <div class="title d-inline-flex align-items-center w-100">
-                    <h3 class="vendor-title" itemprop="name" align="center">@Model.ProductName</h3>
+                <div class="title align-items-center w-100">
+                    <h3 class="vendor-title" itemprop="name" >@Model.ProductName</h3>
+                    <div class="ad-header d-inline-flex w-100">
+                        <small class="id-ad text-muted">
+                            Id:
+                            <span> @Model.AdNumber </span>
+                        </small>
+                        <div class="ad-interval-date">
+                            <b-icon icon="calendar2-check" variant="info" class="interval-work"></b-icon>
+                            <small class="date text-muted">
+                                <span> @T("Account.CustomerAds.AdDateFrom")</span>
+                                <span> @Model.CreatedOn.ToString("D")</span>
+                            </small>
+                            <small class="date text-muted">
+                                <span> @T("Account.CustomerAds.AdDateTo")</span>
+                                <span> @Model.EndDateTimeUtc.ToString("D") </span>
+                            </small>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="price align-items-end flex">
+                <div class="adtotal align-items-end flex">
                     <span class="vendor-title" itemprop="name" align="center">@Model.AdTotal</span>
+                    <div class="ad-status @Model.AdStatusEnum.ToString().ToLowerInvariant()">@Model.AdStatus</div>
                 </div>
+                
             </div>
-            <div class="id-ad">
-                Id:
-                <span> @Model.AdNumber </span>
-            </div>
+
         </template>
         <div class="review-title mb-3">
         </div>
@@ -22,66 +40,77 @@
             <div class="rounded-photo">
                 <b-card-img fluid-grow="true" fluid="true" id="main-product-img-@Model.Id"
                             alt="@Model.PictureModel.AlternateText"
-                            src="@Model.PictureModel.ImageUrl" class="rounded-0"></b-card-img>
+                            src="@Model.PictureModel.ImageUrl" class="ad-image-0 rounded-0"></b-card-img>
             </div>
         </div>
         <div class="justify-content-right">
             @*<div class="title d-inline-flex align-items-center w-100">
                     <h3 class="vendor-title" itemprop="name" align="center">@Model.ProductName</h3>
-                </div>*@
-            <div class="review-info d-inline-flex w-100">
-                @*<b-icon icon="calendar2-check" variant="info" class="mx-2"></b-icon>*@
-                <small class="date text-muted">
-                    <span> @T("Account.CustomerAds.AdDateFrom"):</span>
-                    <span> @Model.CreatedOn.ToString("d")</span>
-                </small>
-            </div>
-            <small class="date text-muted">
-                <span> @T("Account.CustomerAds.AdDateTo"):</span>
-                <span> @Model.EndDateTimeUtc.ToString("d") </span>
-            </small>
+                </div>*@           
             <div class="user d-inline-flex align-items-center w-100">
-                <span>@T("Account.CustomerAds.AdStatus"):</span> <span class="ad-status @Model.AdStatusEnum.ToString().ToLowerInvariant()">@Model.AdStatus</span>
-                <span>@T("Account.CustomerAds.AdNumber"):</span> <span class="ad-number @Model.AdNumber.ToString().ToLowerInvariant()">@Model.AdNumber</span>
+                
+                
             </div>
             <div class="review-content">
                 <div class="review-text">
-                    @Html.Raw(Grand.Core.Html.HtmlHelper.FormatText(Model.AdComment))
+                    @if (Model.AdComment != null && Model.AdComment.Trim().Length >= 250)
+                    {
+                        adComment = Model.AdComment.Trim().Substring(0, 250) + " ...";
+                    }
+
+                    @Html.Raw(Grand.Core.Html.HtmlHelper.FormatText(adComment))
                 </div>
             </div>
         </div>
 
-        <template v-slot:footer>
-            @if (Model.IsOpenFromMenu)
-            {
-                <input v-b-tooltip.hover.bottom title="@T("Account.CustomerAds.AdEditTitle")" type="button" value="@T("Account.CustomerAds.AdEdit")" class="btn btn-secondary ad-details-button" onclick="location = ('@Url.RouteUrl("EditAd", new { adId = Model.Id })')" />
-            }
+        <template v-slot:footer class="ad">
+            <div class="ad-footer-btn">
+                <div class="navigate-btn-group-left">
+                    @if (Model.IsOpenFromMenu)
+                    {
+                        <input v-b-tooltip.hover.bottom title="@T("Account.CustomerAds.AdEditTitle")" type="button" value="@T("Account.CustomerAds.AdEdit")" class="btn btn-secondary ad-details-button" onclick="location = ('@Url.RouteUrl("EditAd", new { adId = Model.Id })')" />
+                    }
 
-            <input v-b-tooltip.hover.bottom title="@T("Account.CustomerAds.AdDetailsTitle")" type="button" value="@T("Account.CustomerAds.AdDetails")" class="btn btn-secondary ad-details-button" onclick="location = ('@Url.RouteUrl("ViewAd", new { adId = Model.Id })')" />
-            @if (Model.IsOpenFromMenu)
-            {
-                <input v-b-tooltip.hover.bottom title="@T("Account.CustomerAds.AdCancleTitle")" type="button" value="@T("Account.CustomerAds.AdCancle")" class="btn btn-secondary ad-cancle-button" onclick="location = ('@Url.RouteUrl("CancelAd", new { adId = Model.Id })')" />
-                @*<input type="button" value="@T("Account.CustomerAds.AdDelete")" class="btn btn-secondary ad-delete-button" onclick="location = ('@Url.RouteUrl("DeleteAd", new { adId = Model.Id })')" />*@
-                <b-button ref="submit" type="submit" :disabled="busy" v-on:click="clickOnDelete('@Url.RouteUrl("DeleteAd", new { adId = Model.Id })')"  >@T("Account.CustomerAds.AdDelete")</b-button>
-                <b-modal v-model="busy" hide-header no-wrap>
-                    <template #default="{  }">
-                        @T("Account.CustomerAds.ConfirmDelete")
-                    </template>
-                    <template #modal-footer="{ ok, cancel }">
-                        <b-row>
-                            <!-- Emulate built in modal footer ok and cancel button actions -->
-                            <b-button variant="outline-primary" class="mr-3" v-on:click="busy = false">
-                                @T("Account.CustomerAds.Cancel")
-                            </b-button>
-                            <b-button variant="danger" v-on:click="location = idtoremove">
-                                @T("Account.CustomerAds.Ok")
-                            </b-button>
-                            <!-- Button with custom close trigger value -->
-                        </b-row>
-                    </template>
-                </b-modal>
-                <input type="button" value="@(T("Account.CustomerAds.AdMessages")+" ("+Model.CountMsg.ToString()+")")" class="btn btn-secondary ad-message-button" onclick="location = ('@Url.RouteUrl("MessagesAd", new { adId = Model.Id })')" />
-            }
+                    <input v-b-tooltip.hover.bottom title="@T("Account.CustomerAds.AdDetailsTitle")" type="button" value="@T("Account.CustomerAds.AdDetails")" class="btn btn-secondary ad-details-button" onclick="location = ('@Url.RouteUrl("ViewAd", new { adId = Model.Id })')" />
+                    @if (Model.IsOpenFromMenu)
+                    {
+
+                        <input type="button" value="@(T("Account.CustomerAds.AdMessages")+" ("+Model.CountMsg.ToString()+")")" class="btn btn-secondary ad-message-button" onclick="location = ('@Url.RouteUrl("MessagesAd", new { adId = Model.Id })')" />
+                        <b-button ref="submit" type="submit" :disabled="busy" v-on:click="clickOnDelete('@Url.RouteUrl("DeleteAd", new { adId = Model.Id })')">@T("Account.CustomerAds.AdDelete")</b-button>
+                        <b-modal v-model="busy" hide-header no-wrap>
+                            <template #default="{  }">
+                                @T("Account.CustomerAds.ConfirmDelete")
+                            </template>
+                            <template #modal-footer="{ ok, cancel }">
+                                <b-row>
+                                    <!-- Emulate built in modal footer ok and cancel button actions -->
+                                    <b-button variant="outline-primary" class="mr-3" v-on:click="busy = false">
+                                        @T("Account.CustomerAds.Cancel")
+                                    </b-button>
+                                    <b-button variant="danger" v-on:click="location = idtoremove">
+                                        @T("Account.CustomerAds.Ok")
+                                    </b-button>
+                                    <!-- Button with custom close trigger value -->
+                                </b-row>
+                            </template>
+                        </b-modal>
+                    }
+                </div>
+                @if (Model.IsOpenFromMenu)
+                {
+                    <div class="navigate-btn-group-right">
+                        @if (Model.AdStatusEnum == Grand.Domain.Ads.AdStatus.Cancelled)
+                        {
+                            <input type="button" value="@T("Account.CustomerAds.AdActiveted")" class="btn btn-secondary ad-activeted-button" onclick="location = ('@Url.RouteUrl("ActivetedAd", new { adId = Model.Id })')" />
+                        }
+                        @if (Model.AdStatusEnum == Grand.Domain.Ads.AdStatus.Active)
+                        {
+                            <input v-b-tooltip.hover.bottom title="@T("Account.CustomerAds.AdCancleTitle")" type="button" value="@T("Account.CustomerAds.AdCancle")" class="btn btn-secondary ad-cancle-button" onclick="location = ('@Url.RouteUrl("CancelAd", new { adId = Model.Id })')" />
+                            @*<input type="button" value="@T("Account.CustomerAds.AdDelete")" class="btn btn-secondary ad-delete-button" onclick="location = ('@Url.RouteUrl("DeleteAd", new { adId = Model.Id })')" />*@
+                        }
+                    </div>
+                }
+            </div>
         </template>
     </b-card>
 }

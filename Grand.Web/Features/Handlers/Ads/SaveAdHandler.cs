@@ -94,7 +94,7 @@ namespace Grand.Web.Features.Handlers.Ads
             
             var ad = new Ad() {
                 CreatedOnUtc = DateTime.Now,
-                AdStatus = AdStatus.Processing,
+                AdStatus = AdStatus.Active,
                 ProductId = request.AdToSave.SearchBike,
                 Price = request.AdToSave.Price,
                 EndDateTimeUtc = DateTime.Now.AddMonths(1),

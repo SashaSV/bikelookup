@@ -346,7 +346,7 @@ namespace Grand.Services.Ads
                 PrimaryCurrencyCode = details.PrimaryCurrencyCode,
                 CurrencyRate = details.CustomerCurrencyRate,
                 AffiliateId = details.AffiliateId,
-                AdStatus = AdStatus.Pending,
+                AdStatus = AdStatus.Active,
                 AllowStoringCreditCardNumber = processPaymentResult.AllowStoringCreditCardNumber,
                 CardType = processPaymentResult.AllowStoringCreditCardNumber ? _encryptionService.EncryptText(processPaymentRequest.CreditCardType) : string.Empty,
                 CardName = processPaymentResult.AllowStoringCreditCardNumber ? _encryptionService.EncryptText(processPaymentRequest.CreditCardName) : string.Empty,
@@ -1680,8 +1680,7 @@ namespace Grand.Services.Ads
             if (order == null)
                 throw new ArgumentNullException("order");
 
-            if (order.AdStatus == AdStatus.Cancelled ||
-                order.AdStatus == AdStatus.Pending)
+            if (order.AdStatus == AdStatus.Cancelled)
                 return false;
 
             if (order.PaymentStatus == PaymentStatus.Authorized &&

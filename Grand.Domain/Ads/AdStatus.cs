@@ -6,17 +6,9 @@ namespace Grand.Domain.Ads
     public enum AdStatus
     {
         /// <summary>
-        /// Pending
+        /// Active
         /// </summary>
-        Pending = 10,
-        /// <summary>
-        /// Processing
-        /// </summary>
-        Processing = 20,
-        /// <summary>
-        /// Complete
-        /// </summary>
-        Complete = 30,
+        Active = 20,
         /// <summary>
         /// Cancelled
         /// </summary>

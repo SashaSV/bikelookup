@@ -115,7 +115,7 @@ Vue.component('findautocompletespec', {
         },
         onFocus: function ()
         {
-            debugger
+            //debugger
             axios({
                 url: '/catalog/searchspecautocomplete',
                 method: 'get',
@@ -268,7 +268,7 @@ Vue.component('findmini', {
                 }
                 if (response.data) {
                     this.Items = response.data
-                    debugger
+                    //debugger
                     this.showResults = true;
                 }else {
                     this.Items = [];

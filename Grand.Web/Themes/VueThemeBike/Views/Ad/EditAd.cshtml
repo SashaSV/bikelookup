@@ -38,23 +38,17 @@
                   <div class="card-body">
                       <div class="form-fields">
                           <div class="fieldset">
-                              @*@if (!String.IsNullOrEmpty(Model.AvatarUrl))
-                              {
-                              <b-avatar src="@(Model.AvatarUrl)" size="6rem"></b-avatar>
-                              }*@
-                              <label class="btn btn-info" for="my-file-selector">
-                                 
-                                  <b-form-file
-                                      multiple
-                                      name="ImageFile"
-                                      type="file" 
-                                      accept="image/*"
-                                    v-model="file1"
-                                    :state="Boolean(file1)"
-                                    placeholder="Choose a file or drop it here..."
-                                    drop-placeholder="Drop file here..."
-                                  ></b-form-file>
-                              </label>
+                              <b-form-file multiple
+                                           name="ImageFile"
+                                           type="file"
+                                           accept="image/*"
+                                           v-model="file1"
+                                           :state="Boolean(file1)"
+                                           placeholder="Choose a file or drop it here..."
+                                           drop-placeholder="Drop file here..."></b-form-file>
+
+                              <b-img class="mr-2 mt-2" v-for="file in file1" rounded="true" :src="window.URL.createObjectURL(file)" fluid alt="Responsive image" width="300" height="auto"></b-img>
+
                               <span class='label label-info' id="upload-file-info"></span>
                           </div>
                       </div>
@@ -229,7 +223,7 @@
                       <div class="form-fields">
                           <div class="form-group">
                               <label asp-for="AdComment" class="col-form-label">@T("Ad.Fields.Comment"):</label>
-                              <textarea asp-for="AdComment" class="form-control account-signature-text"></textarea>
+                              <textarea asp-for="AdComment" cols="4" class="form-control account-signature-text"></textarea>
                           </div>
                       </div>
                   </div>

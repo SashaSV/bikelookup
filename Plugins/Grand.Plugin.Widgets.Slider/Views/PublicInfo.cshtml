@@ -41,7 +41,8 @@
 }
 @if (themeName.StartsWith("VueTheme"))
 {
-    <b-carousel id="GrandCarousel" fade controls indicators img-width="1024" img-height="267" background="#ababab" interval="6000">
+    @*<b-carousel id="GrandCarousel" fade controls indicators img-width="1024" img-height="267" background="#ababab" interval="6000">*@
+    <b-carousel id="GrandCarousel" fade controls indicators img-width="1024" img-height="267" interval="6000">
         @foreach (var item in Model.Slide)
         {
             if (string.IsNullOrEmpty(item.PictureUrl))
@@ -50,11 +51,7 @@
             }
             else
             {
-                <b-carousel-slide text-html="@item.Description" @if (item.FullWidth)
-                                                                {
-                                                                    <text> data-width="full" class="img-desc wide-img @if (!string.IsNullOrEmpty(item.Link)) { <text> link </text> }" </text>
-                                                                } else 
-                                                                { <text> class="img-desc no-wide-img @if (!string.IsNullOrEmpty(item.Link)) { <text> link </text> }" </text> } @if (!string.IsNullOrEmpty(item.Link)) { <text> onclick="window.location='@item.Link'" </text> }>
+                <b-carousel-slide text-html="@item.Description" @if (item.FullWidth) { <text> data-width="full" class="img-desc wide-img @if (!string.IsNullOrEmpty(item.Link)) { <text> link </text> }" </text>  } else { <text> class="img-desc no-wide-img @if (!string.IsNullOrEmpty(item.Link)) { <text> link </text> }" </text> } @if (!string.IsNullOrEmpty(item.Link)) { <text> onclick="window.location='@item.Link'" </text> }>
                     <template #img>
                         <picture>
                             <source media="(max-width: 767px)" sizes="1px" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7 1w" />
@@ -66,7 +63,7 @@
         }
     </b-carousel>
     <style lang="sass">
-        .carousel-control-prev-icon{
+        .carousel-control-prev-icon {
             height: 100px !important;
             width: 31px !important;
             background-image: url("ChevronLeft.svg");
@@ -162,5 +159,5 @@ else
             <span class="sr-only">Next</span>
         </a>
     </div>
-   
+
 }

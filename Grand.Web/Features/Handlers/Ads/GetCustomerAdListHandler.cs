@@ -98,7 +98,7 @@ namespace Grand.Web.Features.Handlers.Ads
                 var pictureModel = new PictureModel {
                     Id = firstPictureId,
                     FullSizeImageUrl = await _pictureService.GetPictureUrl(firstPictureId),
-                    ImageUrl = await _pictureService.GetPictureUrl(firstPictureId, _mediaSettings.VendorThumbPictureSize),
+                    ImageUrl = await _pictureService.GetPictureUrl(firstPictureId, _mediaSettings.CategoryThumbPictureSize),
                     Title = string.Format(_localizationService.GetResource("Media.Vendor.ImageLinkTitleFormat"), nameProduct),
                     AlternateText = string.Format(_localizationService.GetResource("Media.Ad.ImageAlternateTextFormat"), nameProduct),
                 };

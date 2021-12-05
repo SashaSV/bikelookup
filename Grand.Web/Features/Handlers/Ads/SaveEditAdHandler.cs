@@ -46,7 +46,7 @@ namespace Grand.Web.Features.Handlers.Ads
 
             ad.Price = request.Model.Price;
             ad.AdComment = request.Model.AdComment;
-            ad.AdStatus = AdStatus.Processing;
+            ad.AdStatus = AdStatus.Active;
 
 
             if (product != null)

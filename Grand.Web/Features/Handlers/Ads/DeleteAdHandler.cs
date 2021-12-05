@@ -28,8 +28,12 @@ namespace Grand.Web.Features.Handlers.Ads
             {
                 return new DeleteAdResult(false, "Not found");
             }
-            var p = await _productService.GetProductById(ad.AdItem.ProductId);
-            await _productService.DeleteProduct(p);
+            if (ad.AdItem != null)
+            {
+                var p = await _productService.GetProductById(ad.AdItem.ProductId);
+                await _productService.DeleteProduct(p);
+            }
+
             await _adRepository.DeleteAsync(ad);
 
             return new DeleteAdResult(false, string.Empty);

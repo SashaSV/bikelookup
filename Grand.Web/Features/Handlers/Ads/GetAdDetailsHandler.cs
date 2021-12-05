@@ -130,12 +130,12 @@ namespace Grand.Web.Features.Handlers.Ads
             await PrepareAdNotes(request, model);
 
             //allow cancel order
-            if (_orderSettings.UserCanCancelUnpaidAd)
-            {
-                if (request.Ad.AdStatus == AdStatus.Pending && request.Ad.PaymentStatus == Domain.Payments.PaymentStatus.Pending
-                    && (request.Ad.ShippingStatus == ShippingStatus.ShippingNotRequired || request.Ad.ShippingStatus == ShippingStatus.NotYetShipped))
-                    model.UserCanCancelUnpaidAd = true;
-            }
+            //if (_orderSettings.UserCanCancelUnpaidAd)
+            //{
+            //    if (request.Ad.AdStatus == AdStatus.Pending && request.Ad.PaymentStatus == Domain.Payments.PaymentStatus.Pending
+            //        && (request.Ad.ShippingStatus == ShippingStatus.ShippingNotRequired || request.Ad.ShippingStatus == ShippingStatus.NotYetShipped))
+            //        model.UserCanCancelUnpaidAd = true;
+            //}
 
             //purchased products
             await PrepareAdItems(request, model);
