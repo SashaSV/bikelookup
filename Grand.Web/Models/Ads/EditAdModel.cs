@@ -50,7 +50,7 @@ namespace Grand.Web.Models.Ads
         public string Size { get; set; }
         public string Color { get; set; }
         public string AdComment { get; set; }
-        public decimal Price { get; set; }
+        public int Price { get; set; }
         public int Mileage { get; set; }
         public bool IsAuction { get; set; }
         public string SearchBike { get; set; }

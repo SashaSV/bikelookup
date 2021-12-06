@@ -61,7 +61,7 @@ namespace Grand.Web.Features.Handlers.Ads
             model.CreatedOn = _dateTimeHelper.ConvertToUserTime(request.Ad.CreatedOnUtc, DateTimeKind.Utc);
             model.AdStatus = request.Ad.AdStatus.GetLocalizedEnum(_localizationService, request.Language.Id);
             model.ManufactureName = product.ManufactureName;
-            model.Price = product.Price;
+            model.Price = decimal.ToInt32(product.Price);
             model.Model = product.Model;
             model.Color = product.Color;
             model.Size = product.Size;
