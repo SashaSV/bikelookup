@@ -100,7 +100,6 @@ namespace Grand.Services.Queries.Handlers.Catalog
                 {
                     filter = filter & builder.Where(x => x.ProductManufacturers.Any(y => y.ManufacturerId == request.ManufacturerId));
                 }
-
             }
 
             if (!request.OverridePublished.HasValue)
