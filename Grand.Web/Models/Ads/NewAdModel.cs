@@ -1,5 +1,6 @@
 ﻿using Grand.Core.ModelBinding;
 using Grand.Core.Models;
+using Grand.Domain.Catalog;
 using Grand.Web.Models.Common;
 using Grand.Web.Models.Media;
 using Microsoft.AspNetCore.Http;
@@ -56,8 +57,10 @@ namespace Grand.Web.Models.Ads
         public bool IsAuction { get; set; }
         public string SearchBike { get; set; }
 
-        public IFormFile [] ImageFile { get; set; }  
-        
+        public IFormFile [] ImageFile { get; set; }
+
+        public SpecificationAttribute CollorAtribure { get; set; }
+
         #region Nested Classes
 
         public partial class AdItemModel : BaseEntityModel

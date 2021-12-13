@@ -133,6 +133,12 @@
                         <span class="field-validation-error">{{veeErrors.first('Color')}}</span>
                         <span asp-validation-for="Color"></span>
                     </fieldset>
+                    @foreach (var collorOption in Model.CollorAtribure.SpecificationAttributeOptions)
+                    {
+                        <b-button size="sm" variant="light" class="color-container mb-1 mr-1">
+                            <span class="color" title="@collorOption.Name" style="background-color: @(collorOption.ColorSquaresRgb);">&nbsp;</span>
+                        </b-button>
+                    }
                 </div>
             </div>
         </div>

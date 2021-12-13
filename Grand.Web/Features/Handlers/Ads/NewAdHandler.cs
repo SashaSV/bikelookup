@@ -23,7 +23,8 @@ namespace Grand.Web.Features.Handlers.Ads
         private readonly ICurrencyService _currencyService;
         private readonly IPriceFormatter _priceFormatter;
         private readonly IMediator _mediator;
-
+        private readonly ISpecificationAttributeService _atributeService;
+        
         public NewAdHandler(
             IAdService adService,
             IDateTimeHelper dateTimeHelper,
@@ -31,7 +32,8 @@ namespace Grand.Web.Features.Handlers.Ads
             IAdProcessingService adProcessingService,
             ICurrencyService currencyService,
             IMediator mediator,
-            IPriceFormatter priceFormatter)
+            IPriceFormatter priceFormatter,
+            ISpecificationAttributeService atributeService)
         {
             _adService = adService;
             _dateTimeHelper = dateTimeHelper;
@@ -40,11 +42,16 @@ namespace Grand.Web.Features.Handlers.Ads
             _currencyService = currencyService;
             _priceFormatter = priceFormatter;
             _mediator = mediator;
+            _atributeService = atributeService;
         }
 
         public async Task<NewAdModel> Handle(NewAd request, CancellationToken cancellationToken)
         {
-            var model = new NewAdModel() { WithDocuments = true, Year = DateTime.Now.Year};
+            var model = new NewAdModel() {
+                WithDocuments = true, 
+                Year = DateTime.Now.Year, 
+                CollorAtribure = await _atributeService.GetSpecificationAttributeBySeName("sp_color")
+            };
 
             //await PrepareAd(model, request);
             //await PrepareRecurringPayments(model, request);
