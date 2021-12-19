@@ -16,6 +16,7 @@ namespace Grand.Web.Models.Ads
             Shipments = new List<ShipmentBriefModel>();
             BillingAddress = new AddressModel();
             ShippingAddress = new AddressModel();
+            PictureModels = new List<PictureModel>();
         }
 
         public DateTime CreatedOn { get; set; }
@@ -55,6 +56,8 @@ namespace Grand.Web.Models.Ads
         public bool IsAuction { get; set; }
         public string SearchBike { get; set; }
 
+        public IList<PictureModel> PictureModels { get; set; }
+        
         #region Nested Classes
 
         public partial class AdItemModel : BaseEntityModel
