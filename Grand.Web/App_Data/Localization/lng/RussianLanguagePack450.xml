@@ -3819,6 +3819,12 @@
 	<LocaleResource Name="Ad.Fields.ShippingMethodType.Hint">
 		<Value>Выбор среди доступных методов доставки.</Value>
 	</LocaleResource>
+	<LocaleResource Name="Ad.Fields.PaymentMethodType">
+		<Value>Метод оплаты</Value>
+	</LocaleResource>
+	<LocaleResource Name="Ad.Fields.PaymentMethodType.Hint">
+		<Value>Выбор среди доступных методов оплаты.</Value>
+	</LocaleResource>
   <LocaleResource Name="Admin.Catalog.Products.List.SearchPublished">
     <Value>опубликованный</Value>
   </LocaleResource>

@@ -37,6 +37,10 @@ namespace Grand.Web.Models.Ads
         public string VatNumber { get; set; }
         public int AdNumber { get; set; }
         public string AdCode { get; set; }
+        public IList<SelectListItem> PaymentMethodType { get; set; }
+
+        [GrandResourceDisplayName("Ad.Fields.PaymentMethodType")]
+        public string PaymentMethodId { get; set; }
         public string PaymentMethod { get; set; }
         public string PaymentMethodStatus { get; set; }
         public string AdShipping { get; set; }

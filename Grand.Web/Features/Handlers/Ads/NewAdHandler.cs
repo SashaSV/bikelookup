@@ -11,6 +11,7 @@ using MediatR;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace Grand.Web.Features.Handlers.Ads
 {
@@ -47,10 +48,15 @@ namespace Grand.Web.Features.Handlers.Ads
 
         public async Task<NewAdModel> Handle(NewAd request, CancellationToken cancellationToken)
         {
+            var delivery = await _atributeService.GetSpecificationAttributeBySeName("v_delivery");
+            var payment = await _atributeService.GetSpecificationAttributeBySeName("v_pay");
+
             var model = new NewAdModel() {
-                WithDocuments = true, 
-                Year = DateTime.Now.Year, 
-                CollorAtribure = await _atributeService.GetSpecificationAttributeBySeName("sp_color")
+                WithDocuments = true,
+                Year = DateTime.Now.Year,
+                CollorAtribure = await _atributeService.GetSpecificationAttributeBySeName("sp_color"),
+                ShippingMethodType = delivery.SpecificationAttributeOptions.Select(a=>new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(a.GetLocalized(x => x.Name, request.Language.Id),a.Id)).ToList(),
+                PaymentMethodType = payment.SpecificationAttributeOptions.Select(a => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(a.GetLocalized(x => x.Name, request.Language.Id), a.Id)).ToList()
             };
 
             //await PrepareAd(model, request);

@@ -1304,12 +1304,14 @@ input:checked ~ .color-container .color::before {
 }
 
 .btn-group>.btn-secondary, .btn-secondary {
-    border: 1px solid transparent !important;
+    /* border: 1px solid transparent !important; */
+    border: 1px solid #efefef!important;
 }
 
 .btn-sm:hover{
     cursor: pointer;
-    border: 1px solid #212529!important;
+    /* border: 1px solid #212529!important; */
+    border: 1px solid #ff3448!important;
 }
 
 .product-box .add-cart-text {
@@ -1579,8 +1581,8 @@ input:checked ~ .color-container .color::before {
 /* color container */
 
 .btn.color-container {
-    margin: 0 3px 3px 0;
-    padding: 0;
+    margin: 0;
+    padding: 3px;
     border: 0;
     background-color: transparent;
     border-radius: 100%;
@@ -1589,7 +1591,7 @@ input:checked ~ .color-container .color::before {
     display: flex;
     width: 25px;
     height: 25px;
-    border: 1px solid #efefef;
+    border: 2px solid #efefef;
     border-radius: 100%;
 }
 
@@ -1603,6 +1605,9 @@ input:checked ~ .color-container .color::before {
     z-index: 999
 }
 
+.icon-question{
+    margin: 3px;
+}
 /* breadcrumb */
 
 .breadcrumb {
