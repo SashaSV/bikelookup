@@ -1,4 +1,5 @@
-﻿using Grand.Domain.Ads;
+﻿using Grand.Core;
+using Grand.Domain.Ads;
 using Grand.Domain.Catalog;
 using Grand.Domain.Customers;
 using Grand.Domain.Data;
@@ -9,6 +10,7 @@ using Grand.Services.Helpers;
 using Grand.Services.Localization;
 using Grand.Services.Queries.Models.Ads;
 using Grand.Web.Features.Models.Ads;
+using Grand.Web.Features.Models.Products;
 using Grand.Web.Models.Ads;
 using MediatR;
 using System;
@@ -27,7 +29,8 @@ namespace Grand.Web.Features.Handlers.Ads
         private readonly ICurrencyService _currencyService;
         private readonly IPriceFormatter _priceFormatter;
         private readonly IMediator _mediator;
-
+        private readonly IStoreContext _storeContext;
+        
         public EditAdHandler(
             IRepository<Ad> adRepository,
             IDateTimeHelper dateTimeHelper,
@@ -36,7 +39,8 @@ namespace Grand.Web.Features.Handlers.Ads
             ICurrencyService currencyService,
             IMediator mediator,
             IPriceFormatter priceFormatter,
-            IProductService productService)
+            IProductService productService,
+            IStoreContext storeContext)
         {
             _adRepository = adRepository;
             _dateTimeHelper = dateTimeHelper;
@@ -46,6 +50,7 @@ namespace Grand.Web.Features.Handlers.Ads
             _priceFormatter = priceFormatter;
             _mediator = mediator;
             _productService = productService;
+            _storeContext = storeContext;
         }
 
         public async Task<EditAdModel> Handle(EditAd request, CancellationToken cancellationToken)
@@ -67,6 +72,14 @@ namespace Grand.Web.Features.Handlers.Ads
             model.Size = product.Size;
             model.Weeldiam = product.Weeldiam;
             model.Year = string.IsNullOrEmpty(product.Year)? 0 :  int.Parse(product.Year);
+          
+            var productModel = await _mediator.Send(new GetProductDetailsPage() {
+                Store = _storeContext.CurrentStore,
+                Product = product,
+                IsAssociatedProduct = false,
+                UpdateCartItem = null
+            });
+            model.PictureModels = productModel.PictureModels;
             
             return model;
         }

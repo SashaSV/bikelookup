@@ -76,12 +76,10 @@ namespace Grand.Web.Features.Handlers.Ads
             
             //customerAd.FormatUserName(_customerSettings.CustomerNameFormat);
 
-            var customerName = string.Format("{0} ({1})",
-                customerAd.FormatUserName(CustomerNameFormat.ShowFirstName),
-                    customerAd.Addresses.First().City);
+            var address = customerAd.Addresses.FirstOrDefault();
+            var customerName = $"{customerAd.FormatUserName(CustomerNameFormat.ShowFirstName)} ({address?.City ?? ""})";
 
             var vendor = await _vendorService.GetVendorByEmail(customerAd.Email, customerName);
-            
             
             vendor.Email = customerAd.Email;
             var pictureId = customerAd.GetAttributeFromEntity<string>(SystemCustomerAttributeNames.AvatarPictureId);
