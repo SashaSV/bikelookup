@@ -518,6 +518,7 @@ var vm = new Vue({
             idtoremove: "",
             baseProduct : {Id : "", Year: new Date().getFullYear(), ManufactureName:"", Model:"", Weeldiam:"", Size:""},
             baseProductId: "",
+            collorSelected:"",
             yearselected : new Date().getFullYear(),
         }
     },

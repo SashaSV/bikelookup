@@ -1580,6 +1580,22 @@ input:checked ~ .color-container .color::before {
 
 /* color container */
 
+.btn.color-container-selected {
+    margin: 0;
+    padding: 3px;
+    border: 0;
+    background-color: transparent;
+    border-radius: 100%;
+}
+
+.color-container-selected .color {
+    display: flex;
+    width: 25px;
+    height: 25px;
+    border: 2px solid #F15A24;
+    border-radius: 100%;
+}
+
 .btn.color-container {
     margin: 0;
     padding: 3px;
