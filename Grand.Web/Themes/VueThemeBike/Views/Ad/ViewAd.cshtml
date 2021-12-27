@@ -4,7 +4,7 @@
 @using Grand.Web.Models.Customer;
 @using Grand.Core;
 @{
-    Layout = "_ColumnsTwo";
+    Layout = "_ColumnsOne";
 
     //title
     pagebuilder.AddTitleParts(T("PageTitle.Account").Text);
@@ -18,10 +18,10 @@
 
 
 }
-@section left
+@*@section left
 {
     @await Component.InvokeAsync("CustomerNavigation", new { selectedTabId = CustomerNavigationEnum.Ads })
-}
+}*@
 
 @Html.AntiForgeryToken()
 
