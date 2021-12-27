@@ -120,7 +120,7 @@
                     </span>
                     <span class="required">*</span>
                     <div class="input-group">
-                        <b-form-select asp-for="Year" v-model="baseProduct.Year" :options="years"></b-form-select>
+                        <b-form-select asp-for="Year" :disabled="baseProductSelected" v-model="baseProduct.Year" :options="years"></b-form-select>
                         <span asp-validation-for="Year"></span>
                     </div>
                 </fieldset>
