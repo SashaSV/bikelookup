@@ -1580,6 +1580,13 @@ input:checked ~ .color-container .color::before {
 
 /* color container */
 
+.btn.color-container-selected {
+    margin: 0;
+    padding: 3px;
+    border: 0;
+    background-color: transparent;
+    border-radius: 100%;
+}
 .btn.color-container {
     margin: 0;
     padding: 3px;
