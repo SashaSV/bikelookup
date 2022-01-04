@@ -53,8 +53,8 @@
                                      accept="image/*"
                                      v-model="file1"
                                      :state="Boolean(file1)"
-                                     placeholder="Choose a file or drop it here..."
-                                     drop-placeholder="Drop file here..."></b-form-file>
+                                     placeholder="@T("ad.placeholder")"
+                                     drop-placeholder="@T("ad.drop-placeholder")"></b-form-file>
 
                         <b-img class="mr-2 mt-2" v-for="file in file1" rounded="true" :src="window.URL.createObjectURL(file)" fluid alt="Responsive image" width="300" height="auto"></b-img>
 
@@ -136,7 +136,7 @@
                         <div class="color-container-1">
                         @foreach (var collorOption in Model.CollorAtribure.SpecificationAttributeOptions)
                         {
-                            <b-button size="sm" variant="light" :disabled="baseProductSelected" v-on:click="baseProduct.Color = '@collorOption.Id'"  :class="baseProduct.Color == '@collorOption.Id' ? 'color-container-selected mb-1 mr-1' : 'color-container mb-1 mr-1'">
+                            <b-button size="sm" variant="light" v-on:click="collorSelected = '@collorOption.Id'"  :class="collorSelected == '@collorOption.Id' ? 'color-container-selected mb-1 mr-1' : 'color-container mb-1 mr-1'">
                                 <span class="color" title="@collorOption.Name" style="background-color: @(collorOption.ColorSquaresRgb);">&nbsp;</span>
                             </b-button>
                         }
@@ -156,6 +156,9 @@
                         <label asp-for="Price" class="col-form-label">@T("Ad.Fields.Priсe"):</label>
                         <span class="required">*</span>
                         <input asp-for="Price" class="form-control" />
+
+                        @*v-validate="'required'"*@
+
                         <span class="field-validation-error">{{veeErrors.first('Priсe')}}</span>
                         <span asp-validation-for="Price"></span>
                     </fieldset>
