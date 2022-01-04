@@ -155,7 +155,7 @@
                         <legend class="sr-only">@T("Ad.Fields.Priсe")</legend>
                         <label asp-for="Price" class="col-form-label">@T("Ad.Fields.Priсe"):</label>
                         <span class="required">*</span>
-                        <input asp-for="Price" class="form-control" v-validate="'required'" />
+                        <input asp-for="Price" class="form-control" />
                         <span class="field-validation-error">{{veeErrors.first('Priсe')}}</span>
                         <span asp-validation-for="Price"></span>
                     </fieldset>
