@@ -42,11 +42,6 @@
             <div class="card-body">
                 <div class="form-fields">
                     <div class="fieldset">
-                        @*@if (!String.IsNullOrEmpty(Model.AvatarUrl))
-                            {
-                            <b-avatar src="@(Model.AvatarUrl)" size="6rem"></b-avatar>
-                            }*@
-
                         <b-form-file multiple
                                      name="ImageFile"
                                      type="file"
@@ -67,8 +62,8 @@
         <div class="card mb-3">
             <h3 class="card-header">@T("Ads.BaseInformation")</h3>
             <div class="card-body">
-                <div class="form-fields">
-                    <fieldset class="form-group search-bike">
+                <div class="form-row">
+                    <fieldset class="form-group col-12 search-bike">
                         <legend class="sr-only">@T("Ad.Fields.SearchBike")</legend>
                         <label asp-for="SearchBike" class="col-form-label">@T("Ad.Fields.SearchBike"):</label>
                         <input type="hidden" asp-for="SearchBike" v-model="baseProduct.ProductId" class="form-control" />
@@ -130,9 +125,6 @@
                         <input type="hidden" asp-for="Color" class="form-control" v-model="collorSelected" v-validate="'required'" />
                         <label asp-for="Color" class="col-form-label">@T("Ad.Fields.Color"):</label>
                         <span class="required">*</span>
-                        @*<b-form-input type="color" v-model="baseProduct.Color" asp-for="Color" class="form-control" v-validate="'required'" />
-        <span class="field-validation-error">{{veeErrors.first('Color')}}</span>
-        <span asp-validation-for="Color"></span>*@
                         <div class="color-container-1">
                         @foreach (var collorOption in Model.CollorAtribure.SpecificationAttributeOptions)
                         {
@@ -178,7 +170,7 @@
                 <div class="form-row">
                     <fieldset class="form-group col-sm-6 col-12">
                         <legend class="sr-only">@T("Ad.Fields.PaymentMethod")</legend>
-                        <label-ext asp-for="PaymentMethodId" class="col-form-label">@T("Ad.Fields.PaymentMethod"):</label-ext>
+                        <label-ext asp-for="SelectedPaymentMethodId" class="col-form-label">@T("Ad.Fields.PaymentMethod"):</label-ext>
                         <script asp-location="Footer">
                             $('[data-toggle="tooltip"]').tooltip({
                                 animated: 'fade',
@@ -186,16 +178,17 @@
                                 html: true
                             });
                         </script>
-                        <div class="form-horizontal">
-                            <div class="form-body">
-                                <div class="form-group">
-                                    @*<label-ext asp-for="PaymentMethodId" />*@
-                                    <div class="col-md-84 col-sm-86">
-                                        <select-box asp-for="PaymentMethodId" asp-items="Model.PaymentMethodType" />
-                                    </div>
+                        <div class="mt-checkbox-list">
+                            @foreach (var paymentMethod in Model.PaymentMethodType)
+                            {
+                                <div class="mt-checkbox mt-checkbox-outline control control-checkbox">
+                                    <input type="checkbox" id="SelectedPaymentMethodIds_@paymentMethod.Id" value="@paymentMethod.Id" checked="@false" />
+                                    <label class="form-check-label" for="SelectedPaymentMethodIds_@paymentMethod.Id">@paymentMethod.Name</label>
+                                    <div class="control__indicator"></div>
                                 </div>
-                            </div>
+                            }
                         </div>
+                        
                     </fieldset>
                     <fieldset class="form-group col-sm-6 col-12">
                         <legend class="sr-only">@T("Ad.Fields.ShippingMethod")</legend>

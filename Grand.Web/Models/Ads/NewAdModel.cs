@@ -37,10 +37,10 @@ namespace Grand.Web.Models.Ads
         public string VatNumber { get; set; }
         public int AdNumber { get; set; }
         public string AdCode { get; set; }
-        public IList<SelectListItem> PaymentMethodType { get; set; }
-
+        //public IList<SelectListItem> PaymentMethodType { get; set; }
+        public IList<PaymentsMethodType> PaymentMethodType { get; set; }
         [GrandResourceDisplayName("Ad.Fields.PaymentMethodType")]
-        public string PaymentMethodId { get; set; }
+        public string[] SelectedPaymentMethodId { get; set; }
         public string PaymentMethod { get; set; }
         public string PaymentMethodStatus { get; set; }
         public string AdShipping { get; set; }
@@ -120,6 +120,10 @@ namespace Grand.Web.Models.Ads
             public int ShipmentNumber { get; set; }
             public DateTime? ShippedDate { get; set; }
             public DateTime? DeliveryDate { get; set; }
+        }
+        public partial class PaymentsMethodType : BaseEntityModel
+        {
+            public string Name { get; set; }
         }
         #endregion
     }
