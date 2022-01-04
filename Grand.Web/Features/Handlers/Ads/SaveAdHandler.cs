@@ -17,6 +17,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Linq;
 using Grand.Services.Ads;
+using SkiaSharp;
 
 namespace Grand.Web.Features.Handlers.Ads
 {
@@ -135,7 +136,10 @@ namespace Grand.Web.Features.Handlers.Ads
                 {
                     var pictureBites = pirctureFile.GetPictureBits();
 
-                    var picture = await _pictureService.InsertPicture(pictureBites, pirctureFile.ContentType, _pictureService.GetPictureSeName(request.AdToSave.Model));
+                    var pictureBinary = _pictureService.ValidatePicture(pictureBites, pirctureFile.ContentType);
+
+
+                    var picture = await _pictureService.InsertPicture(pictureBites, pirctureFile.ContentType, _pictureService.GetPictureSeName(request.AdToSave.Model), validateBinary: true);
 
                     if (picture != null)
                     {

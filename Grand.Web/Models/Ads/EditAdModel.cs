@@ -1,5 +1,6 @@
 ﻿using Grand.Core.ModelBinding;
 using Grand.Core.Models;
+using Grand.Domain.Catalog;
 using Grand.Web.Models.Common;
 using Grand.Web.Models.Media;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -17,6 +18,7 @@ namespace Grand.Web.Models.Ads
             BillingAddress = new AddressModel();
             ShippingAddress = new AddressModel();
             PictureModels = new List<PictureModel>();
+            SelectedPaymentMethodId = new string[0];
         }
 
         public DateTime CreatedOn { get; set; }
@@ -38,6 +40,9 @@ namespace Grand.Web.Models.Ads
         public string AdCode { get; set; }
         public string PaymentMethod { get; set; }
         public string PaymentMethodStatus { get; set; }
+        [GrandResourceDisplayName("Ad.Fields.PaymentMethodType")]
+        public string[] SelectedPaymentMethodId { get; set; }
+        public IList<PaymentsMethodType> PaymentMethodType { get; set; }
         public string AdShipping { get; set; }
         public bool ShowSku { get; set; }
         public AdItemModel Items { get; set; }
@@ -55,10 +60,14 @@ namespace Grand.Web.Models.Ads
         public int Mileage { get; set; }
         public bool IsAuction { get; set; }
         public string SearchBike { get; set; }
-
+        public SpecificationAttribute CollorAtribure { get; set; }
         public IList<PictureModel> PictureModels { get; set; }
-        
+
         #region Nested Classes
+        public partial class PaymentsMethodType : BaseEntityModel
+        {
+            public string Name { get; set; }
+        }
 
         public partial class AdItemModel : BaseEntityModel
         {

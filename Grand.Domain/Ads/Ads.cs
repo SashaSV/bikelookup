@@ -166,7 +166,7 @@ namespace Grand.Domain.Ads
         /// Gets or sets the LastName
         /// </summary>
         public string LastName { get; set; }
-
+        public string[] SelectedPaymentMethodId { get; set; }
         /// <summary>
         /// Gets or sets the Ads subtotal (incl tax)
         /// </summary>

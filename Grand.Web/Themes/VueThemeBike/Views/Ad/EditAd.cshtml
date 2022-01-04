@@ -31,8 +31,8 @@
     <div asp-validation-summary="ModelOnly" class="message-error"></div>
     <div class="generalMarginSupporter">
         <input type="submit" value="@T(" Common.Save")" name="save-ad-button" class="btn btn-secondary save-ad-button" />
-          <input asp-for="Id"  type="hidden"/>
-              </div>
+        <input asp-for="Id" type="hidden" />
+    </div>
               <div class="card mb-3">
                   <h3 class="card-header">@T("Ads.Photos")</h3>
                   <div class="card-body">
@@ -67,16 +67,15 @@
                       </div>
                   </div>
               </div>
-      
               <div class="card mb-3">
                   <h3 class="card-header">@T("Ads.BaseInformation")</h3>
                   <div class="card-body">
-                      <div class="form-fields">
-                          <fieldset class="form-group search-bike">
+                      <div class="form-row">
+                          <fieldset class="form-group col-12 search-bike">
                               <legend class="sr-only">@T("Ad.Fields.SearchBike")</legend>
                               <label asp-for="SearchBike" class="col-form-label">@T("Ad.Fields.SearchBike"):</label>
-                              <input type="search" asp-for="SearchBike" v-model="baseProductId" class="form-control" />
-                              <findautocomplete v-on:select="baseProductId=$event"></findautocomplete>
+                              <input type="hidden" asp-for="SearchBike" v-model="baseProduct.ProductId" class="form-control" />
+                              <findautocomplete v-on:select="baseProduct=$event"></findautocomplete>
                           </fieldset>
                       </div>
                       <div class="form-row">
@@ -84,7 +83,8 @@
                               <legend class="sr-only">@T("Ad.Fields.ManufactureName")</legend>
                               <label asp-for="ManufactureName" class="col-form-label">@T("Ad.Fields.ManufactureName"):</label>
                               <span class="required">*</span>
-                              <input asp-for="ManufactureName" class="form-control" v-validate="'required'" />
+                              <input type="hidden" asp-for="ManufactureName" class="form-control" v-model="baseProduct.ManufactureName" v-validate="'required'" />
+                              <findautocompletespec :text="baseProduct.ManufactureName" :disable="baseProductSelected" spec="manufacturer" v-on:select="baseProduct.ManufactureName=$event.Name" />
                               <span class="field-validation-error">{{veeErrors.first('ManufactureName')}}</span>
                               <span asp-validation-for="ManufactureName"></span>
                           </fieldset>
@@ -92,7 +92,8 @@
                               <legend class="sr-only">@T("Ad.Fields.Model")</legend>
                               <label asp-for="Model" class="col-form-label">@T("Ad.Fields.Model"):</label>
                               <span class="required">*</span>
-                              <input asp-for="Model" class="form-control" v-validate="'required'" />
+                              <input type="hidden" asp-for="Model" class="form-control" v-model="baseProduct.Model" v-validate="'required'" />
+                              <findautocompletespec :text="baseProduct.Model" :disable="baseProductSelected" spec="sp_model" v-on:select="baseProduct.Model=$event.Name" />
                               <span class="field-validation-error">{{veeErrors.first('Model')}}</span>
                               <span asp-validation-for="Model"></span>
                           </fieldset>
@@ -100,7 +101,8 @@
                               <legend class="sr-only">@T("Ad.Fields.Wheeldiam")</legend>
                               <label asp-for="Weeldiam" class="col-form-label">@T("Ad.Fields.Wheeldiam"):</label>
                               <span class="required">*</span>
-                              <input asp-for="Weeldiam" class="form-control" v-validate="'required'" />
+                              <input type="hidden" asp-for="Weeldiam" class="form-control" v-model="baseProduct.Weeldiam" v-validate="'required'" />
+                              <findautocompletespec :text="baseProduct.Weeldiam" :disable="baseProductSelected" spec="sp_wheeldiams" v-on:select="baseProduct.Weeldiam=$event.Name" />
                               <span class="field-validation-error">{{veeErrors.first('Wheeldiam')}}</span>
                               <span asp-validation-for="Weeldiam"></span>
                           </fieldset>
@@ -108,108 +110,123 @@
                               <legend class="sr-only">@T("Ad.Fields.Size")</legend>
                               <label asp-for="Size" class="col-form-label">@T("Ad.Fields.Size"):</label>
                               <span class="required">*</span>
-                              <input asp-for="Size" class="form-control" v-validate="'required'" />
+                              <input type="hidden" asp-for="Size" class="form-control" v-model="baseProduct.Size" v-validate="'required'" />
+                              <findautocompletespec :text="baseProduct.Size" :disable="baseProductSelected" spec="sp_size" v-on:select="baseProduct.Size=$event.Name" />
                               <span class="field-validation-error">{{veeErrors.first('Size')}}</span>
                               <span asp-validation-for="Size"></span>
                           </fieldset>
                       </div>
-                      <fieldset class="form-group year">
+                      <fieldset class="form-group year col-sm-6 ">
                           <legend class="sr-only">@T("Ad.fields.Year")</legend>
                           <span class="col-form-label">
                               @T("Ad.fields.Year"):
                           </span>
                           <span class="required">*</span>
                           <div class="input-group">
-                              <year-picker-dropdown control-year="@Html.IdFor(x => x.Year)"
-                                                    begin-year="@(DateTime.Now.Year - 10)"
-                                                    end-year="DateTime.Now.Year"
-                                                    selected-year="(Model.Year.HasValue ? Model.Year.Value : 0)"
-                                                    class="col-12 input-group px-0" />
-      
+                              <b-form-select name="Year" :disabled="baseProductSelected" v-model="baseProduct.Year" :options="years"></b-form-select>
                               <span asp-validation-for="Year"></span>
                           </div>
                       </fieldset>
                       <div class="form-row">
-                          <fieldset class="form-group col-sm-6 col-12">
+                          <fieldset class="form-group col-12">
                               <legend class="sr-only">@T("Ad.Fields.Color")</legend>
+                              <input type="hidden" asp-for="Color" class="form-control" v-model="collorSelected" v-validate="'required'" />
                               <label asp-for="Color" class="col-form-label">@T("Ad.Fields.Color"):</label>
                               <span class="required">*</span>
-                              <input type="color" asp-for="Color" class="form-control" v-validate="'required'" />
-                              <span class="field-validation-error">{{veeErrors.first('Color')}}</span>
-                              <span asp-validation-for="Color"></span>
+                              <div class="color-container-1">
+                                  @foreach (var collorOption in Model.CollorAtribure.SpecificationAttributeOptions)
+                                  {
+                                      /*@(Model.Color == collorOption.Id ? "-selected" : "")*/
+                                      <b-button size="sm" variant="light" v-on:click="collorSelected = '@collorOption.Id'" :class="collorSelected == '@collorOption.Id' ? 'color-container-selected mb-1 mr-1' : 'color-container mb-1 mr-1'">
+                                          <span class="color" title="@collorOption.Name" style="background-color: @(collorOption.ColorSquaresRgb);">&nbsp;</span>
+                                      </b-button>
+                                  }
+                              </div>
+                          </fieldset>
+
+                      </div>
+                  </div>
+              </div>
+              <div class="card mb-3">
+                  <h3 class="card-header">@T("Ads.Cost")</h3>
+                  <div class="card-body">
+                      <div class="form-row k-align-items-end">
+                          <fieldset class="form-group col-sm-6 col-12">
+                              <legend class="sr-only">@T("Ad.Fields.Priсe")</legend>
+                              <label asp-for="Price" class="col-form-label">@T("Ad.Fields.Priсe"):</label>
+                              <span class="required">*</span>
+                              <input asp-for="Price" class="form-control" />
+
+                              @*v-validate="'required'"*@
+
+                              <span class="field-validation-error">{{veeErrors.first('Priсe')}}</span>
+                              <span asp-validation-for="Price"></span>
+                          </fieldset>
+                          <fieldset class="form-group col-sm-6 col-12">
+                              <legend class="sr-only">@T("Ad.Fields.isAuction")</legend>
+                              <div class="form-check form-switch">
+                                  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked="@(Model.IsAuction == true)">
+                                  <label class="form-check-label" for="flexSwitchCheckDefault">@T("Ad.Fields.Auction.True")</label>
+                              </div>
                           </fieldset>
                       </div>
                   </div>
               </div>
-      
               <div class="card mb-3">
-                  <h3 class="card-header">@T("Ads.Cost&Shipping")</h3>
+                  <h3 class="card-header">@T("Ads.Payment&Shipping")</h3>
                   <div class="card-body">
-                      <fieldset class="form-group col-sm-6 col-12">
-                          <legend class="sr-only">@T("Ad.Fields.Priсe")</legend>
-                          <label asp-for="Price" class="col-form-label">@T("Ad.Fields.Priсe"):</label>
-                          <span class="required">*</span>
-                          <input asp-for="Price" class="form-control" v-validate="'required'" />
-                          <span class="field-validation-error">{{veeErrors.first('Priсe')}}</span>
-                          <span asp-validation-for="Price"></span>
-                      </fieldset>
-                      <fieldset class="form-group col-sm-6 col-12">
-                          <legend class="sr-only">@T("Ad.Fields.isAuction")</legend>
-                          <label class="col-form-label">
-                              @T("Ad.Fields.isAuction"):
-                          </label>
-      
-                          <label class="mt-checkbox mt-checkbox-outline control control-checkbox">
-                              <input-form asp-for="IsAuction" />
-                              <div class="control__indicator"></div>
-                          </label>
-                          <div class="form-check form-switch">
-                              <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked="@(Model.IsAuction == true)">
-                              <label class="form-check-label" for="flexSwitchCheckDefault">@T("Ad.Fields.Auction.True")</label>
-                          </div>
-                          <div class="form-group doc">
-                              <div class="flex-row">
-                                  <div class="custom-control custom-radio male custom-control-inline">
-                                      <input type="checkbox" asp-for="IsAuction" value="M" checked="@(Model.IsAuction == true)" id="ad-auction" class="custom-control-input" />
-                                      <label class="custom-control-label" for="ad-auction">@T("Ad.Fields.Auction.True")</label>
-                                  </div>
+                      <div class="form-row">
+                          <fieldset class="form-group col-sm-6 col-12">
+                              <legend class="sr-only">@T("Ad.Fields.PaymentMethod")</legend>
+                              <label-ext asp-for="SelectedPaymentMethodId" class="col-form-label">@T("Ad.Fields.PaymentMethod"):</label-ext>
+                              <script asp-location="Footer">
+                                  $('[data-toggle="tooltip"]').tooltip({
+                                      animated: 'fade',
+                                      placement: 'right',
+                                      html: true
+                                  });
+                              </script>
+                              <div class="mt-checkbox-list">
+                                  @foreach (var paymentMethod in Model.PaymentMethodType)
+                                  {
+                                      <div class="mt-checkbox mt-checkbox-outline control control-checkbox">
+                                          <input type="checkbox" id="SelectedPaymentMethodIds_@paymentMethod.Id" value="@paymentMethod.Id" checked="@(Model.SelectedPaymentMethodId.Contains(paymentMethod.Id))" />
+                                          <label class="form-check-label" for="SelectedPaymentMethodIds_@paymentMethod.Id">@paymentMethod.Name</label>
+                                          <div class="control__indicator"></div>
+                                      </div>
+                                  }
                               </div>
-                          </div>
-                      </fieldset>
-                      <fieldset class="form-group col-sm-6 col-12">
-                          <legend class="sr-only">@T("Ad.Fields.PaymentMethod")</legend>
-                          <label asp-for="PaymentMethod" class="col-form-label">@T("Ad.Fields.PaymentMethod"):</label>
-                          <input asp-for="PaymentMethod" class="form-control" />
-                      </fieldset>
-                      <fieldset class="form-group col-sm-6 col-12">
-                          <legend class="sr-only">@T("Ad.Fields.ShippingMethod")</legend>
-                          <label asp-for="ShippingMethodId" class="col-form-label">@T("Ad.Fields.ShippingMethod"):</label>
-                          <div class="form-horizontal">
-                              <div class="form-body">
-                                  <div class="form-group">
-                                      <label-ext asp-for="ShippingMethodId" />
-                                      <script asp-location="Footer">
-                                          $('[data-toggle="tooltip"]').tooltip({
-                                              animated: 'fade',
-                                              placement: 'right',
-                                              html: true
-                                          });
-                                      </script>
-                                      <div class="col-md-84 col-sm-86">
-                                          <select-box asp-for="ShippingMethodId" asp-items="Model.ShippingMethodType" />
+
+                          </fieldset>
+                          <fieldset class="form-group col-sm-6 col-12">
+                              <legend class="sr-only">@T("Ad.Fields.ShippingMethod")</legend>
+                              <label-ext asp-for="ShippingMethodId" class="col-form-label">@T("Ad.Fields.ShippingMethod"):</label-ext>
+                              <script asp-location="Footer">
+                                  $('[data-toggle="tooltip"]').tooltip({
+                                      animated: 'fade',
+                                      placement: 'right',
+                                      html: true
+                                  });
+                              </script>
+                              <div class="form-horizontal">
+                                  <div class="form-body">
+                                      <div class="form-group">
+                                          @*<label-ext asp-for="ShippingMethodId" />*@
+                                          <div class="col-md-84 col-sm-86">
+                                              <select-box asp-for="ShippingMethodId" asp-items="Model.ShippingMethodType" />
+                                          </div>
                                       </div>
                                   </div>
                               </div>
-                          </div>
-                      </fieldset>
+                          </fieldset>
+                      </div>
                   </div>
               </div>
-      
               <div class="card mb-3">
                   <h3 class="card-header">@T("Ads.OtherInfo")</h3>
-      
+
                   <div class="card-body">
-                      <fieldset class="form-fields">
+                      <fieldset class="form-group col-sm-6 col-12">
                           <legend class="sr-only">@T("Ad.Fields.isDocument")</legend>
                           <label class="col-form-label">
                               @T("Ad.Fields.isDocument"):
@@ -232,11 +249,11 @@
                           <label asp-for="Mileage" class="col-form-label">@T("Ad.Fields.Mileage"):</label>
                           <input asp-for="Mileage" class="form-control" />
                       </fieldset>
-      
-                      <div class="form-fields">
+
+                      <div class="form-group col-12">
                           <div class="form-group">
                               <label asp-for="AdComment" class="col-form-label">@T("Ad.Fields.Comment"):</label>
-                              <textarea asp-for="AdComment" cols="4" class="form-control account-signature-text"></textarea>
+                              <textarea asp-for="AdComment" rows="12" class="form-control account-signature-text"></textarea>
                           </div>
                       </div>
                   </div>

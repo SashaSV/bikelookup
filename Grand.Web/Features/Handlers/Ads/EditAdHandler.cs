@@ -14,8 +14,10 @@ using Grand.Web.Features.Models.Products;
 using Grand.Web.Models.Ads;
 using MediatR;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using static Grand.Web.Models.Ads.EditAdModel;
 
 namespace Grand.Web.Features.Handlers.Ads
 {
@@ -30,7 +32,8 @@ namespace Grand.Web.Features.Handlers.Ads
         private readonly IPriceFormatter _priceFormatter;
         private readonly IMediator _mediator;
         private readonly IStoreContext _storeContext;
-        
+        private readonly ISpecificationAttributeService _atributeService;
+
         public EditAdHandler(
             IRepository<Ad> adRepository,
             IDateTimeHelper dateTimeHelper,
@@ -40,7 +43,8 @@ namespace Grand.Web.Features.Handlers.Ads
             IMediator mediator,
             IPriceFormatter priceFormatter,
             IProductService productService,
-            IStoreContext storeContext)
+            IStoreContext storeContext,
+            ISpecificationAttributeService atributeService)
         {
             _adRepository = adRepository;
             _dateTimeHelper = dateTimeHelper;
@@ -51,6 +55,7 @@ namespace Grand.Web.Features.Handlers.Ads
             _mediator = mediator;
             _productService = productService;
             _storeContext = storeContext;
+            _atributeService = atributeService;
         }
 
         public async Task<EditAdModel> Handle(EditAd request, CancellationToken cancellationToken)
@@ -59,7 +64,9 @@ namespace Grand.Web.Features.Handlers.Ads
             var product = await _productService.GetProductById(ad.AdItem.ProductId);
             
             var model = new EditAdModel() { WithDocuments = true};
-      
+            var delivery = await _atributeService.GetSpecificationAttributeBySeName("v_delivery");
+            var payment = await _atributeService.GetSpecificationAttributeBySeName("v_pay");
+
             model.Id = request.Ad.Id;
             model.AdNumber = request.Ad.AdNumber;
             model.AdCode = request.Ad.Code;
@@ -72,7 +79,12 @@ namespace Grand.Web.Features.Handlers.Ads
             model.Size = product.Size;
             model.Weeldiam = product.Weeldiam;
             model.Year = string.IsNullOrEmpty(product.Year)? 0 :  int.Parse(product.Year);
-          
+            model.CollorAtribure = await _atributeService.GetSpecificationAttributeBySeName("sp_color");
+            model.SelectedPaymentMethodId = request.Ad.SelectedPaymentMethodId;
+
+            model.PaymentMethodType = payment.SpecificationAttributeOptions.Select(a => new PaymentsMethodType { Id = a.Id, Name = a.GetLocalized(x => x.Name, request.Language.Id) }).ToList();
+            model.ShippingMethodType = delivery.SpecificationAttributeOptions.Select(a => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(a.GetLocalized(x => x.Name, request.Language.Id), a.Id)).ToList();
+
             var productModel = await _mediator.Send(new GetProductDetailsPage() {
                 Store = _storeContext.CurrentStore,
                 Product = product,

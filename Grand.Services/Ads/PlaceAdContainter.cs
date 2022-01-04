@@ -60,6 +60,7 @@ namespace Grand.Services.Ads
         public int RedeemedRewardPoints { get; set; }
         public decimal RedeemedRewardPointsAmount { get; set; }
         public decimal AdTotal { get; set; }
+        public string[] SelectedPaymentMethodId { get; set; }
     }
 
 }

@@ -381,6 +381,7 @@ namespace Grand.Services.Ads
                 UrlReferrer = details.Customer.GetAttributeFromEntity<string>(SystemCustomerAttributeNames.LastUrlReferrer),
                 ShippingOptionAttributeDescription = details.Customer.GetAttributeFromEntity<string>(SystemCustomerAttributeNames.ShippingOptionAttributeDescription, processPaymentRequest.StoreId),
                 ShippingOptionAttributeXml = details.Customer.GetAttributeFromEntity<string>(SystemCustomerAttributeNames.ShippingOptionAttributeXml, processPaymentRequest.StoreId),
+                SelectedPaymentMethodId = details.SelectedPaymentMethodId,
                 CreatedOnUtc = DateTime.UtcNow
             };
 
