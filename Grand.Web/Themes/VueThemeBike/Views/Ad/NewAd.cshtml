@@ -136,8 +136,8 @@
                         <div class="color-container-1">
                         @foreach (var collorOption in Model.CollorAtribure.SpecificationAttributeOptions)
                         {
-                            <b-button size="sm" variant="light" v-on:click="collorSelected = '@collorOption.Id'"  :class="collorSelected == '@collorOption.Id' ? 'color-container-selected mb-1 mr-1' : 'color-container mb-1 mr-1'">
-                                <span class="color" title="@collorOption.Name" style="background-color: @(collorOption.ColorSquaresRgb);">&nbsp;</span>
+                            <b-button size="sm" variant="light" :disabled="baseProductSelected" v-on:click="baseProduct.Color = '@collorOption.Id'"  :class="baseProduct.Color == '@collorOption.Id' ? 'color-container-selected mb-1 mr-1' : 'color-container mb-1 mr-1'">
+                                    <span class="color" title="@collorOption.Name" style="background-color: @(collorOption.ColorSquaresRgb);">&nbsp;</span>
                             </b-button>
                         }
                             </div>
