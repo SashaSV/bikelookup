@@ -122,7 +122,7 @@
                 <div class="form-row">
                     <fieldset class="form-group col-12">
                         <legend class="sr-only">@T("Ad.Fields.Color")</legend>
-                        <input type="hidden" asp-for="Color" class="form-control" v-model="collorSelected" v-validate="'required'" />
+                        <input type="hidden" asp-for="Color" class="form-control" v-model="collorSelected"/>
                         <label asp-for="Color" class="col-form-label">@T("Ad.Fields.Color"):</label>
                         <span class="required">*</span>
                         <div class="color-container-1">
@@ -179,13 +179,16 @@
                             });
                         </script>
                         <div class="mt-checkbox-list">
-                            @foreach (var paymentMethod in Model.PaymentMethodType)
+                            @if(Model.PaymentMethodType != null)
                             {
-                                <div class="mt-checkbox mt-checkbox-outline control control-checkbox">
-                                    <input type="checkbox" id="SelectedPaymentMethodIds_@paymentMethod.Id" value="@paymentMethod.Id" checked="@false" />
-                                    <label class="form-check-label" for="SelectedPaymentMethodIds_@paymentMethod.Id">@paymentMethod.Name</label>
-                                    <div class="control__indicator"></div>
-                                </div>
+                                @foreach (var paymentMethod in Model.PaymentMethodType)
+                                {
+                                    <div class="mt-checkbox mt-checkbox-outline control control-checkbox">
+                                        <input type="checkbox" id="SelectedPaymentMethodIds_@paymentMethod.Id" value="@paymentMethod.Id" checked="@false"/>
+                                        <label class="form-check-label" for="SelectedPaymentMethodIds_@paymentMethod.Id">@paymentMethod.Name</label>
+                                        <div class="control__indicator"></div>
+                                    </div>
+                                }
                             }
                         </div>
                         

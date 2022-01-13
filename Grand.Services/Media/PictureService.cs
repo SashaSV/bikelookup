@@ -381,6 +381,109 @@ namespace Grand.Services.Media
                 return await GetPictureUrl(picture, targetSize, showDefaultPicture, storeLocation, defaultPictureType);
             });
         }
+        public Stream FixImageOrientation(Stream stream, out int width, out int height)
+        {
+            try { stream.Position = 0; } catch (NotSupportedException) { }
+            using (var inputStream = new SKManagedStream(stream))
+            {
+                using (var codec = SKCodec.Create(inputStream))
+                {
+                    using (var original = SKBitmap.Decode(codec))
+                    {
+                        var useWidth = original.Width;
+                        var useHeight = original.Height;
+                        Action<SKCanvas> transform = canvas => { };
+                        switch (codec.EncodedOrigin)
+                        {
+                            case SKEncodedOrigin.TopLeft:
+                                break;
+                            case SKEncodedOrigin.TopRight:
+                                // flip along the x-axis
+                                transform = canvas => canvas.Scale(-1, 1, useWidth / 2, useHeight / 2);
+                                break;
+                            case SKEncodedOrigin.BottomRight:
+                                transform = canvas => canvas.RotateDegrees(180, useWidth / 2, useHeight / 2);
+                                break;
+                            case SKEncodedOrigin.BottomLeft:
+                                // flip along the y-axis
+                                transform = canvas => canvas.Scale(1, -1, useWidth / 2, useHeight / 2);
+                                break;
+                            case SKEncodedOrigin.LeftTop:
+                                useWidth = original.Height;
+                                useHeight = original.Width;
+                                transform = canvas =>
+                                {
+                                    // Rotate 90
+                                    canvas.RotateDegrees(90, useWidth / 2, useHeight / 2);
+                                    canvas.Scale(useHeight * 1.0f / useWidth, -useWidth * 1.0f / useHeight, useWidth / 2, useHeight / 2);
+                                };
+                                break;
+                            case SKEncodedOrigin.RightTop:
+                                useWidth = original.Height;
+                                useHeight = original.Width;
+                                transform = canvas =>
+                                {
+                                    // Rotate 90
+                                    canvas.RotateDegrees(90, useWidth / 2, useHeight / 2);
+                                    canvas.Scale(useHeight * 1.0f / useWidth, useWidth * 1.0f / useHeight, useWidth / 2, useHeight / 2);
+                                };
+                                break;
+                            case SKEncodedOrigin.RightBottom:
+                                useWidth = original.Height;
+                                useHeight = original.Width;
+                                transform = canvas =>
+                                {
+                                    // Rotate 90
+                                    canvas.RotateDegrees(90, useWidth / 2, useHeight / 2);
+                                    canvas.Scale(-useHeight * 1.0f / useWidth, useWidth * 1.0f / useHeight, useWidth / 2, useHeight / 2);
+                                };
+                                break;
+                            case SKEncodedOrigin.LeftBottom:
+                                useWidth = original.Height;
+                                useHeight = original.Width;
+                                transform = canvas =>
+                                {
+                                    // Rotate 90
+                                    canvas.RotateDegrees(90, useWidth / 2, useHeight / 2);
+                                    canvas.Scale(-useHeight * 1.0f / useWidth, -useWidth * 1.0f / useHeight, useWidth / 2, useHeight / 2);
+                                };
+                                break;
+                            default:
+                                break;
+                        }
+                        var info = new SKImageInfo(useWidth, useHeight);
+                        using (var surface = SKSurface.Create(info))
+                        {
+                            using (var paint = new SKPaint())
+                            {
+                                // high quality with antialiasing
+                                paint.IsAntialias = true;
+                                paint.FilterQuality = SKFilterQuality.High;
+
+                                // rotate according to origin
+                                transform.Invoke(surface.Canvas);
+
+                                // draw the bitmap to fill the surface
+                                surface.Canvas.DrawBitmap(original, info.Rect, paint);
+                                surface.Canvas.Flush();
+
+                                using (var image = surface.Snapshot())
+                                {
+                                    var output = new MemoryStream();
+                                    using (var data = image.Encode(SKEncodedImageFormat.Jpeg,100))
+                                    {
+                                        data.SaveTo(output);
+                                        width = useWidth;
+                                        height = useHeight;
+                                        return output;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         /// <summary>
         /// Get a picture URL
@@ -469,9 +572,9 @@ namespace Grand.Services.Media
                     {
                         try
                         {
-                            using (var image = SKBitmap.Decode(pictureBinary))
+                            using (var image = SKImage.FromEncodedData(pictureBinary))
                             {
-                                pictureBinary = ApplyResize(image, EncodedImageFormat(picture.MimeType), targetSize);
+                                pictureBinary = ApplyResize(SKBitmap.FromImage(image), EncodedImageFormat(picture.MimeType), targetSize);
                             }
                         }
                         catch { }
@@ -619,7 +722,14 @@ namespace Grand.Services.Media
             mimeType = CommonHelper.EnsureMaximumLength(mimeType, 20);
 
             seoFilename = CommonHelper.EnsureMaximumLength(seoFilename, 100);
-
+    
+            var stream = new MemoryStream(pictureBinary);
+            var fixedImageStream = FixImageOrientation(stream,out int width, out  int height);
+            var fixedMemoryStream = new MemoryStream();
+            fixedImageStream.Position = 0;
+            await fixedImageStream.CopyToAsync(fixedMemoryStream);
+            pictureBinary = fixedMemoryStream.ToArray();
+            
             if (validateBinary)
                 pictureBinary = ValidatePicture(pictureBinary, mimeType);
 
