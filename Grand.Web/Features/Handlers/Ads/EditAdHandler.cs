@@ -80,7 +80,10 @@ namespace Grand.Web.Features.Handlers.Ads
             model.Weeldiam = product.Weeldiam;
             model.Year = string.IsNullOrEmpty(product.Year)? 0 :  int.Parse(product.Year);
             model.CollorAtribure = await _atributeService.GetSpecificationAttributeBySeName("sp_color");
-            model.SelectedPaymentMethodId = request.Ad.SelectedPaymentMethodId;
+            if (request.Ad.SelectedPaymentMethodId != null)
+            {
+                model.SelectedPaymentMethodId = request.Ad.SelectedPaymentMethodId;
+            }
 
             model.PaymentMethodType = payment.SpecificationAttributeOptions.Select(a => new PaymentsMethodType { Id = a.Id, Name = a.GetLocalized(x => x.Name, request.Language.Id) }).ToList();
             model.ShippingMethodType = delivery.SpecificationAttributeOptions.Select(a => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(a.GetLocalized(x => x.Name, request.Language.Id), a.Id)).ToList();
