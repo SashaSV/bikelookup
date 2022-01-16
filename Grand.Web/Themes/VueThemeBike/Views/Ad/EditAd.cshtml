@@ -25,6 +25,12 @@
 
 @Html.AntiForgeryToken()
 
+<script>
+{
+    var currentProduct =  {Id : '@Model.Id', Year: '@Html.Raw(Model.Year)', ManufactureName:'@Html.Raw(Model.ManufactureName)', Model:'@Html.Raw(Model.Model)', Weeldiam:'@Html.Raw(Model.Weeldiam)', Size:'@Html.Raw(Model.Size)', Color:'@Html.Raw(Model.Color)', ProductName : '@Html.Raw(Model.Items.ProductName)'};
+    debugger
+}
+</script>
 <div class="page account-page customer-info-page pl-lg-3 pt-3 pt-lg-0">
     <h2 class="generalTitle">@T("Ads.EditAd")</h2>
     <form asp-route="EditAd" method="post" v-on:submit.prevent="validateBeforeSubmit($event)" enctype="multipart/form-data">
@@ -75,7 +81,12 @@
                               <legend class="sr-only">@T("Ad.Fields.SearchBike")</legend>
                               <label asp-for="SearchBike" class="col-form-label">@T("Ad.Fields.SearchBike"):</label>
                               <input type="hidden" asp-for="SearchBike" v-model="baseProduct.ProductId" class="form-control" />
-                              <findautocomplete v-on:select="baseProduct=$event"></findautocomplete>
+                              <b-input-group>
+                                    <b-input-group-prepend is-text>
+                                       <b-icon icon="search"></b-icon>
+                                   </b-input-group-prepend>
+                                  <b-form-input type="search" :disabled="true" v-model="baseProduct.ProductName"></b-form-input>
+                              </b-input-group>
                           </fieldset>
                       </div>
                       <div class="form-row">
@@ -187,13 +198,16 @@
                                   });
                               </script>
                               <div class="mt-checkbox-list">
-                                  @foreach (var paymentMethod in Model.PaymentMethodType)
+                                  @if (Model.PaymentMethodType != null)
                                   {
-                                      <div class="mt-checkbox mt-checkbox-outline control control-checkbox">
-                                          <input type="checkbox" id="SelectedPaymentMethodIds_@paymentMethod.Id" value="@paymentMethod.Id" checked="@(Model.SelectedPaymentMethodId.Contains(paymentMethod.Id))" />
-                                          <label class="form-check-label" for="SelectedPaymentMethodIds_@paymentMethod.Id">@paymentMethod.Name</label>
-                                          <div class="control__indicator"></div>
-                                      </div>
+                                      @foreach (var paymentMethod in Model.PaymentMethodType)
+                                      {
+                                          <div class="mt-checkbox mt-checkbox-outline control control-checkbox">
+                                              <input type="checkbox" id="SelectedPaymentMethodIds_@paymentMethod.Id" value="@paymentMethod.Id" checked="@(Model.SelectedPaymentMethodId.Contains(paymentMethod.Id))"/>
+                                              <label class="form-check-label" for="SelectedPaymentMethodIds_@paymentMethod.Id">@paymentMethod.Name</label>
+                                              <div class="control__indicator"></div>
+                                          </div>
+                                      }
                                   }
                               </div>
 
