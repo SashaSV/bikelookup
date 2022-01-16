@@ -18,6 +18,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using Grand.Services.Ads;
 using SkiaSharp;
+using System.Collections.Generic;
 
 namespace Grand.Web.Features.Handlers.Ads
 {
@@ -121,7 +122,7 @@ namespace Grand.Web.Features.Handlers.Ads
                 VendorId = vendor.Id,
                 UpdatedOnUtc = DateTime.Now,
                 AdId = newAd.Id
-        };
+            };
             
             if (!string.IsNullOrEmpty(groupedProductId))
             {

@@ -61,8 +61,9 @@ namespace Grand.Web.Features.Handlers.Ads
         public async Task<EditAdModel> Handle(EditAd request, CancellationToken cancellationToken)
         {
             var ad = await _adRepository.GetByIdAsync(request.Ad.Id);
-            var product = await _productService.GetProductById(ad.AdItem.ProductId);
-            
+            var product = await _productService.GetProductById(ad.ProductId);
+            var productAssociated = await _productService.GetProductById(ad.AdItem.ProductId);
+                
             var model = new EditAdModel() { WithDocuments = true};
             var delivery = await _atributeService.GetSpecificationAttributeBySeName("v_delivery");
             var payment = await _atributeService.GetSpecificationAttributeBySeName("v_pay");
@@ -72,22 +73,35 @@ namespace Grand.Web.Features.Handlers.Ads
             model.AdCode = request.Ad.Code;
             model.CreatedOn = _dateTimeHelper.ConvertToUserTime(request.Ad.CreatedOnUtc, DateTimeKind.Utc);
             model.AdStatus = request.Ad.AdStatus.GetLocalizedEnum(_localizationService, request.Language.Id);
-            model.ManufactureName = product.ManufactureName;
-            model.Price = decimal.ToInt32(product.Price);
-            model.Model = product.Model;
-            model.Color = product.Color;
-            model.Size = product.Size;
-            model.Weeldiam = product.Weeldiam;
-            model.Year = string.IsNullOrEmpty(product.Year)? 0 :  int.Parse(product.Year);
+            model.ManufactureName = productAssociated.ManufactureName;
+            model.Price = decimal.ToInt32(productAssociated.Price);
+            model.Model = productAssociated.Model;
+            model.Size = productAssociated.Size;
+            model.Color = productAssociated.Color;
+            model.Items = new EditAdModel.AdItemModel() 
+            {
+                Id = ad.AdItem.Id,
+                ProductId = product.Id,
+                ProductName = product.Name,
+                ProductSeName = product.SeName
+            };
+            model.Weeldiam = productAssociated.Weeldiam;
+            model.Year = string.IsNullOrEmpty(productAssociated.Year)? 0 :  int.Parse(product.Year);
             model.CollorAtribure = await _atributeService.GetSpecificationAttributeBySeName("sp_color");
+            // var productCollor =
+            //     product.ProductSpecificationAttributes.FirstOrDefault(o =>
+            //         o.SpecificationAttributeId == model.CollorAtribure.Id);
+            //
+            // model.Color = productCollor.SpecificationAttributeOptionId;
+            
             model.SelectedPaymentMethodId = request.Ad.SelectedPaymentMethodId;
 
-            model.PaymentMethodType = payment.SpecificationAttributeOptions.Select(a => new PaymentsMethodType { Id = a.Id, Name = a.GetLocalized(x => x.Name, request.Language.Id) }).ToList();
-            model.ShippingMethodType = delivery.SpecificationAttributeOptions.Select(a => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(a.GetLocalized(x => x.Name, request.Language.Id), a.Id)).ToList();
+            model.PaymentMethodType = payment?.SpecificationAttributeOptions.Select(a => new PaymentsMethodType { Id = a.Id, Name = a.GetLocalized(x => x.Name, request.Language.Id) }).ToList();
+            model.ShippingMethodType = delivery?.SpecificationAttributeOptions.Select(a => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(a.GetLocalized(x => x.Name, request.Language.Id), a.Id)).ToList();
 
             var productModel = await _mediator.Send(new GetProductDetailsPage() {
                 Store = _storeContext.CurrentStore,
-                Product = product,
+                Product = productAssociated,
                 IsAssociatedProduct = false,
                 UpdateCartItem = null
             });
