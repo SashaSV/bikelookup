@@ -494,6 +494,10 @@ if (typeof minPrice === "undefined")
     
     var baseYar = new Date().getFullYear()
 }
+if (typeof currentProduct === "undefined")
+{
+    currentProduct = {Id : "", Year: new Date().getFullYear(), ManufactureName:"", Model:"", Weeldiam:"", Size:"", Color:""}
+}
 var vm = new Vue({
     el: '#app',
     data() {
@@ -516,7 +520,7 @@ var vm = new Vue({
             prodToZoom: null,
             busy: false,
             idtoremove: "",
-            baseProduct : {Id : "", Year: new Date().getFullYear(), ManufactureName:"", Model:"", Weeldiam:"", Size:"", Color:""},
+            baseProduct : currentProduct,
             baseProductId: "",
             collorSelected:"",
             yearselected : new Date().getFullYear(),
