@@ -226,3 +226,86 @@
 .ads-item  .card-header {
     padding: 0.3rem 1.25rem;
 }
+
+.ad-price {
+    font-size: 40px;
+    line-height: 42px;
+    margin-top: 16px;
+    font-weight: 700;
+}
+
+.description-block{
+    border-top: 1px solid #dee2e6;
+    padding-top: 15px;
+}
+
+.picture-block{
+    padding-bottom: 15px;
+}
+
+.DateUtc{
+    margin-top:5px;
+    text-transform: lowercase;
+    line-height: 16px;
+    color: #406367;
+    font-size: 12px;
+}
+
+.description-block .Comment-header{
+    font-weight: 700;
+    color: #002F34;
+    margin: 0;
+    font-size: 24px;
+    line-height: 26px;
+    margin-bottom: 16px;
+    margin-top: 15px;
+}
+
+.description-block .Comment-description{
+    font-size: 16px;
+    color: #002F34;
+    line-height: 22px;
+    width: 100%;
+}
+
+.description-block .bottom-descr{
+    border-top: 1px solid #7F9799;
+    margin-top: 24px;
+    width: 100%;
+}
+
+.description-block .bottom-descr-group{
+    display: flex;
+    /* grid-template-columns: 50% auto 50%; */
+    margin: 0;
+    padding: 16px 0;
+    white-space: nowrap;
+    justify-content: space-between;
+}
+
+.description-block .IdAd {
+    margin: 0;
+    font-size: 12px;
+    line-height: 14px;
+    color: #406367;
+}
+
+.description-block .CntViewedAd{
+    white-space: nowrap;
+    font-size: 12px;
+    line-height: 14px;
+    color: rgb(64, 99, 103);
+
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    /* -webkit-box-pack: end; */
+    -webkit-justify-content: flex-end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+}

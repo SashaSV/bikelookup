@@ -6,6 +6,7 @@
     Layout = "_ColumnsOne";
     var themeName = themeContext.WorkingThemeName;
     pagebuilder.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/css/product/product.css", themeName));
+    pagebuilder.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/css/ad/ad.css", themeName));
 
     //title
     pagebuilder.AddTitleParts(T("PageTitle.Account").Text);
@@ -36,7 +37,7 @@
     @await Component.InvokeAsync("Widget", new { widgetZone = "productdetails_top", additionalData = Model.Id })
     <div itemscope itemtype="http://schema.org/Product" data-productid="@Model.Id">
         <div class="product-essential">
-            <b-container class="product-essential" fluid>
+            <b-container class="picture-block" fluid>
                 <div class="product-name">
                     <h2 class="generalTitle mb-3" itemprop="name" align="left">@Model.AdPructName</h2>
                 </div>
@@ -48,10 +49,7 @@
                     </b-col>
                 </b-row>
             </b-container>
-            <b-container class="product-essential" fluid>
-                <div class="Price">
-                    @Model.AdTotal
-                </div>
+            <b-container class="description-block" fluid>
                 <b-row>
                     <div class="DateUtc">
                         <span> @T("Account.ViewAds.DatePublished")</span>
@@ -59,15 +57,32 @@
                     </div>
                 </b-row>
                 <b-row>
-                    <div class="Comment">
-                        <span> @T("Account.ViewAds.Comment")</span>
-                        <span> @Model.AdComment</span>
+                    <div class="ad-price">
+                        @Model.AdTotal
                     </div>
                 </b-row>
                 <b-row>
-                    <div class="IdAd">
-                        <span> Id </span>
-                        <span> @Model.AdNumber</span>
+                    <div class="Comment-header">
+                        <span> @T("Account.ViewAds.Comment")</span>
+                    </div>
+                    <div class="Comment-description">
+                        @Html.Raw(Grand.Core.Html.HtmlHelper.FormatText(Model.AdComment))
+                    </div>
+
+
+                </b-row>
+                <b-row>
+                    <div class="bottom-descr">
+                        <div class="bottom-descr-group">
+                            <div class="IdAd">
+                                <span> Id: </span>
+                                <span> @Model.AdNumber</span>
+                            </div>
+                            <div class="CntViewedAd">
+                                <span> @T("Account.ViewAds.CntViewed"): </span>
+                                <span> 1120 </span>
+                            </div>
+                        </div>
                     </div>
                 </b-row>
             </b-container>
