@@ -126,13 +126,13 @@
                         <label asp-for="Color" class="col-form-label">@T("Ad.Fields.Color"):</label>
                         <span class="required">*</span>
                         <div class="color-container-1">
-                        @foreach (var collorOption in Model.CollorAtribure.SpecificationAttributeOptions)
-                        {
-                            <b-button size="sm" variant="light" :disabled="baseProductSelected" v-on:click="baseProduct.Color = '@collorOption.Id'"  :class="baseProduct.Color == '@collorOption.Id' ? 'color-container-selected mb-1 mr-1' : 'color-container mb-1 mr-1'">
+                            @foreach (var collorOption in Model.CollorAtribure.SpecificationAttributeOptions)
+                            {
+                                <b-button size="sm" variant="light" :disabled="baseProductSelected" v-on:click="baseProduct.Color = '@collorOption.Id'" :class="baseProduct.Color == '@collorOption.Id' ? 'color-container-selected mb-1 mr-1' : 'color-container mb-1 mr-1'">
                                     <span class="color" title="@collorOption.Name" style="background-color: @(collorOption.ColorSquaresRgb);">&nbsp;</span>
-                            </b-button>
-                        }
-                            </div>
+                                </b-button>
+                            }
+                        </div>
                     </fieldset>
 
                 </div>
@@ -148,10 +148,8 @@
                         <label asp-for="Price" class="col-form-label">@T("Ad.Fields.Priсe"):</label>
                         <span class="required">*</span>
                         <input asp-for="Price" class="form-control" />
-
                         @*v-validate="'required'"*@
-
-                        <span class="field-validation-error">{{veeErrors.first('Priсe')}}</span>
+                        @*<span class="field-validation-error">{{veeErrors.first('Priсe')}}</span>*@
                         <span asp-validation-for="Price"></span>
                     </fieldset>
                     <fieldset class="form-group col-sm-6 col-12">
@@ -167,7 +165,7 @@
         <div class="card mb-3">
             <h3 class="card-header">@T("Ads.Payment&Shipping")</h3>
             <div class="card-body">
-                <div class="form-row">
+                <!--<div class="form-row">
                     <fieldset class="form-group col-sm-6 col-12">
                         <legend class="sr-only">@T("Ad.Fields.PaymentMethod")</legend>
                         <label-ext asp-for="SelectedPaymentMethodId" class="col-form-label">@T("Ad.Fields.PaymentMethod"):</label-ext>
@@ -205,16 +203,16 @@
                         </script>
                         <div class="form-horizontal">
                             <div class="form-body">
-                                <div class="form-group">
+                                <div class="form-group">-->
                                     @*<label-ext asp-for="ShippingMethodId" />*@
-                                    <div class="col-md-84 col-sm-86">
+                                    <!--<div class="col-md-84 col-sm-86">
                                         <select-box asp-for="ShippingMethodId" asp-items="Model.ShippingMethodType" />
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </fieldset>
-                </div>
+                </div>-->
             </div>
         </div>
 

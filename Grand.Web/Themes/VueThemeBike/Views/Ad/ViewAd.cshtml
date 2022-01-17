@@ -1,10 +1,11 @@
 ﻿@model ViewAdModel
 @inject Grand.Domain.Customers.CustomerSettings customerSettings
 @inject IPageHeadBuilder pagebuilder
-@using Grand.Web.Models.Customer;
-@using Grand.Core;
+@inject IThemeContext themeContext
 @{
     Layout = "_ColumnsOne";
+    var themeName = themeContext.WorkingThemeName;
+    pagebuilder.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/css/product/product.css", themeName));
 
     //title
     pagebuilder.AddTitleParts(T("PageTitle.Account").Text);
@@ -12,21 +13,72 @@
     pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/jquery-ui-1.12.1.custom/jquery-ui.min.js", excludeFromBundle: true);
     pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/jquery.validate.unobtrusive.min.js", excludeFromBundle: true);
     pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/jquery.validate.min.js", excludeFromBundle: true);
-    
+
     pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/typeahead.js", excludeFromBundle: true);
     pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/administration/build/js/jquery.min.js", excludeFromBundle: true);
 
 
 }
 @*@section left
-{
-    @await Component.InvokeAsync("CustomerNavigation", new { selectedTabId = CustomerNavigationEnum.Ads })
-}*@
+    {
+        @await Component.InvokeAsync("CustomerNavigation", new { selectedTabId = CustomerNavigationEnum.Ads })
+    }*@
 
 @Html.AntiForgeryToken()
 
-<div class="page account-page customer-info-page pl-lg-3 pt-3 pt-lg-0">
-    <h2 class="generalTitle">@T("Ads.ViewAd")</h2>
+@section Breadcrumb
+{
+    <partial name="_AdBreadcrumb" model="Model.Breadcrumb" />
+}
 
+@await Component.InvokeAsync("Widget", new { widgetZone = "productdetails_after_breadcrumb", additionalData = Model.Id })
+<div class="page product-details-page product-standard product-grouped">
+    @await Component.InvokeAsync("Widget", new { widgetZone = "productdetails_top", additionalData = Model.Id })
+    <div itemscope itemtype="http://schema.org/Product" data-productid="@Model.Id">
+        <div class="product-essential">
+            <b-container class="product-essential" fluid>
+                <div class="product-name">
+                    <h2 class="generalTitle mb-3" itemprop="name" align="left">@Model.AdPructName</h2>
+                </div>
+                <b-row>
+                    <vc:widget widget-zone="productdetails_before_pictures" additional-data="@Model.Id"></vc:widget>
+                    <partial name="_AdDetailsPictures" model="Model" />
+                    <vc:widget widget-zone="productdetails_after_pictures" additional-data="@Model.Id"></vc:widget>
+                    <b-col xl="6" lg="6" md="7" cols="12" class="overview pl-md-3 pl-0 pr-0">
+                    </b-col>
+                </b-row>
+            </b-container>
+            <b-container class="product-essential" fluid>
+                <div class="Price">
+                    @Model.AdTotal
+                </div>
+                <b-row>
+                    <div class="DateUtc">
+                        <span> @T("Account.ViewAds.DatePublished")</span>
+                        <span> @Model.CreatedOnUtc.ToString("D") </span>
+                    </div>
+                </b-row>
+                <b-row>
+                    <div class="Comment">
+                        <span> @T("Account.ViewAds.Comment")</span>
+                        <span> @Model.AdComment</span>
+                    </div>
+                </b-row>
+                <b-row>
+                    <div class="IdAd">
+                        <span> Id </span>
+                        <span> @Model.AdNumber</span>
+                    </div>
+                </b-row>
+            </b-container>
+        </div>
+    </div>
+
+    @*@await Component.InvokeAsync("RelatedProducts", new { productId = Model.Id })*@
+    @await Component.InvokeAsync("Widget", new { widgetZone = "productdetails_bottom", additionalData = Model.Id })
 </div>
+@*<div class="page account-page customer-info-page pl-lg-3 pt-3 pt-lg-0">
+        <h2 class="generalTitle">@T("Ads.ViewAd")</h2>
+
+    </div>*@
 

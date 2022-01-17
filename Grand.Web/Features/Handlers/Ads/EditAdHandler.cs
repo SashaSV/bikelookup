@@ -95,6 +95,10 @@ namespace Grand.Web.Features.Handlers.Ads
             // model.Color = productCollor.SpecificationAttributeOptionId;
             
             model.SelectedPaymentMethodId = request.Ad.SelectedPaymentMethodId;
+            if (request.Ad.SelectedPaymentMethodId != null)
+            {
+                model.SelectedPaymentMethodId = request.Ad.SelectedPaymentMethodId;
+            }
 
             model.PaymentMethodType = payment?.SpecificationAttributeOptions.Select(a => new PaymentsMethodType { Id = a.Id, Name = a.GetLocalized(x => x.Name, request.Language.Id) }).ToList();
             model.ShippingMethodType = delivery?.SpecificationAttributeOptions.Select(a => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(a.GetLocalized(x => x.Name, request.Language.Id), a.Id)).ToList();
