@@ -25,8 +25,9 @@ namespace Grand.Web.Models.Ads
         public string AdStatus { get; set; }
         public string ShippingStatus { get; set; }
         public AddressModel ShippingAddress { get; set; }
-        public IList<SelectListItem> ShippingMethodType { get; set; }
-        
+        public IList<ShipmentMethodType> ShippingMethodType { get; set; }
+        public IList<string> SelectedShippingMethods { get; set; }
+                
         [GrandResourceDisplayName("Ad.Fields.ShippingMethodType")]
         public string ShippingMethodId { get; set; }
         public string ShippingAdditionDescription { get; set; }
@@ -40,12 +41,13 @@ namespace Grand.Web.Models.Ads
         //public IList<SelectListItem> PaymentMethodType { get; set; }
         public IList<PaymentsMethodType> PaymentMethodType { get; set; }
         [GrandResourceDisplayName("Ad.Fields.PaymentMethodType")]
-        public string[] SelectedPaymentMethodId { get; set; }
         public string PaymentMethod { get; set; }
         public string PaymentMethodStatus { get; set; }
         public string AdShipping { get; set; }
         public bool ShowSku { get; set; }
         public IList<AdItemModel> Items { get; set; }
+
+        public IList<string> SelectedPaymentMethods { get; set; }
 
         [GrandResourceDisplayName("Ad.Fields.isDocument")]
         public bool WithDocuments { get; set; }
@@ -122,6 +124,11 @@ namespace Grand.Web.Models.Ads
             public DateTime? DeliveryDate { get; set; }
         }
         public partial class PaymentsMethodType : BaseEntityModel
+        {
+            public string Name { get; set; }
+        }
+        
+        public partial class ShipmentMethodType : BaseEntityModel
         {
             public string Name { get; set; }
         }

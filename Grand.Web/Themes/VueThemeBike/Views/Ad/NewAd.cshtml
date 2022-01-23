@@ -115,7 +115,7 @@
                     </span>
                     <span class="required">*</span>
                     <div class="input-group">
-                        <b-form-select  name="Year" :disabled="baseProductSelected" v-model="baseProduct.Year" :options="years"></b-form-select>
+                        <b-form-select name="Year" :disabled="baseProductSelected" v-model="baseProduct.Year" :options="years"></b-form-select>
                         <span asp-validation-for="Year"></span>
                     </div>
                 </fieldset>
@@ -168,7 +168,7 @@
                 <div class="form-row">
                     <fieldset class="form-group col-sm-6 col-12">
                         <legend class="sr-only">@T("Ad.Fields.PaymentMethod")</legend>
-                        <label-ext asp-for="SelectedPaymentMethodId" class="col-form-label">@T("Ad.Fields.PaymentMethod"):</label-ext>
+                        <label-ext asp-for="SelectedPaymentMethods" class="col-form-label">@T("Ad.Fields.PaymentMethod"):</label-ext>
                         <script asp-location="Footer">
                             $('[data-toggle="tooltip"]').tooltip({
                                 animated: 'fade',
@@ -182,7 +182,7 @@
                                 @foreach (var paymentMethod in Model.PaymentMethodType)
                                 {
                                     <div class="mt-checkbox mt-checkbox-outline control control-checkbox">
-                                        <input type="checkbox" id="SelectedPaymentMethodIds_@paymentMethod.Id" value="@paymentMethod.Id" checked="@false"/>
+                                        <input type="checkbox" name="SelectedPaymentMethods" id="SelectedPaymentMethodIds_@paymentMethod.Id" value="@paymentMethod.Id" checked="@false"/>
                                         <label class="form-check-label" for="SelectedPaymentMethodIds_@paymentMethod.Id">@paymentMethod.Name</label>
                                         <div class="control__indicator"></div>
                                     </div>
@@ -201,16 +201,19 @@
                                 html: true
                             });
                         </script>
-                        <div class="form-horizontal">
-                            <div class="form-body">
-                                <div class="form-group">
-                                    <label-ext asp-for="ShippingMethodId" />
-                                    <div class="col-md-84 col-sm-86">
-                                        <select-box asp-for="ShippingMethodId" asp-items="Model.ShippingMethodType" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                         <div class="mt-checkbox-list">
+                           @if(Model.ShippingMethodType != null)
+                           {
+                               @foreach (var shipmentMethod in Model.ShippingMethodType)
+                               {
+                                   <div class="mt-checkbox mt-checkbox-outline control control-checkbox">
+                                       <input type="checkbox" name="SelectedShippingMethods" id="SelectedShippingMethods@shipmentMethod.Id" value="@shipmentMethod.Id" checked="@false"/>
+                                       <label class="form-check-label" for="SelectedShippingMethods_@shipmentMethod.Id">@shipmentMethod.Name</label>
+                                       <div class="control__indicator"></div>
+                                   </div>
+                               }
+                           }
+                       </div>
                     </fieldset>
                 </div>
             </div>

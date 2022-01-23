@@ -65,9 +65,7 @@ namespace Grand.Web.Features.Handlers.Ads
             var productAssociated = await _productService.GetProductById(ad.AdItem.ProductId);
                 
             var model = new EditAdModel() { WithDocuments = true};
-            var delivery = await _atributeService.GetSpecificationAttributeBySeName("v_delivery");
-            var payment = await _atributeService.GetSpecificationAttributeBySeName("v_pay");
-
+            
             model.Id = request.Ad.Id;
             model.AdNumber = request.Ad.AdNumber;
             model.AdCode = request.Ad.Code;
@@ -94,15 +92,24 @@ namespace Grand.Web.Features.Handlers.Ads
             //
             // model.Color = productCollor.SpecificationAttributeOptionId;
             
-            model.SelectedPaymentMethodId = request.Ad.SelectedPaymentMethodId;
-            if (request.Ad.SelectedPaymentMethodId != null)
+            
+            var paymentAtribute =  await _atributeService.GetSpecificationAttributeBySeName("v_pay");
+            
+            model.PaymentMethodType = paymentAtribute?.SpecificationAttributeOptions.Select(a => new PaymentsMethodType { Id = a.Id, Name = a.GetLocalized(x => x.Name, request.Language.Id) }).ToList();
+
+            foreach (var paymentOption in productAssociated.ProductSpecificationAttributes.Where(psa=>psa.SpecificationAttributeId == paymentAtribute.Id))
             {
-                model.SelectedPaymentMethodId = request.Ad.SelectedPaymentMethodId;
+                model.SelectedPaymentMethods.Add(paymentOption.SpecificationAttributeOptionId);
             }
 
-            model.PaymentMethodType = payment?.SpecificationAttributeOptions.Select(a => new PaymentsMethodType { Id = a.Id, Name = a.GetLocalized(x => x.Name, request.Language.Id) }).ToList();
-            model.ShippingMethodType = delivery?.SpecificationAttributeOptions.Select(a => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(a.GetLocalized(x => x.Name, request.Language.Id), a.Id)).ToList();
+            var delivery = await _atributeService.GetSpecificationAttributeBySeName("v_delivery");
+            model.ShippingMethodType = delivery?.SpecificationAttributeOptions.Select(a => new ShipmentMethodType { Id = a.Id, Name = a.GetLocalized(x => x.Name, request.Language.Id) }).ToList();
 
+            foreach (var paymentOption in productAssociated.ProductSpecificationAttributes.Where(psa=>psa.SpecificationAttributeId == delivery.Id))
+            {
+                model.SelectedShippingMethods.Add(paymentOption.SpecificationAttributeOptionId);
+            }
+            
             var productModel = await _mediator.Send(new GetProductDetailsPage() {
                 Store = _storeContext.CurrentStore,
                 Product = productAssociated,

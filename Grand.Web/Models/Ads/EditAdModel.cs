@@ -18,7 +18,7 @@ namespace Grand.Web.Models.Ads
             BillingAddress = new AddressModel();
             ShippingAddress = new AddressModel();
             PictureModels = new List<PictureModel>();
-            SelectedPaymentMethodId = new string[0];
+            SelectedPaymentMethods = new List<string>();
         }
 
         public DateTime CreatedOn { get; set; }
@@ -26,7 +26,10 @@ namespace Grand.Web.Models.Ads
         public string AdStatus { get; set; }
         public string ShippingStatus { get; set; }
         public AddressModel ShippingAddress { get; set; }
-        public IList<SelectListItem> ShippingMethodType { get; set; }
+      
+        public IList<ShipmentMethodType> ShippingMethodType { get; set; }
+        
+        public IList<string> SelectedShippingMethods { get; set; }
         
         [GrandResourceDisplayName("Ad.Fields.ShippingMethodType")]
         public string ShippingMethodId { get; set; }
@@ -41,7 +44,7 @@ namespace Grand.Web.Models.Ads
         public string PaymentMethod { get; set; }
         public string PaymentMethodStatus { get; set; }
         [GrandResourceDisplayName("Ad.Fields.PaymentMethodType")]
-        public string[] SelectedPaymentMethodId { get; set; }
+        public IList<string> SelectedPaymentMethods { get; set; }
         public IList<PaymentsMethodType> PaymentMethodType { get; set; }
         public string AdShipping { get; set; }
         public bool ShowSku { get; set; }
@@ -68,7 +71,12 @@ namespace Grand.Web.Models.Ads
         {
             public string Name { get; set; }
         }
-
+        
+        public partial class ShipmentMethodType : BaseEntityModel
+        {
+          public string Name { get; set; }
+        }
+        
         public partial class AdItemModel : BaseEntityModel
         {
             public AdItemModel()

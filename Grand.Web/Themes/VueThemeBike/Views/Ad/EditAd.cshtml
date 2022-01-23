@@ -188,7 +188,7 @@
                       <div class="form-row">
                           <fieldset class="form-group col-sm-6 col-12">
                               <legend class="sr-only">@T("Ad.Fields.PaymentMethod")</legend>
-                              <label-ext asp-for="SelectedPaymentMethodId" class="col-form-label">@T("Ad.Fields.PaymentMethod"):</label-ext>
+                              <label-ext asp-for="SelectedPaymentMethods" class="col-form-label">@T("Ad.Fields.PaymentMethod"):</label-ext>
                               <script asp-location="Footer">
                                   $('[data-toggle="tooltip"]').tooltip({
                                       animated: 'fade',
@@ -202,8 +202,8 @@
                                       @foreach (var paymentMethod in Model.PaymentMethodType)
                                       {
                                           <div class="mt-checkbox mt-checkbox-outline control control-checkbox">
-                                              <input type="checkbox" id="SelectedPaymentMethodIds_@paymentMethod.Id" value="@paymentMethod.Id" checked="@(Model.SelectedPaymentMethodId.Contains(paymentMethod.Id))"/>
-                                              <label class="form-check-label" for="SelectedPaymentMethodIds_@paymentMethod.Id">@paymentMethod.Name</label>
+                                              <input type="checkbox" name="SelectedPaymentMethods" id="SelectedPaymentMethods_@paymentMethod.Id" value="@paymentMethod.Id" checked="@(Model.SelectedPaymentMethods.Contains(paymentMethod.Id))"/>
+                                              <label class="form-check-label" for="SelectedPaymentMethods@paymentMethod.Id">@paymentMethod.Name</label>
                                               <div class="control__indicator"></div>
                                           </div>
                                       }
@@ -225,9 +225,19 @@
                                   <div class="form-body">
                                       <div class="form-group">
                                           @*<label-ext asp-for="ShippingMethodId" />*@
-                                          <div class="col-md-84 col-sm-86">
-                                              <select-box asp-for="ShippingMethodId" asp-items="Model.ShippingMethodType" />
-                                          </div>
+                                         <div class="mt-checkbox-list">
+                                           @if (Model.ShippingMethodType != null)
+                                           {
+                                               @foreach (var shipmentMethod in Model.ShippingMethodType)
+                                               {
+                                                   <div class="mt-checkbox mt-checkbox-outline control control-checkbox">
+                                                       <input type="checkbox" name="SelectedShippingMethods" id="SelectedShippingMethods_@shipmentMethod.Id" value="@shipmentMethod.Id" checked="@(Model.SelectedPaymentMethods.Contains(shipmentMethod.Id))"/>
+                                                       <label class="form-check-label" for="SelectedPaymentMethods@paymentMethod.Id">@shipmentMethod.Name</label>
+                                                       <div class="control__indicator"></div>
+                                                   </div>
+                                               }
+                                           }
+                                       </div>
                                       </div>
                                   </div>
                               </div>

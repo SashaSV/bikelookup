@@ -23,11 +23,15 @@ namespace Grand.Web.Features.Handlers.Ads
         private readonly IPictureService _pictureService;
         private readonly IWorkContext _workContext;
         private readonly ICustomerService _customerService;
+        private readonly ISpecificationAttributeService _atributeService;
+        private readonly ISpecificationAttributeService _attributeProductService;
 
         public SaveEditAdHandler(IRepository<Ad> adRepository, IProductService productService, IVendorService vendorService
             , IPictureService pictureService
             , IWorkContext workContext
-            , ICustomerService customerService)
+            , ICustomerService customerService,
+            ISpecificationAttributeService atributeService,
+            ISpecificationAttributeService attributeProductService)
         {
             _adRepository = adRepository;
             _productService = productService;
@@ -35,26 +39,51 @@ namespace Grand.Web.Features.Handlers.Ads
             _pictureService = pictureService;
             _workContext = workContext;
             _customerService = customerService;
+            _atributeService = atributeService;
+            _attributeProductService = attributeProductService;
 
         }
 
         public async Task<bool> Handle(EditAdSave request, CancellationToken cancellationToken)
         {
             var ad = await _adRepository.GetByIdAsync(request.Model.Id);
-            var product = await _productService.GetProductById(ad.AdItem.Id);
+            var product = await _productService.GetProductById(ad.AdItem.ProductId);
 
 
             ad.Price = request.Model.Price;
             ad.AdComment = request.Model.AdComment;
             ad.AdStatus = AdStatus.Active;
 
-
+            var payment = await _atributeService.GetSpecificationAttributeBySeName("v_pay");
+            
+            var oldPaymentAtributes = product.ProductSpecificationAttributes.Where(a => a.SpecificationAttributeId == payment.Id).ToList();
+            foreach (var oldPaymentSettings in oldPaymentAtributes)
+            {
+                oldPaymentSettings.ProductId = product.Id;
+                await _atributeService.DeleteProductSpecificationAttribute(oldPaymentSettings);
+            }
+            
+            foreach (var paymentMethod in request.Model.SelectedPaymentMethods)
+            {
+                var psa = new ProductSpecificationAttribute {
+                    AttributeTypeId = (int)SpecificationAttributeType.Option,
+                    SpecificationAttributeOptionId = paymentMethod,
+                    SpecificationAttributeId = payment.Id,
+                    ProductId = product.Id,
+                    AllowFiltering = true,
+                    ShowOnProductPage = true,
+                    ShowOnSellerPage = true,
+                    DisplayOrder = 1,
+                };
+                await _atributeService.InsertProductSpecificationAttribute(psa);
+            }
+            
             if (product != null)
             {
                 product.Price = request.Model.Price;
                 await _productService.UpdateProduct(product);
             }
-
+            
             var venAddr = ad.ShippingAddress;
             
             if (venAddr == null) {
