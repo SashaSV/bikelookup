@@ -34,10 +34,9 @@ namespace Grand.Web.Features.Handlers.Ads
             , IPictureService pictureService
             , IWorkContext workContext
             , ICustomerService customerService
-            , IGenericAttributeService genericAttributeService)
-            , ICustomerService customerService,
-            ISpecificationAttributeService atributeService,
-            ISpecificationAttributeService attributeProductService)
+            , IGenericAttributeService genericAttributeService
+            , ISpecificationAttributeService atributeService
+            , ISpecificationAttributeService attributeProductService)
         {
             _adRepository = adRepository;
             _productService = productService;
@@ -83,17 +82,12 @@ namespace Grand.Web.Features.Handlers.Ads
             var venAddr = ad.ShippingAddress;
             
             if (venAddr == null) {
-                var userId = ad.CustomerId == null ? ad.OwnerId : ad.CustomerId;
-
                 if (userId != null)
                 {
-                    var customerAd = await _customerService.GetCustomerById(userId);
                     var customerName = string.Format("{0} ({1})", 
                             customerAd.FormatUserName(CustomerNameFormat.ShowFirstName), 
                                 customerAd.Addresses.First().City);
                     
-                    var vendor = await _vendorService.GetVendorByEmail(customerAd.Email, customerName);
-
                     vendor.Addresses = customerAd.Addresses;
 
                     await _vendorService.UpdateVendor(vendor);
