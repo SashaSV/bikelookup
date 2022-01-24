@@ -36,8 +36,8 @@ namespace Grand.Web.Features.Handlers.Ads
         private readonly IGenericAttributeService _genericAttributeService;
 
         public SaveAdHandler(IAdService adRepository, IProductService productService, IVendorService vendorService, IPictureService pictureService, 
-            IWorkContext workContext, ICustomerService customerService, CustomerSettings customerSettings,ISpecificationAttributeService atributeService)
-            IWorkContext workContext, ICustomerService customerService, CustomerSettings customerSettings, IGenericAttributeService genericAttributeService)
+            IWorkContext workContext, ICustomerService customerService, CustomerSettings customerSettings,ISpecificationAttributeService atributeService
+            , IGenericAttributeService genericAttributeService)
         {
             _adRepository = adRepository;
             _productService = productService;
@@ -47,7 +47,6 @@ namespace Grand.Web.Features.Handlers.Ads
             _customerService = customerService;
             _customerSettings = customerSettings;
             _atributeService = atributeService;
-
             _genericAttributeService = genericAttributeService;
         }
         
