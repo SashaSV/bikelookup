@@ -19,6 +19,7 @@ namespace Grand.Web.Models.Ads
             ShippingAddress = new AddressModel();
             PictureModels = new List<PictureModel>();
             SelectedPaymentMethods = new List<string>();
+            SelectedShippingMethods = new List<string>();
         }
 
         public DateTime CreatedOn { get; set; }

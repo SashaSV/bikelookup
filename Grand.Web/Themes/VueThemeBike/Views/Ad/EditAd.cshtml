@@ -232,7 +232,7 @@
                                                @foreach (var shipmentMethod in Model.ShippingMethodType)
                                                {
                                                    <div class="mt-checkbox mt-checkbox-outline control control-checkbox">
-                                                       <input type="checkbox" name="SelectedShippingMethods" id="SelectedShippingMethods_@shipmentMethod.Id" value="@shipmentMethod.Id" checked="@(Model.SelectedPaymentMethods.Contains(shipmentMethod.Id))"/>
+                                                       <input type="checkbox" name="SelectedShippingMethods" id="SelectedShippingMethods_@shipmentMethod.Id" value="@shipmentMethod.Id" checked="@(Model.SelectedShippingMethods.Contains(shipmentMethod.Id))"/>
                                                        <label class="form-check-label" for="SelectedPaymentMethods@paymentMethod.Id">@shipmentMethod.Name</label>
                                                        <div class="control__indicator"></div>
                                                    </div>

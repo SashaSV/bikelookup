@@ -105,7 +105,7 @@ namespace Grand.Web.Features.Handlers.Ads
             {
                 model.SelectedPaymentMethods.Add(paymentOption.SpecificationAttributeOptionId);
             }
-
+            
             var delivery = await _atributeService.GetSpecificationAttributeBySeName("v_delivery");
             model.ShippingMethodType = delivery?.SpecificationAttributeOptions.Select(a => new ShipmentMethodType { Id = a.Id, Name = a.GetLocalized(x => x.Name, request.Language.Id) }).ToList();
 

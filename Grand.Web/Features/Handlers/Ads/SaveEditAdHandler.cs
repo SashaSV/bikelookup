@@ -66,11 +66,58 @@ namespace Grand.Web.Features.Handlers.Ads
             var userId = ad.CustomerId == null ? ad.OwnerId : ad.CustomerId;
             var customerAd = await _customerService.GetCustomerById(userId);
             var vendor = await _vendorService.GetVendorByEmail(customerAd.Email, null);
-           
+            
+            var payment = await _atributeService.GetSpecificationAttributeBySeName("v_pay");
+            var oldPaymentAtributes = product.ProductSpecificationAttributes.Where(a => a.SpecificationAttributeId == payment.Id).ToList();
+            foreach (var oldPaymentSettings in oldPaymentAtributes)
+            {
+                oldPaymentSettings.ProductId = product.Id;
+                await _atributeService.DeleteProductSpecificationAttribute(oldPaymentSettings);
+            }
+
+            foreach (var paymentMethod in request.Model.SelectedPaymentMethods)
+            {
+                var psa = new ProductSpecificationAttribute {
+                    AttributeTypeId = (int)SpecificationAttributeType.Option,
+                    SpecificationAttributeOptionId = paymentMethod,
+                    SpecificationAttributeId = payment.Id,
+                    ProductId = product.Id,
+                    AllowFiltering = true,
+                    ShowOnProductPage = true,
+                    ShowOnSellerPage = true,
+                    DisplayOrder = 1,
+                };
+                await _atributeService.InsertProductSpecificationAttribute(psa);
+            }
+            
+            var shipment = await _atributeService.GetSpecificationAttributeBySeName("v_delivery");
+            var oldShipmentAtributes = product.ProductSpecificationAttributes.Where(a => a.SpecificationAttributeId == shipment.Id).ToList();
+            
+            foreach (var oldShipmentSettings in oldShipmentAtributes)
+            {
+                oldShipmentSettings.ProductId = product.Id;
+                await _atributeService.DeleteProductSpecificationAttribute(oldShipmentSettings);
+            }
+
+            foreach (var shipMethod in request.Model.SelectedShippingMethods)
+            {
+                var psa = new ProductSpecificationAttribute {
+                    AttributeTypeId = (int)SpecificationAttributeType.Option,
+                    SpecificationAttributeOptionId = shipMethod,
+                    SpecificationAttributeId = shipment.Id,
+                    ProductId = product.Id,
+                    AllowFiltering = true,
+                    ShowOnProductPage = true,
+                    ShowOnSellerPage = true,
+                    DisplayOrder = 1,
+                };
+                //product.ProductSpecificationAttributes.Add(psa);
+                await _atributeService.InsertProductSpecificationAttribute(psa);
+            }
+
             await _customerService.UpdateAddressFromCustomerFileds(customerAd);
             vendor.Addresses = customerAd.Addresses;
             vendor.Name = customerAd.Addresses.First().Company;
-
 
             if (product != null)
             {
