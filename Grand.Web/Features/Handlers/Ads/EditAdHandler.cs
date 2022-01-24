@@ -99,15 +99,20 @@ namespace Grand.Web.Features.Handlers.Ads
             //
             // model.Color = productCollor.SpecificationAttributeOptionId;
             
-            model.SelectedPaymentMethodId = new string[0];
-            if (ad.SelectedPaymentMethodId != null)
+            model.SelectedPaymentMethodId = request.Ad.SelectedPaymentMethodId;
+            if (request.Ad.SelectedPaymentMethodId != null)
             {
-                model.SelectedPaymentMethodId = ad.SelectedPaymentMethodId;
+                model.SelectedPaymentMethodId = request.Ad.SelectedPaymentMethodId;
             }
 
-            model.PaymentMethodType = payment?.SpecificationAttributeOptions.Select(a => new PaymentsMethodType { Id = a.Id, Name = a.GetLocalized(x => x.Name, request.Language.Id) }).ToList();
-            model.ShippingMethodType = delivery?.SpecificationAttributeOptions.Select(a => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(a.GetLocalized(x => x.Name, request.Language.Id), a.Id)).ToList();
+            var delivery = await _atributeService.GetSpecificationAttributeBySeName("v_delivery");
+            model.ShippingMethodType = delivery?.SpecificationAttributeOptions.Select(a => new ShipmentMethodType { Id = a.Id, Name = a.GetLocalized(x => x.Name, request.Language.Id) }).ToList();
 
+            foreach (var paymentOption in productAssociated.ProductSpecificationAttributes.Where(psa=>psa.SpecificationAttributeId == delivery.Id))
+            {
+                model.SelectedShippingMethods.Add(paymentOption.SpecificationAttributeOptionId);
+            }
+            
             var productModel = await _mediator.Send(new GetProductDetailsPage() {
                 Store = _storeContext.CurrentStore,
                 Product = productAssociated,

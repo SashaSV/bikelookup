@@ -31,9 +31,12 @@ namespace Grand.Web.Features.Handlers.Ads
         private readonly IWorkContext _workContext;
         private readonly ICustomerService _customerService;
         private readonly CustomerSettings _customerSettings;
+        private readonly ISpecificationAttributeService _atributeService;
+        
         private readonly IGenericAttributeService _genericAttributeService;
 
         public SaveAdHandler(IAdService adRepository, IProductService productService, IVendorService vendorService, IPictureService pictureService, 
+            IWorkContext workContext, ICustomerService customerService, CustomerSettings customerSettings,ISpecificationAttributeService atributeService)
             IWorkContext workContext, ICustomerService customerService, CustomerSettings customerSettings, IGenericAttributeService genericAttributeService)
         {
             _adRepository = adRepository;
@@ -43,6 +46,8 @@ namespace Grand.Web.Features.Handlers.Ads
             _workContext = workContext;
             _customerService = customerService;
             _customerSettings = customerSettings;
+            _atributeService = atributeService;
+
             _genericAttributeService = genericAttributeService;
         }
         
@@ -126,6 +131,39 @@ namespace Grand.Web.Features.Handlers.Ads
                 UpdatedOnUtc = DateTime.Now,
                 AdId = newAd.Id
             };
+            
+            var payment = await _atributeService.GetSpecificationAttributeBySeName("v_pay");
+            
+            foreach (var paymentMethod in request.AdToSave.SelectedPaymentMethods)
+            {
+                var psa = new ProductSpecificationAttribute {
+                    AttributeTypeId = (int)SpecificationAttributeType.Option,
+                    SpecificationAttributeOptionId = paymentMethod,
+                    SpecificationAttributeId = payment.Id,
+                    ProductId = product.Id,
+                    AllowFiltering = true,
+                    ShowOnProductPage = true,
+                    ShowOnSellerPage = true,
+                    DisplayOrder = 1,
+                };
+                product.ProductSpecificationAttributes.Add(psa);
+            }
+            
+            var shipment = await _atributeService.GetSpecificationAttributeBySeName("v_delivery");
+            foreach (var shipMethod in request.AdToSave.SelectedShippingMethods)
+            {
+                var psa = new ProductSpecificationAttribute {
+                    AttributeTypeId = (int)SpecificationAttributeType.Option,
+                    SpecificationAttributeOptionId = shipMethod,
+                    SpecificationAttributeId = shipment.Id,
+                    ProductId = product.Id,
+                    AllowFiltering = true,
+                    ShowOnProductPage = true,
+                    ShowOnSellerPage = true,
+                    DisplayOrder = 1,
+                };
+                product.ProductSpecificationAttributes.Add(psa);
+            }
             
             if (!string.IsNullOrEmpty(groupedProductId))
             {

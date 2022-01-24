@@ -57,7 +57,7 @@ namespace Grand.Web.Features.Handlers.Ads
                 WithDocuments = true,
                 Year = DateTime.Now.Year,
                 CollorAtribure = await _atributeService.GetSpecificationAttributeBySeName("sp_color"),
-                ShippingMethodType = delivery?.SpecificationAttributeOptions?.Select(a=>new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(a.GetLocalized(x => x.Name, request.Language.Id),a.Id)).ToList(),
+                ShippingMethodType = delivery?.SpecificationAttributeOptions?.Select(a=>new ShipmentMethodType{ Id = a.Id, Name = a.GetLocalized(x => x.Name, request.Language.Id)}).ToList(),
                 //PaymentMethodType = payment?.SpecificationAttributeOptions?.Select(a => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(a.GetLocalized(x => x.Name, request.Language.Id), a.Id)).ToList()
                 PaymentMethodType = payment?.SpecificationAttributeOptions?.Select(a => new PaymentsMethodType { Id = a.Id, Name = a.GetLocalized(x => x.Name, request.Language.Id)}).ToList()
             };

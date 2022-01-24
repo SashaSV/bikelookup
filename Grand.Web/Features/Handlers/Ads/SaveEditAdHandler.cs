@@ -27,12 +27,17 @@ namespace Grand.Web.Features.Handlers.Ads
         private readonly IWorkContext _workContext;
         private readonly ICustomerService _customerService;
         private readonly IGenericAttributeService _genericAttributeService;
+        private readonly ISpecificationAttributeService _atributeService;
+        private readonly ISpecificationAttributeService _attributeProductService;
 
         public SaveEditAdHandler(IRepository<Ad> adRepository, IProductService productService, IVendorService vendorService
             , IPictureService pictureService
             , IWorkContext workContext
             , ICustomerService customerService
             , IGenericAttributeService genericAttributeService)
+            , ICustomerService customerService,
+            ISpecificationAttributeService atributeService,
+            ISpecificationAttributeService attributeProductService)
         {
             _adRepository = adRepository;
             _productService = productService;
@@ -40,6 +45,8 @@ namespace Grand.Web.Features.Handlers.Ads
             _pictureService = pictureService;
             _workContext = workContext;
             _customerService = customerService;
+            _atributeService = atributeService;
+            _attributeProductService = attributeProductService;
             _genericAttributeService = genericAttributeService;
 
         }
@@ -65,9 +72,6 @@ namespace Grand.Web.Features.Handlers.Ads
             vendor.Addresses = customerAd.Addresses;
             vendor.Name = customerAd.Addresses.First().Company;
 
-            ad.ShippingAddress = customerAd.ShippingAddress;
-            vendor.Addresses = customerAd.Addresses;
-            await _vendorService.UpdateVendor(vendor);
 
             if (product != null)
             {
@@ -75,8 +79,27 @@ namespace Grand.Web.Features.Handlers.Ads
                 product.Price = request.Model.Price;
                 await _productService.UpdateProduct(product);
             }
+
+            var venAddr = ad.ShippingAddress;
             
-            ad.AdItem.VendorId = vendor.Id;
+            if (venAddr == null) {
+                var userId = ad.CustomerId == null ? ad.OwnerId : ad.CustomerId;
+
+                if (userId != null)
+                {
+                    var customerAd = await _customerService.GetCustomerById(userId);
+                    var customerName = string.Format("{0} ({1})", 
+                            customerAd.FormatUserName(CustomerNameFormat.ShowFirstName), 
+                                customerAd.Addresses.First().City);
+                    
+                    var vendor = await _vendorService.GetVendorByEmail(customerAd.Email, customerName);
+
+                    vendor.Addresses = customerAd.Addresses;
+
+                    await _vendorService.UpdateVendor(vendor);
+                    ad.ShippingAddress = customerAd.ShippingAddress;
+                }
+            }
 
             await _adRepository.UpdateAsync(ad);
             return true;
