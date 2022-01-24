@@ -25,7 +25,8 @@ namespace Grand.Web.Models.Ads
         public decimal Price { get; set; }
         public string AdTotal { get; set; }
         public Address CustomerAddress { get; set; }
-        
-
+        public bool WithDocuments { get; set; }
+        public int Mileage { get; set; }
+        public bool IsAuction { get; set; }
     }
 }

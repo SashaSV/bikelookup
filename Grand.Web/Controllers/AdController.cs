@@ -138,7 +138,18 @@ namespace Grand.Web.Controllers
 
             return RedirectToRoute("CustomerAds", new { AdId = AdId });
         }
-        
+
+        public virtual async Task<IActionResult> ActivetedAd(string AdId)
+        {
+            var Ad = await _adService.GetAdById(AdId);
+            if (!_workContext.CurrentCustomer.IsRegistered())
+                return Challenge();
+
+            await _mediator.Send(new ActivetedAdCommand() { Ad = Ad, NotifyCustomer = true, NotifyStoreOwner = true });
+
+            return RedirectToRoute("CustomerAds", new { AdId = AdId });
+        }
+
         //My account / Ad details page / Cancel Unpaid Ad
         public virtual async Task<IActionResult> DeleteAd(string AdId)
         {

@@ -245,7 +245,7 @@
 
 .DateUtc{
     margin-top:5px;
-    text-transform: lowercase;
+    /*text-transform: lowercase;*/
     line-height: 16px;
     color: #406367;
     font-size: 12px;
@@ -308,4 +308,44 @@
     -webkit-justify-content: flex-end;
     -ms-flex-pack: end;
     justify-content: flex-end;
+}
+
+.ad-tags{
+    flex-wrap: wrap;
+    margin: 15px;
+    padding: 0;
+    list-style: none;
+}
+
+.tag-ad {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 6px 16px;
+    margin: 16px 8px 0 0;
+    border-radius: 4px;
+    border: solid 1px #406367;
+
+    font-size: 14px;
+    line-height: 18px;
+    color: #002F34;
+}
+
+.tag-ad.withoutDocument{
+    border: solid 2px #dc3545 !important;
+}
+
+.tag-ad.withDocument{
+    border: solid 2px #28a745 !important;
+}
+
+.tag-ad span 
+{
+    font-weight: 600;
+    padding: 0 5px;
 }

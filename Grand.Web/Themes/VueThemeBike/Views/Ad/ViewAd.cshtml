@@ -48,6 +48,20 @@
                     <b-col xl="6" lg="6" md="7" cols="12" class="overview pl-md-3 pl-0 pr-0">
                     </b-col>
                 </b-row>
+                @*<b-row>
+                    <b-col xl="2" lg="3" md="4">
+                        <b-avatar size="6rem" alt="@Model.PictureModel.AlternateText" src="@Model.PictureModel.ImageUrl">
+                    </b-col>
+                    <b-col xl="10" lg="9" md="8" class="align-items-center d-flex">
+                        <div>
+                            <h1 class="h2 generalTitle w-100">
+                                Александр (New York)
+                            </h1>
+                
+                            @await Component.InvokeAsync("Widget", new { widgetZone = "vendordetails_top", additionalData = Model.Id })
+                         
+                    </b-col>
+                </b-row>*@
             </b-container>
             <b-container class="description-block" fluid>
                 <b-row>
@@ -61,6 +75,35 @@
                         @Model.AdTotal
                     </div>
                 </b-row>
+
+                <b-row class="ad-tags">
+                    @if (Model.IsAuction)
+                    {
+                        <div class="tag-ad auction">
+                            <span>@T("Account.ViewAds.IsAuction")</span>
+                        </div>
+                    }
+                    <div class="tag-ad condition">
+                        @T("Account.ViewAds.Condition"):
+                        <span>@(Model.Mileage > 0 ?T("Ad.Fields.Condition.NotNew") :T("Ad.Fields.Condition.New"))</span>
+                    </div>
+                    <div class="tag-ad milage">
+                        Пробег:
+                        <span>@Model.Mileage км</span>
+                    </div>
+                    @if (Model.WithDocuments)
+                    {
+                        <div class="tag-ad withDocument">
+                            <span>@T("Ad.Fields.Document.With")</span>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="tag-ad withoutDocument">
+                            <span>@T("Ad.Fields.Document.Without")</span>
+                        </div>
+                    }
+                </b-row>
                 <b-row>
                     <div class="Comment-header">
                         <span> @T("Account.ViewAds.Comment")</span>
@@ -68,8 +111,6 @@
                     <div class="Comment-description">
                         @Html.Raw(Grand.Core.Html.HtmlHelper.FormatText(Model.AdComment))
                     </div>
-
-
                 </b-row>
                 <b-row>
                     <div class="bottom-descr">

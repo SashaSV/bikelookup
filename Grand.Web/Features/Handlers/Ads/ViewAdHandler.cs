@@ -107,7 +107,9 @@ namespace Grand.Web.Features.Handlers.Ads
             model.AdComment = ad.AdComment;
             model.Price = ad.Price;
             model.CustomerAddress = ad.ShippingAddress;
-            
+            model.WithDocuments = ad.WithDocuments;
+            model.Mileage = ad.Mileage;
+            model.IsAuction = ad.IsAuction;
             var adTotalInCustomerCurrency = ad.Price;
             model.AdTotal = await _priceFormatter.FormatPrice(adTotalInCustomerCurrency, true, ad.CustomerCurrencyCode, false, request.Language);
 

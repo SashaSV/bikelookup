@@ -28,7 +28,7 @@
 <script>
 {
     var currentProduct =  {Id : '@Model.Id', Year: '@Html.Raw(Model.Year)', ManufactureName:'@Html.Raw(Model.ManufactureName)', Model:'@Html.Raw(Model.Model)', Weeldiam:'@Html.Raw(Model.Weeldiam)', Size:'@Html.Raw(Model.Size)', Color:'@Html.Raw(Model.Color)', ProductName : '@Html.Raw(Model.Items.ProductName)'};
-    debugger
+    /*debugger*/
 }
 </script>
 <div class="page account-page customer-info-page pl-lg-3 pt-3 pt-lg-0">
@@ -175,7 +175,8 @@
                           <fieldset class="form-group col-sm-6 col-12">
                               <legend class="sr-only">@T("Ad.Fields.isAuction")</legend>
                               <div class="form-check form-switch">
-                                  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked="@(Model.IsAuction == true)">
+                                  <input type="checkbox" asp-for="IsAuction" class="form-check-input" id="flexSwitchCheckDefault" checked="@(Model.IsAuction == true)"/>
+                                  @*<input type="checkbox" asp-for="IsAuction" value="True" checked="@(Model.IsAuction)" class="form-control form-check-input" />*@
                                   <label class="form-check-label" for="flexSwitchCheckDefault">@T("Ad.Fields.Auction.True")</label>
                               </div>
                           </fieldset>
@@ -201,11 +202,11 @@
                                   {
                                       @foreach (var paymentMethod in Model.PaymentMethodType)
                                       {
-                                          <div class="mt-checkbox mt-checkbox-outline control control-checkbox">
-                                              <input type="checkbox" id="SelectedPaymentMethodIds_@paymentMethod.Id" value="@paymentMethod.Id" checked="@(Model.SelectedPaymentMethodId.Contains(paymentMethod.Id))"/>
-                                              <label class="form-check-label" for="SelectedPaymentMethodIds_@paymentMethod.Id">@paymentMethod.Name</label>
-                                              <div class="control__indicator"></div>
-                                          </div>
+                                  <div class="mt-checkbox mt-checkbox-outline control control-checkbox">
+                                      <input type="checkbox" id="SelectedPaymentMethodIds_@paymentMethod.Id" value="@paymentMethod.Id" checked="@(Model.SelectedPaymentMethodId.Contains(paymentMethod.Id))" />
+                                      <label class="form-check-label" for="SelectedPaymentMethodIds_@paymentMethod.Id">@paymentMethod.Name</label>
+                                      <div class="control__indicator"></div>
+                                  </div>
                                       }
                                   }
                               </div>
@@ -247,11 +248,11 @@
                           <div class="form-group doc">
                               <div class="flex-row">
                                   <div class="custom-control custom-radio male custom-control-inline">
-                                      <input type="radio" asp-for="WithDocuments" value="M" checked="@(Model.WithDocuments == true)" id="bike-withdoc" class="custom-control-input" />
+                                      <input type="radio" asp-for="WithDocuments" value="True" checked="@(Model.WithDocuments == true)" id="bike-withdoc" class="form-control custom-control-input" />
                                       <label class="custom-control-label" for="bike-withdoc">@T("Ad.Fields.Document.With")</label>
                                   </div>
                                   <div class="custom-control custom-radio female custom-control-inline">
-                                      <input type="radio" asp-for="WithDocuments" value="F" checked="@(Model.WithDocuments == false)" id="bike-withoutdoc" class="custom-control-input" />
+                                      <input type="radio" asp-for="WithDocuments" value="False" checked="@(Model.WithDocuments == false)" id="bike-withoutdoc" class="form-control custom-control-input" />
                                       <label class="custom-control-label" for="bike-withoutdoc">@T("Ad.Fields.Document.Without")</label>
                                   </div>
                               </div>

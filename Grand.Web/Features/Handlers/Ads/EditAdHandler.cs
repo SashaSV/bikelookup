@@ -64,7 +64,7 @@ namespace Grand.Web.Features.Handlers.Ads
             var product = await _productService.GetProductById(ad.ProductId);
             var productAssociated = await _productService.GetProductById(ad.AdItem.ProductId);
                 
-            var model = new EditAdModel() { WithDocuments = true};
+            var model = new EditAdModel() { WithDocuments = ad.WithDocuments};
             var delivery = await _atributeService.GetSpecificationAttributeBySeName("v_delivery");
             var payment = await _atributeService.GetSpecificationAttributeBySeName("v_pay");
 
@@ -78,6 +78,11 @@ namespace Grand.Web.Features.Handlers.Ads
             model.Model = productAssociated.Model;
             model.Size = productAssociated.Size;
             model.Color = productAssociated.Color;
+            model.AdComment = ad.AdComment;
+            model.IsAuction = ad.IsAuction;
+            model.Mileage = ad.Mileage;
+            model.WithDocuments = ad.WithDocuments;
+
             model.Items = new EditAdModel.AdItemModel() 
             {
                 Id = ad.AdItem.Id,
@@ -94,10 +99,10 @@ namespace Grand.Web.Features.Handlers.Ads
             //
             // model.Color = productCollor.SpecificationAttributeOptionId;
             
-            model.SelectedPaymentMethodId = request.Ad.SelectedPaymentMethodId;
-            if (request.Ad.SelectedPaymentMethodId != null)
+            model.SelectedPaymentMethodId = new string[0];
+            if (ad.SelectedPaymentMethodId != null)
             {
-                model.SelectedPaymentMethodId = request.Ad.SelectedPaymentMethodId;
+                model.SelectedPaymentMethodId = ad.SelectedPaymentMethodId;
             }
 
             model.PaymentMethodType = payment?.SpecificationAttributeOptions.Select(a => new PaymentsMethodType { Id = a.Id, Name = a.GetLocalized(x => x.Name, request.Language.Id) }).ToList();

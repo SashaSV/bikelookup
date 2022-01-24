@@ -1,14 +1,17 @@
 using Grand.Core;
 using Grand.Domain.Ads;
 using Grand.Domain.Catalog;
+using Grand.Domain.Common;
 using Grand.Domain.Customers;
 using Grand.Domain.Data;
 using Grand.Services.Catalog;
+using Grand.Services.Common;
 using Grand.Services.Customers;
 using Grand.Services.Media;
 using Grand.Services.Vendors;
 using Grand.Web.Features.Models.Ads;
 using MediatR;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,11 +26,13 @@ namespace Grand.Web.Features.Handlers.Ads
         private readonly IPictureService _pictureService;
         private readonly IWorkContext _workContext;
         private readonly ICustomerService _customerService;
+        private readonly IGenericAttributeService _genericAttributeService;
 
         public SaveEditAdHandler(IRepository<Ad> adRepository, IProductService productService, IVendorService vendorService
             , IPictureService pictureService
             , IWorkContext workContext
-            , ICustomerService customerService)
+            , ICustomerService customerService
+            , IGenericAttributeService genericAttributeService)
         {
             _adRepository = adRepository;
             _productService = productService;
@@ -35,46 +40,43 @@ namespace Grand.Web.Features.Handlers.Ads
             _pictureService = pictureService;
             _workContext = workContext;
             _customerService = customerService;
+            _genericAttributeService = genericAttributeService;
 
         }
 
         public async Task<bool> Handle(EditAdSave request, CancellationToken cancellationToken)
         {
             var ad = await _adRepository.GetByIdAsync(request.Model.Id);
-            var product = await _productService.GetProductById(ad.AdItem.Id);
+            var product = await _productService.GetProductById(ad.AdItem.ProductId);
 
 
             ad.Price = request.Model.Price;
             ad.AdComment = request.Model.AdComment;
             ad.AdStatus = AdStatus.Active;
+            ad.WithDocuments = request.Model.WithDocuments;
+            ad.Mileage = request.Model.Mileage;
+            ad.IsAuction = request.Model.IsAuction;
 
+            var userId = ad.CustomerId == null ? ad.OwnerId : ad.CustomerId;
+            var customerAd = await _customerService.GetCustomerById(userId);
+            var vendor = await _vendorService.GetVendorByEmail(customerAd.Email, null);
+           
+            await _customerService.UpdateAddressFromCustomerFileds(customerAd);
+            vendor.Addresses = customerAd.Addresses;
+            vendor.Name = customerAd.Addresses.First().Company;
+
+            ad.ShippingAddress = customerAd.ShippingAddress;
+            vendor.Addresses = customerAd.Addresses;
+            await _vendorService.UpdateVendor(vendor);
 
             if (product != null)
             {
+                product.VendorId = ad.AdItem.VendorId;
                 product.Price = request.Model.Price;
                 await _productService.UpdateProduct(product);
             }
-
-            var venAddr = ad.ShippingAddress;
             
-            if (venAddr == null) {
-                var userId = ad.CustomerId == null ? ad.OwnerId : ad.CustomerId;
-
-                if (userId != null)
-                {
-                    var customerAd = await _customerService.GetCustomerById(userId);
-                    var customerName = string.Format("{0} ({1})", 
-                            customerAd.FormatUserName(CustomerNameFormat.ShowFirstName), 
-                                customerAd.Addresses.First().City);
-                    
-                    var vendor = await _vendorService.GetVendorByEmail(customerAd.Email, customerName);
-
-                    vendor.Addresses = customerAd.Addresses;
-
-                    await _vendorService.UpdateVendor(vendor);
-                    ad.ShippingAddress = customerAd.ShippingAddress;
-                }
-            }
+            ad.AdItem.VendorId = vendor.Id;
 
             await _adRepository.UpdateAsync(ad);
             return true;

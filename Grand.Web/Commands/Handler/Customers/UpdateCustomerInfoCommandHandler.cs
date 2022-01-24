@@ -1,4 +1,5 @@
-﻿using Grand.Domain.Customers;
+﻿using Grand.Domain.Common;
+using Grand.Domain.Customers;
 using Grand.Domain.Forums;
 using Grand.Domain.Localization;
 using Grand.Domain.Messages;
@@ -9,10 +10,12 @@ using Grand.Services.Customers;
 using Grand.Services.Helpers;
 using Grand.Services.Messages;
 using Grand.Services.Tax;
+using Grand.Services.Vendors;
 using Grand.Web.Commands.Models.Customers;
 using MediatR;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -26,6 +29,8 @@ namespace Grand.Web.Commands.Handler.Customers
         private readonly IVatService _checkVatService;
         private readonly IWorkflowMessageService _workflowMessageService;
         private readonly INewsLetterSubscriptionService _newsLetterSubscriptionService;
+        private readonly IVendorService _vendorService;
+        private readonly ICustomerService _customerService;
 
         private readonly DateTimeSettings _dateTimeSettings;
         private readonly CustomerSettings _customerSettings;
@@ -44,7 +49,9 @@ namespace Grand.Web.Commands.Handler.Customers
             CustomerSettings customerSettings,
             TaxSettings taxSettings,
             LocalizationSettings localizationSettings,
-            ForumSettings forumSettings)
+            ForumSettings forumSettings,
+            IVendorService vendorService,
+            ICustomerService customerService)
         {
             _customerRegistrationService = customerRegistrationService;
             _authenticationService = authenticationService;
@@ -57,6 +64,8 @@ namespace Grand.Web.Commands.Handler.Customers
             _taxSettings = taxSettings;
             _localizationSettings = localizationSettings;
             _forumSettings = forumSettings;
+            _vendorService = vendorService;
+            _customerService = customerService;
         }
 
         public async Task<bool> Handle(UpdateCustomerInfoCommand request, CancellationToken cancellationToken)
@@ -95,7 +104,7 @@ namespace Grand.Web.Commands.Handler.Customers
             }
             //form fields
             await UpdateFormFields(request);
-
+            await _customerService.UpdateAddressFromCustomerFileds(request.Customer);
             //newsletter
             if (_customerSettings.NewsletterEnabled)
             {
@@ -169,7 +178,6 @@ namespace Grand.Web.Commands.Handler.Customers
             if (_customerSettings.FaxEnabled)
                 await _genericAttributeService.SaveAttribute(request.Customer, SystemCustomerAttributeNames.Fax, request.Model.Fax);
         }
-
         private async Task UpdateNewsletter(UpdateCustomerInfoCommand request)
         {
             var categories = new List<string>();

@@ -1403,18 +1403,21 @@ namespace Grand.Web.Areas.Admin.Services
             {
                 var store = await _storeService.GetStoreById(sci.StoreId);
                 var product = await _productService.GetProductById(sci.ProductId);
-                var sciModel = new ShoppingCartItemModel {
-                    Id = sci.Id,
-                    Store = store != null ? store.Shortcut : "Unknown",
-                    ProductId = sci.ProductId,
-                    Quantity = sci.Quantity,
-                    ProductName = product.Name,
-                    AttributeInfo = await _productAttributeFormatter.FormatAttributes(product, sci.AttributesXml),
-                    UnitPrice = _priceFormatter.FormatPrice((await _taxService.GetProductPrice(product, (await _priceCalculationService.GetUnitPrice(sci)).unitprice)).productprice),
-                    Total = _priceFormatter.FormatPrice((await _taxService.GetProductPrice(product, (await _priceCalculationService.GetSubTotal(sci)).subTotal)).productprice),
-                    UpdatedOn = _dateTimeHelper.ConvertToUserTime(sci.UpdatedOnUtc, DateTimeKind.Utc)
-                };
-                items.Add(sciModel);
+                if (product != null)
+                {
+                    var sciModel = new ShoppingCartItemModel {
+                        Id = sci.Id,
+                        Store = store != null ? store.Shortcut : "Unknown",
+                        ProductId = sci.ProductId,
+                        Quantity = sci.Quantity,
+                        ProductName = product.Name,
+                        AttributeInfo = await _productAttributeFormatter.FormatAttributes(product, sci.AttributesXml),
+                        UnitPrice = _priceFormatter.FormatPrice((await _taxService.GetProductPrice(product, (await _priceCalculationService.GetUnitPrice(sci)).unitprice)).productprice),
+                        Total = _priceFormatter.FormatPrice((await _taxService.GetProductPrice(product, (await _priceCalculationService.GetSubTotal(sci)).subTotal)).productprice),
+                        UpdatedOn = _dateTimeHelper.ConvertToUserTime(sci.UpdatedOnUtc, DateTimeKind.Utc)
+                    };
+                    items.Add(sciModel);
+                }
             }
             return items;
         }
