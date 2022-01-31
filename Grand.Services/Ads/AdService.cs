@@ -16,6 +16,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Grand.Services.Commands.Models.Ads;
 using Grand.Domain.Orders;
+using Grand.Domain.Vendors;
+using Grand.Services.Vendors;
+using Grand.Services.Customers;
 
 namespace Grand.Services.Ads
 {
@@ -31,7 +34,8 @@ namespace Grand.Services.Ads
         private readonly IRepository<ProductAlsoPurchased> _productAlsoPurchasedRepository;
         //private readonly IRepository<RecurringPayment> _recurringPaymentRepository;
         private readonly IMediator _mediator;
-
+        private readonly IVendorService _vendorService;
+        private readonly ICustomerService _customerService;
         #endregion
 
         #region Ctor
@@ -48,7 +52,7 @@ namespace Grand.Services.Ads
             IRepository<AdNote> adNoteRepository,
             //IRepository<RecurringPayment> recurringPaymentRepository,
             IRepository<ProductAlsoPurchased> productAlsoPurchasedRepository,
-            IMediator mediator
+            IMediator mediator, IVendorService vendorService, ICustomerService customerService
             )
         {
             _adRepository = adRepository;
@@ -56,6 +60,8 @@ namespace Grand.Services.Ads
             //_recurringPaymentRepository = recurringPaymentRepository;
             _mediator = mediator;
             _productAlsoPurchasedRepository = productAlsoPurchasedRepository;
+            _vendorService = vendorService;
+            _customerService = customerService;
         }
 
         #endregion
@@ -310,6 +316,13 @@ namespace Grand.Services.Ads
             return query.FirstOrDefaultAsync();
         }
 
+        public virtual async Task<Vendor> GetVendorByAd(Ad ad) 
+        {
+            var userId = ad.CustomerId ?? ad.OwnerId;
+            var customerAd = await _customerService.GetCustomerById(userId);
+            var vendor = await _vendorService.GetVendorByEmail(customerAd.Email, null);
+            return vendor;
+        }
 
         /// <summary>
         /// Cancel UnPaid Ads and has pending status

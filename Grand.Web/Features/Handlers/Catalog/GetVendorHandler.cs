@@ -71,7 +71,8 @@ namespace Grand.Web.Features.Handlers.Catalog
                 MetaTitle = request.Vendor.GetLocalized(x => x.MetaTitle, request.Language.Id),
                 SeName = request.Vendor.GetSeName(request.Language.Id),
                 AllowCustomersToContactVendors = _vendorSettings.AllowCustomersToContactVendors,
-                GenericAttributes = request.Vendor.GenericAttributes
+                GenericAttributes = request.Vendor.GenericAttributes,
+                IsPrivatePerson = request.Vendor.IsPrivatePerson
             };
 
             model.Address = await _mediator.Send(new GetVendorAddress() {

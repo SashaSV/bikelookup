@@ -1,7 +1,9 @@
 ﻿using Grand.Core.Models;
 using Grand.Domain.Common;
+using Grand.Web.Models.Catalog;
 using Grand.Web.Models.Common;
 using Grand.Web.Models.Media;
+using Grand.Web.Models.PrivateMessages;
 using System;
 using System.Collections.Generic;
 using static Grand.Web.Models.Catalog.ProductDetailsModel;
@@ -28,5 +30,8 @@ namespace Grand.Web.Models.Ads
         public bool WithDocuments { get; set; }
         public int Mileage { get; set; }
         public bool IsAuction { get; set; }
+
+        public VendorModel VendorModel { get; set; }
+        public PrivateMessageChatModel PrivateMessageChatModel { get; set; }
     }
 }

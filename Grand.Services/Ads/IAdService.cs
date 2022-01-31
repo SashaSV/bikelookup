@@ -3,6 +3,7 @@ using Grand.Domain.Ads;
 using Grand.Domain.Orders;
 using Grand.Domain.Payments;
 using Grand.Domain.Shipping;
+using Grand.Domain.Vendors;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -63,7 +64,6 @@ namespace Grand.Services.Ads
         /// </summary>
         /// <param name="Ads">The Ads</param>
         Task DeleteAd(Ad Ads);
-
         /// <summary>
         /// Search Ads
         /// </summary>
@@ -122,6 +122,13 @@ namespace Grand.Services.Ads
         /// <param name="paymentMethodSystemName">Payment method system name</param>
         /// <returns>Ads</returns>
         Task<Ad> GetAdByAuthorizationTransactionIdAndPaymentMethod(string authorizationTransactionId, string paymentMethodSystemName);
+
+        /// <summary>
+        /// Gets a vendor by Ad
+        /// </summary>
+        /// <param name="Ad"></param>
+        /// <returns>vendor</returns>
+        Task<Vendor> GetVendorByAd(Ad ad);
 
         #endregion
 

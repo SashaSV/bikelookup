@@ -67,7 +67,8 @@ namespace Grand.Web.Features.Handlers.Catalog
                     MetaTitle = vendor.GetLocalized(x => x.MetaTitle, request.Language.Id),
                     SeName = vendor.GetSeName(request.Language.Id),
                     AllowCustomersToContactVendors = _vendorSettings.AllowCustomersToContactVendors,
-                    GenericAttributes = vendor.GenericAttributes
+                    GenericAttributes = vendor.GenericAttributes,
+                    IsPrivatePerson = vendor.IsPrivatePerson
                 };
 
                 //prepare vendor address

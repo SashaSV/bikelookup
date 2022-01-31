@@ -7,12 +7,14 @@ namespace Grand.Web.Models.Vendors
     public partial class VendorReviewOverviewModel : BaseModel
     {
         public string VendorId { get; set; }
+        public string VendorSeName { get; set; }
 
         public int RatingSum { get; set; }
 
         public int TotalReviews { get; set; }
 
         public bool AllowCustomerReviews { get; set; }
+
     }
 
     public partial class VendorReviewsModel : BaseModel

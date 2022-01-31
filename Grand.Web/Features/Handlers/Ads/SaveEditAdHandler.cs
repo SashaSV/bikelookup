@@ -4,6 +4,7 @@ using Grand.Domain.Catalog;
 using Grand.Domain.Common;
 using Grand.Domain.Customers;
 using Grand.Domain.Data;
+using Grand.Services.Ads;
 using Grand.Services.Catalog;
 using Grand.Services.Common;
 using Grand.Services.Customers;
@@ -20,7 +21,7 @@ namespace Grand.Web.Features.Handlers.Ads
 {
     public class SaveEditAdHandler : IRequestHandler<EditAdSave, bool>
     {
-        private readonly IRepository<Ad> _adRepository;
+        private readonly IAdService _adRepository;
         private readonly IProductService _productService;
         private readonly IVendorService _vendorService;
         private readonly IPictureService _pictureService;
@@ -30,7 +31,7 @@ namespace Grand.Web.Features.Handlers.Ads
         private readonly ISpecificationAttributeService _atributeService;
         private readonly ISpecificationAttributeService _attributeProductService;
 
-        public SaveEditAdHandler(IRepository<Ad> adRepository, IProductService productService, IVendorService vendorService
+        public SaveEditAdHandler(IAdService adRepository, IProductService productService, IVendorService vendorService
             , IPictureService pictureService
             , IWorkContext workContext
             , ICustomerService customerService
@@ -52,7 +53,7 @@ namespace Grand.Web.Features.Handlers.Ads
 
         public async Task<bool> Handle(EditAdSave request, CancellationToken cancellationToken)
         {
-            var ad = await _adRepository.GetByIdAsync(request.Model.Id);
+            var ad = await _adRepository.GetAdById(request.Model.Id);
             var product = await _productService.GetProductById(ad.AdItem.ProductId);
 
 
@@ -65,7 +66,8 @@ namespace Grand.Web.Features.Handlers.Ads
 
             var userId = ad.CustomerId == null ? ad.OwnerId : ad.CustomerId;
             var customerAd = await _customerService.GetCustomerById(userId);
-            var vendor = await _vendorService.GetVendorByEmail(customerAd.Email, null);
+            //await _vendorService.GetVendorByEmail(customerAd.Email, null);
+            var vendor = await _adRepository.GetVendorByAd(ad);
             
             var payment = await _atributeService.GetSpecificationAttributeBySeName("v_pay");
             var oldPaymentAtributes = product.ProductSpecificationAttributes.Where(a => a.SpecificationAttributeId == payment.Id).ToList();
@@ -142,7 +144,7 @@ namespace Grand.Web.Features.Handlers.Ads
                 }
             }
 
-            await _adRepository.UpdateAsync(ad);
+            await _adRepository.UpdateAd(ad);
             return true;
         }
     }
