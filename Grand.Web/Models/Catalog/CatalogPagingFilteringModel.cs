@@ -486,17 +486,24 @@ namespace Grand.Web.Models.Catalog
                     .Except(new List<string> { x.SpecificationAttributeOptionSeName }).ToList();
 
                     var filterUrl = webHelper.ModifyQueryString(webHelper.GetThisPageUrl(true), x.SpecificationAttributeSeName, GenerateFilteredSpecQueryParam(alreadyFiltered));
+                    
+                    var parentChain = GetParentsChain(x,allFilters);
 
-                    return new SpecificationFilterItem {
+                    var parentName = string.Concat(parentChain, " ");
+                    
+                    var filterItem = new SpecificationFilterItem {
                         SpecificationAttributeName = x.SpecificationAttributeName,
                         SpecificationAttributeSeName = x.SpecificationAttributeSeName,
-                        SpecificationAttributeOptionName = x.SpecificationAttributeOptionName,
+                        SpecificationAttributeOptionName = parentName + x.SpecificationAttributeOptionName,
                         SpecificationAttributeOptionSeName = x.SpecificationAttributeOptionSeName,
                         SpecificationAttributeOptionColorRgb = x.SpecificationAttributeOptionColorRgb,
                         SpecificationAttributeOptionParentSpecificationAttrOptionId = x.SpecificationAttributeOptionParentSpecificationAttrOptionId,
                         FilterUrl = ExcludeQueryStringParams(filterUrl, webHelper),
                         Id = x.SpecificationAttributeOptionId
                     };
+                    
+             
+                    
                 }).ToList();
 
                 //get not filtered specification options
@@ -529,6 +536,20 @@ namespace Grand.Web.Models.Catalog
             public string RemoveFilterUrl { get; set; }
 
             #endregion
+        }
+
+        private static IEnumerable<SpecificationAttributeOptionFilter> GetParentsChain(SpecificationAttributeOptionFilter item, IEnumerable<SpecificationAttributeOptionFilter> allSpecifications)
+        {
+            var parentSpec = allSpecifications.FirstOrDefault(a =>
+                a.SpecificationAttributeOptionId == item.SpecificationAttributeOptionParentSpecificationAttrOptionId);
+
+            if (parentSpec == null)
+            {
+                return new List<SpecificationAttributeOptionFilter>();
+            }
+
+            var parentChain = GetParentsChain(parentSpec, allSpecifications);
+            return parentChain.Union(new List<SpecificationAttributeOptionFilter>{parentSpec});
         }
 
         public partial class SpecificationFilterItem : BaseModel
