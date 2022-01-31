@@ -501,9 +501,9 @@ namespace Grand.Web.Models.Catalog
                         FilterUrl = ExcludeQueryStringParams(filterUrl, webHelper),
                         Id = x.SpecificationAttributeOptionId
                     };
-                    
-             
-                    
+                    return filterItem;
+
+
                 }).ToList();
 
                 //get not filtered specification options
