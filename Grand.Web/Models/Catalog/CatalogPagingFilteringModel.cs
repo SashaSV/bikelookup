@@ -489,7 +489,7 @@ namespace Grand.Web.Models.Catalog
                     
                     var parentChain = GetParentsChain(x,allFilters);
 
-                    var parentName = string.Concat(parentChain.Select(c=>c.SpecificationAttributeOptionName), " ");
+                    var parentName = string.Join(' ',parentChain.Select(,c=>c.SpecificationAttributeOptionName));
                     
                     var filterItem = new SpecificationFilterItem {
                         SpecificationAttributeName = x.SpecificationAttributeName,
