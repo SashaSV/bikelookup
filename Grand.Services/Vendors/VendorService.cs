@@ -138,8 +138,8 @@ namespace Grand.Services.Vendors
             if (isNew)
             {
                 vendor ??= new Vendor();
-                vendor.Name = vendorName.Trim();
-                vendor.Email = vendorEmail.Trim();
+                vendor.Name = string.IsNullOrEmpty(vendorName) ? string.Empty : vendorName.Trim();
+                vendor.Email = string.IsNullOrEmpty(vendorEmail) ? string.Empty : vendorEmail.Trim();
                 vendor.Active = true;
                 vendor.PageSize = 20;
                 vendor.AllowCustomersToSelectPageSize = true;
