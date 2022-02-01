@@ -170,8 +170,8 @@ namespace Grand.Web.Controllers
         public virtual async Task<IActionResult> ViewAd(string AdId)
         {
             var ad = await _adService.GetAdById(AdId);
-            if (!ad.Access(_workContext.CurrentCustomer))
-                return Challenge();
+            //if (!ad.Access(_workContext.CurrentCustomer))
+            //    return Challenge();
 
             var model = await _mediator.Send(new ViewAd() { Ad = ad, Language = _workContext.WorkingLanguage });
 
