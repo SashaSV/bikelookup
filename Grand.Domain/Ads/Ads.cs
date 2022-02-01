@@ -116,7 +116,26 @@ namespace Grand.Domain.Ads
         /// Gets or sets the old price
         /// </summary>
         public decimal OldPrice { get; set; }
+
+        /// <summary>
+        /// Gets or sets the IsAuction
+        /// </summary>
+        public bool IsAuction { get; set; }
+
+        /// <summary>
+        /// Gets or sets the AdComment
+        /// </summary>
         public string AdComment { get; set; }
+
+        /// <summary>
+        /// With documents
+        /// </summary>
+        public bool WithDocuments { get; set; }
+
+        /// <summary>
+        /// Mileage
+        /// </summary>
+        public int Mileage { get; set; }
         #region Не нужные свойства
         /// <summary>
         /// Gets or sets a value indicating whether a customer chose "pick up in store" shipping option

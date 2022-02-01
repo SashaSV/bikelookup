@@ -17,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Grand.Services.Vendors;
 
 namespace Grand.Services.Customers
 {
@@ -61,7 +62,7 @@ namespace Grand.Services.Customers
         private readonly IGenericAttributeService _genericAttributeService;
         private readonly ICacheManager _cacheManager;
         private readonly IMediator _mediator;
-
+        private readonly IVendorService _vendorService;
         #endregion
 
         #region Ctor
@@ -73,6 +74,7 @@ namespace Grand.Services.Customers
             IRepository<CustomerRoleProduct> customerRoleProductRepository,
             IRepository<CustomerNote> customerNoteRepository,
             IGenericAttributeService genericAttributeService,
+            IVendorService vendorService,
             IMediator mediator)
         {
             _cacheManager = cacheManager;
@@ -82,6 +84,7 @@ namespace Grand.Services.Customers
             _customerRoleProductRepository = customerRoleProductRepository;
             _customerNoteRepository = customerNoteRepository;
             _genericAttributeService = genericAttributeService;
+            _vendorService = vendorService;
             _mediator = mediator;
         }
 
@@ -241,7 +244,7 @@ namespace Grand.Services.Customers
             var query = _customerRepository.Table;
             query = query.Where(c => c.Active);
             query = query.Where(c => lastActivityFromUtc <= c.LastUpdateCartDateUtc);
-            query = query.Where(c => c.ShoppingCartItems.Any(y=>y.ShoppingCartTypeId == (int)ShoppingCartType.ShoppingCart));
+            query = query.Where(c => c.ShoppingCartItems.Any(y => y.ShoppingCartTypeId == (int)ShoppingCartType.ShoppingCart));
             if (!string.IsNullOrEmpty(storeId))
                 query = query.Where(c => c.StoreId == storeId);
 
@@ -1121,6 +1124,56 @@ namespace Grand.Services.Customers
             await _customerRepository.Collection.UpdateOneAsync(filter, update);
         }
 
+        public virtual async Task UpdateAddressFromCustomerFileds(Customer customer)
+        {
+            var vendor = await _vendorService.GetVendorByEmail(customer.Email, null);
+
+            var city = await _genericAttributeService.GetAttributesForEntity<string>(customer, SystemCustomerAttributeNames.City);
+            var streetAddress = await _genericAttributeService.GetAttributesForEntity<string>(customer, SystemCustomerAttributeNames.StreetAddress);
+            var firstName = await _genericAttributeService.GetAttributesForEntity<string>(customer, SystemCustomerAttributeNames.FirstName);
+            var lastName = await _genericAttributeService.GetAttributesForEntity<string>(customer, SystemCustomerAttributeNames.LastName);
+            var email = customer.Email;
+            var phoneNumber = await _genericAttributeService.GetAttributesForEntity<string>(customer, SystemCustomerAttributeNames.Phone);
+
+            var company = string.Format("{0} ({1})", firstName, city);
+
+            var address = new Address {
+                CustomerId = customer.Id,
+                FirstName = firstName,
+                LastName = lastName,
+                Email = email,
+                Company = company,
+                City = city,
+                Address1 = streetAddress,
+                ZipPostalCode = "",
+                PhoneNumber = phoneNumber,
+                StateProvinceId = "",
+                CountryId = "",
+                CreatedOnUtc = DateTime.UtcNow,
+            };
+
+            if (customer.Addresses.Count == 0)
+            {
+                customer.Addresses.Add(address);
+                await InsertAddress(address);
+            }
+            else
+            {
+                address.Id = customer.Addresses.FirstOrDefault().Id;
+                customer.Addresses.Clear();
+                customer.Addresses.Add(address);
+                await UpdateAddress(address);
+            }
+            customer.ShippingAddress = address;
+            customer.BillingAddress = address;
+
+            await UpdateCustomer(customer);
+
+            vendor.Addresses = customer.Addresses;
+            vendor.Name = company;
+            vendor.Addresses = customer.Addresses;
+            await _vendorService.UpdateVendor(vendor);
+        }
         #endregion
 
         #region Customer Shopping Cart Item

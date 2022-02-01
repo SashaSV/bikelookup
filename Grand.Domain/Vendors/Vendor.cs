@@ -134,7 +134,7 @@ namespace Grand.Domain.Vendors
         /// Gets or sets the vendor address
         /// </summary>
         public virtual ICollection<Address> Addresses { get; set; }
-
+        public bool IsPrivatePerson { get; set; }
         public void RemoveAddress()
         {
         }

@@ -144,6 +144,7 @@ namespace Grand.Services.Vendors
                 vendor.PageSize = 20;
                 vendor.AllowCustomersToSelectPageSize = true;
                 vendor.AllowCustomerReviews = true;
+                vendor.IsPrivatePerson = true;
 
                 var seName = vendor.Name;
                 await _urlRecordService.SaveSlug(vendor, await vendor.ValidateSeName(seName, vendor.Name, true, _seoSetting, _urlRecordService, _languageService), "");

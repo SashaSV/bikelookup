@@ -1,4 +1,5 @@
 using Grand.Domain;
+using Grand.Domain.Ads;
 using Grand.Domain.Common;
 using Grand.Domain.Vendors;
 using System;

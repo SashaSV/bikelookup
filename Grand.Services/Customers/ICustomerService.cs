@@ -357,7 +357,7 @@ namespace Grand.Services.Customers
         Task UpdateBillingAddress(Address address);
         Task UpdateShippingAddress(Address address);
         Task RemoveShippingAddress(string customerId);
-
+        Task UpdateAddressFromCustomerFileds(Customer customer);
         #endregion
 
         #region Shopping cart 

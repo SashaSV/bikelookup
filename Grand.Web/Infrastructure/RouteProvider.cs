@@ -883,6 +883,11 @@ namespace Grand.Web.Infrastructure
             routeBuilder.MapControllerRoute("CancelAd",
                 pattern + "cancelad/{adId}",
                 new { controller = "Ad", action = "CancelAd" });
+
+            routeBuilder.MapControllerRoute("ActivetedAd",
+                pattern + "activetedad/{adId}",
+                new { controller = "Ad", action = "ActivetedAd" });
+            
             //addetails / delete /{ adId}
             routeBuilder.MapControllerRoute("DeleteAd",
                 pattern + "deletead/{adId}",

@@ -64,8 +64,8 @@ namespace Grand.Web.Features.Handlers.Ads
             var product = await _productService.GetProductById(ad.ProductId);
             var productAssociated = await _productService.GetProductById(ad.AdItem.ProductId);
                 
-            var model = new EditAdModel() { WithDocuments = true};
-            
+            var model = new EditAdModel() { WithDocuments = ad.WithDocuments};
+
             model.Id = request.Ad.Id;
             model.AdNumber = request.Ad.AdNumber;
             model.AdCode = request.Ad.Code;
@@ -76,6 +76,11 @@ namespace Grand.Web.Features.Handlers.Ads
             model.Model = productAssociated.Model;
             model.Size = productAssociated.Size;
             model.Color = productAssociated.Color;
+            model.AdComment = ad.AdComment;
+            model.IsAuction = ad.IsAuction;
+            model.Mileage = ad.Mileage;
+            model.WithDocuments = ad.WithDocuments;
+
             model.Items = new EditAdModel.AdItemModel() 
             {
                 Id = ad.AdItem.Id,
@@ -91,25 +96,24 @@ namespace Grand.Web.Features.Handlers.Ads
             //         o.SpecificationAttributeId == model.CollorAtribure.Id);
             //
             // model.Color = productCollor.SpecificationAttributeOptionId;
-            
-            
-            var paymentAtribute =  await _atributeService.GetSpecificationAttributeBySeName("v_pay");
-            
+
+            var paymentAtribute = await _atributeService.GetSpecificationAttributeBySeName("v_pay");
+
             model.PaymentMethodType = paymentAtribute?.SpecificationAttributeOptions.Select(a => new PaymentsMethodType { Id = a.Id, Name = a.GetLocalized(x => x.Name, request.Language.Id) }).ToList();
 
-            foreach (var paymentOption in productAssociated.ProductSpecificationAttributes.Where(psa=>psa.SpecificationAttributeId == paymentAtribute.Id))
+            foreach (var paymentOption in productAssociated.ProductSpecificationAttributes.Where(psa => psa.SpecificationAttributeId == paymentAtribute.Id))
             {
                 model.SelectedPaymentMethods.Add(paymentOption.SpecificationAttributeOptionId);
             }
-
+            
             var delivery = await _atributeService.GetSpecificationAttributeBySeName("v_delivery");
             model.ShippingMethodType = delivery?.SpecificationAttributeOptions.Select(a => new ShipmentMethodType { Id = a.Id, Name = a.GetLocalized(x => x.Name, request.Language.Id) }).ToList();
 
-            foreach (var paymentOption in productAssociated.ProductSpecificationAttributes.Where(psa=>psa.SpecificationAttributeId == delivery.Id))
+            foreach (var paymentOption in productAssociated.ProductSpecificationAttributes.Where(psa => psa.SpecificationAttributeId == delivery.Id))
             {
                 model.SelectedShippingMethods.Add(paymentOption.SpecificationAttributeOptionId);
             }
-            
+
             var productModel = await _mediator.Send(new GetProductDetailsPage() {
                 Store = _storeContext.CurrentStore,
                 Product = productAssociated,

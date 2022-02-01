@@ -4,21 +4,31 @@ using Grand.Domain.Ads;
 using Grand.Domain.Catalog;
 using Grand.Domain.Customers;
 using Grand.Domain.Data;
+using Grand.Domain.Forums;
+using Grand.Domain.Localization;
 using Grand.Domain.Media;
+using Grand.Domain.Vendors;
+using Grand.Framework.Security.Captcha;
 using Grand.Services.Ads;
 using Grand.Services.Catalog;
 using Grand.Services.Customers;
 using Grand.Services.Directory;
+using Grand.Services.Forums;
 using Grand.Services.Helpers;
 using Grand.Services.Localization;
 using Grand.Services.Media;
 using Grand.Services.Queries.Models.Ads;
 using Grand.Services.Seo;
+using Grand.Services.Vendors;
 using Grand.Web.Features.Models.Ads;
+using Grand.Web.Features.Models.Catalog;
+using Grand.Web.Features.Models.Common;
 using Grand.Web.Infrastructure.Cache;
 using Grand.Web.Models.Ads;
 using Grand.Web.Models.Catalog;
 using Grand.Web.Models.Media;
+using Grand.Web.Models.PrivateMessages;
+using Grand.Web.Models.Vendors;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -46,6 +56,13 @@ namespace Grand.Web.Features.Handlers.Ads
         private readonly IPictureService _pictureService;
         private readonly CatalogSettings _catalogSettings;
         private readonly ICategoryService _categoryService;
+        private readonly IVendorService _vendorService;
+        private readonly VendorSettings _vendorSettings;
+        private readonly CustomerSettings _customerSettings;
+        private readonly ICustomerService _customerService;
+        private readonly CaptchaSettings _captchaSettings;
+        private readonly ForumSettings _forumSettings;
+        private readonly IForumService _forumService;
 
         public ViewAdHandler(
             IAdService adService,
@@ -63,7 +80,15 @@ namespace Grand.Web.Features.Handlers.Ads
             ICacheManager cacheManager,
             IPictureService pictureService,
             CatalogSettings catalogSettings,
-            ICategoryService categoryService)
+            ICategoryService categoryService,
+            IVendorService vendorService,
+            VendorSettings vendorSettings,
+            CustomerSettings customerSettings,
+            ICustomerService customerService,
+            CaptchaSettings captchaSettings,
+            ForumSettings forumSettings,
+            IForumService forumService
+            )
         {
             _adService = adService;
             _dateTimeHelper = dateTimeHelper;
@@ -81,15 +106,24 @@ namespace Grand.Web.Features.Handlers.Ads
             _pictureService = pictureService;
             _catalogSettings = catalogSettings;
             _categoryService = categoryService;
+            _vendorService = vendorService;
+            _vendorSettings = vendorSettings;
+            _customerSettings = customerSettings;
+            _customerService = customerService;
+            _captchaSettings = captchaSettings;
+            _forumSettings = forumSettings;
+            _forumService = forumService;
         }
 
         public async Task<ViewAdModel> Handle(ViewAd request, CancellationToken cancellationToken)
         {
             var model = new ViewAdModel() { };
 
-            var ad = await _adRepository.GetByIdAsync(request.Ad.Id);
+            var ad = await _adService.GetAdById(request.Ad.Id);
             var product = await _productService.GetProductById(ad.AdItem.ProductId);
             var rp = await _productService.GetProductById(ad.ProductId);
+            var vendor = await _adService.GetVendorByAd(ad);
+
             model.AdPructName = rp == null ? "" : rp.Name;
 
             model.DefaultPictureZoomEnabled = _mediaSettings.DefaultPictureZoomEnabled;
@@ -107,9 +141,39 @@ namespace Grand.Web.Features.Handlers.Ads
             model.AdComment = ad.AdComment;
             model.Price = ad.Price;
             model.CustomerAddress = ad.ShippingAddress;
-            
+            model.WithDocuments = ad.WithDocuments;
+            model.Mileage = ad.Mileage;
+            model.IsAuction = ad.IsAuction;
             var adTotalInCustomerCurrency = ad.Price;
             model.AdTotal = await _priceFormatter.FormatPrice(adTotalInCustomerCurrency, true, ad.CustomerCurrencyCode, false, request.Language);
+            model.VendorModel = await PrepareVendorModel(vendor, cancellationToken, request.Language);
+
+            var toCustomerId = string.IsNullOrEmpty(ad.OwnerId) ? ad.CustomerId : ad.OwnerId;
+            var fromCustomer = await _customerService.GetCustomerById(_workContext.CurrentCustomer.Id);
+            var toCustomer = await _customerService.GetCustomerById(toCustomerId);
+
+            var messages = new List<PrivateMessageModel>();
+            messages = await GetMessage(messages, ad, rp, fromCustomer, toCustomer);
+            messages = await GetMessage(messages, ad, rp, toCustomer, fromCustomer);
+
+            var messages2 = messages.OrderBy(x => x.CreatedOn).ToList();
+            var dates = messages2.Select(x => x.CreatedOn.Date).Distinct().OrderBy(x => x.Date).ToList();
+            //PrivateMessageChatModel
+            model.PrivateMessageChatModel = new PrivateMessageChatModel {
+                Messages = messages2,
+                ToCustomerId = toCustomerId,
+                AdId = ad.Id,
+                Subject = rp.Name,
+                Dates = dates
+            };
+
+            //await _mediator.Send(new GetVendor() {
+            //    Command = request.Command,
+            //    Vendor = vendor,
+            //    Language = _workContext.WorkingLanguage,
+            //    Customer = _workContext.CurrentCustomer,
+            //    Store = _storeContext.CurrentStore,
+            //});
 
             return model;
         }
@@ -201,6 +265,126 @@ namespace Grand.Web.Features.Handlers.Ads
                 }
                 return breadcrumbModel;
             });
+        }
+
+
+        public async Task<VendorModel> PrepareVendorModel(Vendor vendor, CancellationToken cancellationToken, Language language)
+        {
+            var model = new VendorModel {
+                Id = vendor.Id,
+                Name = vendor.GetLocalized(x => x.Name, language.Id),
+                Description = vendor.GetLocalized(x => x.Description, language.Id),
+                MetaKeywords = vendor.GetLocalized(x => x.MetaKeywords, language.Id),
+                MetaDescription = vendor.GetLocalized(x => x.MetaDescription, language.Id),
+                MetaTitle = vendor.GetLocalized(x => x.MetaTitle, language.Id),
+                SeName = vendor.GetSeName(language.Id),
+                AllowCustomersToContactVendors = _vendorSettings.AllowCustomersToContactVendors,
+                GenericAttributes = vendor.GenericAttributes,
+                IsPrivatePerson = vendor.IsPrivatePerson
+            };
+
+            model.Address = await _mediator.Send(new GetVendorAddress() {
+                Language = language,
+                Address = vendor.Addresses.FirstOrDefault(),
+                ExcludeProperties = false,
+            });
+
+            //prepare picture model
+            var pictureModel = new PictureModel {
+                Id = vendor.PictureId,
+                FullSizeImageUrl = await _pictureService.GetPictureUrl(vendor.PictureId),
+                ImageUrl = await _pictureService.GetPictureUrl(vendor.PictureId, _mediaSettings.VendorThumbPictureSize),
+                Title = string.Format(_localizationService.GetResource("Media.Vendor.ImageLinkTitleFormat"), model.Name),
+                AlternateText = string.Format(_localizationService.GetResource("Media.Vendor.ImageAlternateTextFormat"), model.Name)
+            };
+            model.PictureModel = pictureModel;
+
+            //VendorReviewOverview
+            model.VendorReviewOverview = new VendorReviewOverviewModel() {
+                RatingSum = vendor.ApprovedRatingSum,
+                TotalReviews = vendor.ApprovedTotalReviews,
+                VendorId = vendor.Id,
+                AllowCustomerReviews = vendor.AllowCustomerReviews,
+                VendorSeName = vendor.SeName
+            };
+            model.VendorReviews = await PrepareVendorReviesModel(vendor);
+
+            return model;
+        }
+
+        public virtual async Task<List<PrivateMessageModel>> GetMessage(List<PrivateMessageModel> message, Ad ad, Product rp, Customer fromCustomer, Customer toCustomer)
+        {
+            var pageNumber = 0;
+            if (pageNumber > 0)
+            {
+                pageNumber -= 1;
+            }
+
+            var pageSize = _forumSettings.PrivateMessagesPageSize;
+
+            var list = await _forumService.GetAllPrivateMessages(_storeContext.CurrentStore.Id,
+                fromCustomer.Id, toCustomer.Id, ad.Id, null, null, false, string.Empty, pageNumber, pageSize);
+
+            foreach (var pm in list)
+            {
+                if (!pm.IsRead && pm.ToCustomerId == _workContext.CurrentCustomer.Id)
+                {
+                    pm.IsRead = true;
+                    await _forumService.UpdatePrivateMessage(pm);
+                }
+                message.Add(new PrivateMessageModel {
+                    Id = pm.Id,
+                    FromCustomerId = (fromCustomer.Id == _workContext.CurrentCustomer.Id) ? string.Empty : fromCustomer.Id,
+                    CustomerFromName = fromCustomer.FormatUserName(_customerSettings.CustomerNameFormat),
+                    AllowViewingFromProfile = _customerSettings.AllowViewingProfiles && fromCustomer != null && !fromCustomer.IsGuest(),
+                    ToCustomerId = (toCustomer.Id == _workContext.CurrentCustomer.Id) ? string.Empty : toCustomer.Id,
+                    CustomerToName = toCustomer.FormatUserName(_customerSettings.CustomerNameFormat),
+                    AllowViewingToProfile = _customerSettings.AllowViewingProfiles && toCustomer != null && !toCustomer.IsGuest(),
+                    Subject = rp.Name,
+                    Message = pm.Text,
+                    CreatedOn = _dateTimeHelper.ConvertToUserTime(pm.CreatedOnUtc, DateTimeKind.Utc),
+                    IsRead = pm.IsRead,
+                    AdId = ad.Id,
+                    AdProductName = rp.Name
+                });
+            }
+            return message;
+        }
+
+        private async Task<VendorReviewsModel> PrepareVendorReviesModel(Vendor vendor)
+        {
+            var model = new VendorReviewsModel();
+            model.VendorId = vendor.Id;
+            model.VendorName = vendor.GetLocalized(x => x.Name, _workContext.WorkingLanguage.Id);
+            model.VendorSeName = vendor.GetSeName(_workContext.WorkingLanguage.Id);
+
+            var vendorReviews = await _vendorService.GetAllVendorReviews("", true, null, null, "", vendor.Id);
+            foreach (var pr in vendorReviews)
+            {
+                var customer = await _customerService.GetCustomerById(pr.CustomerId);
+                model.Items.Add(new VendorReviewModel {
+                    Id = pr.Id,
+                    CustomerId = pr.CustomerId,
+                    CustomerName = customer.FormatUserName(_customerSettings.CustomerNameFormat),
+                    AllowViewingProfiles = _customerSettings.AllowViewingProfiles && customer != null && !customer.IsGuest(),
+                    Title = pr.Title,
+                    ReviewText = pr.ReviewText,
+                    Rating = pr.Rating,
+                    Helpfulness = new VendorReviewHelpfulnessModel {
+                        VendorId = vendor.Id,
+                        VendorReviewId = pr.Id,
+                        HelpfulYesTotal = pr.HelpfulYesTotal,
+                        HelpfulNoTotal = pr.HelpfulNoTotal,
+                    },
+                    WrittenOnStr = _dateTimeHelper.ConvertToUserTime(pr.CreatedOnUtc, DateTimeKind.Utc).ToString("g"),
+                });
+                return model;
+            }
+
+            model.AddVendorReview.CanCurrentCustomerLeaveReview = _vendorSettings.AllowAnonymousUsersToReviewVendor || !_workContext.CurrentCustomer.IsGuest();
+            model.AddVendorReview.DisplayCaptcha = _captchaSettings.Enabled && _captchaSettings.ShowOnVendorReviewPage;
+
+            return model;
         }
     }
 }

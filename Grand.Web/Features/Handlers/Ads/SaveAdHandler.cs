@@ -33,8 +33,11 @@ namespace Grand.Web.Features.Handlers.Ads
         private readonly CustomerSettings _customerSettings;
         private readonly ISpecificationAttributeService _atributeService;
         
+        private readonly IGenericAttributeService _genericAttributeService;
+
         public SaveAdHandler(IAdService adRepository, IProductService productService, IVendorService vendorService, IPictureService pictureService, 
-            IWorkContext workContext, ICustomerService customerService, CustomerSettings customerSettings,ISpecificationAttributeService atributeService)
+            IWorkContext workContext, ICustomerService customerService, CustomerSettings customerSettings,ISpecificationAttributeService atributeService
+            , IGenericAttributeService genericAttributeService)
         {
             _adRepository = adRepository;
             _productService = productService;
@@ -44,7 +47,7 @@ namespace Grand.Web.Features.Handlers.Ads
             _customerService = customerService;
             _customerSettings = customerSettings;
             _atributeService = atributeService;
-
+            _genericAttributeService = genericAttributeService;
         }
         
         public async Task<bool>  Handle(SaveAd request, CancellationToken cancellationToken)
@@ -79,16 +82,15 @@ namespace Grand.Web.Features.Handlers.Ads
             var customerAd = _workContext.CurrentCustomer;
             
             //customerAd.FormatUserName(_customerSettings.CustomerNameFormat);
-
+            await _customerService.UpdateAddressFromCustomerFileds(customerAd);
             var address = customerAd.Addresses.FirstOrDefault();
             var customerName = $"{customerAd.FormatUserName(CustomerNameFormat.ShowFirstName)} ({address?.City ?? ""})";
 
-            var vendor = await _vendorService.GetVendorByEmail(customerAd.Email, customerName);
-            
+            var vendor = await _vendorService.GetVendorByEmail(customerAd.Email,null);
+
             vendor.Email = customerAd.Email;
             var pictureId = customerAd.GetAttributeFromEntity<string>(SystemCustomerAttributeNames.AvatarPictureId);
             vendor.PictureId = pictureId;
-            
             vendor.Addresses = customerAd.Addresses;
             var addressCustomer = customerAd.ShippingAddress;
 
@@ -102,7 +104,10 @@ namespace Grand.Web.Features.Handlers.Ads
                 EndDateTimeUtc = DateTime.Now.AddMonths(1),
                 CustomerCurrencyCode = _workContext.WorkingCurrency.CurrencyCode,
                 AdComment = request.AdToSave.AdComment,
-                ShippingAddress = addressCustomer
+                ShippingAddress = addressCustomer,
+                WithDocuments = request.AdToSave.WithDocuments,
+                Mileage = request.AdToSave.Mileage,
+                IsAuction = request.AdToSave.IsAuction
             };
 
             var newAd = await _adRepository.InsertAd(ad);
@@ -196,7 +201,7 @@ namespace Grand.Web.Features.Handlers.Ads
 
             newAd.AdItem = new AdItem() {
                 ProductId = product.Id,
-                VendorId = request.Customer.Id
+                VendorId = vendor.Id
             };
 
             newAd.StoreId = request.Store.Id;

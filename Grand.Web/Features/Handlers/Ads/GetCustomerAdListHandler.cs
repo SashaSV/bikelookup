@@ -103,6 +103,7 @@ namespace Grand.Web.Features.Handlers.Ads
                     AlternateText = string.Format(_localizationService.GetResource("Media.Ad.ImageAlternateTextFormat"), nameProduct),
                 };
 
+
                 var adModel = new CustomerAdListModel.AdDetailsModel {
                     Id = ad.Id,
                     AdNumber = ad.AdNumber,
@@ -119,9 +120,14 @@ namespace Grand.Web.Features.Handlers.Ads
                     Price = ad.Price,
                     IsOpenFromMenu = true,
                     IsCancel = (ad.AdStatus == AdStatus.Cancelled),
-                    AdComment = ad.AdComment
+                    AdComment = string.IsNullOrEmpty(ad.AdComment) ? string.Empty : ad.AdComment
                     //IsReturnRequestAllowed = await _mediator.Send(new IsReturnRequestAllowedQuery() { Ad = ad })
                 };
+
+                adModel.AdComment = adModel.AdComment != null && adModel.AdComment.Trim().Length >= 250 
+                    ? adModel.AdComment.Trim().Substring(0, 250) + " ..." 
+                    : adModel.AdComment.Trim();
+
                 //var adTotalInCustomerCurrency = _currencyService.ConvertCurrency(ad.AdTotal, ad.CurrencyRate);
                 var adTotalInCustomerCurrency = ad.Price;
                 adModel.AdTotal = await _priceFormatter.FormatPrice(adTotalInCustomerCurrency, true, ad.CustomerCurrencyCode, false, request.Language);

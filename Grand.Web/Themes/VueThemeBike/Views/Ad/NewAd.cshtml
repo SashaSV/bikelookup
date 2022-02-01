@@ -115,6 +115,7 @@
                     </span>
                     <span class="required">*</span>
                     <div class="input-group">
+                        <input type="hidden" asp-for="Year" class="form-control" v-model="baseProduct.Year" />
                         <b-form-select name="Year" :disabled="baseProductSelected" v-model="baseProduct.Year" :options="years"></b-form-select>
                         <span asp-validation-for="Year"></span>
                     </div>
@@ -155,7 +156,7 @@
                     <fieldset class="form-group col-sm-6 col-12">
                         <legend class="sr-only">@T("Ad.Fields.isAuction")</legend>
                         <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked="@(Model.IsAuction == true)">
+                            <input type="checkbox" asp-for="IsAuction" class="form-check-input" id="flexSwitchCheckDefault" checked="@(Model.IsAuction == true)" />
                             <label class="form-check-label" for="flexSwitchCheckDefault">@T("Ad.Fields.Auction.True")</label>
                         </div>
                     </fieldset>
@@ -231,11 +232,11 @@
                         <div class="form-group doc">
                             <div class="flex-row">
                                 <div class="custom-control custom-radio male custom-control-inline">
-                                    <input type="radio" asp-for="WithDocuments" value="M" checked="@(Model.WithDocuments == true)" id="bike-withdoc" class="custom-control-input" />
+                                    <input type="radio" asp-for="WithDocuments" value="True" checked="@(Model.WithDocuments == true)" id="bike-withdoc" class="form-control custom-control-input" />
                                     <label class="custom-control-label" for="bike-withdoc">@T("Ad.Fields.Document.With")</label>
                                 </div>
                                 <div class="custom-control custom-radio female custom-control-inline">
-                                    <input type="radio" asp-for="WithDocuments" value="F" checked="@(Model.WithDocuments == false)" id="bike-withoutdoc" class="custom-control-input" />
+                                    <input type="radio" asp-for="WithDocuments" value="False" checked="@(Model.WithDocuments == false)" id="bike-withoutdoc" class="form-control custom-control-input" />
                                     <label class="custom-control-label" for="bike-withoutdoc">@T("Ad.Fields.Document.Without")</label>
                                 </div>
                             </div>

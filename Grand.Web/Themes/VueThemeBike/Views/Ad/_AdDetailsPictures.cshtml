@@ -9,7 +9,6 @@
     var themeName = themeContext.WorkingThemeName;
     pagebuilder.AppendScriptParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/script/vue-gallery-slideshow.min.js", themeName));
 }
-<b-col class="pl-0">
     @if (Model.PictureModels.Count == 1)
         {
             @if (Model.DefaultPictureZoomEnabled)
@@ -198,4 +197,3 @@
                 </script>
             }
         }
-</b-col>
