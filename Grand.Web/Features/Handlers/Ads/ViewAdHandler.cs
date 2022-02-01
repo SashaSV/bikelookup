@@ -35,6 +35,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using static Grand.Web.Models.Ads.ViewAdModel;
 
 namespace Grand.Web.Features.Handlers.Ads
 {
@@ -63,7 +64,7 @@ namespace Grand.Web.Features.Handlers.Ads
         private readonly CaptchaSettings _captchaSettings;
         private readonly ForumSettings _forumSettings;
         private readonly IForumService _forumService;
-
+        private readonly ISpecificationAttributeService _atributeService;
         public ViewAdHandler(
             IAdService adService,
             IDateTimeHelper dateTimeHelper,
@@ -87,7 +88,8 @@ namespace Grand.Web.Features.Handlers.Ads
             ICustomerService customerService,
             CaptchaSettings captchaSettings,
             ForumSettings forumSettings,
-            IForumService forumService
+            IForumService forumService,
+            ISpecificationAttributeService atributeService
             )
         {
             _adService = adService;
@@ -113,6 +115,7 @@ namespace Grand.Web.Features.Handlers.Ads
             _captchaSettings = captchaSettings;
             _forumSettings = forumSettings;
             _forumService = forumService;
+            _atributeService = atributeService;
         }
 
         public async Task<ViewAdModel> Handle(ViewAd request, CancellationToken cancellationToken)
@@ -121,6 +124,8 @@ namespace Grand.Web.Features.Handlers.Ads
 
             var ad = await _adService.GetAdById(request.Ad.Id);
             var product = await _productService.GetProductById(ad.AdItem.ProductId);
+            var productAssociated = product;
+
             var rp = await _productService.GetProductById(ad.ProductId);
             var vendor = await _adService.GetVendorByAd(ad);
 
@@ -164,8 +169,39 @@ namespace Grand.Web.Features.Handlers.Ads
                 ToCustomerId = toCustomerId,
                 AdId = ad.Id,
                 Subject = rp.Name,
-                Dates = dates
+                Dates = dates,
+                IsVisibleMessageChat = (toCustomerId != _workContext.CurrentCustomer.Id)
             };
+
+            var paymentAtribute = await _atributeService.GetSpecificationAttributeBySeName("v_pay");
+
+            //model.PaymentMethodType = paymentAtribute?.SpecificationAttributeOptions.Select(a => new PaymentsMethodType { Id = a.Id, Name = a.GetLocalized(x => x.Name, request.Language.Id) }).ToList();
+
+            foreach (var paymentOption in productAssociated.ProductSpecificationAttributes.Where(psa => psa.SpecificationAttributeId == paymentAtribute.Id))
+            {
+                //model.SelectedPaymentMethods.Add(paymentOption.SpecificationAttributeOptionId);
+                var sao = paymentAtribute?.SpecificationAttributeOptions.FirstOrDefault(a => a.Id == paymentOption.SpecificationAttributeOptionId);
+                if (sao != null)
+                {
+                    model.PaymentMethodType.Add(new PaymentsMethodType { Id = sao.Id, Name = sao.GetLocalized(x => x.Name, request.Language.Id) });
+                }
+                
+
+            }
+
+            var delivery = await _atributeService.GetSpecificationAttributeBySeName("v_delivery");
+            //model.ShippingMethodType = delivery?.SpecificationAttributeOptions.Select(a => new ShipmentMethodType { Id = a.Id, Name = a.GetLocalized(x => x.Name, request.Language.Id) }).ToList();
+
+            foreach (var deliveryOption in productAssociated.ProductSpecificationAttributes.Where(psa => psa.SpecificationAttributeId == delivery.Id))
+            {
+                // model.SelectedShippingMethods.Add(paymentOption.SpecificationAttributeOptionId);
+                var sao = delivery?.SpecificationAttributeOptions.FirstOrDefault(a => a.Id == deliveryOption.SpecificationAttributeOptionId);
+                if (sao != null) 
+                {
+                    model.ShippingMethodType.Add(new ShipmentMethodType { Id = sao.Id, Name = sao.GetLocalized(x => x.Name, request.Language.Id) });
+                }
+                
+            }
 
             //await _mediator.Send(new GetVendor() {
             //    Command = request.Command,

@@ -1,5 +1,8 @@
 ﻿@model PrivateMessageChatModel
 @{
+
+@if (Model.IsVisibleMessageChat)
+{
     <form method="post" action="/privatemessagesad/sentpmchat/">
         @Html.AntiForgeryToken()
         <div class="page private-messages private-message-send-page">
@@ -24,4 +27,5 @@
             </b-btn-group>
         </div>
     </form>
+    }
 }

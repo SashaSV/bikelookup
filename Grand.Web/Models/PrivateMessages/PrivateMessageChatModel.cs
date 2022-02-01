@@ -13,6 +13,6 @@ namespace Grand.Web.Models.PrivateMessages
         public string Subject { get; set; }
         public IList<System.DateTime> Dates { get; set; }
         public CustomerAdListModel.AdDetailsModel Ad { get; set; }
-
+        public bool IsVisibleMessageChat { get; set; }
     }
 }

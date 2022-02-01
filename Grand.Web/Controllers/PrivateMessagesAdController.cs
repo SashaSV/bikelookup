@@ -384,7 +384,8 @@ namespace Grand.Web.Controllers
                 AdId = ad.Id, 
                 Subject = rp.Name,
                 Dates = dates,
-                Ad = adModel
+                Ad = adModel,
+                IsVisibleMessageChat = (toCustomerId != _workContext.CurrentCustomer.Id)
             };
 
             return View(model);
