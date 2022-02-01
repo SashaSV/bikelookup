@@ -14,6 +14,10 @@ namespace Grand.Web.Models.Ads
     {
         public ViewAdModel()
         {
+            SelectedPaymentMethods = new List<string>();
+            SelectedShippingMethods = new List<string>();
+            PaymentMethodType = new List<PaymentsMethodType>();
+            ShippingMethodType = new List<ShipmentMethodType>();
         }
 
         public string AdPructName;
@@ -33,5 +37,24 @@ namespace Grand.Web.Models.Ads
 
         public VendorModel VendorModel { get; set; }
         public PrivateMessageChatModel PrivateMessageChatModel { get; set; }
+        
+        public IList<string> SelectedShippingMethods { get; set; }
+        public IList<ShipmentMethodType> ShippingMethodType { get; set; }
+        public IList<string> SelectedPaymentMethods { get; set; }
+        public IList<PaymentsMethodType> PaymentMethodType { get; set; }
+
+        #region Nested Classes
+        public partial class PaymentsMethodType : BaseEntityModel
+        {
+            public string Name { get; set; }
+        }
+
+        public partial class ShipmentMethodType : BaseEntityModel
+        {
+            public string Name { get; set; }
+        }
+        #endregion
     }
+
+
 }
