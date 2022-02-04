@@ -480,7 +480,11 @@ namespace Grand.Web.Models.Catalog
 
                 //get already filtered specification options
                 var alreadyFilteredOptions = allFilters.Where(x => alreadyFilteredSpecOptionIds.Contains(x.SpecificationAttributeOptionId));
-                AlreadyFilteredItems = alreadyFilteredOptions.Select(x =>
+                AlreadyFilteredItems = alreadyFilteredOptions.Where(x =>
+                {
+                    var hasChildren = allFilters.Any(ao => ao.SpecificationAttributeOptionParentSpecificationAttrOptionId == x.SpecificationAttributeOptionId);
+                    return !hasChildren;
+                }).Select(x =>
                 {
                     var alreadyFiltered = alreadyFilteredOptions.Where(y => y.SpecificationAttributeId == x.SpecificationAttributeId).Select(z => z.SpecificationAttributeOptionSeName)
                     .Except(new List<string> { x.SpecificationAttributeOptionSeName }).ToList();
@@ -494,7 +498,7 @@ namespace Grand.Web.Models.Catalog
                     var filterItem = new SpecificationFilterItem {
                         SpecificationAttributeName = x.SpecificationAttributeName,
                         SpecificationAttributeSeName = x.SpecificationAttributeSeName,
-                        SpecificationAttributeOptionName = parentName + x.SpecificationAttributeOptionName,
+                        SpecificationAttributeOptionName = $"{parentName} {x.SpecificationAttributeOptionName}",
                         SpecificationAttributeOptionSeName = x.SpecificationAttributeOptionSeName,
                         SpecificationAttributeOptionColorRgb = x.SpecificationAttributeOptionColorRgb,
                         SpecificationAttributeOptionParentSpecificationAttrOptionId = x.SpecificationAttributeOptionParentSpecificationAttrOptionId,
