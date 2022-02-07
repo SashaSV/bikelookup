@@ -46,7 +46,9 @@ namespace Grand.Web.Features.Handlers.Vendors
                      SpecificationAttributeName = specificationAttribute.GetLocalized(x => x.Name, request.Language.Id),
                      ColorSquaresRgb = specificationAttribute.SpecificationAttributeOptions.Where(x => x.Id == item.SpecificationAttributeOptionId).FirstOrDefault() != null ? specificationAttribute.SpecificationAttributeOptions.Where(x => x.Id == item.SpecificationAttributeOptionId).FirstOrDefault().ColorSquaresRgb : "",
                      GenericAttributes = specificationAttribute.GenericAttributes,
-                     };
+                     DisplayOrder = item.DisplayOrder
+                };
+
                 switch (item.AttributeType)
                 {
                     case SpecificationAttributeType.Option:

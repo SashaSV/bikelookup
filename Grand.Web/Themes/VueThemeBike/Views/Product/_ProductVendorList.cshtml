@@ -80,8 +80,9 @@
                                         }
                                     </div>
                                 }
+
                                 @{
-                                    var group = @variant.VendorModel.VendorSpecificationAttributes.GroupBy(x => x.SpecificationAttributeName);
+                                    var group = @variant.VendorModel.VendorSpecificationAttributes.GroupBy(x => new { x.SpecificationAttributeName, x.DisplayOrder}).OrderBy(x=>x.Key.DisplayOrder);
                                 }
 
                                 @foreach (var item in group)

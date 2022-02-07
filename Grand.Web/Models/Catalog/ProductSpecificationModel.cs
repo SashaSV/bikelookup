@@ -19,6 +19,7 @@ namespace Grand.Web.Models.Catalog
         public bool ShowOnProductMainPage { get; set; }
 
         public bool ShowOnSellerMainPage { get; set; }
+        public int DisplayOrder { get; set; }
 
     }
 }
