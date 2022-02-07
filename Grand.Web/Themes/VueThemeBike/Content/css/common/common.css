@@ -1304,8 +1304,8 @@ input:checked ~ .color-container .color::before {
 }
 
 .btn-group>.btn-secondary, .btn-secondary {
-    /* border: 1px solid transparent !important; */
-    border: 1px solid #efefef!important;
+    border: 1px solid transparent !important; 
+    /*border: 1px solid #efefef!important;*/
 }
 
 .btn-sm:hover{

@@ -47,6 +47,7 @@
                      </b-row>
                  </b-modal>
           </b-row>
+
           @if (Model.AssociatedProducts.Any())
           {
               @foreach (var assocProduct in Model.AssociatedProducts)
@@ -57,14 +58,14 @@
                   }
                   <b-row class="mb-4">
                       <b-col class="pl-0">
-                          <a href="@assocProduct.Url" class="proposal-name">
+                          <a href="@(assocProduct.IsAd ? Url.RouteUrl("ViewAd", new { adId = assocProduct.AdId }) : assocProduct.Url)" class="proposal-name">
                               <div class="proposal-name-label">
                                   @assocProduct.VendorModel.Name
                               </div>
                           </a>
                       </b-col>
                       <b-col>
-                          <a href="@assocProduct.Url" class="proposal-value">
+                          <a href="@(assocProduct.IsAd ? Url.RouteUrl("ViewAd", new { adId = assocProduct.AdId }) : assocProduct.Url)" class="proposal-value">
                               <div class="proposal-value-label">
                                   @assocProduct.ProductPrice.Price
                               </div>

@@ -20,6 +20,10 @@ namespace Grand.Web.Models.Catalog
 
     public partial class VendorBriefInfoModel : BaseEntityModel
     {
+        public VendorBriefInfoModel()
+        {
+            VendorSpecificationAttributes = new List<ProductSpecificationModel>();
+        }
 
         public int ApprovedRatingSum { get; set; }
 

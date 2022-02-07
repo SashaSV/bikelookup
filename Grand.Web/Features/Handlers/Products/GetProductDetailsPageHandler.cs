@@ -39,6 +39,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Grand.Web.Features.Models.Vendors;
 using Grand.Services.Ads;
+using Grand.Domain.Ads;
+using static Grand.Web.Models.Catalog.ProductDetailsModel;
 
 namespace Grand.Web.Features.Handlers.Products
 {
@@ -306,6 +308,12 @@ namespace Grand.Web.Features.Handlers.Products
                 {
                     model.IsAd = true;
                     model.CustomerOwnerId = string.IsNullOrEmpty(ad.OwnerId) ? ad.CustomerId : ad.OwnerId;
+                    if (model.VendorModel != null) 
+                    {
+                        model.VendorModel.VendorSpecificationAttributes = model.ProductSpecifications;
+                    }
+                    
+                    model.AdCard = await PrepareAdCardModel(ad);
                 }
             }
 			#endregion
@@ -359,7 +367,6 @@ namespace Grand.Web.Features.Handlers.Products
 
             return model;
         }
-
 
         private async Task<ProductDetailsModel> PrepareStandardProperties(Product product, ShoppingCartItem updateCartItem)
         {
@@ -634,7 +641,21 @@ namespace Grand.Web.Features.Handlers.Products
                 return (defaultPictureModel, pictureModels);
             });
         }
+        private async Task<AdCardModel> PrepareAdCardModel(Ad ad)
+        {
+            var model = new AdCardModel {
+                AdNumber = ad.AdNumber,
+                CreatedOnUtc = ad.CreatedOnUtc,
+                AdComment = ad.AdComment,
+                CustomerAddress = ad.ShippingAddress,
+                WithDocuments = ad.WithDocuments,
+                Mileage = ad.Mileage,
+                IsAuction = ad.IsAuction
+            };
 
+            return model;
+
+        }
         private async Task<ProductDetailsModel.ProductPriceModel> PrepareProductPriceModel(Product product, IList<ProductDetailsModel> associatedProducts)
         {
             var displayPrices = await _permissionService.Authorize(StandardPermissionProvider.DisplayPrices);

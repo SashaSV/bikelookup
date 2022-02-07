@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.OData.Edm;
 using System;
 using System.Collections.Generic;
+using Grand.Domain.Common;
 
 namespace Grand.Web.Models.Catalog
 {
@@ -115,13 +116,29 @@ namespace Grand.Web.Models.Catalog
         public string AdId { get; set; }
         public string CustomerOwnerId { get; set; }
         public Boolean IsAd { get; set; }
-        #region Nested Classes
+        public AdCardModel AdCard { get; set; }
+   
+    #region Nested Classes
+
+        public partial class AdCardModel : BaseModel 
+        {
+            public string AdPructName;         
+            public int AdNumber { get; set; }
+            public DateTime CreatedOnUtc { get; set; }
+            public string AdComment { get; set; }
+            public Address CustomerAddress { get; set; }
+            public bool WithDocuments { get; set; }
+            public int Mileage { get; set; }
+            public bool IsAuction { get; set; }
+        }
+        
         public partial class ProductBreadcrumbModel : BaseModel
         {
             public ProductBreadcrumbModel()
             {
                 CategoryBreadcrumb = new List<CategorySimpleModel>();
             }
+
             public int Id { get; set; }
             public bool Enabled { get; set; }
             public string ProductId { get; set; }

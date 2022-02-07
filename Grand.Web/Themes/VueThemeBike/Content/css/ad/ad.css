@@ -49,6 +49,7 @@
     overflow: overlay;
     border-radius: 100%!important;
     border: 2px solid #F15A24;
+    /*border: 2px solid #e9ecef;*/
      box-shadow: 0 0 7px #666; 
     /* background-size: cover; */
     /* background-repeat: no-repeat; */
@@ -72,21 +73,25 @@
 
 .card-body {
     position: relative;
+    width: 100%;
+    padding: 10px;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-direction: column;
     flex-direction: row;
     min-width: 0;
     word-wrap: break-word;
+    background-clip: border-box;
+    border-radius: .25rem;
+    justify-content: space-around;
+    /* align-items: center; */
     /* background-color: rgb(255,255,0,0.08); */
     /* opacity: 0.4; */
-    background-clip: border-box;
     /* border: 1px solid rgba(0,0,0,.125); */
-    border-radius: .25rem;
-    justify-content: center;
-    /* align-items: center; */
-    width: 100%;
     /* box-shadow: 0px 3px 13px rgb(0 0 0 / 20%); */
+}
+.payments, .shipments {
+    margin: 0.3rem;
 }
 
 /* .card-header {
