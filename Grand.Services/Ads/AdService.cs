@@ -80,7 +80,12 @@ namespace Grand.Services.Ads
             return _adRepository.GetByIdAsync(AdId);
         }
 
-
+        public async Task UpdateMostView(string adId)
+        {
+            var update = new UpdateDefinitionBuilder<Ad>().Inc(x => x.Viewed, 1);
+             await _adRepository.Collection.UpdateManyAsync(x => x.Id == adId, update);
+        }
+        
         /// <summary>
         /// Gets an ad
         /// </summary>

@@ -128,7 +128,8 @@ namespace Grand.Web.Features.Handlers.Ads
 
             var rp = await _productService.GetProductById(ad.ProductId);
             var vendor = await _adService.GetVendorByAd(ad);
-
+            await _adService.UpdateMostView(ad.Id);
+            
             model.AdPructName = rp == null ? "" : rp.Name;
 
             model.DefaultPictureZoomEnabled = _mediaSettings.DefaultPictureZoomEnabled;
@@ -145,6 +146,7 @@ namespace Grand.Web.Features.Handlers.Ads
             model.CreatedOnUtc = ad.CreatedOnUtc;
             model.AdComment = ad.AdComment;
             model.Price = ad.Price;
+            model.Viewed = ad.Viewed;
             model.CustomerAddress = ad.ShippingAddress;
             model.WithDocuments = ad.WithDocuments;
             model.Mileage = ad.Mileage;
@@ -192,15 +194,21 @@ namespace Grand.Web.Features.Handlers.Ads
             var delivery = await _atributeService.GetSpecificationAttributeBySeName("v_delivery");
             //model.ShippingMethodType = delivery?.SpecificationAttributeOptions.Select(a => new ShipmentMethodType { Id = a.Id, Name = a.GetLocalized(x => x.Name, request.Language.Id) }).ToList();
 
-            foreach (var deliveryOption in productAssociated.ProductSpecificationAttributes.Where(psa => psa.SpecificationAttributeId == delivery.Id))
+            if (delivery != null)
             {
-                // model.SelectedShippingMethods.Add(paymentOption.SpecificationAttributeOptionId);
-                var sao = delivery?.SpecificationAttributeOptions.FirstOrDefault(a => a.Id == deliveryOption.SpecificationAttributeOptionId);
-                if (sao != null) 
+                foreach (var deliveryOption in productAssociated.ProductSpecificationAttributes.Where(psa =>
+                             psa.SpecificationAttributeId == delivery.Id))
                 {
-                    model.ShippingMethodType.Add(new ShipmentMethodType { Id = sao.Id, Name = sao.GetLocalized(x => x.Name, request.Language.Id) });
+                    // model.SelectedShippingMethods.Add(paymentOption.SpecificationAttributeOptionId);
+                    var sao = delivery?.SpecificationAttributeOptions.FirstOrDefault(a =>
+                        a.Id == deliveryOption.SpecificationAttributeOptionId);
+                    if (sao != null)
+                    {
+                        model.ShippingMethodType.Add(new ShipmentMethodType
+                            { Id = sao.Id, Name = sao.GetLocalized(x => x.Name, request.Language.Id) });
+                    }
+
                 }
-                
             }
 
             //await _mediator.Send(new GetVendor() {

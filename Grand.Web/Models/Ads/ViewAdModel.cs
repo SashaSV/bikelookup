@@ -42,6 +42,8 @@ namespace Grand.Web.Models.Ads
         public IList<ShipmentMethodType> ShippingMethodType { get; set; }
         public IList<string> SelectedPaymentMethods { get; set; }
         public IList<PaymentsMethodType> PaymentMethodType { get; set; }
+        
+        public Int64 Viewed { get; set; }
 
         #region Nested Classes
         public partial class PaymentsMethodType : BaseEntityModel

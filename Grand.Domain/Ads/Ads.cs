@@ -136,7 +136,7 @@ namespace Grand.Domain.Ads
         /// Mileage
         /// </summary>
         public int Mileage { get; set; }
-        #region Не нужные свойства
+        #region пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         /// <summary>
         /// Gets or sets a value indicating whether a customer chose "pick up in store" shipping option
         /// </summary>
@@ -415,6 +415,11 @@ namespace Grand.Domain.Ads
         #endregion
         public virtual AdItem AdItem {get; set;}
 
+        /// <summary>
+        /// Gets or sets the viewed
+        /// </summary>
+        public Int64 Viewed { get; set; }
+        
         /// <summary>
         /// Gets or sets Ads items
         /// </summary>
