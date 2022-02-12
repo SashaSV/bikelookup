@@ -27,6 +27,13 @@ namespace Grand.Services.Ads
         /// <summary>
         /// Gets an Ads
         /// </summary>
+        /// <param name="AdId">The Ads identifier</param>
+        /// <returns>Ads</returns>
+        Task UpdateMostView(string adId);
+        
+        /// <summary>
+        /// Gets an Ads
+        /// </summary>
         /// <param name="AdItemId">The Ads item identifier</param>
         /// <returns>Ads</returns>
         Task<Ad> GetAdByAdItemId(string AdItemId);
