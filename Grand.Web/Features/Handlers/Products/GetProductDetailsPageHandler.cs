@@ -513,6 +513,9 @@ namespace Grand.Web.Features.Handlers.Products
                                                         Title = string.Format(_localizationService.GetResource("Media.Vendor.ImageLinkTitleFormat"), vendor.Name),
                                                         AlternateText = string.Format(_localizationService.GetResource("Media.Vendor.ImageAlternateTextFormat"), vendor.Name),
                     };
+                    
+                    //var group = vendorSpecs.GroupBy(x => new { x.SpecificationAttributeName, x.DisplayOrder }).OrderBy(x => x.Key.DisplayOrder);
+
                     return new VendorBriefInfoModel {
                         Id = vendor.Id,
                         Name = vendor.GetLocalized(x => x.Name, _workContext.WorkingLanguage.Id),
