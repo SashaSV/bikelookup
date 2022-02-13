@@ -1,4 +1,6 @@
-﻿namespace Grand.Domain.Catalog
+﻿using System.Collections.Generic;
+
+namespace Grand.Domain.Catalog
 {
     /// <summary>
     /// Represents a specification attribute option filter
@@ -44,6 +46,11 @@
         /// Gets or sets the specification attribute option sename
         /// </summary>
         public string SpecificationAttributeOptionSeName { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the specification attribute option sename
+        /// </summary>
+        public IEnumerable<string> ChildSpecificationAttributeOptionSeNames { get; set; }
 
         /// <summary>
         /// Gets or sets the parent specification attribute option Id

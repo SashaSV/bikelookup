@@ -417,9 +417,11 @@ namespace Grand.Web.Models.Catalog
                         if (sa != null)
                         {
                             var saOption = sa.SpecificationAttributeOptions.FirstOrDefault(x => x.Id == sao);
-
+                        
                             if (string.IsNullOrEmpty(saOption.ParentSpecificationAttrOptionId) && !_allFilters.Any(s => s.SpecificationAttributeOptionId == sao))
                             {
+                                var allChildren = specificationAttributeService.GetOptionAllChild(saOption, sa.SpecificationAttributeOptions);
+
                                 _allFilters.Add(new SpecificationAttributeOptionFilter {
                                     SpecificationAttributeId = sa.Id,
                                     SpecificationAttributeName = sa.GetLocalized(x => x.Name, langId),
@@ -431,6 +433,7 @@ namespace Grand.Web.Models.Catalog
                                     SpecificationAttributeOptionDisplayOrder = saOption.DisplayOrder,
                                     SpecificationAttributeOptionParentSpecificationAttrOptionId = saOption.ParentSpecificationAttrOptionId,
                                     SpecificationAttributeOptionColorRgb = saOption.ColorSquaresRgb,
+                                    ChildSpecificationAttributeOptionSeNames = allChildren.Select(c => c.SeName)
                                 });
                             }
                             else 
@@ -440,6 +443,9 @@ namespace Grand.Web.Models.Catalog
                                 {
                                     if (!_allFilters.Any(s=>s.SpecificationAttributeOptionId == saoP.Id)) 
                                     {
+                                        var allChildren = specificationAttributeService.GetOptionAllChild(saoP, sa.SpecificationAttributeOptions)
+                                            .Where(s=>s.Id != saoP.Id);
+ 
                                         _allFilters.Add(new SpecificationAttributeOptionFilter {
                                             SpecificationAttributeId = sa.Id,
                                             SpecificationAttributeName = sa.GetLocalized(x => x.Name, langId),
@@ -451,6 +457,7 @@ namespace Grand.Web.Models.Catalog
                                             SpecificationAttributeOptionDisplayOrder = saoP.DisplayOrder,
                                             SpecificationAttributeOptionParentSpecificationAttrOptionId = saoP.ParentSpecificationAttrOptionId,
                                             SpecificationAttributeOptionColorRgb = saoP.ColorSquaresRgb,
+                                            ChildSpecificationAttributeOptionSeNames = allChildren.Select(c => c.SeName)
                                         });
                                     }
                                 }
@@ -513,9 +520,14 @@ namespace Grand.Web.Models.Catalog
                 //get not filtered specification options
                 NotFilteredItems = allFilters.Except(alreadyFilteredOptions).Select(x =>
                 {
+                    var addToFIlter =
+                        x.ChildSpecificationAttributeOptionSeNames.Any()
+                            ? x.ChildSpecificationAttributeOptionSeNames
+                            : new List<string> { x.SpecificationAttributeOptionSeName };
+                        
                     //filter URL
                     var alreadyFiltered = alreadyFilteredOptions.Where(y => y.SpecificationAttributeId == x.SpecificationAttributeId).Select(x => x.SpecificationAttributeOptionSeName)
-                    .Concat(new List<string> { x.SpecificationAttributeOptionSeName });
+                    .Concat(addToFIlter);
 
                     var filterUrl = webHelper.ModifyQueryString(webHelper.GetThisPageUrl(true), x.SpecificationAttributeSeName, GenerateFilteredSpecQueryParam(alreadyFiltered.ToList()));
                     return new SpecificationFilterItem() {
