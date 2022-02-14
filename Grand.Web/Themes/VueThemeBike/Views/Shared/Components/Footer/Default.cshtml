@@ -22,7 +22,10 @@
                             <b-list-group-item href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</b-list-group-item>
                         }
                         <b-list-group-item href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</b-list-group-item>
-                        <b-list-group-item href="@Url.RouteUrl("ProductSearch")">@T("Search")</b-list-group-item>
+                        @if (false)
+                        {
+                            <b-list-group-item href="@Url.RouteUrl("ProductSearch")">@T("Search")</b-list-group-item>
+                        }
                         @if (Model.NewsEnabled)
                         {
                             <b-list-group-item href="@Url.RouteUrl("NewsArchive")">@T("News")</b-list-group-item>
@@ -101,22 +104,34 @@
                             <span>@T("Footer.CompanyName.Title")</span>
                             <span>@Model.CompanyName</span>
                         </b-list-group-item>
-                        <b-list-group-item>
-                            <span>@T("Footer.Address.Title")</span>
-                            <span>@Model.CompanyAddress</span>
-                        </b-list-group-item>
-                        <b-list-group-item>
-                            <span>@T("footer.Email.Title")</span>
-                            <span>@Model.CompanyEmail</span>
-                        </b-list-group-item>
-                        <b-list-group-item>
-                            <span>@T("Footer.Phone.Title")</span>
-                            <span>@Model.CompanyPhone</span>
-                        </b-list-group-item>
-                        <b-list-group-item>
-                            <span>@T("Footer.Hour.Title")</span>
-                            <span>@Model.CompanyHours</span>
-                        </b-list-group-item>
+                        @if (!string.IsNullOrEmpty(Model.CompanyAddress))
+                        {
+                            <b-list-group-item>
+                                <span>@T("Footer.Address.Title")</span>
+                                <span>@Model.CompanyAddress</span>
+                            </b-list-group-item>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.CompanyEmail))
+                        {
+                            <b-list-group-item>
+                                <span>@T("footer.Email.Title")</span>
+                                <span>@Model.CompanyEmail</span>
+                            </b-list-group-item>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.CompanyPhone))
+                        {
+                            <b-list-group-item>
+                                <span>@T("Footer.Phone.Title")</span>
+                                <span>@Model.CompanyPhone</span>
+                            </b-list-group-item>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.CompanyHours))
+                        {
+                            <b-list-group-item>
+                                <span>@T("Footer.Hour.Title")</span>
+                                <span>@Model.CompanyHours</span>
+                            </b-list-group-item>
+                        }
                     </b-list-group>
                 </div>
             </b-col>
