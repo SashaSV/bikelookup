@@ -159,6 +159,14 @@ namespace Grand.Services.Catalog
         IList<SpecificationAttributeOption> GetOptionAllChild(SpecificationAttributeOption spo, ICollection<SpecificationAttributeOption> allOptions);
 
         /// <summary>
+        /// Get all Child Option
+        /// </summary>
+        /// <param name="SpecificationAttributeOption">Category</param>
+        /// <param name="allOptions">Category service</param>
+        /// <returns>Category breadcrumb </returns>
+        IList<SpecificationAttributeOption> GetOptionAllLeafChild(SpecificationAttributeOption spo, ICollection<SpecificationAttributeOption> allOptions);
+        
+        /// <summary>
         /// Get category breadcrumb 
         /// </summary>
         /// <param name="SpecificationAttributeOption">Category</param>

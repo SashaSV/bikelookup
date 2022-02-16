@@ -443,7 +443,7 @@ namespace Grand.Web.Models.Catalog
                                 {
                                     if (!_allFilters.Any(s=>s.SpecificationAttributeOptionId == saoP.Id)) 
                                     {
-                                        var allChildren = specificationAttributeService.GetOptionAllChild(saoP, sa.SpecificationAttributeOptions)
+                                        var allChildren = specificationAttributeService.GetOptionAllLeafChild(saoP, sa.SpecificationAttributeOptions)
                                             .Where(s=>s.Id != saoP.Id);
  
                                         _allFilters.Add(new SpecificationAttributeOptionFilter {
@@ -510,6 +510,7 @@ namespace Grand.Web.Models.Catalog
                         SpecificationAttributeOptionColorRgb = x.SpecificationAttributeOptionColorRgb,
                         SpecificationAttributeOptionParentSpecificationAttrOptionId = x.SpecificationAttributeOptionParentSpecificationAttrOptionId,
                         FilterUrl = ExcludeQueryStringParams(filterUrl, webHelper),
+                        SpecFilterUrl =  webHelper.ModifyQueryString(webHelper.GetThisPageUrl(true), x.SpecificationAttributeSeName, null),
                         Id = x.SpecificationAttributeOptionId
                     };
                     return filterItem;
@@ -576,6 +577,7 @@ namespace Grand.Web.Models.Catalog
             public string SpecificationAttributeOptionSeName { get; set; }
             public string SpecificationAttributeOptionColorRgb { get; set; }
             public string FilterUrl { get; set; }
+            public string SpecFilterUrl { get; set; }
             public string SpecificationAttributeOptionParentSpecificationAttrOptionId { get; set; }
 
             public string Id { get; set; }

@@ -643,6 +643,42 @@ namespace Grand.Services.Catalog
             result.Reverse();
             return result;
         }
+        
+        /// <summary>
+        /// Get all Child Option
+        /// </summary>
+        /// <param name="spo">Category</param>
+        /// <param name="allOptions">Category service</param>
+        /// <returns>Category breadcrumb </returns>
+        public virtual IList<SpecificationAttributeOption> GetOptionAllLeafChild(SpecificationAttributeOption spoParant, ICollection<SpecificationAttributeOption> allOptions)
+        {
+            var result = new List<SpecificationAttributeOption>();
+
+            //used to prevent circular references
+            var alreadyProcessedSpoIds = new List<string>();
+            if (spoParant == null)
+            { return result; }
+            
+            var alChildrenOp = allOptions.Where(s => s.ParentSpecificationAttrOptionId == spoParant.Id);
+            if (!alChildrenOp.Any())
+            {
+                result.Add(spoParant);
+            }
+            
+            foreach (var childOp in alChildrenOp)
+            {
+                var childs = GetOptionAllLeafChild(childOp, allOptions);
+                
+                foreach (var c in childs)
+                {
+                    if (!result.Contains(c))
+                    { result.Add(c); }
+                }
+            }
+
+            result.Reverse();
+            return result;
+        }
 
         /// <summary>
         /// Get formatted category breadcrumb 
