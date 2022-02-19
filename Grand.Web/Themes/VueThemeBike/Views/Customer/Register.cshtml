@@ -113,77 +113,78 @@
                         </div>
                     </fieldset>
                 }
-                <div class="form-row">
-                    <fieldset class="col-sm-6 col-12 form-group">
-                        <legend class="sr-only">@T("account.fields.firstname")</legend>
-                        <label asp-for="FirstName" class="col-form-label">@T("Account.Fields.FirstName"):</label>
-                        <span class="required">*</span>
-                        <input asp-for="FirstName" class="form-control" v-validate="'required'" />
-                        <span class="field-validation-error">{{veeErrors.first('FirstName')}}</span>
-                        <span asp-validation-for="FirstName"></span>
-                    </fieldset>
-                    <fieldset class="col-sm-6 col-12 form-group">
-                        <legend class="sr-only">@T("account.fields.lastname")</legend>
-                        <label asp-for="LastName" class="col-form-label">@T("Account.Fields.LastName"):</label>
-                        <span class="required">*</span>
-                        <input asp-for="LastName" class="form-control" v-validate="'required'" />
-                        <span class="field-validation-error">{{veeErrors.first('LastName')}}</span>
-                        <span asp-validation-for="LastName"></span>
-                    </fieldset>
-                </div>
-
-                @if (Model.DateOfBirthEnabled)
-                {
-                    <fieldset class="form-group date-of-birth col-sm-12">
-                        <legend class="sr-only">@T("Account.Fields.DateOfBirth")</legend>
-                        <div class="row">
-                            <span class="col-form-label col-12 py-0 px-0">@T("Account.Fields.DateOfBirth"):<span class="required">*</span></span>
-                            <date-picker-dropdown control-day="@Html.IdFor(x => x.DateOfBirthDay)"
-                                                  control-month="@Html.IdFor(x => x.DateOfBirthMonth)"
-                                                  control-year="@Html.IdFor(x => x.DateOfBirthYear)"
-                                                  begin-year="@(DateTime.Now.Year - 100)"
-                                                  end-year="DateTime.Now.Year"
-                                                  selected-day="Model.DateOfBirthDay.HasValue ? Model.DateOfBirthDay.Value : 0"
-                                                  selected-month="Model.DateOfBirthMonth.HasValue ? Model.DateOfBirthMonth.Value : 0"
-                                                  selected-year="Model.DateOfBirthYear.HasValue ? Model.DateOfBirthYear.Value : 0"
-                                                  class="col-12 input-group px-0" />
-                        </div>
-                        <div class="row">
-                            <span asp-validation-for="DateOfBirthDay"></span>
-                            <span asp-validation-for="DateOfBirthMonth"></span>
-                            <span asp-validation-for="DateOfBirthYear"></span>
-                        </div>
-                    </fieldset>
-                }
-                <fieldset class="form-group col-md-12 mail">
-                    <legend class="sr-only">@T("account.fields.email")</legend>
-                    <div class="row">
-                        <label asp-for="Email" class="col-form-label">@T("Account.Fields.Email"):</label>
-                        <span class="required">*</span>
-                        <input asp-for="Email" class="form-control" v-validate.continues="'required|email'" />
-                        <span class="field-validation-error">{{veeErrors.first('Email')}}</span>
-                        <span asp-validation-for="Email"></span>                        
-                    </div>
+            <div class="row d-flex">
+                @*<div class="form-row">*@
+                <fieldset class="form-group col-sm-6 col-12">
+                    <legend class="sr-only">@T("account.fields.firstname")</legend>
+                    <label asp-for="FirstName" class="col-form-label">@T("Account.Fields.FirstName"):</label>
+                    <span class="required">*</span>
+                    <input asp-for="FirstName" class="form-control" v-validate="'required'" />
+                    <span class="field-validation-error">{{veeErrors.first('FirstName')}}</span>
+                    <span asp-validation-for="FirstName"></span>
                 </fieldset>
-
-                @if (Model.UsernamesEnabled)
-                {
-                    <div class="form-group row">
-                        <div class="col-12">
-                            <label asp-for="Username" class="col-form-label">@T("Account.Fields.Username"):</label>
+                <fieldset class="col-sm-6 col-12 form-group">
+                    <legend class="sr-only">@T("account.fields.lastname")</legend>
+                    <label asp-for="LastName" class="col-form-label">@T("Account.Fields.LastName"):</label>
+                    <span class="required">*</span>
+                    <input asp-for="LastName" class="form-control" v-validate="'required'" />
+                    <span class="field-validation-error">{{veeErrors.first('LastName')}}</span>
+                    <span asp-validation-for="LastName"></span>
+                </fieldset>
+                @*</div>*@
+            </div>
+                    @if (Model.DateOfBirthEnabled)
+                    {
+                        <fieldset class="form-group date-of-birth col-sm-12">
+                            <legend class="sr-only">@T("Account.Fields.DateOfBirth")</legend>
+                            <div class="row">
+                                <span class="col-form-label col-12 py-0 px-0">@T("Account.Fields.DateOfBirth"):<span class="required">*</span></span>
+                                <date-picker-dropdown control-day="@Html.IdFor(x => x.DateOfBirthDay)"
+                                                      control-month="@Html.IdFor(x => x.DateOfBirthMonth)"
+                                                      control-year="@Html.IdFor(x => x.DateOfBirthYear)"
+                                                      begin-year="@(DateTime.Now.Year - 100)"
+                                                      end-year="DateTime.Now.Year"
+                                                      selected-day="Model.DateOfBirthDay.HasValue ? Model.DateOfBirthDay.Value : 0"
+                                                      selected-month="Model.DateOfBirthMonth.HasValue ? Model.DateOfBirthMonth.Value : 0"
+                                                      selected-year="Model.DateOfBirthYear.HasValue ? Model.DateOfBirthYear.Value : 0"
+                                                      class="col-12 input-group px-0" />
+                            </div>
+                            <div class="row">
+                                <span asp-validation-for="DateOfBirthDay"></span>
+                                <span asp-validation-for="DateOfBirthMonth"></span>
+                                <span asp-validation-for="DateOfBirthYear"></span>
+                            </div>
+                        </fieldset>
+                    }
+                    <fieldset class="form-group col-md-12 mail">
+                        <legend class="sr-only">@T("account.fields.email")</legend>
+                        <div class="row">
+                            <label asp-for="Email" class="col-form-label">@T("Account.Fields.Email"):</label>
                             <span class="required">*</span>
+                            <input asp-for="Email" class="form-control" v-validate.continues="'required|email'" />
+                            <span class="field-validation-error">{{veeErrors.first('Email')}}</span>
+                            <span asp-validation-for="Email"></span>
                         </div>
-                        <div class="col-12">
-                            <input asp-for="Username" class="form-control" v-validate="'required'" />
-                            <span class="field-validation-error">{{veeErrors.first('Username')}}</span>
-                            <span asp-validation-for="Username"></span>
-                            @if (Model.CheckUsernameAvailabilityEnabled)
-                            {
-                                <partial name="_CheckUsernameAvailability" />
-                            }
+                    </fieldset>
+
+                    @if (Model.UsernamesEnabled)
+                    {
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <label asp-for="Username" class="col-form-label">@T("Account.Fields.Username"):</label>
+                                <span class="required">*</span>
+                            </div>
+                            <div class="col-12">
+                                <input asp-for="Username" class="form-control" v-validate="'required'" />
+                                <span class="field-validation-error">{{veeErrors.first('Username')}}</span>
+                                <span asp-validation-for="Username"></span>
+                                @if (Model.CheckUsernameAvailabilityEnabled)
+                                {
+                                    <partial name="_CheckUsernameAvailability" />
+                                }
+                            </div>
                         </div>
-                    </div>
-                }
+                    }
             </b-card-text>
         </b-card>
 

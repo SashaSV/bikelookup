@@ -60,11 +60,11 @@ namespace Grand.Web.Areas.Admin.Services
             var customer = await _customerService.GetCustomerById(productReview.CustomerId);
             var store = await _storeService.GetStoreById(productReview.StoreId);
             model.Id = productReview.Id;
-            model.StoreName = store != null ? store.Shortcut : "";
+            model.StoreName = store != null ? store.Shortcut : string.Empty;
             model.ProductId = productReview.ProductId;
-            model.ProductName = product.Name;
+            model.ProductName = product == null ? string.Empty : product.Name;
             model.CustomerId = productReview.CustomerId;
-            model.CustomerInfo = customer != null ? customer.IsRegistered() ? customer.Email : _localizationService.GetResource("Admin.Customers.Guest") : "";
+            model.CustomerInfo = customer != null ? customer.IsRegistered() ? customer.Email : _localizationService.GetResource("Admin.Customers.Guest") : string.Empty;
             model.Rating = productReview.Rating;
             model.CreatedOn = _dateTimeHelper.ConvertToUserTime(productReview.CreatedOnUtc, DateTimeKind.Utc);
             model.Signature = productReview.Signature;
