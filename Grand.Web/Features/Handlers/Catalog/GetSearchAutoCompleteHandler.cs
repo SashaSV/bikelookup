@@ -163,7 +163,7 @@ namespace Grand.Web.Features.Handlers.Catalog
                         item.ProductSpecificationAttributes.FirstOrDefault(o =>
                             o.SpecificationAttributeId == atribute.Id);
 
-                    prodModel.Color = option.SpecificationAttributeOptionId;
+                    prodModel.Color = option == null ? string.Empty : option.SpecificationAttributeOptionId;
                 }
 
                 foreach (var category in item.ProductCategories)

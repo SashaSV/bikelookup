@@ -59,7 +59,7 @@
                   <b-row class="mb-4">
                       <b-col class="pl-0">
                           <a href="@(assocProduct.IsAd ? Url.RouteUrl("ViewAd", new { adId = assocProduct.AdId }) : assocProduct.Url)" class="proposal-name">
-                              <div class="proposal-name-label">
+                              <div class="proposal-name-label @(assocProduct.IsAd ? "isad" : "")">
                                   @assocProduct.VendorModel.Name
                               </div>
                           </a>

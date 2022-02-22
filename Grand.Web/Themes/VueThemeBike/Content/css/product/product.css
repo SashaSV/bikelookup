@@ -852,3 +852,7 @@ a:hover {
     flex-direction: column;
     align-items: center;
 }
+
+.proposal-name-label.isad{
+    color: #1e89ec!important;
+}
