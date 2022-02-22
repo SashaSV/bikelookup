@@ -269,7 +269,7 @@ namespace Grand.Web.Areas.Admin.Services
             vendor = model.ToEntity(vendor);
             vendor.Locales = await model.Locales.ToLocalizedProperty(vendor, x => x.Name, _seoSettings, _urlRecordService, _languageService);
             model.SeName = await vendor.ValidateSeName(model.SeName, vendor.Name, true, _seoSettings, _urlRecordService, _languageService);
-            vendor.Addresses = model.Addresses.Select(a=>a.ToEntity()).ToList();
+          
 
             //discounts
             var allDiscounts = await _discountService.GetAllDiscounts(DiscountType.AssignedToVendors, showHidden: true);
