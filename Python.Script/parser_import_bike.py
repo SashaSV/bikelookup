@@ -12,7 +12,7 @@ from pymongo import MongoClient
 #86
 NAMEMACHINE = 'localhost'
 PORTDB = 27017
-NAMEDB = 'bike4'
+NAMEDB = 'bludb1'
 PAGES_START = 1
 PAGES_COUNT = 1
 OUT_FILENAME = 'velogo'
@@ -30,7 +30,7 @@ hosts = [
         'parsName': True,
         'urlsite': 'https://velogo.com.ua',
         'FMT': 'https://velogo.com.ua/velo?per_page={page}',
-        'PAGES_COUNT': 56,
+        'PAGES_COUNT': 1,
         'OUT_FILENAME': 'velogo',
         'VENDOR': 'velogo.com.ua',
         'COUNTONPAGE': 24,
@@ -860,7 +860,7 @@ def chek_in_colorbase(db, nameIn):
 
     return retColor
 
-def pars_name(db, name_in, size_in = '', wheeldiam_in = '', year_in = '', model_in = ''):
+def pars_name(db, name_in, size_in = '', wheeldiam_in = '', year_in = '', model_in = '', brandname_in = ''):
     deletewords = ['Электровелосипед', 'BMX', 'Велосипед', '(м)', 'OFFICIAL', 'UA', 'Беговел']
 
     name = name_in
@@ -891,7 +891,10 @@ def pars_name(db, name_in, size_in = '', wheeldiam_in = '', year_in = '', model_
 
         wheeldiam = wheeldiam.replace(',', '.')
 
-    manufactureName = chek_so_name(db, name.split(' ')[0], 'manufacturer')
+    manufactureName = brandname_in
+    if len(brandname_in) == 0:
+        manufactureName = chek_so_name(db, name.split(' ')[0], 'manufacturer')
+
     if len(manufactureName) == 0:
         manufactureName = name.split(' ')[0]
 
@@ -1651,11 +1654,11 @@ def check_product(db, data):
         sp_size = sp_size if not sp_size is None else ''
 
         ##
-        name_elem = pars_name(db, d['name'], size_in=sp_size, wheeldiam_in=sp_wheeldiams, year_in=sp_year, model_in = sp_model)
-
         manufacturer = d['manufacturer']
-
         brandname = manufacturer if type(manufacturer) is str else manufacturer.get('brand')
+
+        name_elem = pars_name(db, d['name'], size_in=sp_size, wheeldiam_in=sp_wheeldiams, year_in=sp_year, model_in = sp_model, brandname_in = brandname)
+
         brandname = brandname if name_elem['ManufactureName'].strip() == '' else name_elem['ManufactureName']
 
         if brandname is None:
@@ -1675,7 +1678,7 @@ def check_product(db, data):
                 ' Frame {0}'.format(name_elem['Size']) if name_elem['Size'].strip() != '' else '')
 
         name = name.strip()
-
+        name_elem['Model'] = name_elem['ManufactureName']+'->'+name_elem['Model']
         cnt = cnt + 1
         print('{0}. Загрузка {1}'.format(cnt, name))
 
@@ -1735,7 +1738,7 @@ def check_product(db, data):
                 parentSPO = None
 
                 if ifWithLinq:
-                    prop_value = prop_value.replace(' ', 'separate')
+                    prop_value = prop_value.replace('->', 'separate')
 
                 prop_value = prop_value.replace(',', 'separate')
                 prop_value = prop_value.replace('/', 'separate')
@@ -2018,16 +2021,13 @@ def clear_all_product(db):
         delete_document(db.Product, {'_id': product.get('_id')})
         delete_document(db.UrlRecord, {'EntityName': 'Product', 'Slug': SeName})
 
-def ОБЪЕМБАР_СКС(КОД_ПРИЕМНОЙ_ТАРЫ, ДИАМЕТР_КАНАТА, КОЭФ_КОРР, КОЭФ):
+    ads = find_document(db.Ad, {}, multiple = True)
+    for ad in ads:
+        delete_document(db.Ad, {'_id': ad.get('_id')})
 
- ДИАМЕТР_ШЕЙКИ_БАРАБАНА = ПараметрРесурса(КОД_ПРИЕМНОЙ_ТАРЫ, "KF1")
- ДИАМЕТР_ШЕКИ_БАРАБАНА = ПараметрРесурса(КОД_ПРИЕМНОЙ_ТАРЫ, "KF2")
- ДЛИНА_ШЕЙКИ_ПРИЕМН_БАРАБАНА = ПараметрРесурса(КОД_ПРИЕМНОЙ_ТАРЫ, "KF3")
- 
- param = 3.14 * (ДЛИНА_ШЕЙКИ_ПРИЕМН_БАРАБАНА/(ДИАМЕТР_КАНАТА*1.01)) * ((0.5*(ДИАМЕТР_ШЕКИ_БАРАБАНА-ДИАМЕТР_ШЕЙКИ_БАРАБАНА)-КОЭФ)/(ДИАМЕТР_КАНАТА*1.01)) * ((0.5*(ДИАМЕТР_ШЕКИ_БАРАБАНА-ДИАМЕТР_ШЕЙКИ_БАРАБАНА)+ДИАМЕТР_ШЕЙКИ_БАРАБАНА)/1000) if КОЭФ_КОРР<=ДИАМЕТР_ШЕЙКИ_БАРАБАНА else 0
-
-return param
-
+    PrivateMessages = find_document(db.PrivateMessage, {}, multiple = True)
+    for pm in PrivateMessages:
+        delete_document(db.PrivateMessage, {'_id': pm.get('_id')})
 
 def main():
 
@@ -2037,11 +2037,12 @@ def main():
 
     #check_actual_price_and_available(db)
 
-    pars_new_card_into_bikelookup(db, 'bike-family.com.ua')
+    #pars_new_card_into_bikelookup(db, 'bike-family.com.ua')
+    #pars_new_card_into_bikelookup(db, 'velogo.com.ua')
     #pars_option_color_base(db)
     #option_color_base_update_name(db)
     #option_sp_color_update_ColorSquaresRgb(db)
     #option_update_sp_parentId(db)
-    #clear_all_product(db)
+    clear_all_product(db)
 if __name__ == '__main__':
     main()

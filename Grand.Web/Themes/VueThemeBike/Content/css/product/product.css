@@ -691,7 +691,7 @@
 }
 
 img.main-image {
-    height:350px;
+    height:450px;
 }
 
 img.geometry-image {
@@ -855,4 +855,8 @@ a:hover {
 
 .proposal-name-label.isad{
     color: #1e89ec!important;
+}
+
+.adress-phone{
+    margin:3px;
 }
