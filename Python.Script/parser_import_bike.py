@@ -12,7 +12,7 @@ from pymongo import MongoClient
 #86
 NAMEMACHINE = 'localhost'
 PORTDB = 27017
-NAMEDB = 'bludb1'
+NAMEDB = 'bk'
 PAGES_START = 1
 PAGES_COUNT = 1
 OUT_FILENAME = 'velogo'
@@ -33,7 +33,7 @@ hosts = [
         'PAGES_COUNT': 1,
         'OUT_FILENAME': 'velogo',
         'VENDOR': 'velogo.com.ua',
-        'COUNTONPAGE': 24,
+        'COUNTONPAGE': 1,
         'FINDURL': 'soup.find_all("a", class_="product-cut__title-link")',
         'AVAILABLEURL': "tag.find('span', class_='product-photo__not_available product-photo__not_available--size_c hidden')",
         "HREF": "tag.attrs['href']",
@@ -2033,7 +2033,7 @@ def main():
 
     client = MongoClient(NAMEMACHINE, PORTDB)
     db = client[NAMEDB]
-    #resave_option_color_base()
+    resave_option_color_base()
 
     #check_actual_price_and_available(db)
 
@@ -2043,6 +2043,6 @@ def main():
     #option_color_base_update_name(db)
     #option_sp_color_update_ColorSquaresRgb(db)
     #option_update_sp_parentId(db)
-    clear_all_product(db)
+    #clear_all_product(db)
 if __name__ == '__main__':
     main()
