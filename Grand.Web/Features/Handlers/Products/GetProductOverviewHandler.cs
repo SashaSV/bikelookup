@@ -289,6 +289,7 @@ namespace Grand.Web.Features.Handlers.Products
                         //compare products
                         priceModel.DisableAddToCompareListButton = !_catalogSettings.CompareProductsEnabled;
                         priceModel.Currency = string.IsNullOrEmpty(_workContext.WorkingCurrency.Name) ? _workContext.WorkingCurrency.CurrencyCode : _workContext.WorkingCurrency.Name;
+                        
                         //catalog price, not used in views, but it's for front developer
                         if (product.CatalogPrice > 0)
                         {
@@ -337,11 +338,11 @@ namespace Grand.Web.Features.Handlers.Products
                                         //calculate prices
                                         //decimal finalPriceBase = (await _taxService.GetProductPrice(minPriceProduct, minPossiblePrice.Value, priceIncludesTax, _workContext.CurrentCustomer)).productprice;
                                         //decimal finalPrice = await _currencyService.ConvertFromPrimaryStoreCurrency(finalPriceBase, _workContext.WorkingCurrency);
-                                        var finalPrice = minPossiblePrice.Value;
+                                        var finalPrice = await _currencyService.ConvertFromPrimaryStoreCurrency(minPossiblePrice.Value, _workContext.WorkingCurrency);
 
                                         //var maxPriceBase = (await _taxService.GetProductPrice(maxPriceProduct, maxPrice, priceIncludesTax, _workContext.CurrentCustomer)).productprice;
                                         //var finalMaxPrice = await _currencyService.ConvertFromPrimaryStoreCurrency(maxPriceBase, _workContext.WorkingCurrency);
-                                        var finalMaxPrice = maxPrice;
+                                        var finalMaxPrice = await _currencyService.ConvertFromPrimaryStoreCurrency(maxPrice, _workContext.WorkingCurrency); 
 
                                         priceModel.OldPrice = null;
 

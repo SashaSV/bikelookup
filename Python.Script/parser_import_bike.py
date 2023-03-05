@@ -12,7 +12,7 @@ from pymongo import MongoClient
 #86
 NAMEMACHINE = 'localhost'
 PORTDB = 27017
-NAMEDB = 'bk'
+NAMEDB = 'bldb'
 PAGES_START = 1
 PAGES_COUNT = 1
 OUT_FILENAME = 'velogo'
@@ -2033,16 +2033,17 @@ def main():
 
     client = MongoClient(NAMEMACHINE, PORTDB)
     db = client[NAMEDB]
-    resave_option_color_base()
+    #resave_option_color_base()
 
     #check_actual_price_and_available(db)
 
     #pars_new_card_into_bikelookup(db, 'bike-family.com.ua')
-    #pars_new_card_into_bikelookup(db, 'velogo.com.ua')
+    pars_new_card_into_bikelookup(db, 'velogo.com.ua')
     #pars_option_color_base(db)
     #option_color_base_update_name(db)
     #option_sp_color_update_ColorSquaresRgb(db)
     #option_update_sp_parentId(db)
     #clear_all_product(db)
+
 if __name__ == '__main__':
     main()

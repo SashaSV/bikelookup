@@ -77,7 +77,7 @@ namespace Grand.Services.Catalog
             {
                 if (!String.IsNullOrEmpty(targetCurrency.DisplayLocale))
                 {
-                    result = amount.ToString("C", new CultureInfo(targetCurrency.DisplayLocale));
+                    result = amount.ToString("C", new CultureInfo(targetCurrency.DisplayLocale).NumberFormat);
                 }
                 else
                 {
