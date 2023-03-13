@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import json
-import urllib
 import os
 import posixpath
 import xlsxwriter
@@ -10,6 +9,7 @@ from bs4 import BeautifulSoup
 from pymongo import MongoClient
 
 #86
+DBCONNECT = {}
 NAMEMACHINE = 'localhost'
 PORTDB = 27017
 NAMEDB = 'bldb'
@@ -2020,6 +2020,7 @@ def clear_all_product(db):
 
         delete_document(db.Product, {'_id': product.get('_id')})
         delete_document(db.UrlRecord, {'EntityName': 'Product', 'Slug': SeName})
+        print('Deleted product id = {0}',product.get('_id'))
 
     ads = find_document(db.Ad, {}, multiple = True)
     for ad in ads:
@@ -2038,12 +2039,12 @@ def main():
     #check_actual_price_and_available(db)
 
     #pars_new_card_into_bikelookup(db, 'bike-family.com.ua')
-    pars_new_card_into_bikelookup(db, 'velogo.com.ua')
+    #pars_new_card_into_bikelookup(db, 'velogo.com.ua')
     #pars_option_color_base(db)
     #option_color_base_update_name(db)
     #option_sp_color_update_ColorSquaresRgb(db)
     #option_update_sp_parentId(db)
-    #clear_all_product(db)
+    clear_all_product(db)
 
 if __name__ == '__main__':
     main()

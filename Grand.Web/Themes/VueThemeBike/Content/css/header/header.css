@@ -336,7 +336,7 @@
     align-items: center;
     -ms-flex-pack: justify;
     justify-content: space-between;
-    padding: 0rem 0rem;
+    padding: 3px;
 }
 
 .navbar-expand .navbar-nav .nav-link {

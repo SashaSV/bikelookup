@@ -1,0 +1,48 @@
+[
+ {
+  "url": "https://www.amazon.es/Apple-2023-MacBook-Diez-n%C3%BAcleos-diecis%C3%A9is-n%C3%BAcleos/dp/B0BSJ1PPK1",
+  "name": "Apple 2023 MacBook Pro con Chip M2 Pro con CPU de Diez núcleos y GPU de dieciséis núcleos: Liquid Retina XDR de 14,2 Pulgadas, 16GB de Memoria unificada, 512 GB de Almacenamiento SSD, Plata",
+  "manufacturer": "Apple",
+  "category": "",
+  "techs": {
+   "Marca": "Apple",
+   "Nombre del modelo": "MacBook Pro 14\"",
+   "Tamaño de pantalla": "14 Pulgadas",
+   "Color": "Plata",
+   "Tamaño de memoria RAM instalada": "16 GB",
+   "Sistema operativo": "Mac OS",
+   "Descripción de la tarjeta gráfica": "Integrada",
+   "Velocidad de CPU": "3.1 GHz",
+   "Descripción del disco duro": "SSD",
+   "Resolución": "1080p"
+  },
+  "images": [],
+  "sku": "B0BSJ1PPK1",
+  "price": 2369.0,
+  "oldprice": 2449.0,
+  "available": "En stock"
+ },
+ {
+  "url": "https://www.amazon.es/Apple-MacBook-Air-Chip-13-Pulgadas/dp/B08N5VXMK6",
+  "name": "Apple Ordenador PortáTil MacBook Air (2020): Chip M1, Pantalla Retina de 13 Pulgadas, 8 GB de RAM, SSD de 256 GB, Teclado retroiluminado, cáMara FaceTime HD, Sensor Touch ID, Gris Espacial",
+  "manufacturer": "Apple",
+  "category": "",
+  "techs": {
+   "Marca": "Apple",
+   "Nombre del modelo": "MacBook Air",
+   "Tamaño de pantalla": "13 Pulgadas",
+   "Color": "Gris espacial",
+   "Tamaño del disco duro": "256 GB",
+   "Modelo de CPU": "Core M Family",
+   "Tamaño de memoria RAM instalada": "8 GB",
+   "Sistema operativo": "MacOS 11 Big Sur",
+   "Descripción de la tarjeta gráfica": "Integrada",
+   "Velocidad de CPU": "3.1 GHz"
+  },
+  "images": [],
+  "sku": "B08N5VXMK6",
+  "price": 999.0,
+  "oldprice": 1219.0,
+  "available": "En stock"
+ }
+]
