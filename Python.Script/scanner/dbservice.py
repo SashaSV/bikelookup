@@ -85,7 +85,7 @@ def delete_document(collection, query):
     collection.delete_one(query)
 
 
-def check_product(stringconnect, data):
+def check_product(stringconnect, data:list[DataScraps]):
     client = MongoClient(stringconnect['NAMEMACHINE'], stringconnect['PORTDB'])
     db = client[stringconnect['NAMEDB']]
 
@@ -133,21 +133,21 @@ def check_product(stringconnect, data):
             constData.VisibleIndividually = False
             constData.ProductTypeId = 5
             new_p = create_product(db, d, constData)
-            new_p.ParentGroupedProductId = p_main._id
-            new_p.Name = '{0} - {1}'.format(name, d.vendor)
+            new_p.ParentGroupedProductId = p_main.get('_id')
+            new_p.Name = '{0} - {1}'.format(name, d.manufacturer)
 
             insert_document(collaction, new_p.__dict__)
-            p = new_p
+            p = new_p.__dict__
 
         check_rel_сategories_to_product(db, p, d.category)
         check_rel_manufacturers_to_product(db, p, manufacturer)
 
-        sao = check_specificationattributeoption_by_name(db, 'sp_available', d.available)
-        sa = check_specificationattribute_by_name(db, 'sp_available')
+        sao = check_specificationattributeoption_by_name(db, 'Available', d.available)
+        sa = check_specificationattribute_by_name(db, 'Available')
         check_productspecificationattributeoption(db, p, sa, sao)
 
         print('     Подгрузка характеристик')
-        for prop_name, prop_value in d.techs.items():
+        for prop_name, prop_value in d.techs.__dict__.items():
             if prop_value.strip() == '':
                 continue
 
@@ -157,9 +157,11 @@ def check_product(stringconnect, data):
             sa = check_specificationattribute_by_name(db, prop_name)
             check_productspecificationattributeoption(db, p_main, sa, sao)
 
-        if len(p_main['ProductPictures']) == 0:
+        images = [] if p_main.get('ProductPictures') is None else p_main.get('ProductPictures')
+
+        if len(images) == 0:
             print('     Подгрузка картинок')
-            for urlimage in d['picture']:
+            for urlimage in d.images:
                 check_image_to_product(db, p_main, urlimage)
     return p
 
@@ -172,12 +174,12 @@ def check_vendor(db, vendorName):
         
         new_v.SeName = get_sename(vendorName, db, new_v._id, 'Vendor', '')
         new_v.Email = "sales@"+vendorName
-        new_v.Address = adresses
+        new_v.Address = adresses.__dict__
 
         print({'CreatedOnUtc':datetime.now()})
         
         insert_document(collaction, new_v.__dict__)
-        v = new_v
+        v = new_v.__dict__
     return v
 
 def add_specificationattributeoption(db, sa, sao, prop_name, color_hex = None, parentSPO = None):
@@ -197,14 +199,15 @@ def add_specificationattributeoption(db, sa, sao, prop_name, color_hex = None, p
         new_sao['ColorSquaresRgb'] = color_hex
 
     sao.append(new_sao)
-    update_document(db.SpecificationAttribute, {'_id': sa._id},
-                    {'SpecificationAttributeOptions': sa['SpecificationAttributeOptions']})
+
+    update_document(db.SpecificationAttribute, {'_id': sa.get('_id')},
+                    {'SpecificationAttributeOptions': sao})
     return new_sao
 
 def check_specificationattributeoption_by_name(db, prop_name, prop_value, color_hex = None, parentSPO = None):
     sa = check_specificationattribute_by_name(db, prop_name)
-    sao = sa['SpecificationAttributeOptions']
-
+    sao = sa.get('SpecificationAttributeOptions')
+    sao = sao if not sao is None else [] 
     sao_ret = None
 
     for ind, a in enumerate(sao):
@@ -220,7 +223,7 @@ def add_productspecificationattributeoption(db, p, sa, sao, psao):
     new_psao = {
         '_id': str(ObjectId()),
         'AttributeTypeId': 0,
-        'SpecificationAttributeId': sa._id,
+        'SpecificationAttributeId': sa.get('_id'),
         'SpecificationAttributeOptionId': sao['_id'],
         'CustomValue': 'null',
         'AllowFiltering': True,
@@ -237,14 +240,16 @@ def add_productspecificationattributeoption(db, p, sa, sao, psao):
 
 def check_productspecificationattributeoption(db, p, sa, sao):
     psao_ret = None
-    psao = p['ProductSpecificationAttributes']
+    psao = p.get('ProductSpecificationAttributes')
+
+    psao = psao if not psao is None else []
 
     for ind, a in enumerate(psao):
-        if a['SpecificationAttributeId'] == sa._id and a['SpecificationAttributeOptionId'] == sao['_id']:
+        if a['SpecificationAttributeId'] == sa.get('_id') and a['SpecificationAttributeOptionId'] == sao['_id']:
             psao_ret = psao[ind]
             spOption = sa['Name']
 
-            do = 99 if spOption.get('displayOrderOnTabProduct') is None else spOption.get('displayOrderOnTabProduct')
+            do = 99 #if spOption.get('displayOrderOnTabProduct') is None else spOption.get('displayOrderOnTabProduct')
 
             psao[ind]['AllowFiltering'] = True
             psao[ind]['ShowOnProductPage'] = True
@@ -267,16 +272,16 @@ def check_specificationattribute_by_name(db, prop_name):
     sa = find_document(collaction, {'Name': prop_name})
     if sa == None:
         sa = SpecificationAttribute(Name = prop_name,
-                                    locals = get_locals(db, prop_name))
+                                    Locales = get_locals(db, prop_name))
         
         sa.SeName = get_sename(prop_name, db, sa._id, 'SpecificationAttribute', '')
-        
-        insert_document(collaction, sa.__dict__)
+        sa = sa.__dict__
+        insert_document(collaction, sa)
     else:
         spOption = prop_name
-        do = 99 if spOption.get('displayOrderOnTabFilter') is None else spOption.get('displayOrderOnTabFilter')
+        #do = 99 if spOption.get('displayOrderOnTabFilter') is None else spOption.get('displayOrderOnTabFilter')
         updExpr ={}
-        updExpr['DisplayOrder'] = do
+        updExpr['DisplayOrder'] = 99
         update_document(collaction, {'_id': sa.get('_id')}, updExpr)
     return sa
 
@@ -288,7 +293,7 @@ def get_locals(db, prop_name):
         name_local = prop_name
         if name_local is None:
             continue
-        name_local = name_local.get(l['Name'].lower())
+        #name_local = name_local.get(l['Name'].lower())
         if name_local is None:
             continue
         id_ = str(ObjectId())
@@ -304,7 +309,6 @@ def get_locals(db, prop_name):
 def check_mainproduct(db, d, constData):
     collaction = db.Product
     p_main = find_document(collaction, {'Sku': d.sku, 'VendorId': ''})
-
     if p_main == None:
         new_p = create_product(db, d, constData)
         new_p.Url = ''
@@ -312,11 +316,12 @@ def check_mainproduct(db, d, constData):
         new_p.VendorId = ''
         new_p.ProductCategories = []
         insert_document(collaction, new_p.__dict__)
-        p_main = new_p
+        p_main = new_p.__dict__
     else:
         updateExpr = {}
         updateExpr['Name'] = d.name
         update_document(collaction, {'_id': p_main.get('_id')}, updateExpr)
+
     check_rel_сategories_to_product(db, p_main, d.category)
     check_rel_manufacturers_to_product(db, p_main, d.manufacturer)
     return p_main
@@ -330,18 +335,19 @@ def check_сategories(db, c_name) -> Category:
         categoryTemplateId = categoryTemplateId['_id'] if not categoryTemplateId is None else None
         c_main = Category(Name=c_name, CategoryTemplateId=categoryTemplateId)
         c_main.SeName = get_sename(c_name, db, c_main._id, 'Category', '')
-        insert_document(collaction, c_main.__dict__)
+        c_main = c_main.__dict__
+        insert_document(collaction, c_main)
 
     return c_main
 
-def check_rel_сategories_to_product(db, p:Product, c_name):
+def check_rel_сategories_to_product(db, p, c_name):
     cat_ret = None
-    cat = p.ProductCategories
+    cat = p.get('ProductCategories')
+    cat = cat if not cat is None else []
 
     c = check_сategories(db, c_name)
-
     for ind, cr in enumerate(cat):
-        if cr['CategoryId'] == c._id:
+        if cr['CategoryId'] == c.get('_id'):
             cat_ret = cat[ind]
 
     if cat_ret is None:
@@ -417,17 +423,17 @@ def add_rel_picture_to_product(db, p, picture, pictures, productname):
                     {'ProductPictures': pictures})
     return pictures
 
-def add_rel_сategories_to_product(db, p:Product, c:Category, cat):
+def add_rel_сategories_to_product(db, p, c, cat):
 
     new_rel = {
         '_id': str(ObjectId()),
-        'CategoryId': c._id,
+        'CategoryId': c.get('_id,'),
         'IsFeaturedProduct': False,
         'DisplayOrder': 0
     }
 
     cat.append(new_rel)
-    update_document(db.Product, {'_id': p._id},
+    update_document(db.Product, {'_id': p.get('_id')},
                     {'ProductCategories': cat})
     return cat
 
@@ -475,7 +481,7 @@ def check_manufacturers(db, manufacturer):
 def check_rel_manufacturers_to_product(db, p, m_name):
     mun_ret = None
     man = p['ProductManufacturers']
-
+    man = man if not man is None else []
     m = check_manufacturers(db, m_name)
 
     for ind, mr in enumerate(man):

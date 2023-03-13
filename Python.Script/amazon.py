@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from scanner import dbservice, scanservice
 from scanner.dbservice import DataScraps, dict2obj
-from munch import DefaultMunch
+#from munch import DefaultMunch
 
 # 86
 DBCONNECT = {'NAMEMACHINE': 'localhost',

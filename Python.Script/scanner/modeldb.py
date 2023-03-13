@@ -23,13 +23,13 @@ class Adresses:
     CustomAttributes=None
     CreatedOnUtc:str = datetime.now()
     
-    # def __post_init__(self):
-    #     self.id_ = str(ObjectId())
+    def __post_init__(self):
+        self._id = str(ObjectId())
 
 
 @dataclass
 class Venodr:
-    _id: str=str(ObjectId())
+    _id: str=None
     GenericAttributes=[]
     Name: str=None
     SeName: str=None
@@ -59,9 +59,12 @@ class Venodr:
     AppliedDiscounts= []
     VendorSpecificationAttributes= []
 
+    def __post_init__(self):
+        self._id = str(ObjectId())
+
 @dataclass
 class Category:
-    _id: str=str(ObjectId())
+    _id: str=None
     GenericAttributes=[]
     Name: str=None
     SeName: str=None
@@ -98,9 +101,12 @@ class Category:
     AppliedDiscounts=[]
     Locales= []
 
+    def __post_init__(self):
+        self._id = str(ObjectId())
+
 @dataclass
 class Picture:
-    _id: str=str(ObjectId())
+    _id: str=None
     GenericAttributes=[]
     PictureBinary: str=None
     MimeType: str='image/jpeg'
@@ -110,9 +116,12 @@ class Picture:
     TitleAttribute: str=None
     IsNew: bool=True
 
+    def __post_init__(self):
+        self._id = str(ObjectId())
+        
 @dataclass
 class Manufacturer:
-    _id: str=str(ObjectId())
+    _id: str=None
     GenericAttributes=[]
     Name: str=None
     SeName: str=None
@@ -145,9 +154,12 @@ class Manufacturer:
     AppliedDiscounts=[]
     Locales=[]
 
+    def __post_init__(self):
+        self._id = str(ObjectId())
+
 @dataclass
 class UrlRecord:
-    _id: str=str(ObjectId())
+    _id: str=None
     GenericAttributes=[]
     EntityId: str=None
     EntityName: str=None
@@ -155,9 +167,12 @@ class UrlRecord:
     IsActive: bool=True
     LanguageId: str=None
 
+    def __post_init__(self):
+        self._id = str(ObjectId())
+
 @dataclass
 class TierPrice:
-    _id: str=str(ObjectId())
+    _id: str=None
     StoreId: str=None
     CustomerRoleId: str=None
     Quantity: int=0
@@ -165,9 +180,12 @@ class TierPrice:
     StartDateTimeUtc: str=datetime.now()
     EndDateTimeUtc: str=None
     
+    def __post_init__(self):
+        self._id = str(ObjectId())
+
 @dataclass
 class Product:
-    _id: str=str(ObjectId())
+    _id: str=None
     GenericAttributes=[]
     ProductTypeId: int=5 #singl product
     ParentGroupedProductId: str=None
@@ -294,12 +312,12 @@ class Product:
     OnSale: int=0
     Flag: str=None
     Locales=[]
-    ProductCategories=[]
-    ProductManufacturers: list=[]
-    ProductPictures=[]
-    ProductSpecificationAttributes=[]
-    ProductTags=[]
-    ProductAttributeMappings=[]
+    ProductCategories: list[str]=None
+    ProductManufacturers: list[str]=None
+    ProductPictures: list[str]=None
+    ProductSpecificationAttributes: list[str]=None
+    ProductTags: list[str]=None
+    ProductAttributeMappings: list[str]=None
     ProductAttributeCombinations=[]
     TierPrices: list[TierPrice]=None
     AppliedDiscounts=[]
@@ -309,12 +327,18 @@ class Product:
     SimilarProducts=[]
     BundleProducts=[]
 
+    def __post_init__(self):
+        self._id = str(ObjectId())
+        
 @dataclass
 class SpecificationAttribute:
-    _id: str=str(ObjectId())
+    _id: str=None
     GenericAttributes=[]
     Name: str=None
     SeName: str=None
     DisplayOrder: int=0
-    Locales=[]
+    Locales: list[str]=None
     SpecificationAttributeOptions=[]
+    
+    def __post_init__(self):
+        self._id = str(ObjectId())
