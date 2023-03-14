@@ -118,7 +118,7 @@ class Picture:
 
     def __post_init__(self):
         self._id = str(ObjectId())
-        
+    
 @dataclass
 class Manufacturer:
     _id: str=None
@@ -329,6 +329,13 @@ class Product:
 
     def __post_init__(self):
         self._id = str(ObjectId())
+        self.ProductCategories = []
+        self.ProductManufacturers = []
+        self.ProductPictures = []
+        self.TierPrices = []
+        self.ProductSpecificationAttributes = []
+        self.ProductAttributeMappings = []
+        self.ProductAttributeCombinations = []
         
 @dataclass
 class SpecificationAttribute:

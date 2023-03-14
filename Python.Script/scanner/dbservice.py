@@ -11,18 +11,22 @@ from datetime import datetime
 
 @dataclass
 class DataScraps:
-        url = ''
-        name = ''
-        sku = ''
-        manufacturer = ''
-        category = ''
-        price = 0.0
-        oldprice = 0.0
-        vendor: str = ''
-        available = ''
-        techs = []
-        images = []
+    url = ''
+    name = ''
+    sku = ''
+    manufacturer = ''
+    category = ''
+    price = 0.0
+    oldprice = 0.0
+    vendor: str = ''
+    available: str = ''
+    techs: list[str] = None
+    images: list[str] = None
     
+    def __post_init__(self):
+        self.techs = []
+        self.images = []
+
 class DataScrapsEncoder(json.JSONEncoder):
     def default(self, obj):
             return obj.__dict__
@@ -385,8 +389,8 @@ def check_picture(db, pictureId, urlimage, productname):
             p_main.SeoFilename = get_sename(productname, db)
             p_main.AltAttribute = productname
             p_main.TitleAttribute = productname
-            
-            insert_document(collaction, p_main.__dict__)
+            p_main = p_main.__dict__
+            insert_document(collaction, p_main)
 
     return p_main
 

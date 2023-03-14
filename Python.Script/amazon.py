@@ -3,6 +3,8 @@ from scanner import dbservice, scanservice
 from scanner.dbservice import DataScraps, dict2obj
 from pymongo import MongoClient
 import json
+import copy
+
 #from munch import DefaultMunch
 
 # 86
@@ -46,8 +48,9 @@ def pars_new_card_into_db():
         data = parse_products(urls)
         dataJson = []
         for row, item in enumerate(data, start=0):
-            item.techs = item.techs.__dict__
-            dataJson.append(item.__dict__)
+            a = copy.copy(item)
+            a.techs = item.techs.__dict__
+            dataJson.append(a.__dict__)
 
         scanservice.dump_to_json(jsonfilename, dataJson)
     
@@ -131,32 +134,31 @@ def parse_products(urls) -> list[DataScraps]:
             
             scrapsData.techs = dict2obj(techs)
             
-            # images
-            images = []
-            i = 0
-            
-            script = soup.find('div', id='imageBlockVariations_feature_div').find('script').get_text(strip=True)
-            jstext = script[script.find('jQuery.parseJSON(')+len('jQuery.parseJSON(')+1 : script.find(')',script.find('jQuery.parseJSON('))-1]
-            jstext = '['+jstext+']'
-            d = json.loads(jstext)
-            
-            d[0].get('colorImages').get(d[0].get('title'))
-
-            for image in soup.find_all('li', class_='a-spacing-small item imageThumbnail a-declarative'):
-                i = i + 1
-                urlimage = image.get('href')
-                if urlimage.find('nophoto') >=0:
-                    continue
-                images.append(urlimage)
-
-            scrapsData.images = images 
-
             sku = soup.find('input', id='attach-baseAsin').get('value')
 
             if len(sku) == 0:
                 continue
             
             scrapsData.sku = sku
+            # images
+            images = []
+            i = 0
+            
+            script = soup.find('div', id='imageBlockVariations_feature_div').find('script').get_text(strip=True)
+            jstext = script[script.find('jQuery.parseJSON(')+len('jQuery.parseJSON(')+1 : script.find('''}\')''',script.find('jQuery.parseJSON('))+1]
+            jstext = '['+jstext+']'
+            d = json.loads(jstext)
+            
+            images = []
+            for row, item in enumerate(d[0].get('colorToAsin'), start=0):
+                if d[0].get('colorToAsin')[item].get('asin') == sku:
+                    images = d[0].get('colorImages').get(item)
+                    continue
+                
+            for image in images:
+                i = i + 1
+                urlimage = image.get('hiRes')
+                scrapsData.images.append(urlimage)
 
             prices = soup.find('div', id='corePriceDisplay_desktop_feature_div')
 
