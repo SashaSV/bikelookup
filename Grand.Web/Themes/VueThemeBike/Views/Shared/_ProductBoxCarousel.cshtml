@@ -133,7 +133,7 @@
             }
             <h3 class="card-title mb-0">
                 <a href="@Url.RouteUrl("Product", new {SeName = Model.SeName})">
-                    @Model.Name
+                @(Model.Name.Length > 100 ? Model.Name.Substring(0, 100) + "..." : Model.Name)
                 </a>
             </h3>
             @if (Model.ProductType == ProductType.Auction)

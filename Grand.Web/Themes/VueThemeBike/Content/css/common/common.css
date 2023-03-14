@@ -1063,7 +1063,6 @@ input:checked ~ .color-container .color::before {
 .product-box .card-title {
     font-size: 1rem;
     font-weight: 600;
-    line-height: 1;
     margin: 0 auto;
     text-align: center;
 }

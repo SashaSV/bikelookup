@@ -18,7 +18,7 @@ class DataScraps:
         category = ''
         price = 0.0
         oldprice = 0.0
-        vendor = ''
+        vendor: str = ''
         available = ''
         techs = []
         images = []
@@ -85,9 +85,7 @@ def delete_document(collection, query):
     collection.delete_one(query)
 
 
-def check_product(stringconnect, data:list[DataScraps]):
-    client = MongoClient(stringconnect['NAMEMACHINE'], stringconnect['PORTDB'])
-    db = client[stringconnect['NAMEDB']]
+def check_product(db, data:list[DataScraps]):
 
     collaction = db.Product
 
@@ -108,7 +106,7 @@ def check_product(stringconnect, data:list[DataScraps]):
     
     cnt = 0
     for d in data:
-        vendorid = check_vendor(db, d.manufacturer)
+        vendorid = check_vendor(db, d.vendor)
         vendorid = vendorid.get('_id')  if not vendorid is None else None
         p = find_document(collaction, {'Sku': d.sku, 'VendorId': vendorid})
         constData.VendorId = vendorid
@@ -469,8 +467,8 @@ def check_manufacturers(db, manufacturer):
                               ManufacturerTemplateId = manufacturerTemplateId,
                               PictureId = pictureId)
         m_main.SeName = get_sename(brandname, db, m_main._id, 'Manufacturer', '')
-        
-        insert_document(collaction, m_main.__dict__)
+        m_main = m_main.__dict__
+        insert_document(collaction, m_main)
     else:
         if not pictureId is None:
             updExpr = {}
@@ -576,3 +574,25 @@ def check_slug(slug, db, entityId, entityName, languageId):
 def load_image(url,filename):
     if not os.path.exists(filename):
         urlretrieve(url, filename)
+
+def clear_all_product(db):
+    products = find_document(db.Product, {}, multiple = True)
+    for product in products:
+        pictures = product.get('ProductPictures')
+        pictures = [] if pictures is None else pictures
+        SeName = product.get('SeName')
+
+        for picture in pictures:
+             delete_document(db.Picture, {'_id': picture.get('PictureId')})
+
+        delete_document(db.Product, {'_id': product.get('_id')})
+        delete_document(db.UrlRecord, {'EntityName': 'Product', 'Slug': SeName})
+        print('Deleted product id = {0}',product.get('_id'))
+
+    ads = find_document(db.Ad, {}, multiple = True)
+    for ad in ads:
+        delete_document(db.Ad, {'_id': ad.get('_id')})
+
+    PrivateMessages = find_document(db.PrivateMessage, {}, multiple = True)
+    for pm in PrivateMessages:
+        delete_document(db.PrivateMessage, {'_id': pm.get('_id')})

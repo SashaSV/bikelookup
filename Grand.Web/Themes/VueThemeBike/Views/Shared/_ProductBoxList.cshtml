@@ -93,7 +93,7 @@
                     <div>
                         <h5 class="card-title-list">
                             <a href="@Url.RouteUrl("Product", new { SeName = Model.SeName })">
-                                @Model.Name
+                                @(Model.Name.Length > 120 ? Model.Name.Substring(0, 120) + "..." : Model.Name)
                             </a>
 
                         </h5>

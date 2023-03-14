@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from scanner import dbservice, scanservice
 from scanner.dbservice import DataScraps, dict2obj
+from pymongo import MongoClient
+import json
 #from munch import DefaultMunch
 
 # 86
@@ -16,31 +18,41 @@ VENDOR = 'amazon.es'
 HOST = 'https://www.amazon.es'
 OUT_FILE_CATALOG = '/photo/'
 #FTM = 'https://www.amazon.es/s?k=apple&i=computers&page={page}&crid=32CAS3PB7DQ6I&qid=1678216929&sprefix=ap%2Ccomputers%2C181&ref=sr_pg_{page}'
-FTM = 'https://www.amazon.es/s?k=Apple&i=computers&rh=n%3A2457640031%2Cp_4%3AApple&page={page}&pf_rd_i=938008031&pf_rd_m=A1AT7YVPFBWXBL&pf_rd_p=bc93f755-eff3-453b-9e77-c2f6b3d2f854&pf_rd_p=bc93f755-eff3-453b-9e77-c2f6b3d2f854&pf_rd_r=E5N2A2BM8CZY8ZC7PHA5&pf_rd_r=E5N2A2BM8CZY8ZC7PHA5&pf_rd_s=merchandised-search-leftnav&pf_rd_t=101&qid=1678560440&ref=sr_pg_{page}'
-SPECNAMEBASE = {
- 
+
+FTM = {
+    'category': 'Portátiles',
+    'url': 'https://www.amazon.es/s?k=Apple&i=computers&rh=n%3A2457640031%2Cp_4%3AApple&page={page}&pf_rd_i=938008031&pf_rd_m=A1AT7YVPFBWXBL&pf_rd_p=bc93f755-eff3-453b-9e77-c2f6b3d2f854&pf_rd_p=bc93f755-eff3-453b-9e77-c2f6b3d2f854&pf_rd_r=E5N2A2BM8CZY8ZC7PHA5&pf_rd_r=E5N2A2BM8CZY8ZC7PHA5&pf_rd_s=merchandised-search-leftnav&pf_rd_t=101&qid=1678560440&ref=sr_pg_{page}'
 }
+
+client = MongoClient(DBCONNECT['NAMEMACHINE'], DBCONNECT['PORTDB'])
+db = client[DBCONNECT['NAMEDB']]
 
 def pars_new_card_into_db():
         
-        jsonfilename = '{0}_{1}_{2}.json'.format(OUT_FILENAME, PAGES_START, (PAGES_START + PAGES_COUNT))
-        jsonUrlFileName = 'URL_{0}_{1}_{2}.json'.format(OUT_FILENAME, PAGES_START, (PAGES_START + PAGES_COUNT))
-        data = scanservice.getDataFromJsonFile(jsonfilename)
+    jsonfilename = '{0}_{1}_{2}.json'.format(OUT_FILENAME, PAGES_START, (PAGES_START + PAGES_COUNT))
+    jsonUrlFileName = 'URL_{0}_{1}_{2}.json'.format(OUT_FILENAME, PAGES_START, (PAGES_START + PAGES_COUNT))
+    data = scanservice.getDataFromJsonFile(jsonfilename)
+    
+    #d1 = DefaultMunch.fromDict(data, DataScraps())
+    data = dict2obj(data)
         
-        #d1 = DefaultMunch.fromDict(data, DataScraps())
-        data = dict2obj(data)
-         
-        if len(data) == 0:
-            urls = scanservice.getDataFromJsonFile(jsonUrlFileName)
-            
-            if len(urls) == 0:
-                urls = crawl_products(PAGES_COUNT)
-                scanservice.dump_to_json(jsonUrlFileName, urls)
-            
-            data = parse_products(urls)
-            scanservice.dump_to_json(jsonfilename, data.__dict__)
+    if len(data) == 0:
+        urls = scanservice.getDataFromJsonFile(jsonUrlFileName)
+        
+        if len(urls) == 0:
+            urls = crawl_products(PAGES_COUNT)
+            scanservice.dump_to_json(jsonUrlFileName, urls)
+        
+        data = parse_products(urls)
+        dataJson = []
+        for row, item in enumerate(data, start=0):
+            item.techs = item.techs.__dict__
+            dataJson.append(item.__dict__)
 
-        dbservice.check_product(DBCONNECT, data)
+        scanservice.dump_to_json(jsonfilename, dataJson)
+    
+    dbservice.clear_all_product(db)
+    dbservice.check_product(db, data)
 
 def crawl_products(pages_count):
     """
@@ -55,7 +67,7 @@ def crawl_products(pages_count):
 
         page_num = 1 if page_n == 1 else page_n
 
-        page_url = FTM.format(page=page_num)
+        page_url = FTM['url'].format(page=page_num)
         soup = scanservice.get_soup(page_url)
 
         if soup is None:
@@ -78,7 +90,7 @@ def crawl_products(pages_count):
 
     return urls
 
-def parse_products(urls):
+def parse_products(urls) -> list[DataScraps]:
     """
     Парсинг полей:
         название, цена и таблица характеристик
@@ -92,7 +104,7 @@ def parse_products(urls):
     for number, url in enumerate(urls, start=1):
         print('#{num}, product: {url}'.format(num=number, url=url))
 
-        scrapsData = DataScraps()
+        scrapsData = DataScraps(vendor=VENDOR)
         soup = scanservice.get_soup(url)
         
         if url.find('/ref='):
@@ -108,7 +120,7 @@ def parse_products(urls):
             scrapsData.manufacturer = 'Apple'
 
             # category
-            scrapsData.category = ''
+            scrapsData.category = FTM['category']
 
             # options
             techs = {}
@@ -117,12 +129,20 @@ def parse_products(urls):
                 valueoption = row.find('td', class_='a-span9').get_text(strip=True)
                 techs[nameoption] = valueoption
             
-            scrapsData.techs = techs
-
+            scrapsData.techs = dict2obj(techs)
+            
             # images
             images = []
             i = 0
-            for image in soup.find_all('a', class_='product-photo__thumb-item'):
+            
+            script = soup.find('div', id='imageBlockVariations_feature_div').find('script').get_text(strip=True)
+            jstext = script[script.find('jQuery.parseJSON(')+len('jQuery.parseJSON(')+1 : script.find(')',script.find('jQuery.parseJSON('))-1]
+            jstext = '['+jstext+']'
+            d = json.loads(jstext)
+            
+            d[0].get('colorImages').get(d[0].get('title'))
+
+            for image in soup.find_all('li', class_='a-spacing-small item imageThumbnail a-declarative'):
                 i = i + 1
                 urlimage = image.get('href')
                 if urlimage.find('nophoto') >=0:
@@ -145,8 +165,6 @@ def parse_products(urls):
 
             price = '0'
             oldprice = '0'
-
-            
 
             price = prices.find('span', class_='a-price aok-align-center reinventPricePriceToPayMargin priceToPay').find('span', class_='a-offscreen').get_text(strip=True)
 
@@ -173,6 +191,7 @@ def parse_products(urls):
 
 def main():
     pars_new_card_into_db()
+
 
 if __name__ == '__main__':
     main()

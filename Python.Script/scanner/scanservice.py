@@ -16,8 +16,6 @@ def get_soup(url, **kwargs):
         soup = None
     return soup
 
-
-
 def url2filename(url):
     urlpath = urlsplit(url).path
     basename = posixpath.basename(unquote(urlpath))
