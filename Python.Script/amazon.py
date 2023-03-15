@@ -13,7 +13,7 @@ DBCONNECT = {'NAMEMACHINE': 'localhost',
              'NAMEDB': 'bldb'}
 
 PAGES_START = 1
-PAGES_COUNT = 1
+PAGES_COUNT = 2
 OUT_FILENAME = 'amazon'
 OUT_XLSX_FILENAME = 'amazon'
 VENDOR = 'amazon.es'
@@ -112,7 +112,9 @@ def parse_products(urls) -> list[DataScraps]:
         
         if url.find('/ref='):
             scrapsData.url = url[0:url.find('/ref=')].strip()
-
+        
+        scrapsData.sku = scrapsData.url[scrapsData.url.rfind('/'):]
+        
         if soup is None:
             break
         try:
@@ -133,12 +135,10 @@ def parse_products(urls) -> list[DataScraps]:
                 techs[nameoption] = valueoption
             
             scrapsData.techs = dict2obj(techs)
-            
-            sku = soup.find('input', id='attach-baseAsin').get('value')
-
-            if len(sku) == 0:
+            if soup.find('input', id='attach-baseAsin') is None:
                 continue
-            
+                
+            sku = soup.find('input', id='attach-baseAsin').get('value')
             scrapsData.sku = sku
             # images
             images = []
@@ -154,7 +154,14 @@ def parse_products(urls) -> list[DataScraps]:
                 if d[0].get('colorToAsin')[item].get('asin') == sku:
                     images = d[0].get('colorImages').get(item)
                     continue
-                
+            
+            if len(images) == 0:
+                imgs = soup.find('ul', class_='a-unordered-list a-nostyle a-button-list a-vertical a-spacing-top-extra-large regularAltImageViewLayout').find_all('li')
+                for img in imgs:
+                    i = img.find('img').get('src')
+                    #i = i[0:]
+                    scrapsData.images.append()
+
             for image in images:
                 i = i + 1
                 urlimage = image.get('hiRes')

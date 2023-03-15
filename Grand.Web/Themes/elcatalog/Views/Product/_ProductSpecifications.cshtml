@@ -1,0 +1,57 @@
+﻿@model IList<ProductSpecificationModel>
+@using System.Linq;
+
+    @{
+        var group = Model.GroupBy(x => x.SpecificationAttributeCode);
+        var optionsByGroup = new Dictionary<string, List<string>>()
+        {
+            {"general", new List<string> {"sp_available", "manufacturer", "sp_model", "sp_year", "sp_typebike", "sp_for", "sp_size", "sp_height", "sp_age", "sp_color"}},
+            {"transmission", new List<string> {"sp_equipment", "sp_count_speed", "sp_shift", "sp_front_derailleur", "sp_rear_derailleur", "sp_cassette", "sp_chain"}},
+            {"frameset", new List<string> {"sp_material_frame", "sp_type_fork", "sp_brand_fork", "sp_frame", "sp_fork", "sp_Fork_travel", "sp_seatpost", "sp_headset", "sp_carriage","sp_rear_shock_absorber"}},
+            {"brakes", new List<string> {"sp_type_brake", "sp_front_brake", "sp_rear_brake", "sp_front_rotor", "sp_rear_rotor", "sp_brakes", "sp_brake_levers"}},
+            {"wheels", new List<string> {"sp_wheeldiams", "sp_front_hub", "sp_type_rear_hub", "sp_rear_hub", "sp_rims", "sp_weels", "sp_hubs","sp_tyres","sp_front_tyre", "sp_rear_tyre", "sp_spokes"}},
+            {"other", new List<string> {"sp_handlebars", "sp_stem", "sp_weight_Limit", "sp_weight_bike", "sp_grips", "sp_sedals", "sp_saddle","sp_other"}},
+            {"e-motor", new List<string> {"sp_Motor", "sp_battery", "sp_charger", "sp_display"}}
+        };
+
+
+        var icons = new Dictionary<string, string>()
+        {
+            {"general","/Themes/VueThemeBike/Content/images/general.svg" },
+            {"transmission", "/Themes/VueThemeBike/Content/images/transmition.svg"},
+            {"frameset","/Themes/VueThemeBike/Content/images/frameset.svg"} ,
+            {"brakes", "/Themes/VueThemeBike/Content/images/brakes.svg"},
+            {"wheels", "/Themes/VueThemeBike/Content/images/wheels.svg"},
+            {"other","/Themes/VueThemeBike/Content/images/others.svg"},
+            {"motor", "/Themes/VueThemeBike/Content/images/general.svg"},
+        };
+    }
+
+    @{
+        var rows = 3;
+        var rowSize = 2;
+    }
+
+        @for (var row = 0; row < rows; row++)
+        {
+
+            var cols = optionsByGroup
+                .Skip(rowSize * row)
+                .Take(rowSize);
+            <b-row class="name-spec-group">
+                @foreach (var options in cols)
+                {
+                    var generalOptiongroup = options.Key;
+                    var generalOptionKeys = optionsByGroup[generalOptiongroup];
+                    var generalOptions = group.Where(o => generalOptionKeys.Contains(o.Key));
+                    if (generalOptions != null)
+                    {
+                        var models = generalOptions.SelectMany(gr => (IEnumerable<ProductSpecificationModel>)gr);
+                        <b-col class="pl-0"> <partial name="_SpecGroup" model=" new SpecGroupModel(){Specs = models.ToList(), Icon = icons[generalOptiongroup], Name = generalOptiongroup}" /></b-col>
+                        continue;
+                    }
+                    <b-col> <partial name="_SpecGroup" model="new SpecGroupModel{Specs = new List<ProductSpecificationModel>(), Icon = icons[generalOptiongroup], Name = generalOptiongroup}" /></b-col>
+                }
+            </b-row>
+        }
+

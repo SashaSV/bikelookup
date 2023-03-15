@@ -1,0 +1,17 @@
+@model ProductDetailsModel
+@using Microsoft.AspNetCore.Http.Extensions
+@inject SeoSettings seoSettings
+@using Grand.Framework.Themes
+@using Grand.Framework.UI
+@inject IWorkContext workContext
+@inject IThemeContext themeContext
+@inject IPageHeadBuilder pagebuilder
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<body>
+    <partial name="_ProductSpecifications" model="Model.ProductSpecifications"/>
+</body>
+</html>

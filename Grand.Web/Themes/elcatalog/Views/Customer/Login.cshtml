@@ -1,0 +1,139 @@
+﻿@model LoginModel
+@inject IWebHelper webHelper
+@inject IPageHeadBuilder pagebuilder
+@{
+    Layout = "_ColumnsOne";
+
+    //title
+    pagebuilder.AddTitleParts(T("PageTitle.Login").Text);
+
+    //register URL with return URL (if specified)
+    var registerUrl = Url.RouteUrl("Register", new { returnUrl = this.Context.Request.Query["returnUrl"] });
+}
+<div class="page login-page">
+    <partial name="_ExternalAuthentication.Errors" />
+    <b-col cols="12">
+        <b-form-row class="my-3">
+            <b-col>
+                @* login main block *@
+                <b-col cols="12" class="mx-lg-0 mx-auto mt-3">
+                    <div class="external-authentication">
+                        @await Component.InvokeAsync("ExternalMethods")
+                    </div>
+                    <form asp-route="Login" asp-route-returnurl="@Context.Request.Query["ReturnUrl"]" method="post" v-on:submit.prevent="validateBeforeSubmit($event)">
+                        <h3 class="h2 mb-4 align-self-center justify-content-center text-center">
+                            @T("Account.Login.ReturningCustomer")
+                        </h3>
+                        <div asp-validation-summary="ModelOnly" class="message-error w-100 alert alert-danger pb-0 text-center">@T("Account.Login.Unsuccessful")</div>
+                        @if (Model.UsernamesEnabled)
+                            {
+                                <b-form-row class="form-group w-100">
+                                    <b-col lg="3" cols="12" class="d-flex align-items-start justify-content-sm-start">
+                                        <label asp-for="Username" class="col-form-label">@T("Account.Login.Fields.UserName"):</label>
+                                    </b-col>
+                                    <b-col lg="9" cols="12">
+                                        <input asp-for="Username" class="form-control username" autofocus="autofocus" v-validate="'required'"/>
+                                        <span class="field-validation-error">{{veeErrors.first('Username')}}</span>
+                                        <span asp-validation-for="Username"></span>
+                                    </b-col>
+                                </b-form-row>
+                            }
+                            else
+                            {
+                                <b-form-row class="form-group w-100">
+                                    <b-col cols="12" class="w-100">
+                                        <input asp-for="Email" placeholder="@T("Account.Login.Fields.Email")" class="form-control email w-100 logininput" autofocus="autofocus"
+                                               v-validate="'required|email'"/>
+                                        <span class="field-validation-error">{{veeErrors.first('Email')}}</span>
+                                        <span asp-validation-for="Email"></span>
+                                    </b-col>
+                                </b-form-row>
+                            }
+                            <b-form-row class="form-group w-100">
+                                <b-col cols="12">
+                                    <input asp-for="Password" class="form-control password logininput"
+                                           v-validate="'required'" placeholder="@T("Account.Login.Fields.Password")"/>
+                                    <span class="field-validation-error">{{veeErrors.first('Password')}}</span>
+                                    <span asp-validation-for="Password"></span>
+                                </b-col>
+                            </b-form-row>
+                         
+                            @if (Model.DisplayCaptcha)
+                            {
+                                <div class="captcha-box">
+                                    <captcha/>
+                                </div>
+                            }
+                        <b-form-row class="w-100">
+                            <b-col>
+                                <div class="buttons text-center w-100">
+                                    <input class="btn btn-info login-button px-4 w-100" type="submit" value="@T("Account.Login.LoginButton")"/>
+                                </div>
+                            </b-col>
+                        </b-form-row>
+                          <b-form-row class="w-100">
+                            <b-col>
+                            <div class="mt-2 inputs d-flex flex-sm-row flex-column w-100 justify-content-between">
+                                <label class="custom-control custom-checkbox">
+                                    <input class="custom-control-input" asp-for="RememberMe"/>
+                                    <input class="custom-control-label" name="RememberMe" type="hidden" value="false">
+                                    <span class="custom-control-label"></span>
+                                    <span class="custom-control-description">@T("Account.Login.Fields.RememberMe")</span>
+                                </label>
+                                <span class="forgot-password">
+                                    <a asp-route="PasswordRecovery">@T("Account.Login.ForgotPassword")</a>
+                                </span>
+                            </div>
+                              </b-col>
+                            </b-form-row>
+                    </form>
+                </b-col>
+            </b-col>
+            <b-col>
+                @* want some register? *@
+                @if (Model.CheckoutAsGuest)
+                {
+                    <b-col cols="12" class="new-wrapper checkout-as-guest-or-register-block mt-3 mx-lg-0 mx-auto">
+                        <h2>
+                            <strong>@T("Account.Login.CheckoutAsGuestOrRegister")</strong>
+                        </h2>
+                        <b-row class="text">
+                            <b-col cols="12">
+                                @await Component.InvokeAsync("TopicBlock", new {systemName = "CheckoutAsGuestOrRegister"})
+                            </b-col>
+                        </b-row>
+                        <btn-group class="buttons text-center mt-1 areYouGuest">
+                            <b-button variant="secondary" class="checkout-as-guest-button" onclick="location.href='@Url.RouteUrl("Checkout")'">
+                                @T("Account.Login.CheckoutAsGuest")
+                            </b-button>
+                            <b-button variant="secondary" class="register-button" onclick="location.href='@registerUrl'">
+                                @T("Account.Register")
+                            </b-button>
+                        </btn-group>
+                    </b-col>
+                }
+                else
+                {
+                    <b-col cols="12" class="mx-lg-0 mx-auto mt-3">
+                        <b-card-text>
+                            @*<h3 class="text-center generalMarginSupporter">*@
+                                <h3 class="h2 mb-4 align-self-center justify-content-center text-center">
+                                    
+                                    @T("Account.Login.NewCustomer")
+                                </h3>
+                                <div class="d-inline-flex align-items-center justify-content-center w-100">
+                                    <a class="btn btn-info ml-3 register-button px-5 w-100" href="@registerUrl">
+                                        @T("Account.Register")
+                                    </a>
+                                </div>
+                                <div class="text-center generalMarginSupporter">
+                                    @T("Account.Login.NewCustomerText")
+                                </div>
+
+</b-card-text>
+                    </b-col>
+                }
+            </b-col>
+        </b-form-row>
+    </b-col>
+</div>

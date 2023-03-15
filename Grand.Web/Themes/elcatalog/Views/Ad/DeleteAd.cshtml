@@ -1,0 +1,201 @@
+﻿@model DeleteAdModel
+@inject Grand.Domain.Customers.CustomerSettings customerSettings
+@inject IPageHeadBuilder pagebuilder
+@using Grand.Web.Models.Customer;
+@using Grand.Core;
+@{
+    Layout = "_ColumnsTwo";
+
+    //title
+    pagebuilder.AddTitleParts(T("PageTitle.Account").Text);
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/admin.search.js", excludeFromBundle: true);
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/jquery-ui-1.12.1.custom/jquery-ui.min.js", excludeFromBundle: true);
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/jquery.validate.unobtrusive.min.js", excludeFromBundle: true);
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/jquery.validate.min.js", excludeFromBundle: true);
+    
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/typeahead.js", excludeFromBundle: true);
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/administration/build/js/jquery.min.js", excludeFromBundle: true);
+
+
+}
+@section left
+{
+    @await Component.InvokeAsync("CustomerNavigation", new { selectedTabId = CustomerNavigationEnum.Ads })
+}
+
+@Html.AntiForgeryToken()
+
+<div class="page account-page customer-info-page pl-lg-3 pt-3 pt-lg-0">
+    <h2 class="generalTitle">@T("Ads.DeleteAd")</h2>
+    <form asp-route="NewAd" method="post" v-on:submit.prevent="validateBeforeSubmit($event)">
+        <div class="generalMarginSupporter">
+            <input type="submit" value="@T("Common.Delete")" name="delete-ad-button" class="btn btn-secondary delete-ad-button" />
+        </div>
+        <div asp-validation-summary="ModelOnly" class="message-error"></div>
+        <div class="card mb-3">
+            <h3 class="card-header">@T("Ads.Photos")</h3>
+            <div class="card-body">
+                <div class="form-fields">
+                    <div class="fieldset">
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <h3 class="card-header">@T("Ads.BaseInformation")</h3>
+            <div class="card-body">
+                <div class="form-row">
+                    <fieldset class="form-group col-sm-6 col-12">
+                        <legend class="sr-only">@T("Ad.Fields.ManufactureName")</legend>
+                        <label asp-for="ManufactureName" class="col-form-label">@T("Ad.Fields.ManufactureName"):</label>
+                        <span class="required">*</span>
+                        <input asp-for="ManufactureName" class="form-control" v-validate="'required'" />
+                        <span class="field-validation-error">{{veeErrors.first('ManufactureName')}}</span>
+                        <span asp-validation-for="ManufactureName"></span>
+                    </fieldset>
+                    <fieldset class="form-group col-sm-6 col-12">
+                        <legend class="sr-only">@T("Ad.Fields.Model")</legend>
+                        <label asp-for="Model" class="col-form-label">@T("Ad.Fields.Model"):</label>
+                        <span class="required">*</span>
+                        <input asp-for="Model" class="form-control" v-validate="'required'" />
+                        <span class="field-validation-error">{{veeErrors.first('Model')}}</span>
+                        <span asp-validation-for="Model"></span>
+                    </fieldset>
+                    <fieldset class="form-group col-sm-6 col-12">
+                        <legend class="sr-only">@T("Ad.Fields.Wheeldiam")</legend>
+                        <label asp-for="Weeldiam" class="col-form-label">@T("Ad.Fields.Wheeldiam"):</label>
+                        <span class="required">*</span>
+                        <input asp-for="Weeldiam" class="form-control" v-validate="'required'" />
+                        <span class="field-validation-error">{{veeErrors.first('Wheeldiam')}}</span>
+                        <span asp-validation-for="Weeldiam"></span>
+                    </fieldset>
+                    <fieldset class="form-group col-sm-6 col-12">
+                        <legend class="sr-only">@T("Ad.Fields.Size")</legend>
+                        <label asp-for="Size" class="col-form-label">@T("Ad.Fields.Size"):</label>
+                        <span class="required">*</span>
+                        <input asp-for="Size" class="form-control" v-validate="'required'" />
+                        <span class="field-validation-error">{{veeErrors.first('Size')}}</span>
+                        <span asp-validation-for="Size"></span>
+                    </fieldset>
+                </div>
+                <fieldset class="form-group year">
+                    <legend class="sr-only">@T("Ad.fields.Year")</legend>
+                    <span class="col-form-label">
+                        @T("Ad.fields.Year"):
+                    </span>
+                    <span class="required">*</span>
+                    <div class="input-group">
+                        <year-picker-dropdown control-year="@Html.IdFor(x => x.Year)"
+                                              begin-year="@(DateTime.Now.Year - 10)"
+                                              end-year="DateTime.Now.Year"
+                                              selected-year="(Model.Year.HasValue ? Model.Year.Value : 0)"
+                                              class="col-12 input-group px-0" />
+
+                        <span asp-validation-for="Year"></span>
+                    </div>
+                </fieldset>
+                <div class="form-row">
+                    <fieldset class="form-group col-sm-6 col-12">
+                        <legend class="sr-only">@T("Ad.Fields.Color")</legend>
+                        <label asp-for="Color" class="col-form-label">@T("Ad.Fields.Color"):</label>
+                        <span class="required">*</span>
+                        <input type="color" asp-for="Color" class="form-control" v-validate="'required'" />
+                        <span class="field-validation-error">{{veeErrors.first('Color')}}</span>
+                        <span asp-validation-for="Color"></span>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <h3 class="card-header">@T("Ads.Cost&Shipping")</h3>
+            <div class="card-body">
+                <fieldset class="form-group col-sm-6 col-12">
+                    <legend class="sr-only">@T("Ad.Fields.Priсe")</legend>
+                    <label asp-for="Price" class="col-form-label">@T("Ad.Fields.Priсe"):</label>
+                    <span class="required">*</span>
+                    <input type="number" asp-for="Price" class="form-control" v-validate="'required'" />
+                    <span class="field-validation-error">{{veeErrors.first('Priсe')}}</span>
+                    <span asp-validation-for="Price"></span>
+                </fieldset>
+                <fieldset class="form-group col-sm-6 col-12">
+                    <legend class="sr-only">@T("Ad.Fields.isAuction")</legend>
+                    <label class="col-form-label">
+                        @T("Ad.Fields.isAuction"):
+                    </label>
+                    <div class="form-group doc">
+                        <div class="flex-row">
+                            <div class="custom-control custom-radio male custom-control-inline">
+                                <input type="checkbox" asp-for="IsAuction" value="M" checked="@(Model.IsAuction == true)" id="ad-auction" class="custom-control-input" />
+                                <label class="custom-control-label" for="ad-auction">@T("Ad.Fields.Auction.True")</label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="form-group col-sm-6 col-12">
+                    <legend class="sr-only">@T("Ad.Fields.PaymentMethod")</legend>
+                    <label asp-for="PaymentMethod" class="col-form-label">@T("Ad.Fields.PaymentMethod"):</label>
+                    <input asp-for="PaymentMethod" class="form-control" />
+                </fieldset>
+                <fieldset class="form-group col-sm-6 col-12">
+                    <legend class="sr-only">@T("Ad.Fields.ShippingMethod")</legend>
+                    <label asp-for="ShippingMethodId" class="col-form-label">@T("Ad.Fields.ShippingMethod"):</label>
+                    @*<input asp-for="ShippingMethod" class="form-control" />*@
+                    <div class="form-horizontal">
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label-ext asp-for="ShippingMethodId" />
+                                <div class="col-md-84 col-sm-86">
+                                    <select-box asp-for="ShippingMethodId" asp-items="Model.ShippingMethodType" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <h3 class="card-header">@T("Ads.OtherInfo")</h3>
+
+            <div class="card-body">
+                <fieldset class="form-fields">
+                    <legend class="sr-only">@T("Ad.Fields.isDocument")</legend>
+                    <label class="col-form-label">
+                        @T("Ad.Fields.isDocument"):
+                    </label>
+                    <div class="form-group doc">
+                        <div class="flex-row">
+                            <div class="custom-control custom-radio male custom-control-inline">
+                                <input type="radio" asp-for="WithDocuments" value="M" checked="@(Model.WithDocuments == true)" id="bike-withdoc" class="custom-control-input" />
+                                <label class="custom-control-label" for="bike-withdoc">@T("Ad.Fields.Document.With")</label>
+                            </div>
+                            <div class="custom-control custom-radio female custom-control-inline">
+                                <input type="radio" asp-for="WithDocuments" value="F" checked="@(Model.WithDocuments == false)" id="bike-withoutdoc" class="custom-control-input" />
+                                <label class="custom-control-label" for="bike-withoutdoc">@T("Ad.Fields.Document.Without")</label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="form-group col-sm-6 col-12">
+                    <legend class="sr-only">@T("Ad.Fields.Mileage")</legend>
+                    <label asp-for="Mileage" class="col-form-label">@T("Ad.Fields.Mileage"):</label>
+                    <input asp-for="Mileage" class="form-control" />
+                </fieldset>
+
+                <div class="form-fields">
+                    <div class="form-group">
+                        <label asp-for="AdComment" class="col-form-label">@T("Ad.Fields.Comment"):</label>
+                        <textarea asp-for="AdComment" class="form-control account-signature-text"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="generalMarginSupporter">
+            <input type="submit" value="@T("Common.Delete")" name="delete-ad-button" class="btn btn-secondary delete-ad-button" />
+        </div>
+    </form>
+</div>

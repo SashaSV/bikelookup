@@ -1,0 +1,75 @@
+﻿@using NPOI.SS.Formula.Functions
+@model CatalogPagingFilteringModel.PriceRangeFilterModel
+@{
+    var selectedItem = Model.Items.FirstOrDefault(x => x.Selected);
+    var rangeMinValue = @Model.SelectedRange.FromValue != 0 ? Model.SelectedRange.FromValue : Model.AvalibleRange.FromValue;
+    var rangeMaxValue = @Model.SelectedRange.ToValue != 0 ? Model.SelectedRange.ToValue : Model.AvalibleRange.ToValue;
+}
+
+@functions {
+    public string FormatPriceRangeText(CatalogPagingFilteringModel.PriceRangeFilterItem filterItem)
+    {
+        string rangeText = "";
+        if (String.IsNullOrWhiteSpace(filterItem.From))
+        {
+            rangeText = string.Format(T("Filtering.PriceRangeFilter.Under").Text, string.Format("<span class=\"PriceRange\">{0}</span>", filterItem.To));
+        }
+        else if (String.IsNullOrWhiteSpace(filterItem.To))
+        {
+            rangeText = string.Format(T("Filtering.PriceRangeFilter.Over").Text, string.Format("<span class=\"PriceRange\">{0}</span>", filterItem.From));
+        }
+        else
+        {
+            rangeText = string.Format("<span class=\"PriceRange\">{0}</span> - <span class=\"PriceRange\">{1}</span>", filterItem.From, filterItem.To);
+        }
+        return rangeText;
+    }
+}
+    @if (Model.Enabled)
+    {
+        if (selectedItem == null)
+        {
+        <div id="block-product-price-filter" class="block product-filter product-price-filter">   
+            @*<h2 class="h5">
+                <strong>@T("Filtering.PriceRangeFilter")</strong>
+            </h2>*@
+            <div class='range-slider'>
+                <script>
+                   var minPrice = '@rangeMinValue';
+                   var maxPrice = '@rangeMaxValue';
+                   var minAv = '@Model.AvalibleRange.FromValue';
+                   var maxAv = '@Model.AvalibleRange.ToValue';
+                </script>
+                    <div class='range-slider-min-max'>
+                        <input type="number" min="@Model.AvalibleRange.FromValue" max="@Model.AvalibleRange.ToValue" value='@Model.SelectedRange.FromValue' step="1" v-model="sliderMin" v-on:change="onPriceFilter()">
+                        <span>-</span>
+                        <input type="number" min="@Model.AvalibleRange.FromValue" max="@Model.AvalibleRange.ToValue" value='@Model.SelectedRange.ToValue' v-model="sliderMax" v-on:change="onPriceFilter()">
+                        <b-button size="" variant="light" class="price-apply" v-on:click="applyPriceFilter()"><h6 class="mb-0">OK</h6></b-button>
+                    </div>                   
+                    <div class='range-slider-line'>
+                        <input type="range" min="@Model.AvalibleRange.FromValue" max="@Model.AvalibleRange.ToValue" step="1" value='@Model.SelectedRange.FromValue' v-model="sliderMin">
+                        <input type="range" min="@Model.AvalibleRange.FromValue" max="@Model.AvalibleRange.ToValue" value='@Model.SelectedRange.ToValue' step="1" v-model="sliderMax">
+                    </div>
+                </div>
+
+            </div>
+
+    }
+    else
+    {
+
+        <div id="block-product-price-filter" class="block product-filter product-price-filter">
+            <h2 class="h5">
+                <strong>@T("Filtering.PriceRangeFilter")</strong>
+            </h2>
+            <b-card class="mb-3 viewBox">
+                <div class="item w-100 mb-3">
+                    <strong>@Html.Raw(FormatPriceRangeText(selectedItem))</strong>
+                </div>
+                <div class="remove-filter">
+                    <b-button size="sm" variant="danger" href="@Model.RemoveFilterUrl">@T("Filtering.PriceRangeFilter.Remove")</b-button>
+                </div>
+            </b-card>
+        </div>
+    }
+}

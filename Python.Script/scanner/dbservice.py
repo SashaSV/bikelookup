@@ -39,31 +39,6 @@ def dict2obj(d):
     return json.loads(json.dumps(d), object_hook=obj)
 
 
-def clear_all_product(stringconnect):
-    
-    client = MongoClient(stringconnect['NAMEMACHINE'], stringconnect['PORTDB'])
-    db = client[stringconnect['NAMEDB']]
-
-    products = find_document(db.Product, {}, multiple = True)
-    for product in products:
-        pictures = product.get('ProductPictures')
-        SeName = product.get('SeName')
-
-        for picture in pictures:
-            delete_document(db.Picture, {'_id': picture.get('PictureId')})
-
-        delete_document(db.Product, {'_id': product.get('_id')})
-        delete_document(db.UrlRecord, {'EntityName': 'Product', 'Slug': SeName})
-        print('Deleted product id = {0}',product.get('_id'))
-
-    ads = find_document(db.Ad, {}, multiple = True)
-    for ad in ads:
-        delete_document(db.Ad, {'_id': ad.get('_id')})
-
-    PrivateMessages = find_document(db.PrivateMessage, {}, multiple = True)
-    for pm in PrivateMessages:
-        delete_document(db.PrivateMessage, {'_id': pm.get('_id')})
-
 def find_document(collection, elements, multiple=False, retfields = None):
     if multiple:
         results = collection.find(elements, retfields)
@@ -136,7 +111,7 @@ def check_product(db, data:list[DataScraps]):
             constData.ProductTypeId = 5
             new_p = create_product(db, d, constData)
             new_p.ParentGroupedProductId = p_main.get('_id')
-            new_p.Name = '{0} - {1}'.format(name, d.manufacturer)
+            new_p.Name = '{0} - {1}'.format(name, d.vendor)
 
             insert_document(collaction, new_p.__dict__)
             p = new_p.__dict__
@@ -355,6 +330,18 @@ def check_rel_сategories_to_product(db, p, c_name):
     if cat_ret is None:
         cat_ret = add_rel_сategories_to_product(db, p, c, cat)
 
+def get_file_picture_name(pictureId:str) -> str:
+        CURR_DIR = os.getcwd()
+        CURR_DIR = CURR_DIR.replace('Python.Script', '')
+        file_catalog = '{0}Grand.Web\\wwwroot\\content\\images\\'.format(CURR_DIR)
+        
+        try:
+            os.stat(file_catalog)
+        except:
+            os.mkdir(file_catalog)
+
+        return '{0}{1}_0.jpeg'.format(file_catalog, pictureId)
+
 def check_picture(db, pictureId, urlimage, productname):
     collaction = db.Picture
     p_main = find_document(collaction, {'UrlImage': urlimage})
@@ -369,7 +356,7 @@ def check_picture(db, pictureId, urlimage, productname):
         except:
             os.mkdir(file_catalog)
 
-        filename = '{0}{1}_0.jpeg'.format(file_catalog, id_)
+        filename = get_file_picture_name(id_)
         load_image(urlimage, filename)
 
         in_file = open(filename, "rb")  # opening for [r]eading as [b]inary
@@ -386,9 +373,12 @@ def check_picture(db, pictureId, urlimage, productname):
 
         if p_main == None:
             p_main = Picture(PictureBinary=data)
+            p_main._id = id_ 
             p_main.SeoFilename = get_sename(productname, db)
+            p_main.UrlImage = urlimage
             p_main.AltAttribute = productname
             p_main.TitleAttribute = productname
+
             p_main = p_main.__dict__
             insert_document(collaction, p_main)
 
@@ -429,7 +419,7 @@ def add_rel_сategories_to_product(db, p, c, cat):
 
     new_rel = {
         '_id': str(ObjectId()),
-        'CategoryId': c.get('_id,'),
+        'CategoryId': c.get('_id'),
         'IsFeaturedProduct': False,
         'DisplayOrder': 0
     }
@@ -528,7 +518,7 @@ def create_product(db, d:DataScraps, constData:Product):
                             UnitId = constData.UnitId,
                             TierPrices = curTierPrice
                            )
-    product_card.SeName = get_sename(d.name, db, product_card._id, 'Product', '')
+    product_card.SeName = get_sename(d.sku, db, product_card._id, 'Product', '')
 
     return product_card
 
@@ -587,7 +577,10 @@ def clear_all_product(db):
         SeName = product.get('SeName')
 
         for picture in pictures:
-             delete_document(db.Picture, {'_id': picture.get('PictureId')})
+            delete_document(db.Picture, {'_id': picture.get('PictureId')})
+            filename = get_file_picture_name(picture.get('PictureId'))
+            if os.path.exists(filename):
+                os.remove(filename)
 
         delete_document(db.Product, {'_id': product.get('_id')})
         delete_document(db.UrlRecord, {'EntityName': 'Product', 'Slug': SeName})

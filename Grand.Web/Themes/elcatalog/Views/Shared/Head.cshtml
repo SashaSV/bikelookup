@@ -1,0 +1,49 @@
+﻿@using Grand.Core;
+@using Grand.Framework.Themes
+@using Grand.Framework.UI
+@inject IWorkContext workContext
+@inject IThemeContext themeContext
+@inject IPageHeadBuilder pagebuilder
+@{
+    var supportRtl = workContext.WorkingLanguage.Rtl;
+    var themeName = themeContext.WorkingThemeName;
+
+    if (supportRtl)
+    {
+        pagebuilder.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/css/common/common.rtl.css", themeName));
+    }
+    else
+    {
+        pagebuilder.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/css/common/common.css", themeName));
+    }
+
+    pagebuilder.AppendCssFileParts(ResourceLocation.Head, "~/content/custom/style.css");
+    //pagebuilder.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/css/custom.css", themeName));
+    //pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/jquery-ui-1.12.1.custom/jquery-ui.min.js", excludeFromBundle: true);
+    pagebuilder.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/css/animate.min.css", themeName));
+    pagebuilder.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/bootstrap-vue/bootstrap-vue.min.css", themeName));
+    pagebuilder.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/bootstrap-vue/bootstrap.min.css", themeName));
+
+
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/script/validation-config.js", themeName));
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/script/vee-validate.minimal.min.js", themeName));
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/script/vue-awesome-countdown.umd.min.js", themeName));
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/script/axios.min.js", themeName));
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/script/public.axios.js", themeName));
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/script/public.common.js", themeName));
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/vue/bootstrap-vue-icons-slim.min.js", themeName));
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/vue/bootstrap-vue.min.js", themeName));
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/vue/portal-vue.umd.min.js", themeName));
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/vue/vue.min.js", themeName));
+    //pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/jquery-ui-1.12.1.custom/jquery-ui.min.js", excludeFromBundle: true);
+
+    pagebuilder.AppendScriptParts(location: ResourceLocation.Footer, src: "~/administration/bootstrap/js/bootstrap.min.js", excludeFromBundle: true);
+    pagebuilder.AppendScriptParts(location: ResourceLocation.Footer, src: "~/administration/bootstrap/js/popper.min.js", excludeFromBundle: true);
+    pagebuilder.AppendScriptParts(ResourceLocation.Footer, string.Format("~/Themes/{0}/Content/script/menu.js", themeName));
+    pagebuilder.AppendScriptParts(ResourceLocation.Footer, "~/content/bootstrap/popper.min.js");
+    pagebuilder.AppendScriptParts(ResourceLocation.Footer, "~/content/custom/script.js");
+    pagebuilder.AppendScriptParts(location: ResourceLocation.Footer, src: "~/administration/build/js/custom.js", excludeFromBundle: true);
+
+}
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">

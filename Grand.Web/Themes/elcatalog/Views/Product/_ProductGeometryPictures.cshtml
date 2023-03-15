@@ -1,0 +1,24 @@
+﻿@model ProductDetailsModel
+
+@*@{
+    var firstPicture = Model.PictureModels.First(p=>p.Geometry);
+}*@
+
+<div class="geometry-image-block">
+    @if (Model.PictureModels.Count == 0)
+    {
+        <img id="main-product-img-@Model.Id" class="image main-image"
+             src="@Model.DefaultPictureModel.ImageUrl"
+             alt="@Model.DefaultPictureModel.AlternateText"
+             title="@Model.DefaultPictureModel.Title" />
+    }
+    else
+    {
+        @foreach (var firstPicture in Model.PictureModels.Where(p => p.Geometry).ToList()) {
+        <img id="geometry-product-img-@Model.Id" class="image geometry-image"
+             src="@firstPicture.FullSizeImageUrl"
+             alt="@firstPicture.AlternateText"
+             title="@firstPicture.Title" />
+            }
+        }
+</div>

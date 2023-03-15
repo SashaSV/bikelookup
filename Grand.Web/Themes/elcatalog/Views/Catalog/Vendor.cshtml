@@ -1,0 +1,72 @@
+﻿@model VendorModel
+@inject SeoSettings seoSettings
+@inject IPageHeadBuilder pagebuilder
+@{
+    Layout = "_ColumnsTwo";
+    pagebuilder.AddTitleParts(!String.IsNullOrEmpty(Model.MetaTitle) ? Model.MetaTitle : Model.Name);
+    pagebuilder.AddMetaDescriptionParts(Model.MetaDescription);
+    pagebuilder.AddMetaKeywordParts(Model.MetaKeywords);
+
+    var canonicalUrlsEnabled = seoSettings.CanonicalUrlsEnabled;
+    if (canonicalUrlsEnabled)
+    {
+        var vendorUrl = Url.RouteUrl("Vendor", new { SeName = Model.SeName }, this.Url.ActionContext.HttpContext.Request.Scheme);
+        pagebuilder.AddCanonicalUrlParts(vendorUrl);
+    }
+}
+
+<div class="page vendor-page">
+    <partial name="_VendorInfo" model="Model" />
+    <b-card class="mt-3">
+        <b-row>
+            <partial name="_VendorReviews" model="Model.VendorReviews" />
+        </b-row>
+    </b-card>
+    @*contact vendor*@
+    @if (Model.Products.Any())
+    {
+<partial name="_CatalogSelectors" model="Model.PagingFilteringContext" /> } @*product list*@
+    @if (Model.Products.Any())
+    {
+        if (Model.PagingFilteringContext.ViewMode == "grid")
+        {
+<b-col cols="12" class="product-grid px-0">
+    <b-form-row>
+        @foreach (var product in Model.Products)
+        {
+<b-col lg="4" sm="6" cols="6" class="product-container mb-2">
+    <partial name="_ProductBox" model="product" />
+</b-col>}
+    </b-form-row>
+    <page-navigation asp-query-param="pagenumber" asp-pagination="Model.PagingFilteringContext" />
+</b-col> }
+                else
+                {
+<div class="product-grid">
+    <b-col cols="12">
+        <b-row class="row">
+            @foreach (var product in Model.Products)
+            {
+<partial name="_ProductBoxList" model="product" />}
+            <page-navigation asp-query-param="pagenumber" asp-pagination="Model.PagingFilteringContext" />
+        </b-row>
+    </b-col>
+</div>}
+            }
+</div>
+
+@await Component.InvokeAsync("Widget", new { widgetZone = "vendordetails_bottom", additionalData = Model.Id })
+
+@section filters
+{
+    @*filtering*@
+    @if (Model.PagingFilteringContext.PriceRangeFilter.Enabled)
+    {
+        <partial name="_FilterPriceBox" model="Model.PagingFilteringContext.PriceRangeFilter" />
+    }
+    @*filtering*@
+    @if (Model.PagingFilteringContext.SpecificationFilter.Enabled)
+    {
+        <partial name="_FilterSpecsBox" model="Model.PagingFilteringContext.SpecificationFilter" />
+    }
+}

@@ -1,0 +1,31 @@
+﻿@model PrivateMessageChatModel
+@{
+
+@if (Model.IsVisibleMessageChat)
+{
+    <form method="post" action="/privatemessagesad/sentpmchat/">
+        @Html.AntiForgeryToken()
+        <div class="page private-messages private-message-send-page">
+            <h1 class="text-center h2 generalTitle">@T("PrivateMessages.Send.PostMessage")</h1>
+            @*<div asp-validation-summary="ModelOnly" class="message-error alert alert-danger my-3"></div>*@
+            <input asp-for="ToCustomerId" type="hidden" />
+            <input asp-for="AdId" type="hidden" />
+            <input asp-for="Subject" type="hidden" />
+            @*<b-card no-footer>*@
+                <div class="form-group message">
+                    <label>@T("PrivateMessages.Send.Message")</label>
+                    <bbc-code asp-name="Message" />
+                    <textarea asp-for="SendPrivateMessage.Message" class="form-control bb-editor-text" rows="6"></textarea>
+                    @*<span asp-validation-for="SendPrivateMessage.Message"></span>*@
+                </div>
+            @*</b-card>*@
+            <b-btn-group class="mt-3">
+                <input type="submit" class="btn btn-info send-pm-button" value="@T("PrivateMessages.Send.SendButton")" />
+                <b-button variant="secondary" class="back-pm-button" onclick="location = ('@Url.RouteUrl("PrivateMessages")')">
+                    @T("PrivateMessages.View.BackButton")
+                </b-button>
+            </b-btn-group>
+        </div>
+    </form>
+    }
+}

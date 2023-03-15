@@ -1,0 +1,348 @@
+﻿@model NewAdModel
+@inject Grand.Domain.Customers.CustomerSettings customerSettings
+@inject IPageHeadBuilder pagebuilder
+@inject IThemeContext themeContext
+@using Grand.Web.Models.Customer;
+@using Grand.Core;
+@{
+    Layout = "_ColumnsTwo";
+    var themeName = themeContext.WorkingThemeName;
+
+    //pagebuilder.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/css/ad/ad.css", themeName));
+
+    //title
+    pagebuilder.AddTitleParts(T("PageTitle.Account").Text);
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/admin.search.js", excludeFromBundle: true);
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/jquery-ui-1.12.1.custom/jquery-ui.min.js", excludeFromBundle: true);
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/jquery.validate.unobtrusive.min.js", excludeFromBundle: true);
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/jquery.validate.min.js", excludeFromBundle: true);
+
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/typeahead.js", excludeFromBundle: true);
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/administration/build/js/jquery.min.js", excludeFromBundle: true);
+
+
+}
+@section left
+{
+    @await Component.InvokeAsync("CustomerNavigation", new { selectedTabId = CustomerNavigationEnum.Ads })
+}
+
+
+@Html.AntiForgeryToken()
+
+<div class="page account-page customer-info-page pl-lg-3 pt-3 pt-lg-0">
+    <h2 class="generalTitle">@T("Ads.AddNewAd")</h2>
+    <form asp-route="NewAd" method="post" v-on:submit.prevent="validateBeforeSubmit($event)" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="message-error"></div>
+        <div class="generalMarginSupporter">
+            <input type="submit" value="@T(" Common.Save")" name="save-ad-button" class="btn btn-secondary save-ad-button" />
+        </div>
+        <div class="card mb-3">
+            <h3 class="card-header">@T("Ads.Photos")</h3>
+            <div class="card-body">
+                <div class="form-fields">
+                    <div class="fieldset">
+                        <b-form-file multiple
+                                     name="ImageFile"
+                                     type="file"
+                                     accept="image/*"
+                                     v-model="file1"
+                                     :state="Boolean(file1)"
+                                     placeholder="@T("ad.placeholder")"
+                                     drop-placeholder="@T("ad.drop-placeholder")"></b-form-file>
+
+                        <b-img class="mr-2 mt-2" v-for="file in file1" rounded="true" :src="window.URL.createObjectURL(file)" fluid alt="Responsive image" width="300" height="auto"></b-img>
+
+                        <span class='label label-info' id="upload-file-info"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <h3 class="card-header">@T("Ads.BaseInformation")</h3>
+            <div class="card-body">
+                <div class="form-row">
+                    <fieldset class="form-group col-12 search-bike">
+                        <legend class="sr-only">@T("Ad.Fields.SearchBike")</legend>
+                        <label asp-for="SearchBike" class="col-form-label">@T("Ad.Fields.SearchBike"):</label>
+                        <input type="hidden" asp-for="SearchBike" v-model="baseProduct.ProductId" class="form-control" />
+                        <findautocomplete v-on:select="baseProduct=$event"></findautocomplete>
+                    </fieldset>
+                </div>
+                <div class="form-row">
+                    <fieldset class="form-group col-sm-6 col-12">
+                        <legend class="sr-only">@T("Ad.Fields.ManufactureName")</legend>
+                        <label asp-for="ManufactureName" class="col-form-label">@T("Ad.Fields.ManufactureName"):</label>
+                        <span class="required">*</span>
+                        <input type="hidden" asp-for="ManufactureName" class="form-control" v-model="baseProduct.ManufactureName" v-validate="'required'" />
+                        <findautocompletespec :text="baseProduct.ManufactureName" :disable="baseProductSelected"  spec="manufacturer" v-on:select="baseProduct.ManufactureName=$event.Name"/>
+                        <span class="field-validation-error">{{veeErrors.first('ManufactureName')}}</span>
+                        <span asp-validation-for="ManufactureName"></span>
+                    </fieldset>
+                    <fieldset class="form-group col-sm-6 col-12">
+                        <legend class="sr-only">@T("Ad.Fields.Model")</legend>
+                        <label asp-for="Model" class="col-form-label">@T("Ad.Fields.Model"):</label>
+                        <span class="required">*</span>
+                        <input type="hidden" asp-for="Model" class="form-control" v-model="baseProduct.Model" v-validate="'required'" />
+                        <findautocompletespec :text="baseProduct.Model" :disable="baseProductSelected" spec="sp_model" v-on:select="baseProduct.Model=$event.Name"/>
+                        <span class="field-validation-error">{{veeErrors.first('Model')}}</span>
+                        <span asp-validation-for="Model"></span>
+                    </fieldset>
+                    <fieldset class="form-group col-sm-6 col-12">
+                        <legend class="sr-only">@T("Ad.Fields.Wheeldiam")</legend>
+                        <label asp-for="Weeldiam" class="col-form-label">@T("Ad.Fields.Wheeldiam"):</label>
+                        <span class="required">*</span>
+                        <input type="hidden" asp-for="Weeldiam" class="form-control" v-model="baseProduct.Weeldiam" v-validate="'required'" />
+                        <findautocompletespec :text="baseProduct.Weeldiam" :disable="baseProductSelected" spec="sp_wheeldiams" v-on:select="baseProduct.Weeldiam=$event.Name"/>
+                        <span class="field-validation-error">{{veeErrors.first('Wheeldiam')}}</span>
+                        <span asp-validation-for="Weeldiam"></span>
+                    </fieldset>
+                    <fieldset class="form-group col-sm-6 col-12">
+                        <legend class="sr-only">@T("Ad.Fields.Size")</legend>
+                        <label asp-for="Size" class="col-form-label">@T("Ad.Fields.Size"):</label>
+                        <span class="required">*</span>
+                        <input type="hidden" asp-for="Size" class="form-control" v-model="baseProduct.Size" v-validate="'required'" />
+                          <findautocompletespec :text="baseProduct.Size" :disable="baseProductSelected" spec="sp_size" v-on:select="baseProduct.Size=$event.Name"/>
+                        <span class="field-validation-error">{{veeErrors.first('Size')}}</span>
+                        <span asp-validation-for="Size"></span>
+                    </fieldset>
+                </div>
+                <fieldset class="form-group year col-sm-6 ">
+                    <legend class="sr-only">@T("Ad.fields.Year")</legend>
+                    <span class="col-form-label">
+                        @T("Ad.fields.Year"):
+                    </span>
+                    <span class="required">*</span>
+                    <div class="input-group">
+                        <input type="hidden" asp-for="Year" class="form-control" v-model="baseProduct.Year" />
+                        <b-form-select name="Year" :disabled="baseProductSelected" v-model="baseProduct.Year" :options="years"></b-form-select>
+                        <span asp-validation-for="Year"></span>
+                    </div>
+                </fieldset>
+                <div class="form-row">
+                    <fieldset class="form-group col-12">
+                        <legend class="sr-only">@T("Ad.Fields.Color")</legend>
+                        <input type="hidden" asp-for="Color" class="form-control" v-model="baseProduct.Color"/>
+                        <label asp-for="Color" class="col-form-label">@T("Ad.Fields.Color"):</label>
+                        <span class="required">*</span>
+                        <div class="color-container-1">
+                            @foreach (var collorOption in Model.CollorAtribure.SpecificationAttributeOptions)
+                            {
+                                <b-button size="sm" variant="light" :disabled="baseProductSelected" v-on:click="baseProduct.Color = '@collorOption.Id'" :class="baseProduct.Color == '@collorOption.Id' ? 'color-container-selected mb-1 mr-1' : 'color-container mb-1 mr-1'">
+                                    <span class="color" title="@collorOption.Name" style="background-color: @(collorOption.ColorSquaresRgb);">&nbsp;</span>
+                                </b-button>
+                            }
+                        </div>
+                    </fieldset>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <h3 class="card-header">@T("Ads.Cost")</h3>
+            <div class="card-body">
+                <div class="form-row k-align-items-end">
+                    <fieldset class="form-group col-sm-6 col-12">
+                        <legend class="sr-only">@T("Ad.Fields.Priсe")</legend>
+                        <label asp-for="Price" class="col-form-label">@T("Ad.Fields.Priсe"):</label>
+                        <span class="required">*</span>
+                        <input asp-for="Price" class="form-control" />
+                        @*v-validate="'required'"*@
+                        @*<span class="field-validation-error">{{veeErrors.first('Priсe')}}</span>*@
+                        <span asp-validation-for="Price"></span>
+                    </fieldset>
+                    <fieldset class="form-group col-sm-6 col-12">
+                        <legend class="sr-only">@T("Ad.Fields.isAuction")</legend>
+                        <div class="form-check form-switch">
+                            <input type="checkbox" asp-for="IsAuction" class="form-check-input" id="flexSwitchCheckDefault" checked="@(Model.IsAuction == true)" />
+                            <label class="form-check-label" for="flexSwitchCheckDefault">@T("Ad.Fields.Auction.True")</label>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+        <div class="card mb-3">
+            <h3 class="card-header">@T("Ads.Payment&Shipping")</h3>
+            <div class="card-body">
+                <div class="form-row">
+                    <fieldset class="form-group col-sm-6 col-12">
+                        <legend class="sr-only">@T("Ad.Fields.PaymentMethod")</legend>
+                        <label-ext asp-for="SelectedPaymentMethods" class="col-form-label">@T("Ad.Fields.PaymentMethod"):</label-ext>
+                        <script asp-location="Footer">
+                            $('[data-toggle="tooltip"]').tooltip({
+                                animated: 'fade',
+                                placement: 'right',
+                                html: true
+                            });
+                        </script>
+                        <div class="mt-checkbox-list">
+                            @if(Model.PaymentMethodType != null)
+                            {
+                                @foreach (var paymentMethod in Model.PaymentMethodType)
+                                {
+                                    <div class="mt-checkbox mt-checkbox-outline control control-checkbox">
+                                        <input type="checkbox" name="SelectedPaymentMethods" id="SelectedPaymentMethodIds_@paymentMethod.Id" value="@paymentMethod.Id" checked="@false"/>
+                                        <label class="form-check-label" for="SelectedPaymentMethodIds_@paymentMethod.Id">@paymentMethod.Name</label>
+                                        <div class="control__indicator"></div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                        
+                    </fieldset>
+                    <fieldset class="form-group col-sm-6 col-12">
+                        <legend class="sr-only">@T("Ad.Fields.ShippingMethod")</legend>
+                        <label-ext asp-for="ShippingMethodId" class="col-form-label">@T("Ad.Fields.ShippingMethod"):</label-ext>
+                        <script asp-location="Footer">
+                            $('[data-toggle="tooltip"]').tooltip({
+                                animated: 'fade',
+                                placement: 'right',
+                                html: true
+                            });
+                        </script>
+                         <div class="mt-checkbox-list">
+                           @if(Model.ShippingMethodType != null)
+                           {
+                               @foreach (var shipmentMethod in Model.ShippingMethodType)
+                               {
+                                   <div class="mt-checkbox mt-checkbox-outline control control-checkbox">
+                                       <input type="checkbox" name="SelectedShippingMethods" id="SelectedShippingMethods@shipmentMethod.Id" value="@shipmentMethod.Id" checked="@false"/>
+                                       <label class="form-check-label" for="SelectedShippingMethods_@shipmentMethod.Id">@shipmentMethod.Name</label>
+                                       <div class="control__indicator"></div>
+                                   </div>
+                               }
+                           }
+                       </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-3">
+                <h3 class="card-header">@T("Ads.OtherInfo")</h3>
+
+                <div class="card-body">
+                    <fieldset class="form-group col-sm-6 col-12">
+                        <legend class="sr-only">@T("Ad.Fields.isDocument")</legend>
+                        <label class="col-form-label">
+                            @T("Ad.Fields.isDocument"):
+                        </label>
+                        <div class="form-group doc">
+                            <div class="flex-row">
+                                <div class="custom-control custom-radio male custom-control-inline">
+                                    <input type="radio" asp-for="WithDocuments" value="True" checked="@(Model.WithDocuments == true)" id="bike-withdoc" class="form-control custom-control-input" />
+                                    <label class="custom-control-label" for="bike-withdoc">@T("Ad.Fields.Document.With")</label>
+                                </div>
+                                <div class="custom-control custom-radio female custom-control-inline">
+                                    <input type="radio" asp-for="WithDocuments" value="False" checked="@(Model.WithDocuments == false)" id="bike-withoutdoc" class="form-control custom-control-input" />
+                                    <label class="custom-control-label" for="bike-withoutdoc">@T("Ad.Fields.Document.Without")</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset class="form-group col-sm-6 col-12">
+                        <legend class="sr-only">@T("Ad.Fields.Mileage")</legend>
+                        <label asp-for="Mileage" class="col-form-label">@T("Ad.Fields.Mileage"):</label>
+                        <input asp-for="Mileage" class="form-control" />
+                    </fieldset>
+
+                    <div class="form-group col-12">
+                        <div class="form-group">
+                            <label asp-for="AdComment" class="col-form-label">@T("Ad.Fields.Comment"):</label>
+                            <textarea asp-for="AdComment"  rows ="12" class="form-control account-signature-text"></textarea>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        
+        <div class="generalMarginSupporter">
+                <input type="submit" value="@T(" Common.Save")" name="save-ad-button" class="btn btn-secondary save-ad-button" />
+        </div>
+</form>
+</div>
+
+@*@if (customerSettings.AllowUsersToExportData || true)
+    {
+        <b-button variant="info" class="float-sm-right mt-2" onclick="location.href='/customer/export'">
+            <b-icon icon="server"></b-icon> @T("Account.CustomerExportToXls")
+        </b-button>
+    }*@
+
+@*<script asp-location="Footer">
+        function removeexternalassociation(itemId) {
+            if (confirm('@T("Common.AreYouSure")')) {
+                var bodyFormData = new FormData();
+                bodyFormData.append('Id', itemId);
+                bodyFormData.append('__RequestVerificationToken', document.querySelector('input[name=__RequestVerificationToken]').value);
+                axios({
+                    method: 'POST',
+                    url: '@Url.Action("RemoveExternalAssociation", "Customer")',
+                    data: bodyFormData,
+                }).then(function (response) {
+                    location = response.data.redirect;
+                }).catch(function (error) {
+                    alert(error);
+                })
+            }
+            return false;
+        }
+    </script>*@
+
+@*@if (Model.CountryEnabled && Model.StateProvinceEnabled)
+    {*@
+@*<script asp-location="Footer">
+                document.getElementById("@Html.IdFor(model => model.CountryId)").addEventListener('change',function () {
+                    var selectedItem = this.value;
+                    var ddlStates = document.getElementById("@Html.IdFor(model => model.StateProvinceId)");
+                    var statesProgress = document.getElementById("states-loading-progress");
+                    statesProgress.style.display = "block";
+                    axios({
+                        method: 'get',
+                        url: '@(Url.RouteUrl("GetStatesByCountryId"))',
+                        params: { "countryId": selectedItem, "addSelectStateItem": "true" },
+                    }).then(function (response) {
+                        ddlStates.innerHTML = "";
+                        response.data.forEach(function (id, option) {
+                            elChild = document.createElement('option');
+                            elChild.setAttribute('value', id.id);
+                            elChild.innerHTML = id.name;
+                            ddlStates.appendChild(elChild);
+                        });
+                        statesProgress.style.display = "none";
+                    }).catch(function (error) {
+                        alert(error);
+                        statesProgress.style.display = "none";
+                    })
+                });
+    </script>*@
+@*}*@
+@*<script asp-location="Footer">
+
+            toggleNewsletterCat();
+
+            function toggleNewsletterCat() {
+                var element = document.getElementById('@Html.FieldIdFor(model => model.Newsletter)');
+                if (element) {
+                    if (document.getElementById('@Html.FieldIdFor(model => model.Newsletter)').checked) {
+                        if (document.querySelector('.register-category-newsletter')) {
+                            document.querySelector('.register-category-newsletter').style.display = "block";
+                        }
+                    }
+                    else {
+                        if (document.querySelector('.register-category-newsletter')) {
+                            document.querySelector('.register-category-newsletter').style.display = "none";
+                        }
+                    }
+                }
+            }
+    </script>*@
+<script>
+    $("#yearpicker").datepicker({
+        format: "yyyy",
+        viewMode: "years",
+        minViewMode: "years",
+        autoclose: true //to close picker once year is selected
+    });
+</script>

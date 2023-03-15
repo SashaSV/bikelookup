@@ -1,0 +1,44 @@
+﻿@model CustomerAdListModel
+@inject IPageHeadBuilder pagebuilder
+@inject IWorkContext workContext
+@inject IThemeContext themeContext
+@{
+    var themeName = themeContext.WorkingThemeName;
+    var supportRtl = workContext.WorkingLanguage.Rtl;
+    
+    pagebuilder.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/css/ad/ad.css", themeName));
+    
+}
+@{
+    Layout = "_ColumnsTwo";
+
+    //title
+    pagebuilder.AddTitleParts(T("PageTitle.Account").Text);
+}
+@section left
+{
+    @await Component.InvokeAsync("CustomerNavigation", new { selectedTabId = CustomerNavigationEnum.Ads })
+}
+<div class="page account-page order-list-page pl-lg-3 pt-lg-0 pt-3">
+    <h1 class="generalTitle h2">@T("Account.MyAds")</h1>
+    <input type="button" value="@T("Account.CustomerAds.AddNewAd")" class="btn btn-sm btn-info ad-addnew-button" onclick="location = ('@Url.RouteUrl("NewAd")')" />
+
+    @if (Model.Ads.Any())
+    {
+        <div class="account-order">
+
+            <div class="product-review-list">
+                @foreach (var ad in Model.Ads)
+                {
+                    <partial name="_AdsList" model="ad" />
+                }
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="no-data alert alert-info">
+            @T("Account.CustomerAds.NoAds")
+        </div>
+    }
+</div>

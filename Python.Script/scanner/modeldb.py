@@ -107,7 +107,7 @@ class Category:
 @dataclass
 class Picture:
     _id: str=None
-    GenericAttributes=[]
+    GenericAttributes: list[str] = None
     PictureBinary: str=None
     MimeType: str='image/jpeg'
     SeoFilename: str=None
@@ -118,6 +118,7 @@ class Picture:
 
     def __post_init__(self):
         self._id = str(ObjectId())
+        self.GenericAttributes=[]
     
 @dataclass
 class Manufacturer:
@@ -169,6 +170,7 @@ class UrlRecord:
 
     def __post_init__(self):
         self._id = str(ObjectId())
+        self.GenericAttributes = []
 
 @dataclass
 class TierPrice:
