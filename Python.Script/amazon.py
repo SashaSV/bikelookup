@@ -101,7 +101,7 @@ def parse_products(urls) -> list[DataScraps]:
     :param urls:            список URL на карточки товаров.
     :return:                массив спарсенных данных по каждому из товаров.
     """
-
+    seleniumScrapUrl = []
     data = []
 
     for number, url in enumerate(urls, start=1):
@@ -113,9 +113,10 @@ def parse_products(urls) -> list[DataScraps]:
         if url.find('/ref='):
             scrapsData.url = url[0:url.find('/ref=')].strip()
         
-        scrapsData.sku = scrapsData.url[scrapsData.url.rfind('/'):]
+        scrapsData.sku = scrapsData.url[scrapsData.url.rfind('/')+1:]
         
         if soup is None:
+            seleniumScrapUrl.append(url)
             break
         try:
             # name
@@ -136,10 +137,10 @@ def parse_products(urls) -> list[DataScraps]:
             
             scrapsData.techs = dict2obj(techs)
             if soup.find('input', id='attach-baseAsin') is None:
-                continue
-                
-            sku = soup.find('input', id='attach-baseAsin').get('value')
-            scrapsData.sku = sku
+                sku = scrapsData.sku
+            else:
+                sku = soup.find('input', id='attach-baseAsin').get('value')
+                scrapsData.sku = sku
             # images
             images = []
             i = 0
@@ -153,36 +154,41 @@ def parse_products(urls) -> list[DataScraps]:
             for row, item in enumerate(d[0].get('colorToAsin'), start=0):
                 if d[0].get('colorToAsin')[item].get('asin') == sku:
                     images = d[0].get('colorImages').get(item)
+                    print(seleniumScrapUrl)
                     continue
-            
-            if len(images) == 0:
-                imgs = soup.find('ul', class_='a-unordered-list a-nostyle a-button-list a-vertical a-spacing-top-extra-large regularAltImageViewLayout').find_all('li')
-                for img in imgs:
-                    i = img.find('img').get('src')
-                    #i = i[0:]
-                    scrapsData.images.append()
 
             for image in images:
                 i = i + 1
                 urlimage = image.get('hiRes')
                 scrapsData.images.append(urlimage)
 
+            if len(images) == 0:
+                seleniumScrapUrl.append(url)
+
             prices = soup.find('div', id='corePriceDisplay_desktop_feature_div')
 
             if prices is None:
+                print(seleniumScrapUrl)
                 continue
 
             price = '0'
             oldprice = '0'
+            scrapsData.price = 0.0
+            scrapsData.oldprice = 0.0
 
             price = prices.find('span', class_='a-price aok-align-center reinventPricePriceToPayMargin priceToPay').find('span', class_='a-offscreen').get_text(strip=True)
 
             scrapsData.price = float(scanservice.price_without_space(price))
 
             oldprice = prices.find('div', class_='a-section a-spacing-small aok-align-center')
+            
             if not oldprice is None:
-                oldprice = oldprice.find('span', class_='a-offscreen').get_text(strip=True)
-                scrapsData.oldprice = float(scanservice.price_without_space(oldprice))
+                oldprice = oldprice.find('span', class_='a-offscreen')
+                
+                if not oldprice is None:
+
+                    oldprice = oldprice.get_text(strip=True)
+                    scrapsData.oldprice = float(scanservice.price_without_space(oldprice))
 
             scrapsData.available = 'Vendido'
             av = soup.find('span', class_='a-size-medium a-color-success')
@@ -195,7 +201,10 @@ def parse_products(urls) -> list[DataScraps]:
             data.append(scrapsData)
 
         except ImportError:
+            seleniumScrapUrl.append(url)
             continue
+
+        print(seleniumScrapUrl)
     return data
 
 def main():

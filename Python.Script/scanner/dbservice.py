@@ -11,13 +11,13 @@ from datetime import datetime
 
 @dataclass
 class DataScraps:
-    url = ''
-    name = ''
-    sku = ''
-    manufacturer = ''
-    category = ''
-    price = 0.0
-    oldprice = 0.0
+    url: str = ''
+    name: str = ''
+    sku: str = ''
+    manufacturer: str = ''
+    category: str = ''
+    price: float = 0.0
+    oldprice: float = 0.0
     vendor: str = ''
     available: str = ''
     techs: list[str] = None
