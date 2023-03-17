@@ -162,21 +162,48 @@ def parse_products(urls) -> list[DataScraps]:
                 urlimage = image.get('hiRes')
                 scrapsData.images.append(urlimage)
 
+            for script in soup.find_all('script', type="text/javascript"):
+                script = script.get_text(strip=True)
+                if script.find('ImageBlockATF') > 0:
+                    script = script.replace("'",'"')
+                    jstext = script[script.find('"colorImages"'): script.find('"colorToAsin"')].strip()
+                    jstext = '{'+jstext[0:len(jstext)-1]+'}'
+                    d = json.loads(jstext)
+
+                    for item in d['colorImages'].get('initial'):
+                        images.append(item.get('hiRes'))
+                    
+                    continue
+
             if len(images) == 0:
                 seleniumScrapUrl.append(url)
+
+            price = '0'
+            oldprice = '0'
+            
+            scrapsData.price = 0.0
+            scrapsData.oldprice = 0.0
 
             prices = soup.find('div', id='corePriceDisplay_desktop_feature_div')
 
             if prices is None:
+                prices = soup.find('span', class_='a-price a-text-price a-size-medium apexPriceToPay')
+                
+            if prices is None:
                 print(seleniumScrapUrl)
                 continue
 
-            price = '0'
-            oldprice = '0'
-            scrapsData.price = 0.0
-            scrapsData.oldprice = 0.0
+            price = prices.find('span', class_='a-price aok-align-center reinventPricePriceToPayMargin priceToPay')
 
-            price = prices.find('span', class_='a-price aok-align-center reinventPricePriceToPayMargin priceToPay').find('span', class_='a-offscreen').get_text(strip=True)
+            if not price is None:
+                price = price.find('span', class_='a-offscreen').get_text(strip=True)
+
+            if price is None:
+                price = prices.find('span', class_='a-offscreen').get_text(strip=True)
+                
+            if price is None:
+                print(seleniumScrapUrl)
+                continue
 
             scrapsData.price = float(scanservice.price_without_space(price))
 
@@ -204,7 +231,7 @@ def parse_products(urls) -> list[DataScraps]:
             seleniumScrapUrl.append(url)
             continue
 
-        print(seleniumScrapUrl)
+    print(seleniumScrapUrl)
     return data
 
 def main():

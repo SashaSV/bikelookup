@@ -44,18 +44,6 @@ def get_html(url) -> None:
     
     soup = BeautifulSoup(html_text, features='html.parser')
     images = []
-    for script in soup.find_all('script', type="text/javascript"):
-        script = script.get_text(strip=True)
-        if script.find('ImageBlockATF') > 0:
-            script = script.replace("'",'"')
-            jstext = script[script.find('"colorImages"'): script.find('"colorToAsin"')].strip()
-            jstext = '{'+jstext[0:len(jstext)-1]+'}'
-            d = json.loads(jstext)
-
-            for item in d['colorImages'].get('initial'):
-                images.append(item.get('hiRes'))
-            
-            continue
     
     try:   
         a=1

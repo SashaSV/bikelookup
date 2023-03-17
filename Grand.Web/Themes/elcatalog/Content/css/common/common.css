@@ -2306,3 +2306,7 @@ button, input, optgroup, select, textarea {
     justify-content: center;
     height: 30rem;
 }
+
+.form-row {
+    padding-bottom: 50px;
+}
