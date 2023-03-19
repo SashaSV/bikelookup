@@ -26,6 +26,13 @@ def url2filename(url):
 
 def getDataFromJsonFile(jsonfilename):
     data = []
+    
+    CURR_DIR = os.getcwd()
+    if CURR_DIR.find("Python.Script") < 0 :
+        CURR_DIR = '{0}'.format('\\Python.Script')
+
+    file_catalog = '{0}\\Grand.Web\\wwwroot\\content\\images\\'.format(CURR_DIR)
+
     if os.path.exists(jsonfilename):
         with open(jsonfilename, encoding='utf-8') as json_file:
             data = json.load(json_file)

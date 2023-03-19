@@ -154,26 +154,35 @@ def parse_products(urls) -> list[DataScraps]:
             for row, item in enumerate(d[0].get('colorToAsin'), start=0):
                 if d[0].get('colorToAsin')[item].get('asin') == sku:
                     images = d[0].get('colorImages').get(item)
-                    print(seleniumScrapUrl)
                     continue
 
             for image in images:
                 i = i + 1
                 urlimage = image.get('hiRes')
-                scrapsData.images.append(urlimage)
+                if not urlimage is None:
+                    scrapsData.images.append(urlimage)
 
-            for script in soup.find_all('script', type="text/javascript"):
-                script = script.get_text(strip=True)
-                if script.find('ImageBlockATF') > 0:
-                    script = script.replace("'",'"')
-                    jstext = script[script.find('"colorImages"'): script.find('"colorToAsin"')].strip()
-                    jstext = '{'+jstext[0:len(jstext)-1]+'}'
-                    d = json.loads(jstext)
+            if len(scrapsData.images) == 0:
+                for script in soup.find_all('script', type="text/javascript"):
+                    script = script.get_text(strip=True)
+                    if script.find('ImageBlockATF') > 0:
+                        script = script.replace("'",'"')
+                        
+                        jstext = script[script.find('"colorImages"'): script.find('"colorToAsin"')].strip()
+                        jstext = '{'+jstext[0:len(jstext)-1]+'}'
+                        
+                        d = json.loads(jstext)
 
-                    for item in d['colorImages'].get('initial'):
-                        images.append(item.get('hiRes'))
-                    
-                    continue
+                        for item in d['colorImages'].get('initial'):
+                            urlimage = item.get('hiRes')
+                            
+                            if urlimage is None:
+                                urlimage = item.get('large')
+                            
+                            if not urlimage is None:
+                                scrapsData.images.append(urlimage)
+
+                        continue
 
             if len(images) == 0:
                 seleniumScrapUrl.append(url)
@@ -190,7 +199,7 @@ def parse_products(urls) -> list[DataScraps]:
                 prices = soup.find('span', class_='a-price a-text-price a-size-medium apexPriceToPay')
                 
             if prices is None:
-                print(seleniumScrapUrl)
+                seleniumScrapUrl.append(url)
                 continue
 
             price = prices.find('span', class_='a-price aok-align-center reinventPricePriceToPayMargin priceToPay')
@@ -202,7 +211,7 @@ def parse_products(urls) -> list[DataScraps]:
                 price = prices.find('span', class_='a-offscreen').get_text(strip=True)
                 
             if price is None:
-                print(seleniumScrapUrl)
+                seleniumScrapUrl.append(url)
                 continue
 
             scrapsData.price = float(scanservice.price_without_space(price))
@@ -236,7 +245,6 @@ def parse_products(urls) -> list[DataScraps]:
 
 def main():
     pars_new_card_into_db()
-
 
 if __name__ == '__main__':
     main()

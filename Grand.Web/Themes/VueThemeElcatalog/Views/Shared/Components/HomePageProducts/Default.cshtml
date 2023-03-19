@@ -1,0 +1,57 @@
+﻿@model IList<ProductOverviewModel>
+@inject DisplayOrderHomePage order 
+
+<div class="product-slider new-product order-@order.HomePageProducts">
+    <h2 class="generalTitle text-center">@T("HomePage.Products")</h2>
+    <b-row class="product-slider">
+        <b-col md="left" align-self="center">
+            <img v-on:click="onnextslide2($refs.tmbcarouselhp)" class="scroll-btn" width="40" height="100" src="/Themes/VueThemeElcatalog/Content/images/ChevronLeft.svg" alt="" />
+        </b-col>
+        <b-col md="slider">
+            <b-carousel ref="tmbcarouselhp" id="">
+                @{
+                    var itemsPerSlide = 5;
+                    var numSlides = Math.Ceiling((decimal)Model.Count / itemsPerSlide);
+                    var imgNumber = 0;
+                    @for (var slideNumber = 0; slideNumber < numSlides; slideNumber++)
+                    {
+                        var items = Model
+                            .Skip(itemsPerSlide * slideNumber)
+                            .Take(itemsPerSlide);
+
+                        <b-carousel-slide class="pt-4 pb-4 pl-4 pr-4 product-card-carousel h-100">
+                            <b-row slot="img" class="product-card-carousel h-100">
+                                @foreach (var item in items)
+                                {
+                                    <b-col xl="@order.Np_Xl" lg="@order.Np_Lg" md="@order.Np_Md" sm="@order.Np_Sm" cols="@order.Np_Col" class="product-card-carousel h-100">
+                                        <partial name="_ProductBoxCarousel" model="item" />
+                                    </b-col>
+                                    imgNumber++;
+                                }
+                            </b-row>
+                        </b-carousel-slide>
+                    }
+                }
+
+            </b-carousel>
+        </b-col>
+        <b-col md="right" align-self="center">
+            <img v-on:click="onprevslide2($refs.tmbcarouselhp)" class="scroll-btn" width="40" height="100" src="/Themes/VueThemeElcatalog/Content/images/ChevronRight.svg" alt="" />
+        </b-col>
+    </b-row>
+</div>
+
+@*<div class="product-grid order-@order.HomePageProducts">
+    <h2 class="generalTitle text-center">@T("HomePage.Products")</h2>
+    <b-col cols="12" class="px-0">
+        <b-form-row>
+            @foreach (var item in Model)
+            {
+                <b-col xl="@order.Hp_Xl" lg="@order.Hp_Lg" md="@order.Hp_Md" sm="@order.Hp_Sm" cols="@order.Hp_Col" class="product-container mb-2">
+                    <partial name="_ProductBox" model="item" />
+                </b-col>
+            }
+        </b-form-row>
+    </b-col>
+</div>*@
+

@@ -11,12 +11,12 @@
   "available": "En stock",
   "techs": {},
   "images": [
-   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/710-zIN6mML._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/61EX--SjBtL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/61CCsjW5trL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/812CMkTiRWL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/81d-PcyAb0L._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/619+LZaNIdL._AC_SL1500_.jpg"
+   "https://m.media-amazon.com/images/I/710-zIN6mML._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/61EX--SjBtL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/61CCsjW5trL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/812CMkTiRWL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/81d-PcyAb0L._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/619+LZaNIdL._AC_SL1500_.jpg"
   ]
  },
  {
@@ -69,7 +69,11 @@
    "Descripción de la tarjeta gráfica": "Integrada",
    "Velocidad de CPU": "3.1 GHz"
   },
-  "images": []
+  "images": [
+   "https://m.media-amazon.com/images/I/71y6KC-jJNL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/61GoVGabtzL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/71TQYhvO1YL._AC_SL1500_.jpg"
+  ]
  },
  {
   "url": "https://www.amazon.es/Apple-MacBook-13-polegadas-Processador-GPU-7%E2%80%91Core/dp/B08T1ZDSV3",
@@ -89,11 +93,15 @@
    "Tamaño del disco duro": "256 GB",
    "Modelo de CPU": "Apple A8",
    "Tamaño de memoria RAM instalada": "8 GB",
-   "Sistema operativo": "macOS 11 Big Sur",
+   "Sistema operativo": "MacOS 11 Big Sur",
    "Descripción de la tarjeta gráfica": "Integrada",
    "Velocidad de CPU": "3.1 GHz"
   },
-  "images": []
+  "images": [
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/71tCcLqUQ2L._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/617erEF3OOL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/61DiOXxYG5L._AC_SL1500_.jpg"
+  ]
  },
  {
   "url": "https://www.amazon.es/Apple-MacBook-Air-Reacondicionado-Certificado/dp/B074XFGDMH",
@@ -117,31 +125,10 @@
    "Total de puertos USB": "2",
    "Tecnología de conectividad": "USB"
   },
-  "images": []
- },
- {
-  "url": "https://www.amazon.es/Apple-MacBook-13-polegadas-Processador-GPU-7%E2%80%91Core/dp/B08T1NS2KK",
-  "name": "Apple Ordenador Portátil MacBook Air (2020): chip M1 de Apple, pantalla Retina de 13 pulgadas, 8 GB de RAM, SSD de 256 GB, teclado retroiluminado, cámara FaceTime HD, sensor Touch ID, color plata",
-  "sku": "B08T1NS2KK",
-  "manufacturer": "Apple",
-  "category": "Portátiles",
-  "price": 973.61,
-  "oldprice": 0.0,
-  "vendor": "amazon.es",
-  "available": "Vendido",
-  "techs": {
-   "Marca": "Apple",
-   "Nombre del modelo": "Novo Apple MacBook Air (de 13 polegadas, Processador M1 da Apple com CPU 8‑core e GPU 7‑core, 8 GB RAM, 256 GB SSD) - PrateadoVer más",
-   "Tamaño de pantalla": "13 Pulgadas",
-   "Color": "Plata",
-   "Tamaño del disco duro": "256 GB",
-   "Modelo de CPU": "Apple A8",
-   "Tamaño de memoria RAM instalada": "8 GB",
-   "Sistema operativo": "MacOS 11 Big Sur",
-   "Descripción de la tarjeta gráfica": "Integrada",
-   "Velocidad de CPU": "3.1 GHz"
-  },
-  "images": []
+  "images": [
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/61xZJYL3TGL._AC_SL1000_.jpg",
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/41WKF6Jd34L._AC_SL1000_.jpg"
+  ]
  },
  {
   "url": "https://www.amazon.es/2022-Apple-Ordenador-Port%C3%A1til-MacBook/dp/B0B3CPX356",
@@ -166,12 +153,12 @@
    "Descripción del disco duro": "SSD"
   },
   "images": [
-   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/61vkJ9V6-dL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/71M+sWy8BlL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/61cYj+1xeQL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/91TvwsXBGsL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/71rGQH3kDqL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/61IsS3XGdkL._AC_SL1500_.jpg"
+   "https://m.media-amazon.com/images/I/61vkJ9V6-dL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/71M+sWy8BlL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/61cYj+1xeQL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/91TvwsXBGsL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/71rGQH3kDqL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/61IsS3XGdkL._AC_SL1500_.jpg"
   ]
  },
  {
@@ -183,7 +170,7 @@
   "price": 749.0,
   "oldprice": 0.0,
   "vendor": "amazon.es",
-  "available": "Sólo queda(n) 2 en stock.",
+  "available": "Sólo queda(n) 1 en stock.",
   "techs": {
    "Marca": "Apple",
    "Tamaño de pantalla": "15 Pulgadas",
@@ -196,7 +183,9 @@
    "Recuento de procesadores": "4",
    "Duración de la batería": "10 Horas"
   },
-  "images": []
+  "images": [
+   "https://m.media-amazon.com/images/I/610ZmtV5GyL._AC_SL1500_.jpg"
+  ]
  },
  {
   "url": "https://www.amazon.es/Apple-MacBook-Air-Mid-2013/dp/B00M4LWZ0G",
@@ -211,7 +200,7 @@
   "techs": {
    "Marca": "Apple",
    "Tamaño de pantalla": "13.3 Pulgadas",
-   "Color": "Plateado",
+   "Color": "plateado",
    "Modelo de CPU": "Core i5",
    "Tamaño de memoria RAM instalada": "4 GB",
    "Sistema operativo": "Mac OS",
@@ -220,7 +209,10 @@
    "Peso del producto": "3 Libras",
    "Total de puertos USB": "2"
   },
-  "images": []
+  "images": [
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/51b16Ut6Y0L._AC_SL1024_.jpg",
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/61pN0sqByJL._AC_SL1500_.jpg"
+  ]
  },
  {
   "url": "https://www.amazon.es/Apple-MacBook-Retina-13-Inch-Storage/dp/B09LDVSZFG",
@@ -244,7 +236,11 @@
    "Recuento de procesadores": "2",
    "Usos específicos del producto": "Profesionalmente"
   },
-  "images": []
+  "images": [
+   "https://m.media-amazon.com/images/I/51yBnkwjCBL._AC_SL1000_.jpg",
+   "https://m.media-amazon.com/images/I/31hTovZPhsL._AC_SL1000_.jpg",
+   "https://m.media-amazon.com/images/I/31dMhOdRWiL._AC_SL1000_.jpg"
+  ]
  },
  {
   "url": "https://www.amazon.es/Apple-2023-MacBook-Diez-n%C3%BAcleos-diecis%C3%A9is-n%C3%BAcleos/dp/B0BSJ1PPK1",
@@ -292,11 +288,11 @@
    "Nombre del modelo": "Pro",
    "Capacidad de almacenamiento de memoria": "64 GB",
    "Tamaño de pantalla": "11 Pulgadas",
-   "Sistema operativo": "iOS 12",
+   "Sistema operativo": "IOS 12",
    "Color": "Gris Espacial",
    "Tamaño de memoria RAM instalada": "4096 MB",
    "Duración de la batería": "10 Horas",
-   "Función especial": "Alcance de temperatura operativa: 0 - 35 °C, Flash integrado, Face recognition, Sensor de luz ambiental, Acelerómetro, Brújula electrónica, Voice call, Formatos de texto soportados: DOC, DOCX, HTM, HTML, ICS, Llave, PDF, PPT, PPTX, RTF, TXT, VCF, XLS, XLSX, Altavoces incorporados, Función de GPS asistida (A-GPS), Video recording, Barómetro, AirPlay, Geotagging, Wi-Fi positioning, Mensajería instantánea (IM), bluetooth, Micrófono incorporado, Video llamada, pantalla táctil, Dual SIM apoyo, Gyroscope, bluetooth: 5.0, Video stabilizerVer más",
+   "Función especial": "Alcance de temperatura operativa: 0 - 35 °C, Flash integrado, Bluetooth, Bluetooth: 5.0, Face recognition, Sensor de luz ambiental, Acelerómetro, Brújula electrónica, Voice call, Formatos de texto soportados: DOC, DOCX, HTM, HTML, ICS, Llave, PDF, PPT, PPTX, RTF, TXT, VCF, XLS, XLSX, Altavoces incorporados, Función de GPS asistida (A-GPS), Video recording, Barómetro, Pantalla táctil, AirPlay, Geotagging, Wi-Fi positioning, Mensajería instantánea (IM), Micrófono incorporado, Video llamada, Dual SIM apoyo, Gyroscope, Video stabilizerVer más",
    "Año del modelo": "2018"
   },
   "images": [
@@ -309,30 +305,6 @@
   ]
  },
  {
-  "url": "https://www.amazon.es/Apple-MacBook-Retina-QWERTY-Reacondicionado/dp/B097F68ZCG",
-  "name": "Apple MacBook Pro Retina 13\" i5 2,6 GHz 16 GB RAM 512 GB SSD QWERTY - Silver (Reacondicionado)",
-  "sku": "B097F68ZCG",
-  "manufacturer": "Apple",
-  "category": "Portátiles",
-  "price": 589.0,
-  "oldprice": 0.0,
-  "vendor": "amazon.es",
-  "available": "Sólo queda(n) 3 en stock.",
-  "techs": {
-   "Marca": "Apple",
-   "Tamaño de pantalla": "13.3 Pulgadas",
-   "Color": "Silver",
-   "Tamaño del disco duro": "512 GB",
-   "Modelo de CPU": "Core i5",
-   "Tamaño de memoria RAM instalada": "16 GB",
-   "Sistema operativo": "‎MacOs Catalina",
-   "Coprocesador de gráficos": "Intel Iris Graphics 5100",
-   "Velocidad de CPU": "2.6 GHz",
-   "Descripción del disco duro": "SSD"
-  },
-  "images": []
- },
- {
   "url": "https://www.amazon.es/Apple-MacBook-Retina-QWERTY-Reacondicionado/dp/B097NTTNZG",
   "name": "Apple MacBook Pro Retina 13\" i7 3,1 GHz 16 GB RAM 512 GB SSD QWERTY Es (Reacondicionado)",
   "sku": "B097NTTNZG",
@@ -341,7 +313,7 @@
   "price": 789.0,
   "oldprice": 0.0,
   "vendor": "amazon.es",
-  "available": "Sólo queda(n) 4 en stock.",
+  "available": "En stock.",
   "techs": {
    "Marca": "Apple",
    "Tamaño de pantalla": "13.3 Pulgadas",
@@ -354,7 +326,13 @@
    "Recuento de procesadores": "2",
    "Fabricante de CPU": "Intel"
   },
-  "images": []
+  "images": [
+   "https://m.media-amazon.com/images/I/51vUWwKQd-S._AC_SL1000_.jpg",
+   "https://m.media-amazon.com/images/I/41+F8foKVxS._AC_SL1000_.jpg",
+   "https://m.media-amazon.com/images/I/51AmKAZlO+S._AC_SL1000_.jpg",
+   "https://m.media-amazon.com/images/I/218mz4M-F0S._AC_SL1000_.jpg",
+   "https://m.media-amazon.com/images/I/21YeL7i3jsS._AC_SL1000_.jpg"
+  ]
  },
  {
   "url": "https://www.amazon.es/Apple-MacBook-Touch-QWERTY-Reacondicionado/dp/B097NRMTCG",
@@ -378,7 +356,13 @@
    "Recuento de procesadores": "4",
    "Fabricante de CPU": "Intel"
   },
-  "images": []
+  "images": [
+   "https://m.media-amazon.com/images/I/51ybtU7GckS._AC_SL1000_.jpg",
+   "https://m.media-amazon.com/images/I/31SHc98g3LS._AC_SL1000_.jpg",
+   "https://m.media-amazon.com/images/I/21ctH+d3A5S._AC_SL1000_.jpg",
+   "https://m.media-amazon.com/images/I/21Q3bU2XK1S._AC_SL1000_.jpg",
+   "https://m.media-amazon.com/images/I/31FrI4DNlsS._AC_SL1000_.jpg"
+  ]
  },
  {
   "url": "https://www.amazon.es/Apple-MacBook-Retina-Reacondicionado-Certificado/dp/B074WWWSTR",
@@ -401,7 +385,9 @@
    "Fabricante de CPU": "Apple",
    "Entrada de interfaz humana": "Micrófono, Teclado"
   },
-  "images": []
+  "images": [
+   "https://m.media-amazon.com/images/I/4146H-I+8nL._AC_.jpg"
+  ]
  },
  {
   "url": "https://www.amazon.es/Apple-MacBook-MJLQ2LL-Keyboard-Renewed/dp/B07WN5X4JW",
@@ -409,10 +395,10 @@
   "sku": "B07WN5X4JW",
   "manufacturer": "Apple",
   "category": "Portátiles",
-  "price": 548.0,
+  "price": 529.0,
   "oldprice": 0.0,
   "vendor": "amazon.es",
-  "available": "Sólo queda(n) 2 en stock.",
+  "available": "En stock.",
   "techs": {
    "Marca": "Apple",
    "Tamaño de pantalla": "15 Pulgadas",
@@ -425,7 +411,9 @@
    "Recuento de procesadores": "4",
    "Fabricante de CPU": "Intel"
   },
-  "images": []
+  "images": [
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/51taL59-NZL._AC_SL1500_.jpg"
+  ]
  },
  {
   "url": "https://www.amazon.es/Principios-Apple-MacBook-Pulgadas-Reacondicionado/dp/B099W3KWW5",
@@ -433,10 +421,10 @@
   "sku": "B099W3KWW5",
   "manufacturer": "Apple",
   "category": "Portátiles",
-  "price": 355.0,
+  "price": 335.0,
   "oldprice": 0.0,
   "vendor": "amazon.es",
-  "available": "Sólo queda(n) 3 en stock.",
+  "available": "En stock.",
   "techs": {
    "Marca": "Apple",
    "Tamaño de pantalla": "13.3 Pulgadas",
@@ -449,7 +437,12 @@
    "Coprocesador de gráficos": "Intel HD Graphics 6000",
    "Velocidad de CPU": "1.6 GHz"
   },
-  "images": []
+  "images": [
+   "https://m.media-amazon.com/images/I/61bMuKfRU1S._AC_SL1024_.jpg",
+   "https://m.media-amazon.com/images/I/51sScIuOVAS._AC_SL1000_.jpg",
+   "https://m.media-amazon.com/images/I/31ZZDQQj1PS._AC_SL1000_.jpg",
+   "https://m.media-amazon.com/images/I/31N6d2bEtWS._AC_SL1000_.jpg"
+  ]
  },
  {
   "url": "https://www.amazon.es/Apple-MacBook-Late-2013-Reacondicionado/dp/B08C73DHMM",
@@ -470,10 +463,12 @@
    "Modelo de CPU": "Core i7",
    "Tamaño de memoria RAM instalada": "16384 MB",
    "Sistema operativo": "OS X 10.9 Mavericks",
-   "Función especial": "Power auto-sensing, bluetooth, Micrófono incorporado, Alcance de temperatura operativa: 10 - 35 °C, Combo headphone/microphone port, Teclado de tamaño completo, bluetooth: 4.0, Full-size keyboard, Intel Turbo Boost Technology, Tarjeta de lectura integradaVer más",
+   "Función especial": "Power auto-sensing, Bluetooth, Bluetooth: 4.0, Micrófono incorporado, Alcance de temperatura operativa: 10 - 35 °C, Combo headphone/microphone port, Teclado de tamaño completo, Full-size keyboard, Intel Turbo Boost Technology, Tarjeta de lectura integradaVer más",
    "Descripción de la tarjeta gráfica": "Nvidia GeForce GT"
   },
-  "images": []
+  "images": [
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/61vUjJbr62L._AC_SL1128_.jpg"
+  ]
  },
  {
   "url": "https://www.amazon.es/Apple-MacBook-i7-4870hq-MJLQ2LL-Reacondicionado/dp/B0961CZX7J",
@@ -488,7 +483,7 @@
   "techs": {
    "Marca": "Apple",
    "Tamaño de pantalla": "15.4 Pulgadas",
-   "Color": "plateado",
+   "Color": "Plateado",
    "Tamaño del disco duro": "256 GB",
    "Modelo de CPU": "Intel Core i7",
    "Tamaño de memoria RAM instalada": "16 GB",
@@ -497,7 +492,12 @@
    "Velocidad de CPU": "2.5 GHz",
    "Descripción del disco duro": "SSD"
   },
-  "images": []
+  "images": [
+   "https://m.media-amazon.com/images/I/71jqy8-KwYS._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/61Iz6xZm1jL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/41QFCW3rbpL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/71mHF6BgvBL._AC_SL1500_.jpg"
+  ]
  },
  {
   "url": "https://www.amazon.es/APPLE-MACBOOK-2-5GHZ-SCREEN-Refurbished/dp/B076VK8Y78",
@@ -505,10 +505,10 @@
   "sku": "B076VK8Y78",
   "manufacturer": "Apple",
   "category": "Portátiles",
-  "price": 280.0,
+  "price": 309.0,
   "oldprice": 0.0,
   "vendor": "amazon.es",
-  "available": "En stock.",
+  "available": "Sólo queda(n) 4 en stock.",
   "techs": {
    "Marca": "Apple",
    "Tamaño de pantalla": "13.3 Pulgadas",
@@ -521,7 +521,13 @@
    "Coprocesador de gráficos": "Intel HD Graphics 3000",
    "Velocidad de CPU": "2.5 GHz"
   },
-  "images": []
+  "images": [
+   "https://m.media-amazon.com/images/I/61TzuPm9SRL._AC_SL1450_.jpg",
+   "https://m.media-amazon.com/images/I/41uNGTIF2mL._AC_.jpg",
+   "https://m.media-amazon.com/images/I/3104mRsFwgL._AC_.jpg",
+   "https://m.media-amazon.com/images/I/51DbwFCMlcL._AC_.jpg",
+   "https://m.media-amazon.com/images/I/71hKd13FkSL._AC_SL1200_.jpg"
+  ]
  },
  {
   "url": "https://www.amazon.es/Apple-MacBook-Inc-2017-Reacondicionado/dp/B084P1HYLS",
@@ -539,13 +545,19 @@
    "Tamaño del disco duro": "128 GB",
    "Modelo de CPU": "Core i5",
    "Tamaño de memoria RAM instalada": "8 GB",
-   "Sistema operativo": "MacOS 10.15 Catalina",
+   "Sistema operativo": "macOS 10.15 Catalina",
    "Coprocesador de gráficos": "Intel Iris Plus Graphics 640",
    "Velocidad de CPU": "2.3 GHz",
    "Descripción del disco duro": "SSD",
    "Recuento de procesadores": "2"
   },
-  "images": []
+  "images": [
+   "https://m.media-amazon.com/images/I/5169qIVWopL._AC_SL1000_.jpg",
+   "https://m.media-amazon.com/images/I/41MJgmRK8TL._AC_SL1000_.jpg",
+   "https://m.media-amazon.com/images/I/410IwqlUZlL._AC_SL1000_.jpg",
+   "https://m.media-amazon.com/images/I/41V1QokqetL._AC_SL1000_.jpg",
+   "https://m.media-amazon.com/images/I/41IBk9r854L._AC_SL1000_.jpg"
+  ]
  },
  {
   "url": "https://www.amazon.es/Apple-MacBook-Pro-Retina-Core/dp/B081FFKBV1",
@@ -569,7 +581,11 @@
    "Fabricante de CPU": "Apple",
    "Entrada de interfaz humana": "Micrófono, Panel, Teclado numérico, Pantalla táctil"
   },
-  "images": []
+  "images": [
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/71-OBUfsx+L._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/81wVbug9MbL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/814otwKyacL._AC_SL1500_.jpg"
+  ]
  },
  {
   "url": "https://www.amazon.es/Apple-Macbook-pulgadas-almacenamiento-espa%C3%B1ol/dp/B09B2GL989",
@@ -577,10 +593,10 @@
   "sku": "B09B2GL989",
   "manufacturer": "Apple",
   "category": "Portátiles",
-  "price": 1009.0,
+  "price": 1055.0,
   "oldprice": 0.0,
   "vendor": "amazon.es",
-  "available": "Sólo queda(n) 3 en stock.",
+  "available": "Sólo queda(n) 4 en stock.",
   "techs": {
    "Marca": "Apple",
    "Tamaño de pantalla": "15 Pulgadas",
@@ -593,7 +609,10 @@
    "Coprocesador de gráficos": "AMD Radeon Pro 560",
    "Velocidad de CPU": "2.9 GHz"
   },
-  "images": []
+  "images": [
+   "https://m.media-amazon.com/images/I/81JXWU76QnL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/81W4VPJjrJL._AC_SL1500_.jpg"
+  ]
  },
  {
   "url": "https://www.amazon.es/Mid-2014-Apple-MacBook-Reacondicionado/dp/B07RLVM6MF",
@@ -612,12 +631,18 @@
    "Modelo de CPU": "Core i5",
    "Tamaño de memoria RAM instalada": "8 GB",
    "Sistema operativo": "Mac OS X",
-   "Descripción de la tarjeta gráfica": "intel hd",
+   "Descripción de la tarjeta gráfica": "Intel hd",
    "Descripción del disco duro": "SSHD",
    "Peso del producto": "1.5 Kilogramos",
    "Total de puertos USB": "2"
   },
-  "images": []
+  "images": [
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/41Zuw0iU4yL._AC_.jpg",
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/31bSQoBwDDL._AC_.jpg",
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/51avWXrFyIL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/61r00Tk4JGL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/81jzIZ-7exL._AC_SL1500_.jpg"
+  ]
  },
  {
   "url": "https://www.amazon.es/Apple-Pulgadas-Almacenamiento-Espacial-Reacondicinado/dp/B09GPXTN26",
@@ -625,7 +650,7 @@
   "sku": "B09GPXTN26",
   "manufacturer": "Apple",
   "category": "Portátiles",
-  "price": 939.0,
+  "price": 1150.0,
   "oldprice": 0.0,
   "vendor": "amazon.es",
   "available": "Sólo queda(n) 4 en stock.",
@@ -636,12 +661,14 @@
    "Tamaño del disco duro": "256 GB",
    "Modelo de CPU": "Intel Core i7",
    "Tamaño de memoria RAM instalada": "16 GB",
-   "Sistema operativo": "MacOS 10.15 Catalina",
+   "Sistema operativo": "macOS 10.15 Catalina",
    "Coprocesador de gráficos": "Radeon 555 graphics",
    "Velocidad de CPU": "2.8 GHz",
    "Descripción del disco duro": "SSD"
   },
-  "images": []
+  "images": [
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/31Kq5biMe6L._AC_.jpg"
+  ]
  },
  {
   "url": "https://www.amazon.es/Apple-MacBook-1-6GHz-768Pixeles-Plata/dp/B07RHW1ZJZ",
@@ -665,7 +692,13 @@
    "Velocidad de CPU": "1.6 GHz",
    "Descripción del disco duro": "SSD"
   },
-  "images": []
+  "images": [
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/91ByGtikR9L._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/51rC7hwUwfL._AC_SL1128_.jpg",
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/610oi0pdUEL._AC_SL1371_.jpg",
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/61Bnz-O7NYL._AC_SL1088_.jpg",
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/51XgpkLBPKL._AC_SL1092_.jpg"
+  ]
  },
  {
   "url": "https://www.amazon.es/Apple-MacBook-Teclado-Espanol-Renewed/dp/B099X18GJM",
@@ -689,7 +722,9 @@
    "Coprocesador de gráficos": "Intel HD Graphics 6000",
    "Velocidad de CPU": "1.8 GHz"
   },
-  "images": []
+  "images": [
+   "https://m.media-amazon.com/images/I/61nTtH4zG5S._AC_SL1440_.jpg"
+  ]
  },
  {
   "url": "https://www.amazon.es/Apple-MacBook-i5-6360u-MLL42LL-Reacondicionado/dp/B08Z7CHS67",
@@ -700,11 +735,11 @@
   "price": 519.0,
   "oldprice": 0.0,
   "vendor": "amazon.es",
-  "available": "Sólo queda(n) 3 en stock.",
+  "available": "En stock.",
   "techs": {
    "Marca": "Apple",
    "Tamaño de pantalla": "13.3 Pulgadas",
-   "Color": "Plateado",
+   "Color": "plateado",
    "Tamaño del disco duro": "256 GB",
    "Modelo de CPU": "Intel Core i5",
    "Tamaño de memoria RAM instalada": "8 GB",
@@ -713,7 +748,12 @@
    "Coprocesador de gráficos": "Intel Iris Graphics 540",
    "Velocidad de CPU": "2 GHz"
   },
-  "images": []
+  "images": [
+   "https://m.media-amazon.com/images/I/41swNfxYw0S._AC_.jpg",
+   "https://m.media-amazon.com/images/I/51uXAO9rbQS._AC_SL1000_.jpg",
+   "https://m.media-amazon.com/images/I/31ZrUSNk1FS._AC_SL1000_.jpg",
+   "https://m.media-amazon.com/images/I/41SoLTNfOiL._AC_SL1000_.jpg"
+  ]
  },
  {
   "url": "https://www.amazon.es/Apple-MacBook-i7-4980hq-MJLQ2LL-Reacondicionado/dp/B08YFN2QXY",
@@ -732,12 +772,17 @@
    "Tamaño del disco duro": "512 GB",
    "Modelo de CPU": "Core i7",
    "Tamaño de memoria RAM instalada": "16 GB",
-   "Sistema operativo": "macOS 10.13 High Sierra",
+   "Sistema operativo": "MacOS 10.13 High Sierra",
    "Descripción de la tarjeta gráfica": "Integrada",
    "Coprocesador de gráficos": "Intel Iris 5200 Pro Graphics Processor",
    "Velocidad de CPU": "2.8 GHz"
   },
-  "images": []
+  "images": [
+   "https://m.media-amazon.com/images/I/71sD6QA1msS._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/61Iz6xZm1jL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/41QFCW3rbpL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/71mHF6BgvBL._AC_SL1500_.jpg"
+  ]
  },
  {
   "url": "https://www.amazon.es/Apple-MacBook-Air-13-Reacondicionado/dp/B07HMNNZ57",
@@ -761,7 +806,14 @@
    "Velocidad de CPU": "1.8 GHz",
    "Descripción del disco duro": "SSD"
   },
-  "images": []
+  "images": [
+   "https://m.media-amazon.com/images/I/51NQH-PPhKL._AC_SL1024_.jpg",
+   "https://m.media-amazon.com/images/I/41-r61ziiLL._AC_SL1024_.jpg",
+   "https://m.media-amazon.com/images/I/51cNAljYo6L._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/31YOl6EhKrL._AC_.jpg",
+   "https://m.media-amazon.com/images/I/51wc3EEkcLL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/41kaz58IkbL._AC_.jpg"
+  ]
  },
  {
   "url": "https://www.amazon.es/Apple-i5-5250u-QWERTY-Principio-Reacondicionado/dp/B08YDGJD83",
@@ -776,16 +828,21 @@
   "techs": {
    "Marca": "Apple",
    "Tamaño de pantalla": "11.6 Pulgadas",
-   "Color": "Plata",
+   "Color": "plata",
    "Tamaño del disco duro": "128 GB",
    "Modelo de CPU": "Intel Core i5",
    "Tamaño de memoria RAM instalada": "4 GB",
    "Sistema operativo": "Mac OS",
-   "Descripción de la tarjeta gráfica": "Intel_hd_graphics_6000",
+   "Descripción de la tarjeta gráfica": "intel_hd_graphics_6000",
    "Coprocesador de gráficos": "Intel HD Graphics 6000 procesador de gráficos",
    "Velocidad de CPU": "1.6 GHz"
   },
-  "images": []
+  "images": [
+   "https://m.media-amazon.com/images/I/61SdCqYugVL._AC_SL1346_.jpg",
+   "https://m.media-amazon.com/images/I/41eEXyQvqJL._AC_.jpg",
+   "https://m.media-amazon.com/images/I/31ahVRC1nlL._AC_.jpg",
+   "https://m.media-amazon.com/images/I/31vvbhoahbL._AC_.jpg"
+  ]
  },
  {
   "url": "https://www.amazon.es/Apple-MacBook-Air-Reacondicionado-Certificado/dp/B074XK3MNK",
@@ -804,7 +861,9 @@
    "Marca de la tarjeta gráfica": "Intel",
    "Fabricante de CPU": "Apple"
   },
-  "images": []
+  "images": [
+   "https://m.media-amazon.com/images/I/41g-DU02aFL._AC_.jpg"
+  ]
  },
  {
   "url": "https://www.amazon.es/Apple-MacBook-Inc-2017-Reacondicionado/dp/B08RP792RX",
@@ -815,7 +874,7 @@
   "price": 649.0,
   "oldprice": 0.0,
   "vendor": "amazon.es",
-  "available": "Sólo queda(n) 5 en stock.",
+  "available": "En stock.",
   "techs": {
    "Marca": "Apple",
    "Tamaño de pantalla": "13 Pulgadas",
@@ -823,12 +882,18 @@
    "Tamaño del disco duro": "256 GB",
    "Modelo de CPU": "Core i5",
    "Tamaño de memoria RAM instalada": "8 GB",
-   "Sistema operativo": "macOS 10.15 Catalina",
+   "Sistema operativo": "MacOS 10.15 Catalina",
    "Coprocesador de gráficos": "Intel Iris Plus Graphics 640",
    "Velocidad de CPU": "2.3 GHz",
    "Descripción del disco duro": "SSD"
   },
-  "images": []
+  "images": [
+   "https://m.media-amazon.com/images/I/5169qIVWopL._AC_SL1000_.jpg",
+   "https://m.media-amazon.com/images/I/41MJgmRK8TL._AC_SL1000_.jpg",
+   "https://m.media-amazon.com/images/I/410IwqlUZlL._AC_SL1000_.jpg",
+   "https://m.media-amazon.com/images/I/41V1QokqetL._AC_SL1000_.jpg",
+   "https://m.media-amazon.com/images/I/41IBk9r854L._AC_SL1000_.jpg"
+  ]
  },
  {
   "url": "https://www.amazon.es/Apple-MacBook-Inc-2017-Reacondicionado/dp/B07VB5HWV2",
@@ -839,7 +904,7 @@
   "price": 649.0,
   "oldprice": 0.0,
   "vendor": "amazon.es",
-  "available": "Sólo queda(n) 5 en stock.",
+  "available": "En stock.",
   "techs": {
    "Marca": "Apple",
    "Tamaño de pantalla": "13.3 Pulgadas",
@@ -852,7 +917,14 @@
    "Coprocesador de gráficos": "Intel Iris Plus Graphics 640",
    "Velocidad de CPU": "2.3 GHz"
   },
-  "images": []
+  "images": [
+   "https://m.media-amazon.com/images/I/51sZYIhFmPL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/21KbIouQmIL._AC_SL1000_.jpg",
+   "https://m.media-amazon.com/images/I/41a2Fu0YNNL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/617dQbRlf2L._AC_SL1020_.jpg",
+   "https://m.media-amazon.com/images/I/31D8auK2pOL._AC_.jpg",
+   "https://m.media-amazon.com/images/I/617lREZN5uL._AC_SL1144_.jpg"
+  ]
  },
  {
   "url": "https://www.amazon.es/Apple-MacBook-ME864LL-Tastiera-Refurbished/dp/B07HYZC7F9",
@@ -873,7 +945,9 @@
    "Fabricante de CPU": "Intel",
    "Entrada de interfaz humana": "Teclado"
   },
-  "images": []
+  "images": [
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/41ORM-HgM9L._AC_.jpg"
+  ]
  },
  {
   "url": "https://www.amazon.es/Early-Apple-MacBook-1-6GHz-MJVE2LL/dp/B08N5L7K6F",
@@ -897,7 +971,11 @@
    "Descripción del disco duro": "SSD",
    "Recuento de procesadores": "2"
   },
-  "images": []
+  "images": [
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/71ZtQQCoP4L._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/71UaqE04TwL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/41IG2QBLJDL._AC_SL1024_.jpg"
+  ]
  },
  {
   "url": "https://www.amazon.es/Apple-Macbook-Air-Reasignado-Reacondicionado/dp/B088193TSS",
@@ -921,7 +999,9 @@
    "Velocidad de CPU": "2.2 GHz",
    "Descripción del disco duro": "SSD"
   },
-  "images": []
+  "images": [
+   "https://m.media-amazon.com/images/I/41wzgH146zL._AC_.jpg"
+  ]
  },
  {
   "url": "https://www.amazon.es/MacBook-12-inch-Laptop-Graphics-Sierra/dp/B07GT4P3F5",
@@ -945,7 +1025,41 @@
    "Entrada de interfaz humana": "Teclado",
    "Factor de forma": "Ordenador portátil"
   },
-  "images": []
+  "images": [
+   "https://m.media-amazon.com/images/I/51COIEsuDuL._AC_.jpg",
+   "https://m.media-amazon.com/images/I/31ZhHhiL8hL._AC_.jpg",
+   "https://m.media-amazon.com/images/I/61qo1mEEbKL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/71DOLqCoYnL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/51DhdOMtHEL._AC_SL1200_.jpg"
+  ]
+ },
+ {
+  "url": "https://www.amazon.es/Apple-MacBook-13-polegadas-Processador-GPU-8%E2%80%91Core/dp/B08T15LYGJ",
+  "name": "Apple MacBook Pro (de 13 polegadas, Processador M1 da com CPU 8‑Core e GPU 8‑Core, 8 GB RAM, 512 GB SSD) - Cinzento sideral (novembro 2020)",
+  "sku": "B08T15LYGJ",
+  "manufacturer": "Apple",
+  "category": "Portátiles",
+  "price": 1458.46,
+  "oldprice": 0.0,
+  "vendor": "amazon.es",
+  "available": "Vendido",
+  "techs": {
+   "Marca": "Apple",
+   "Nombre del modelo": "Novo Apple MacBook Pro (de 13 polegadas, Processador M1 da Apple com CPU 8‑core e GPU 8‑core, 8 GB RAM, 512 GB SSD) - Cinzento sideralVer más",
+   "Tamaño de pantalla": "13 Pulgadas",
+   "Color": "Gris espacial",
+   "Tamaño del disco duro": "512 GB",
+   "Modelo de CPU": "Apple A8",
+   "Tamaño de memoria RAM instalada": "8 GB",
+   "Sistema operativo": "MacOS 11 Big Sur",
+   "Descripción de la tarjeta gráfica": "Integrada",
+   "Velocidad de CPU": "3.1 GHz"
+  },
+  "images": [
+   "https://m.media-amazon.com/images/I/71t+W15UvBL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/71nbyVi1x6L._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/71l5QZn0aRL._AC_SL1500_.jpg"
+  ]
  },
  {
   "url": "https://www.amazon.es/Apple-MacBook-MJVE2LL-importado-Reacondicionado/dp/B013HD3INW",
@@ -960,16 +1074,23 @@
   "techs": {
    "Marca": "Apple",
    "Tamaño de pantalla": "13.3 Pulgadas",
-   "Color": "Plata",
+   "Color": "plata",
    "Tamaño del disco duro": "128 GB",
    "Modelo de CPU": "Core i5",
    "Tamaño de memoria RAM instalada": "4 GB",
    "Sistema operativo": "Mac OS X Cheetah",
-   "Descripción de la tarjeta gráfica": "Intel hd",
+   "Descripción de la tarjeta gráfica": "intel hd",
    "Coprocesador de gráficos": "Intel HD Graphics 6000",
    "Velocidad de CPU": "1.6 GHz"
   },
-  "images": []
+  "images": [
+   "https://m.media-amazon.com/images/I/6157eU56s2L._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/31DhGLsxW2L._AC_.jpg",
+   "https://m.media-amazon.com/images/I/61-K4tA-3uL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/61gfeBiF3xL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/218lVbfUbxL._AC_.jpg",
+   "https://m.media-amazon.com/images/I/21dP0LbW0XL._AC_.jpg"
+  ]
  },
  {
   "url": "https://www.amazon.es/Apple-MacBook-13-Inch-Storage-Spanish/dp/B09L8PXKNN",
@@ -993,7 +1114,11 @@
    "Velocidad de CPU": "1.8 GHz",
    "Descripción del disco duro": "SSD"
   },
-  "images": []
+  "images": [
+   "https://m.media-amazon.com/images/I/51VM95RIFaL._AC_SL1000_.jpg",
+   "https://m.media-amazon.com/images/I/51Q6riBDXQL._AC_SL1000_.jpg",
+   "https://m.media-amazon.com/images/I/41WKF6Jd34L._AC_SL1000_.jpg"
+  ]
  },
  {
   "url": "https://www.amazon.es/Apple-MacBook-Air-QWERTY-Reacondicionado/dp/B097NL5666",
@@ -1017,7 +1142,13 @@
    "Descripción del disco duro": "SSD",
    "Recuento de procesadores": "2"
   },
-  "images": []
+  "images": [
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/51Pe5NZMM3S._AC_SL1000_.jpg",
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/51AlSt-uIzS._AC_SL1000_.jpg",
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/41ZpoJrEF1S._AC_SL1000_.jpg",
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/31ZZDQQj1PS._AC_SL1000_.jpg",
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/31N6d2bEtWS._AC_SL1000_.jpg"
+  ]
  },
  {
   "url": "https://www.amazon.es/Apple-MacBook-Inches-A1466-Early/dp/B079M7B94C",
@@ -1041,7 +1172,17 @@
    "Velocidad de CPU": "1.6 GHz",
    "Descripción del disco duro": "SSD"
   },
-  "images": []
+  "images": [
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/71Jcr3UTOCL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/51o4e2ga5XL._AC_SL1128_.jpg",
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/41GHA6YrYcL._AC_SL1092_.jpg",
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/81sfytM4GbL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/81CUv0dQltL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/614KXFcAWZL._AC_SL1371_.jpg",
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/419nJJOYNmL._AC_SL1000_.jpg",
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/71G4gAgWp8L._AC_SL1184_.jpg",
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/51HiuTf+8ML._AC_SL1000_.jpg"
+  ]
  },
  {
   "url": "https://www.amazon.es/Apple-2022-MacBook-Air-13-polegadas-GPU-8%E2%80%91Core/dp/B0B3FXNNTN",
@@ -1066,12 +1207,12 @@
    "Resolución": "1080p"
   },
   "images": [
-   "https://m.media-amazon.com/images/I/71C6vQtP2iL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/61EX--SjBtL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/61G5cPUuVdL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/81iEMqR2+xL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/81d-PcyAb0L._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/61PgrAgVTAL._AC_SL1500_.jpg"
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/71C6vQtP2iL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/61EX--SjBtL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/61G5cPUuVdL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/81iEMqR2+xL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/81d-PcyAb0L._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/61PgrAgVTAL._AC_SL1500_.jpg"
   ]
  },
  {
@@ -1096,6 +1237,10 @@
    "Recuento de procesadores": "2",
    "Fabricante de CPU": "Intel"
   },
-  "images": []
+  "images": [
+   "https://m.media-amazon.com/images/I/61dChoQ92eL._AC_SL1000_.jpg",
+   "https://m.media-amazon.com/images/I/41Wz360rZKL._AC_SL1001_.jpg",
+   "https://m.media-amazon.com/images/I/31X7X-7hOpL._AC_SL1000_.jpg"
+  ]
  }
 ]

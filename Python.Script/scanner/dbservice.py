@@ -22,6 +22,12 @@ class DataScraps:
     available: str = ''
     techs: list[str] = None
     images: list[str] = None
+    model: str = ''
+    color: str = ''
+    year: int = 0
+    memory: str = ''
+    display: str = ''
+    CPU: str = ''
     
     def __post_init__(self):
         self.techs = []
@@ -203,7 +209,7 @@ def add_productspecificationattributeoption(db, p, sa, sao, psao):
         'SpecificationAttributeId': sa.get('_id'),
         'SpecificationAttributeOptionId': sao['_id'],
         'CustomValue': 'null',
-        'AllowFiltering': True,
+        'AllowFiltering': False,
         'ShowOnProductPage': True,
         'ShowOnSellerPage': True,
         'DisplayOrder': 0,
@@ -332,8 +338,8 @@ def check_rel_сategories_to_product(db, p, c_name):
 
 def get_file_picture_name(pictureId:str) -> str:
         CURR_DIR = os.getcwd()
-        CURR_DIR = CURR_DIR.replace('Python.Script', '')
-        file_catalog = '{0}Grand.Web\\wwwroot\\content\\images\\'.format(CURR_DIR)
+        CURR_DIR = CURR_DIR.replace('\\Python.Script', '')
+        file_catalog = '{0}\\Grand.Web\\wwwroot\\content\\images\\'.format(CURR_DIR)
         
         try:
             os.stat(file_catalog)
@@ -347,15 +353,6 @@ def check_picture(db, pictureId, urlimage, productname):
     p_main = find_document(collaction, {'UrlImage': urlimage})
     if p_main == None:
         id_ = str(ObjectId())
-        CURR_DIR = os.getcwd()
-        CURR_DIR = CURR_DIR.replace('Python.Script', '')
-        file_catalog = '{0}Grand.Web\\wwwroot\\content\\images\\'.format(CURR_DIR)
-        
-        try:
-            os.stat(file_catalog)
-        except:
-            os.mkdir(file_catalog)
-
         filename = get_file_picture_name(id_)
         load_image(urlimage, filename)
 

@@ -22,7 +22,10 @@
                             <b-list-group-item href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</b-list-group-item>
                         }
                         <b-list-group-item href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</b-list-group-item>
-                        <b-list-group-item href="@Url.RouteUrl("ProductSearch")">@T("Search")</b-list-group-item>
+                        @if (false)
+                        {
+                            <b-list-group-item href="@Url.RouteUrl("ProductSearch")">@T("Search")</b-list-group-item>
+                        }
                         @if (Model.NewsEnabled)
                         {
                             <b-list-group-item href="@Url.RouteUrl("NewsArchive")">@T("News")</b-list-group-item>
@@ -61,9 +64,10 @@
                 <div class="viewBox">
                     <b-list-group class="pl-0 list-group list-pad">
                         <b-list-group-item href="@Url.RouteUrl("CustomerInfo")">@T("Account.MyAccount")</b-list-group-item>
-                        <b-list-group-item href="@Url.RouteUrl("CustomerOrders")">@T("Account.CustomerOrders")</b-list-group-item>
-                        <b-list-group-item href="@Url.RouteUrl("CustomerAddresses")">@T("Account.CustomerAddresses")</b-list-group-item>
-                        @if (Model.ShoppingCartEnabled)
+                        @*<b-list-group-item href="@Url.RouteUrl("CustomerOrders")">@T("Account.CustomerOrders")</b-list-group-item>*@
+                        @*<b-list-group-item href="@Url.RouteUrl("CustomerAddresses")">@T("Account.CustomerAddresses")</b-list-group-item>*@
+                        @*<b-list-group-item href="@Url.RouteUrl("CustomerAds")">@T("Account.MyAds")</b-list-group-item>*@
+                        @if (Model.ShoppingCartEnabled && false)
                         {
                             <b-list-group-item href="@Url.RouteUrl("ShoppingCart")">@T("ShoppingCart")</b-list-group-item>
                         }
@@ -100,22 +104,34 @@
                             <span>@T("Footer.CompanyName.Title")</span>
                             <span>@Model.CompanyName</span>
                         </b-list-group-item>
-                        <b-list-group-item>
-                            <span>@T("Footer.Address.Title")</span>
-                            <span>@Model.CompanyAddress</span>
-                        </b-list-group-item>
-                        <b-list-group-item>
-                            <span>@T("footer.Email.Title")</span>
-                            <span>@Model.CompanyEmail</span>
-                        </b-list-group-item>
-                        <b-list-group-item>
-                            <span>@T("Footer.Phone.Title")</span>
-                            <span>@Model.CompanyPhone</span>
-                        </b-list-group-item>
-                        <b-list-group-item>
-                            <span>@T("Footer.Hour.Title")</span>
-                            <span>@Model.CompanyHours</span>
-                        </b-list-group-item>
+                        @if (!string.IsNullOrEmpty(Model.CompanyAddress))
+                        {
+                            <b-list-group-item>
+                                <span>@T("Footer.Address.Title")</span>
+                                <span>@Model.CompanyAddress</span>
+                            </b-list-group-item>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.CompanyEmail))
+                        {
+                            <b-list-group-item>
+                                <span>@T("footer.Email.Title")</span>
+                                <span>@Model.CompanyEmail</span>
+                            </b-list-group-item>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.CompanyPhone))
+                        {
+                            <b-list-group-item>
+                                <span>@T("Footer.Phone.Title")</span>
+                                <span>@Model.CompanyPhone</span>
+                            </b-list-group-item>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.CompanyHours))
+                        {
+                            <b-list-group-item>
+                                <span>@T("Footer.Hour.Title")</span>
+                                <span>@Model.CompanyHours</span>
+                            </b-list-group-item>
+                        }
                     </b-list-group>
                 </div>
             </b-col>
@@ -124,7 +140,7 @@
                 {
                     <li class="list-group-item facebook">
                         <a title="facebook" href="@Model.FacebookLink" rel="noopener" target="_blank">
-                            <img height="32" width="32" src="/Themes/VueTheme/Content/images/facebook.svg" alt="facebook" />
+                            <img height="32" width="32" src="/Themes/VueThemeElcatalog/Content/images/facebook.svg" alt="facebook" />
                             <span class="sr-only">Facebook</span>
 
                         </a>
@@ -134,7 +150,7 @@
                 {
                     <li class="list-group-item twitter">
                         <a title="twitter" href="@Model.TwitterLink" rel="noopener" target="_blank">
-                            <img height="32" width="32" src="/Themes/VueTheme/Content/images/twitter.svg" alt="twitter" />
+                            <img height="32" width="32" src="/Themes/VueThemeElcatalog/Content/images/twitter.svg" alt="twitter" />
                             <span class="sr-only">twitter</span>
                         </a>
                     </li>
@@ -143,7 +159,7 @@
                 {
                     <li class="list-group-item rss">
                         <a title="rss" href="@Url.RouteUrl("NewsRSS", new {languageId = Model.WorkingLanguageId})" rel="noopener" target="_blank">
-                            <img height="32" width="32" src="/Themes/VueTheme/Content/images/rss.svg" alt="news" />
+                            <img height="32" width="32" src="/Themes/VueThemeElcatalog/Content/images/rss.svg" alt="news" />
                             <span class="sr-only">@T("NewsRSS")</span>
                         </a>
                     </li>
@@ -152,7 +168,7 @@
                 {
                     <li class="list-group-item youtube">
                         <a title="youtube" href="@Model.YoutubeLink" rel="noopener" target="_blank">
-                            <img height="32" width="32" src="/Themes/VueTheme/Content/images/youtube.svg" alt="youtube" />
+                            <img height="32" width="32" src="/Themes/VueThemeElcatalog/Content/images/youtube.svg" alt="youtube" />
                             <span class="sr-only">youtube</span>
                         </a>
                     </li>
@@ -161,7 +177,7 @@
                 {
                     <li class="list-group-item instagram">
                         <a href="@Model.InstagramLink" rel="noopener" target="_blank">
-                            <img height="32" width="32" src="/Themes/VueTheme/Content/images/instagram.svg" alt="instagram" />
+                            <img height="32" width="32" src="/Themes/VueThemeElcatalog/Content/images/instagram.svg" alt="instagram" />
                             <span class="sr-only">instagram</span>
                         </a>
                     </li>
@@ -170,7 +186,7 @@
                 {
                     <li class="list-group-item linkedin">
                         <a href="@Model.LinkedInLink" rel="noopener" target="_blank">
-                            <img height="32" width="32" src="/Themes/VueTheme/Content/images/linkedin.svg" alt="linkedin" />
+                            <img height="32" width="32" src="/Themes/VueThemeElcatalog/Content/images/linkedin.svg" alt="linkedin" />
                             <span class="sr-only">linkedin</span>
                         </a>
                     </li>
@@ -179,14 +195,14 @@
                 {
                     <li class="list-group-item pinterest">
                         <a href="@Model.PinterestLink" rel="noopener" target="_blank">
-                            <img height="32" width="32" src="/Themes/VueTheme/Content/images/pinterest.svg" alt="pinterest" />
+                            <img height="32" width="32" src="/Themes/VueThemeElcatalog/Content/images/pinterest.svg" alt="pinterest" />
                             <span class="sr-only">pinterest</span>
                         </a>
                     </li>
                 }
             </ol>
         </b-form-row>
-        <div class="footer-lower small py-3 border-top">
+        @*<div class="footer-lower small py-3 border-top">
             <b-row>
                 <b-col md="6" cols="12" class="pb-1 pt-1 flex-column text-lg-left text-center copyright">
                     <span class="footer-disclaimer">@T("Content.CopyrightNotice", DateTime.Now.Year, Model.StoreName)</span>
@@ -197,12 +213,12 @@
                         </span>
                     }
                 </b-col>
-                <b-col md="6" cols="12" class="pb-1 pt-1 text-center text-lg-right">
-                    <span>Shopping cart software by </span><a class="pr-1 text-success" href="https://grandnode.com/">GrandNode</a>™
-                </b-col>
                 @await Component.InvokeAsync("StoreThemeSelector")
             </b-row>
-        </div>
+        </div>*@
+       
     </b-container>
     @await Component.InvokeAsync("Widget", new { widgetZone = "footer" })
+   
 </footer>
+ <footer-component></footer-component>
