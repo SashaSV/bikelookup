@@ -27,8 +27,8 @@ class DataScraps:
     year: int = 0
     memory: str = ''
     display: str = ''
-    CPU: str = ''
-    
+    cpu: str = ''
+
     def __post_init__(self):
         self.techs = []
         self.images = []
