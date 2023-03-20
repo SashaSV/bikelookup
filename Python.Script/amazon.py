@@ -93,6 +93,12 @@ def crawl_products(pages_count):
 
     return urls
 
+def check_property(techs, text):
+    ret = ''
+    if not techs.get(text) is None:
+        ret = techs.get(text)
+    return ret
+
 def parse_products(urls) -> list[DataScraps]:
     """
     Парсинг полей:
@@ -134,7 +140,12 @@ def parse_products(urls) -> list[DataScraps]:
                 nameoption = row.find('td', class_='a-span3').get_text(strip=True)
                 valueoption = row.find('td', class_='a-span9').get_text(strip=True)
                 techs[nameoption] = valueoption
-            
+
+            scrapsData.display = check_property(techs, 'Tamaño de pantalla')
+            scrapsData.hdd = check_property(techs, 'Tamaño del disco duro')
+            scrapsData.memory = check_property(techs, 'Tamaño de memoria RAM instalada')
+            scrapsData.color = check_property(techs, 'Color')
+
             scrapsData.techs = dict2obj(techs)
             if soup.find('input', id='attach-baseAsin') is None:
                 sku = scrapsData.sku
@@ -181,8 +192,23 @@ def parse_products(urls) -> list[DataScraps]:
                             
                             if not urlimage is None:
                                 scrapsData.images.append(urlimage)
-
                         continue
+
+            for script in soup.find_all('script', type="text/javascript"):
+                script = script.get_text(strip=True)
+
+                if script.find('twister-js-init-dpx-data') > 0:
+                    start = script.find('var dataToReturn = {')+len('var dataToReturn = {')-1
+                    finish = script.find('return dataToReturn;')    
+                    jstext = script[start : finish].strip()
+                    jstext = jstext[0:len(jstext)-1]
+                    
+                    jstext = jstext.replace('\n','')
+                    jstext = jstext.replace('\\','')
+                    jstext = jstext.replace(' ','')
+                    jstext = '['+jstext+']'
+                    scanservice.dump_to_json('test.json', jstext)
+                    #d = json.loads(jstext)
 
             if len(images) == 0:
                 seleniumScrapUrl.append(url)
@@ -234,6 +260,7 @@ def parse_products(urls) -> list[DataScraps]:
             if price.isdigit() and float(price) > 0 and scrapsData.available == 'En stock':
                 scrapsData.available = 'En stock'
 
+            scrapsData = pars_name(db,scrapsData)
             data.append(scrapsData)
 
         except ImportError:
@@ -242,6 +269,47 @@ def parse_products(urls) -> list[DataScraps]:
 
     print(seleniumScrapUrl)
     return data
+
+from datetime import datetime
+def pars_name(db, dataScraps: DataScraps) -> DataScraps:
+    deletewords = []
+
+    name = dataScraps.name
+
+    for word in deletewords:
+        name = name.replace(word, '').strip()
+
+    for n in name.split(' '):
+        manufacturer = dbservice.chek_so_name(db, n, 'manufacturer')
+        if len(manufacturer) > 0:
+            dataScraps.manufacturer = manufacturer
+            
+
+        year = dbservice.chek_so_name(db, n, 'year')
+        
+        if len(year) == 0:
+            curyear = datetime.now().year+1
+            y = curyear
+
+            while y >= curyear - 15:
+                if name.find(str(y)) > 0:
+                    year = str(y)
+                    
+
+                y = y - 1
+
+        if len(year) > 0:
+            dataScraps.year = year
+            
+
+        model = dbservice.chek_so_name(db, n, 'model')
+        if len(model) > 0:
+            dataScraps.model.append(model)
+        
+        cpu = dbservice.chek_so_name(db, n, 'cpu')
+        if len(cpu) > 0:
+            dataScraps.cpu = cpu
+    return dataScraps
 
 def main():
     pars_new_card_into_db()

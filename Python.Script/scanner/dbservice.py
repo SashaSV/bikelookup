@@ -8,6 +8,10 @@ from urllib.request import urlretrieve
 from scanner.modeldb import Adresses, Venodr, Category, Picture, Manufacturer, UrlRecord, TierPrice, Product, SpecificationAttribute
 
 from datetime import datetime
+#"model",
+_filteringAtribute = ["manufacturer","vendor","available"
+                      ,"color","year"
+                      ,"memory", "display", "cpu", "hdd"]
 
 @dataclass
 class DataScraps:
@@ -22,16 +26,18 @@ class DataScraps:
     available: str = ''
     techs: list[str] = None
     images: list[str] = None
-    model: str = ''
+    model: list[str] = None
     color: str = ''
-    year: int = 0
+    year: str = ''
     memory: str = ''
     display: str = ''
     cpu: str = ''
+    hdd: str = ''
 
     def __post_init__(self):
         self.techs = []
         self.images = []
+        self.model = []
 
 class DataScrapsEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -125,9 +131,13 @@ def check_product(db, data:list[DataScraps]):
         check_rel_сategories_to_product(db, p, d.category)
         check_rel_manufacturers_to_product(db, p, manufacturer)
 
-        sao = check_specificationattributeoption_by_name(db, 'Available', d.available)
-        sa = check_specificationattribute_by_name(db, 'Available')
+        sao = check_specificationattributeoption_by_name(db, 'available', d.available)
+        sa = check_specificationattribute_by_name(db, 'available')
         check_productspecificationattributeoption(db, p, sa, sao)
+        for f in _filteringAtribute:
+            sao = check_specificationattributeoption_by_name(db, f, d.__dict__.get(f))
+            sa = check_specificationattribute_by_name(db, f)
+            check_productspecificationattributeoption(db, p_main, sa, sao)
 
         print('     Подгрузка характеристик')
         for prop_name, prop_value in d.techs.__dict__.items():
@@ -147,6 +157,19 @@ def check_product(db, data:list[DataScraps]):
             for urlimage in d.images:
                 check_image_to_product(db, p_main, urlimage)
     return p
+
+def chek_so_name(db, name, soname):
+    sa = check_specificationattribute_by_name(db, soname)
+    retSoName = ''
+    seret = ''
+    for so in sa['SpecificationAttributeOptions']:
+        seson = get_sename(so.get('Name'), db)
+        sename = get_sename(name, db)
+        if sename.find(seson) >= 0:
+            if len(seson) > len(seret):
+                seret = seson
+                retSoName = so.get('Name')
+    return retSoName
 
 def check_vendor(db, vendorName):
     collaction = db.Vendor
@@ -209,7 +232,7 @@ def add_productspecificationattributeoption(db, p, sa, sao, psao):
         'SpecificationAttributeId': sa.get('_id'),
         'SpecificationAttributeOptionId': sao['_id'],
         'CustomValue': 'null',
-        'AllowFiltering': False,
+        'AllowFiltering': _filteringAtribute.__contains__(sa['Name']),
         'ShowOnProductPage': True,
         'ShowOnSellerPage': True,
         'DisplayOrder': 0,
@@ -234,7 +257,7 @@ def check_productspecificationattributeoption(db, p, sa, sao):
 
             do = 99 #if spOption.get('displayOrderOnTabProduct') is None else spOption.get('displayOrderOnTabProduct')
 
-            psao[ind]['AllowFiltering'] = True
+            psao[ind]['AllowFiltering'] = _filteringAtribute.__contains__(sa['Name'])
             psao[ind]['ShowOnProductPage'] = True
             psao[ind]['ShowOnSellerPage'] = True
             psao[ind]['DisplayOrder'] = do

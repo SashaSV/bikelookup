@@ -626,7 +626,6 @@ def parse_products(urls, host, isPicture=False, isTechs=False, cntPars=0):
     return data
 
 try:
-    from urlparse import urlsplit
     from urllib import unquote
 except ImportError: # Python 3
     from urllib.parse import urlsplit, unquote

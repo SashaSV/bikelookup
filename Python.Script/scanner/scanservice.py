@@ -24,14 +24,14 @@ def url2filename(url):
         raise ValueError  # reject '%2f' or 'dir%5Cbasename.ext' on Windows
     return basename
 
+CURR_DIR = os.getcwd()
+if CURR_DIR.find("Python.Script") < 0 :
+    CURR_DIR = '{0}\\Python.Script'.format(CURR_DIR)
+    
 def getDataFromJsonFile(jsonfilename):
     data = []
     
-    CURR_DIR = os.getcwd()
-    if CURR_DIR.find("Python.Script") < 0 :
-        CURR_DIR = '{0}'.format('\\Python.Script')
-
-    file_catalog = '{0}\\Grand.Web\\wwwroot\\content\\images\\'.format(CURR_DIR)
+    jsonfilename = '{0}\\{1}'.format(CURR_DIR,jsonfilename)
 
     if os.path.exists(jsonfilename):
         with open(jsonfilename, encoding='utf-8') as json_file:
@@ -48,12 +48,16 @@ def load_image(url,filename):
 def dump_to_json(filename, data, **kwargs):
     kwargs.setdefault('ensure_ascii', False)
     kwargs.setdefault('indent', 1)
-
+    
+    filename = '{0}\\{1}'.format(CURR_DIR,filename)
+    
     with open(filename, 'w', encoding='utf-8') as f:
         json.dump(data, f, **kwargs)
 
 def dumps_to_json(filename, data, clsEncode):
     #print(json.dumps(data, cls=clsEncode))
+    filename = '{0}\\{1}'.format(CURR_DIR,filename)
+    
     with open(filename, 'w', encoding='utf-8') as f:
         json.dump(data, f, cls=clsEncode)
 
