@@ -8,9 +8,9 @@ from urllib.request import urlretrieve
 from scanner.modeldb import Adresses, Venodr, Category, Picture, Manufacturer, UrlRecord, TierPrice, Product, SpecificationAttribute
 
 from datetime import datetime
-#"model",
-_filteringAtribute = ["manufacturer","vendor","available"
-                      ,"color","year"
+#
+_filteringAtribute = ["manufacturer", "vendor", "available"
+                      ,"color", "model", "year"
                       ,"memory", "display", "cpu", "hdd"]
 
 @dataclass
@@ -130,25 +130,18 @@ def check_product(db, data:list[DataScraps]):
 
         check_rel_сategories_to_product(db, p, d.category)
         check_rel_manufacturers_to_product(db, p, manufacturer)
+        
+        add_spec_to_product(db, p, 'available', d.available)
 
-        sao = check_specificationattributeoption_by_name(db, 'available', d.available)
-        sa = check_specificationattribute_by_name(db, 'available')
-        check_productspecificationattributeoption(db, p, sa, sao)
         for f in _filteringAtribute:
-            sao = check_specificationattributeoption_by_name(db, f, d.__dict__.get(f))
-            sa = check_specificationattribute_by_name(db, f)
-            check_productspecificationattributeoption(db, p_main, sa, sao)
+            add_spec_to_product(db, p_main, f, d.__dict__.get(f))
 
         print('     Подгрузка характеристик')
         for prop_name, prop_value in d.techs.__dict__.items():
             if prop_value.strip() == '':
                 continue
-
-            sa = check_specificationattribute_by_name(db, prop_name)
-
-            sao = check_specificationattributeoption_by_name(db, prop_name, prop_value)
-            sa = check_specificationattribute_by_name(db, prop_name)
-            check_productspecificationattributeoption(db, p_main, sa, sao)
+            
+            add_spec_to_product(db, p_main, prop_name, prop_value)
 
         images = [] if p_main.get('ProductPictures') is None else p_main.get('ProductPictures')
 
@@ -157,6 +150,19 @@ def check_product(db, data:list[DataScraps]):
             for urlimage in d.images:
                 check_image_to_product(db, p_main, urlimage)
     return p
+
+import sys
+sys.setrecursionlimit(1500)
+
+def add_spec_to_product(db, p_main, prop_name, prop_val):
+    
+    if type(prop_val) is list:
+        for pv in prop_val:
+            add_spec_to_product(db, p_main, prop_name, pv)
+    else:
+        sao = check_specificationattributeoption_by_name(db, prop_name, prop_val)
+        sa = check_specificationattribute_by_name(db, prop_name)
+        check_productspecificationattributeoption(db, p_main, sa, sao)
 
 def chek_so_name(db, name, soname):
     sa = check_specificationattribute_by_name(db, soname)
@@ -215,7 +221,7 @@ def check_specificationattributeoption_by_name(db, prop_name, prop_value, color_
     sao = sa.get('SpecificationAttributeOptions')
     sao = sao if not sao is None else [] 
     sao_ret = None
-
+    
     for ind, a in enumerate(sao):
         if a['Name'].lower().strip() == prop_value.lower().strip():
              sao_ret = sao[ind]
@@ -272,22 +278,22 @@ def check_productspecificationattributeoption(db, p, sa, sao):
 
     return
 
-def check_specificationattribute_by_name(db, prop_name):
+def check_specificationattribute_by_name(db, prop_name:str):
     collaction = db.SpecificationAttribute
+    
+    do = 99 if not _filteringAtribute.__contains__(prop_name) else 0 
 
     sa = find_document(collaction, {'Name': prop_name})
     if sa == None:
         sa = SpecificationAttribute(Name = prop_name,
                                     Locales = get_locals(db, prop_name))
-        
+        sa.DisplayOrder = do
         sa.SeName = get_sename(prop_name, db, sa._id, 'SpecificationAttribute', '')
         sa = sa.__dict__
         insert_document(collaction, sa)
     else:
-        spOption = prop_name
-        #do = 99 if spOption.get('displayOrderOnTabFilter') is None else spOption.get('displayOrderOnTabFilter')
         updExpr ={}
-        updExpr['DisplayOrder'] = 99
+        updExpr['DisplayOrder'] = do
         update_document(collaction, {'_id': sa.get('_id')}, updExpr)
     return sa
 

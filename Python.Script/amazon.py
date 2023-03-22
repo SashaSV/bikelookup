@@ -13,7 +13,7 @@ DBCONNECT = {'NAMEMACHINE': 'localhost',
              'NAMEDB': 'bldb'}
 
 PAGES_START = 1
-PAGES_COUNT = 2
+PAGES_COUNT = 5
 OUT_FILENAME = 'amazon'
 OUT_XLSX_FILENAME = 'amazon'
 VENDOR = 'amazon.es'
@@ -284,7 +284,6 @@ def pars_name(db, dataScraps: DataScraps) -> DataScraps:
         if len(manufacturer) > 0:
             dataScraps.manufacturer = manufacturer
             
-
         year = dbservice.chek_so_name(db, n, 'year')
         
         if len(year) == 0:
@@ -300,16 +299,46 @@ def pars_name(db, dataScraps: DataScraps) -> DataScraps:
 
         if len(year) > 0:
             dataScraps.year = year
-            
-
-        model = dbservice.chek_so_name(db, n, 'model')
-        if len(model) > 0:
-            dataScraps.model.append(model)
         
         cpu = dbservice.chek_so_name(db, n, 'cpu')
         if len(cpu) > 0:
             dataScraps.cpu = cpu
+    
+    display = dbservice.chek_so_name(db, name, 'display')
+    if len(display) > 0:
+        dataScraps.display = display
+
+    memory = dbservice.chek_so_name(db, name, 'memory')
+    if len(memory) > 0:
+        dataScraps.memory = memory
+
+    hdd = dbservice.chek_so_name(db, name, 'hdd')
+    if len(hdd) > 0:
+        dataScraps.memory = hdd
+
+    color = dbservice.chek_so_name(db, name, 'color')
+    if len(color) > 0:
+        dataScraps.color = color
+
+    dataScraps.model = find_model(name)
+
     return dataScraps
+
+import sys
+sys.setrecursionlimit(1500)
+
+def find_model(s:str, retModels:list[str] = [])->list[str]:
+    if len(s) > 0:
+        for n in s.split(' '):
+            s = s.replace(n,'').strip()
+            model = dbservice.chek_so_name(db, n, 'model')
+            if len(model) > 0:
+                retModels.append(model)
+                find_model(s)
+            if len(retModels) > 0:
+                break
+    
+    return retModels
 
 def main():
     pars_new_card_into_db()
