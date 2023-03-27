@@ -22,9 +22,9 @@ namespace Grand.Services.Ads
             if (orderNote == null)
                 throw new ArgumentNullException("orderNote");
 
-            string text = orderNote.Note;
+            var text = orderNote.Note;
 
-            if (String.IsNullOrEmpty(text))
+            if (string.IsNullOrEmpty(text))
                 return string.Empty;
 
             text = HtmlHelper.FormatText(text);
@@ -38,13 +38,13 @@ namespace Grand.Services.Ads
         /// </summary>
         /// <param name="orderItem">Ad item</param>
         /// <returns>Total number of items in all shipmentss</returns>
-        public static async Task<int> GetTotalNumberOfItemsInAllShipment(this AdItem orderItem, IAdService orderService, IShipmentService shipmentService)
+        public static int GetTotalNumberOfItemsInAllShipment(this AdItem orderItem)
         {
             if (orderItem == null)
                 throw new ArgumentNullException("orderItem");
 
             var totalInShipments = 0;
-            var order = await orderService.GetAdByAdItemId(orderItem.Id);
+            //var order = await orderService.GetAdByAdItemId(orderItem.Id);
             //var shipments = await shipmentService.GetShipmentsByAd(order.Id);
             //for (int i = 0; i < shipments.Count; i++)
             //{
@@ -64,12 +64,12 @@ namespace Grand.Services.Ads
         /// </summary>
         /// <param name="orderItem">Ad item</param>
         /// <returns>Total number of already delivered items which can be added to new shipments</returns>
-        public static async Task<int> GetTotalNumberOfItemsCanBeAddedToShipment(this AdItem orderItem, IAdService orderService, IShipmentService shipmentService)
+        public static int GetTotalNumberOfItemsCanBeAddedToShipment(this AdItem orderItem)
         {
             if (orderItem == null)
                 throw new ArgumentNullException("orderItem");
 
-            var totalInShipments = await orderItem.GetTotalNumberOfItemsInAllShipment(orderService, shipmentService);
+            var totalInShipments = 0/*orderItem.GetTotalNumberOfItemsInAllShipment(orderService)*/;
 
             var qtyAded = orderItem.Quantity;
             var qtyCanBeAddedToShipmentTotal = qtyAded - totalInShipments;
@@ -84,12 +84,12 @@ namespace Grand.Services.Ads
         /// </summary>
         /// <param name="orderItem">Ad item</param>
         /// <returns>Total number of not yet shipped items (but added to shipments)</returns>
-        public static async Task<int> GetTotalNumberOfNotYetShippedItems(this AdItem orderItem, IAdService orderService, IShipmentService shipmentService)
+        public static int GetTotalNumberOfNotYetShippedItems(this AdItem orderItem)
         {
             if (orderItem == null)
                 throw new ArgumentNullException("orderItem");
 
-            var order = await orderService.GetAdByAdItemId(orderItem.Id);
+            //var order = await orderService.GetAdByAdItemId(orderItem.Id);
 
             var result = 0;
             //var shipments = await shipmentService.GetShipmentsByAd(order.Id);
@@ -116,60 +116,60 @@ namespace Grand.Services.Ads
         /// </summary>
         /// <param name="orderItem">Ad item</param>
         /// <returns>Total number of already shipped items</returns>
-        public static async Task<int> GetTotalNumberOfShippedItems(this AdItem orderItem, Ad order, IShipmentService shipmentService)
-        {
-            if (orderItem == null)
-                throw new ArgumentNullException("orderItem");
+        //public static async Task<int> GetTotalNumberOfShippedItems(this AdItem orderItem, Ad order, IShipmentService shipmentService)
+        //{
+        //    if (orderItem == null)
+        //        throw new ArgumentNullException("orderItem");
 
-            var result = 0;
-            //var shipments = await shipmentService.GetShipmentsByAd(order.Id);
-            //for (int i = 0; i < shipments.Count; i++)
-            //{
-            //    var shipment = shipments[i];
-            //    if (!shipment.ShippedDateUtc.HasValue)
-            //        //not shipped yet
-            //        continue;
+        //    var result = 0;
+        //    //var shipments = await shipmentService.GetShipmentsByAd(order.Id);
+        //    //for (int i = 0; i < shipments.Count; i++)
+        //    //{
+        //    //    var shipment = shipments[i];
+        //    //    if (!shipment.ShippedDateUtc.HasValue)
+        //    //        //not shipped yet
+        //    //        continue;
 
-            //    var si = shipment.ShipmentItems
-            //        .FirstOrDefault(x => x.AdItemId == orderItem.Id);
-            //    if (si != null)
-            //    {
-            //        result += si.Quantity;
-            //    }
-            //}
+        //    //    var si = shipment.ShipmentItems
+        //    //        .FirstOrDefault(x => x.AdItemId == orderItem.Id);
+        //    //    if (si != null)
+        //    //    {
+        //    //        result += si.Quantity;
+        //    //    }
+        //    //}
             
-            return result;
-        }
+        //    return result;
+        //}
 
         /// <summary>
         /// Gets a total number of already delivered items
         /// </summary>
         /// <param name="orderItem">Ad  item</param>
         /// <returns>Total number of already delivered items</returns>
-        public static async Task<int> GetTotalNumberOfDeliveredItems(this AdItem orderItem, Ad order, IShipmentService shipmentService)
-        {
-            if (orderItem == null)
-                throw new ArgumentNullException("orderItem");
+        //public static async Task<int> GetTotalNumberOfDeliveredItems(this AdItem orderItem, Ad order, IShipmentService shipmentService)
+        //{
+        //    if (orderItem == null)
+        //        throw new ArgumentNullException("orderItem");
 
-            var result = 0;
-            //var shipments = await shipmentService.GetShipmentsByAd(order.Id);
-            //for (int i = 0; i < shipments.Count; i++)
-            //{
-            //    var shipment = shipments[i];
-            //    if (!shipment.DeliveryDateUtc.HasValue)
-            //        //not delivered yet
-            //        continue;
+        //    var result = 0;
+        //    //var shipments = await shipmentService.GetShipmentsByAd(order.Id);
+        //    //for (int i = 0; i < shipments.Count; i++)
+        //    //{
+        //    //    var shipment = shipments[i];
+        //    //    if (!shipment.DeliveryDateUtc.HasValue)
+        //    //        //not delivered yet
+        //    //        continue;
 
-            //    var si = shipment.ShipmentItems
-            //        .FirstOrDefault(x => x.AdItemId == orderItem.Id);
-            //    if (si != null)
-            //    {
-            //        result += si.Quantity;
-            //    }
-            //}
+        //    //    var si = shipment.ShipmentItems
+        //    //        .FirstOrDefault(x => x.AdItemId == orderItem.Id);
+        //    //    if (si != null)
+        //    //    {
+        //    //        result += si.Quantity;
+        //    //    }
+        //    //}
 
-            return result;
-        }
+        //    return result;
+        //}
 
 
 
@@ -178,7 +178,7 @@ namespace Grand.Services.Ads
         /// </summary>
         /// <param name="order">Ad</param>
         /// <returns>A value indicating whether an order has items to be added to a shipment</returns>
-        public static async Task<bool> HasItemsToAddToShipment(this Ad order, IAdService orderService, IShipmentService shipmentService, IProductService productService)
+        public static async Task<bool> HasItemsToAddToShipment(this Ad order, IProductService productService)
         {
             if (order == null)
                 throw new ArgumentNullException("order");
@@ -190,7 +190,7 @@ namespace Grand.Services.Ads
                 if (!product.IsShipEnabled)
                     continue;
 
-                var totalNumberOfItemsCanBeAddedToShipment = await orderItem.GetTotalNumberOfItemsCanBeAddedToShipment(orderService, shipmentService);
+                var totalNumberOfItemsCanBeAddedToShipment = 0;
                 if (totalNumberOfItemsCanBeAddedToShipment <= 0)
                     continue;
 
@@ -204,7 +204,7 @@ namespace Grand.Services.Ads
         /// </summary>
         /// <param name="order">Ad</param>
         /// <returns>A value indicating whether an order has items to ship</returns>
-        public static async Task<bool> HasItemsToShip(this Ad order, IAdService orderService, IShipmentService shipmentService, IProductService productService)
+        public static async Task<bool> HasItemsToShip(this Ad order, IProductService productService)
         {
             if (order == null)
                 throw new ArgumentNullException("order");
@@ -216,7 +216,7 @@ namespace Grand.Services.Ads
                 if (!product.IsShipEnabled)
                     continue;
 
-                var totalNumberOfNotYetShippedItems = await orderItem.GetTotalNumberOfNotYetShippedItems(orderService, shipmentService);
+                var totalNumberOfNotYetShippedItems =  orderItem.GetTotalNumberOfNotYetShippedItems();
                 if (totalNumberOfNotYetShippedItems <= 0)
                     continue;
 
@@ -230,28 +230,28 @@ namespace Grand.Services.Ads
         /// </summary>
         /// <param name="order">Ad</param>
         /// <returns>A value indicating whether an order has items to deliver</returns>
-        public static async Task<bool> HasItemsToDeliver(this Ad order, IShipmentService shipmentService, IProductService productService)
-        {
-            if (order == null)
-                throw new ArgumentNullException("order");
+        //public static async Task<bool> HasItemsToDeliver(this Ad order, IShipmentService shipmentService, IProductService productService)
+        //{
+        //    if (order == null)
+        //        throw new ArgumentNullException("order");
 
-            foreach (var orderItem in order.AdItems)
-            {
-                //we can ship only shippable products
-                var product = await productService.GetProductByIdIncludeArch(orderItem.ProductId);
-                if (!product.IsShipEnabled)
-                    continue;
+        //    foreach (var orderItem in order.AdItems)
+        //    {
+        //        //we can ship only shippable products
+        //        var product = await productService.GetProductByIdIncludeArch(orderItem.ProductId);
+        //        if (!product.IsShipEnabled)
+        //            continue;
 
-                var totalNumberOfShippedItems = await orderItem.GetTotalNumberOfShippedItems(order, shipmentService);
-                var totalNumberOfDeliveredItems = await orderItem.GetTotalNumberOfDeliveredItems(order, shipmentService);
-                if (totalNumberOfShippedItems <= totalNumberOfDeliveredItems)
-                    continue;
+        //        var totalNumberOfShippedItems = await orderItem.GetTotalNumberOfShippedItems(order, shipmentService);
+        //        var totalNumberOfDeliveredItems = await orderItem.GetTotalNumberOfDeliveredItems(order, shipmentService);
+        //        if (totalNumberOfShippedItems <= totalNumberOfDeliveredItems)
+        //            continue;
 
-                //yes, we have at least one item to deliver
-                return true;
-            }
-            return false;
-        }
+        //        //yes, we have at least one item to deliver
+        //        return true;
+        //    }
+        //    return false;
+        //}
 
         /// <summary>
         /// Indicates whether a order's tag exists
@@ -264,7 +264,7 @@ namespace Grand.Services.Ads
             if (order == null)
                 throw new ArgumentNullException("order");
 
-            bool result = order.AdTags.FirstOrDefault(t => t == orderTag.Id) != null;
+            var result = order.AdTags.FirstOrDefault(t => t == orderTag.Id) != null;
             return result;
         }        
     }

@@ -185,7 +185,7 @@ namespace Grand.Services.Ads
         /// </summary>
         /// <param name="cart">Shopping cart</param>
         /// <returns>true - OK; false - minimum Ad sub-total amount is not reached</returns>
-        Task<bool> ValidateMinAdSubtotalAmount(IList<ShoppingCartItem> cart);
+        //Task<bool> ValidateMinAdSubtotalAmount(IList<ShoppingCartItem> cart);
 
         /// <summary>
         /// Validate Ad total amount
@@ -193,6 +193,6 @@ namespace Grand.Services.Ads
         /// <param name="customer">Customer</param>
         /// <param name="cart">Shopping cart</param>
         /// <returns>true - OK; false - minimum/maximum Ad total amount is not reached</returns>
-        Task<bool> ValidateAdTotalAmount(Customer customer, IList<ShoppingCartItem> cart);
+        //Task<bool> ValidateAdTotalAmount(Customer customer, IList<ShoppingCartItem> cart);
     }
 }

@@ -94,11 +94,10 @@ namespace Grand.Web.Controllers
         [HttpPost]
         public virtual async Task<IActionResult> NewAd([FromForm]NewAdModel newAdModel)
         {
-            var saved = await _mediator.Send(new SaveAd()
-            {
+            _ = await _mediator.Send(new SaveAd() {
                 AdToSave = newAdModel,
-                Customer  = _workContext.CurrentCustomer,
-                Store =  _storeContext.CurrentStore
+                Customer = _workContext.CurrentCustomer,
+                Store = _storeContext.CurrentStore
             });
             //Url.RouteUrl("ViewAd", new { adId = product.AdId })
             return RedirectToRoute("CustomerAds");
@@ -136,7 +135,7 @@ namespace Grand.Web.Controllers
 
             await _mediator.Send(new CancelAdCommand() { Ad = Ad, NotifyCustomer = true, NotifyStoreOwner = true });
 
-            return RedirectToRoute("CustomerAds", new { AdId = AdId });
+            return RedirectToRoute("CustomerAds", new { AdId });
         }
 
         public virtual async Task<IActionResult> ActivetedAd(string AdId)
@@ -147,7 +146,7 @@ namespace Grand.Web.Controllers
 
             await _mediator.Send(new ActivetedAdCommand() { Ad = Ad, NotifyCustomer = true, NotifyStoreOwner = true });
 
-            return RedirectToRoute("CustomerAds", new { AdId = AdId });
+            return RedirectToRoute("CustomerAds", new { AdId });
         }
 
         //My account / Ad details page / Cancel Unpaid Ad
@@ -161,8 +160,7 @@ namespace Grand.Web.Controllers
             
             if (!_workContext.CurrentCustomer.IsRegistered())
                 return Challenge();
-
-            var model = await _mediator.Send(new DeleteAd() { Ad = Ad, Language = _workContext.WorkingLanguage });
+            _ = await _mediator.Send(new DeleteAd() { Ad = Ad, Language = _workContext.WorkingLanguage });
 
             return RedirectToRoute("CustomerAds");
         }
@@ -207,66 +205,66 @@ namespace Grand.Web.Controllers
             return View(model);
         }
         //My account / Ads / Cancel recurring Ad
-        [HttpPost, ActionName("CustomerAds")]
-        [AutoValidateAntiforgeryToken]
-        [FormValueRequired(FormValueRequirement.StartsWith, "cancelRecurringPayment")]
-        public virtual async Task<IActionResult> CancelRecurringPayment(IFormCollection form)
-        {
-            if (!_workContext.CurrentCustomer.IsRegistered())
-                return Challenge();
+        //[HttpPost, ActionName("CustomerAds")]
+        //[AutoValidateAntiforgeryToken]
+        //[FormValueRequired(FormValueRequirement.StartsWith, "cancelRecurringPayment")]
+        //public virtual async Task<IActionResult> CancelRecurringPayment(IFormCollection form)
+        //{
+        //    if (!_workContext.CurrentCustomer.IsRegistered())
+        //        return Challenge();
 
-            //get recurring payment identifier
-            string recurringPaymentId = "";
-            foreach (var formValue in form.Keys)
-                if (formValue.StartsWith("cancelRecurringPayment", StringComparison.OrdinalIgnoreCase))
-                    recurringPaymentId = formValue.Substring("cancelRecurringPayment".Length);
+        //    //get recurring payment identifier
+        //    string recurringPaymentId = "";
+        //    foreach (var formValue in form.Keys)
+        //        if (formValue.StartsWith("cancelRecurringPayment", StringComparison.OrdinalIgnoreCase))
+        //            recurringPaymentId = formValue.Substring("cancelRecurringPayment".Length);
 
-            //var recurringPayment = await _adService.GetRecurringPaymentById(recurringPaymentId);
-            //if (recurringPayment == null)
-            //{
-            //    return RedirectToRoute("CustomerAds");
-            //}
+        //    //var recurringPayment = await _adService.GetRecurringPaymentById(recurringPaymentId);
+        //    //if (recurringPayment == null)
+        //    //{
+        //    //    return RedirectToRoute("CustomerAds");
+        //    //}
 
-            //if (await _adsProcessingService.CanCancelRecurringPayment(_workContext.CurrentCustomer, recurringPayment))
-            //{
-            //    var errors = await _adsProcessingService.CancelRecurringPayment(recurringPayment);
+        //    //if (await _adsProcessingService.CanCancelRecurringPayment(_workContext.CurrentCustomer, recurringPayment))
+        //    //{
+        //    //    var errors = await _adsProcessingService.CancelRecurringPayment(recurringPayment);
 
-            //    var model = await _mediator.Send(new GetCustomerAdList() {
-            //        Customer = _workContext.CurrentCustomer,
-            //        Language = _workContext.WorkingLanguage,
-            //        Store = _storeContext.CurrentStore
-            //    });
-            //    model.CancelRecurringPaymentErrors = errors;
+        //    //    var model = await _mediator.Send(new GetCustomerAdList() {
+        //    //        Customer = _workContext.CurrentCustomer,
+        //    //        Language = _workContext.WorkingLanguage,
+        //    //        Store = _storeContext.CurrentStore
+        //    //    });
+        //    //    model.CancelRecurringPaymentErrors = errors;
 
-            //    return View(model);
-            //}
-            //else
-            //{
-            //    return RedirectToRoute("CustomerAds");
-            //}
-            return RedirectToRoute("CustomerAds");
-        }
+        //    //    return View(model);
+        //    //}
+        //    //else
+        //    //{
+        //    //    return RedirectToRoute("CustomerAds");
+        //    //}
+        //    return RedirectToRoute("CustomerAds");
+        //}
 
 
 
 
         //My account / Reward points
-        public virtual async Task<IActionResult> CustomerRewardPoints([FromServices] RewardPointsSettings rewardPointsSettings)
-        {
-            if (!_workContext.CurrentCustomer.IsRegistered())
-                return Challenge();
+        //public virtual async Task<IActionResult> CustomerRewardPoints([FromServices] RewardPointsSettings rewardPointsSettings)
+        //{
+        //    if (!_workContext.CurrentCustomer.IsRegistered())
+        //        return Challenge();
 
-            if (!rewardPointsSettings.Enabled)
-                return RedirectToRoute("CustomerInfo");
+        //    if (!rewardPointsSettings.Enabled)
+        //        return RedirectToRoute("CustomerInfo");
 
-            //var model = await _mediator.Send(new GetCustomerRewardPoints() {
-            //    Customer = _workContext.CurrentCustomer,
-            //    Store = _storeContext.CurrentStore,
-            //    Currency = _workContext.WorkingCurrency
-            //});
-            //return View(model);
-            return Challenge();
-        }
+        //    //var model = await _mediator.Send(new GetCustomerRewardPoints() {
+        //    //    Customer = _workContext.CurrentCustomer,
+        //    //    Store = _storeContext.CurrentStore,
+        //    //    Currency = _workContext.WorkingCurrency
+        //    //});
+        //    //return View(model);
+        //    return Challenge();
+        //}
 
         //My account / Ad details page / Print
         public virtual async Task<IActionResult> PrintAdDetails(string AdId)
@@ -287,9 +285,9 @@ namespace Grand.Web.Controllers
             var Ad = await _adService.GetAdById(AdId);
             if (!Ad.Access(_workContext.CurrentCustomer))
                 return Challenge();
-
-            var Ads = new List<Ad>();
-            Ads.Add(Ad);
+            _ = new List<Ad> {
+                Ad
+            };
             byte[] bytes;
             using (var stream = new MemoryStream())
             {
@@ -309,8 +307,9 @@ namespace Grand.Web.Controllers
             if (!Ad.Access(_workContext.CurrentCustomer))
                 return Challenge();
 
-            var model = new AddAdNoteModel();
-            model.AdId = AdId;
+            var model = new AddAdNoteModel {
+                AdId = AdId
+            };
             return View("AddAdNote", model);
         }
 
@@ -337,7 +336,7 @@ namespace Grand.Web.Controllers
             await _mediator.Publish(new AdNoteEvent(Ad, model));
 
             AddNotification(Framework.UI.NotifyType.Success, _localizationService.GetResource("AdNote.Added"), true);
-            return RedirectToRoute("AdDetails", new { AdId = model.AdId });
+            return RedirectToRoute("AdDetails", new { model.AdId });
         }
 
         //My account / Ad details page / re-Ad
@@ -382,7 +381,7 @@ namespace Grand.Web.Controllers
 
             //if no redirection has been done (to a third-party payment page)
             //theoretically it's not possible
-            return RedirectToRoute("AdDetails", new { AdId = AdId });
+            return RedirectToRoute("AdDetails", new { AdId });
         }
 
         //My account / Ad details page / Shipment details page

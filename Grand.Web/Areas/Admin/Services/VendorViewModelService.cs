@@ -258,10 +258,10 @@ namespace Grand.Web.Areas.Admin.Services
             return vendor;
         }
 
-        public async Task<Vendor> UpdateVendorAddressModel(Vendor vendor, AddressModel model)
-        {
-            return vendor;
-        }
+        //public async Vendor UpdateVendorAddressModel(Vendor vendor, AddressModel model)
+        //{
+        //    return vendor;
+        //}
 
         public virtual async Task<Vendor> UpdateVendorModel(Vendor vendor, VendorModel model)
         {

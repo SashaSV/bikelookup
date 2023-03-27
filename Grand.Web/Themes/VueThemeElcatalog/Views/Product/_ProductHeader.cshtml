@@ -4,7 +4,7 @@
     //prepare "Add to cart" Axios link
   
     string addtowishlistlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = Model.Id, shoppingCartTypeId = (int)ShoppingCartType.Wishlist, quantity = 1});
-    var shoppingCartTypeId = (int)ShoppingCartType.ShoppingCart;
+    //var shoppingCartTypeId = (int)ShoppingCartType.ShoppingCart;
     var addtocomparelink = Url.RouteUrl("AddProductToCompare", new { productId = Model.Id });
 }
 <b-container class="position-relative">
@@ -36,7 +36,7 @@
                 </b-button-group>
             </b-row>
 
-            @if (false)
+@*            @if (false)
             {
                 <b-row class="dinamics-price">
                     <b-button v-b-modal.modal-1>@T("Products.PriceDinamics") </b-button>
@@ -48,7 +48,7 @@
                         </b-row>
                     </b-modal>
                 </b-row>
-            }
+            }*@
             
             @if (Model.ProductSpecifications.Any())
             {

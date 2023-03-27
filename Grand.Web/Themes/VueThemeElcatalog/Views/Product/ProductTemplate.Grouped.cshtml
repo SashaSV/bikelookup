@@ -62,7 +62,7 @@
     //prepare "Add to cart" Axios link
   
     string addtowishlistlink = Url.RouteUrl("AddProductToCart-Catalog", new { productId = Model.Id, shoppingCartTypeId = (int)ShoppingCartType.Wishlist, quantity = 1});
-    var shoppingCartTypeId = (int)ShoppingCartType.ShoppingCart;
+    //var shoppingCartTypeId = (int)ShoppingCartType.ShoppingCart;
     var addtocomparelink = Url.RouteUrl("AddProductToCompare", new { productId = Model.Id });
 
     var filter = new RgbRandomColorFilter();
@@ -117,7 +117,7 @@
                                         <partial name="_ProductVendorList" model="Model"/>
                                     </b-tab>
 
-                                    @if (false)
+@*                                    @if (false)
                                     {
                                         <b-tab title="@T("Products.Specs")">
                                             <partial name="_ProductProposals" model="Model" />
@@ -130,7 +130,7 @@
                                             <partial name="_ProductProposals" model="Model" />
                                             <partial name="_ProductGeometryPictures" model="Model" />
                                         </b-tab>
-                                    } 
+                                    }*@ 
 
                                     @*<b-tab title="@T("Products.ContactUs")">
                                         <partial name="_ProductProposals" model="Model"/>

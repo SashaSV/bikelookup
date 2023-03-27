@@ -67,8 +67,8 @@ namespace Grand.Web.Features.Handlers.Ads
             return model;
         }
 
-        private async Task PrepareAd(NewAdModel model, NewAd request)
-        {
+        //private async Task PrepareAd(NewAdModel model, NewAd request)
+        //{
             //var query = new GetAdQuery {
             //    StoreId = request.Store.Id
             //};
@@ -100,27 +100,28 @@ namespace Grand.Web.Features.Handlers.Ads
 
             //    model.Ads.Add(adModel);
             //}
-        }
-        private async Task PrepareRecurringPayments(CustomerAdListModel model, GetCustomerAdList request)
-        {
-            var recurringPayments = await _adService.SearchRecurringPayments(request.Store.Id,
-                request.Customer.Id);
-            //foreach (var recurringPayment in recurringPayments)
-            //{
-            //    var recurringPaymentModel = new CustomerAdListModel.RecurringAdModel {
-            //        Id = recurringPayment.Id,
-            //        StartDate = _dateTimeHelper.ConvertToUserTime(recurringPayment.StartDateUtc, DateTimeKind.Utc).ToString(),
-            //        CycleInfo = string.Format("{0} {1}", recurringPayment.CycleLength, recurringPayment.CyclePeriod.GetLocalizedEnum(_localizationService, request.Language.Id)),
-            //        NextPayment = recurringPayment.NextPaymentDate.HasValue ? _dateTimeHelper.ConvertToUserTime(recurringPayment.NextPaymentDate.Value, DateTimeKind.Utc).ToString() : "",
-            //        TotalCycles = recurringPayment.TotalCycles,
-            //        CyclesRemaining = recurringPayment.CyclesRemaining,
-            //        InitialAdId = recurringPayment.InitialAd.Id,
-            //        CanCancel = await _adProcessingService.CanCancelRecurringPayment(request.Customer, recurringPayment),
-            //    };
+        //}
 
-                //model.RecurringAds.Add(recurringPaymentModel);
-            //}
-        }
+        //private async Task PrepareRecurringPayments(CustomerAdListModel model, GetCustomerAdList request)
+        //{
+        //    var recurringPayments = await _adService.SearchRecurringPayments(request.Store.Id,
+        //        request.Customer.Id);
+        //    //foreach (var recurringPayment in recurringPayments)
+        //    //{
+        //    //    var recurringPaymentModel = new CustomerAdListModel.RecurringAdModel {
+        //    //        Id = recurringPayment.Id,
+        //    //        StartDate = _dateTimeHelper.ConvertToUserTime(recurringPayment.StartDateUtc, DateTimeKind.Utc).ToString(),
+        //    //        CycleInfo = string.Format("{0} {1}", recurringPayment.CycleLength, recurringPayment.CyclePeriod.GetLocalizedEnum(_localizationService, request.Language.Id)),
+        //    //        NextPayment = recurringPayment.NextPaymentDate.HasValue ? _dateTimeHelper.ConvertToUserTime(recurringPayment.NextPaymentDate.Value, DateTimeKind.Utc).ToString() : "",
+        //    //        TotalCycles = recurringPayment.TotalCycles,
+        //    //        CyclesRemaining = recurringPayment.CyclesRemaining,
+        //    //        InitialAdId = recurringPayment.InitialAd.Id,
+        //    //        CanCancel = await _adProcessingService.CanCancelRecurringPayment(request.Customer, recurringPayment),
+        //    //    };
+
+        //        //model.RecurringAds.Add(recurringPaymentModel);
+        //    //}
+        //}
 
     }
 }

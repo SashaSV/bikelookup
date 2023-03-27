@@ -313,7 +313,7 @@ namespace Grand.Web.Features.Handlers.Products
                         model.VendorModel.VendorSpecificationAttributes = model.ProductSpecifications;
                     }
                     
-                    model.AdCard = await PrepareAdCardModel(ad);
+                    model.AdCard = PrepareAdCardModel(ad);
                 }
             }
 			#endregion
@@ -644,7 +644,7 @@ namespace Grand.Web.Features.Handlers.Products
                 return (defaultPictureModel, pictureModels);
             });
         }
-        private async Task<AdCardModel> PrepareAdCardModel(Ad ad)
+        private AdCardModel PrepareAdCardModel(Ad ad)
         {
             var model = new AdCardModel {
                 AdNumber = ad.AdNumber,

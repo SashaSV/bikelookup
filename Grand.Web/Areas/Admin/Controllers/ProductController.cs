@@ -176,21 +176,21 @@ namespace Grand.Web.Areas.Admin.Controllers
 
         [PermissionAuthorizeAction(PermissionActionName.Edit)]
         [HttpPost, ParameterBasedOnFormName("save-continue", "continueEditing")]
-        public async Task<IActionResult> Create(ProductModel model, bool continueEditing)
+        public async Task<IActionResult> Create(ProductModel modelIn, bool continueEditing)
         {
             if (ModelState.IsValid)
             {
-                var product = await _productViewModelService.InsertProductModel(model);
+                var product = await _productViewModelService.InsertProductModel(modelIn);
                 SuccessNotification(_localizationService.GetResource("Admin.Catalog.Products.Added"));
                 return continueEditing ? RedirectToAction("Edit", new { id = product.Id }) : RedirectToAction("List");
             }
 
             //If we got this far, something failed, redisplay form
-            await _productViewModelService.PrepareProductModel(model, null, false, true);
-            await model.PrepareACLModel(null, true, _customerService);
-            await model.PrepareStoresMappingModel(null, _storeService, true, _workContext.CurrentCustomer.StaffStoreId);
+            await _productViewModelService.PrepareProductModel(modelIn, null, false, true);
+            await modelIn.PrepareACLModel(null, true, _customerService);
+            await modelIn.PrepareStoresMappingModel(null, _storeService, true, _workContext.CurrentCustomer.StaffStoreId);
 
-            return View(model);
+            return View(modelIn);
         }
 
         //edit product
@@ -246,9 +246,9 @@ namespace Grand.Web.Areas.Admin.Controllers
 
         [PermissionAuthorizeAction(PermissionActionName.Edit)]
         [HttpPost, ParameterBasedOnFormName("save-continue", "continueEditing")]
-        public async Task<IActionResult> Edit(ProductModel model, bool continueEditing)
+        public async Task<IActionResult> Edit(ProductModel modelIn, bool continueEditing)
         {
-            var product = await _productService.GetProductById(model.Id, true);
+            var product = await _productService.GetProductById(modelIn.Id, true);
             if (product == null)
                 //No product found with the specified id
                 return RedirectToAction("List");
@@ -263,14 +263,14 @@ namespace Grand.Web.Areas.Admin.Controllers
                     return RedirectToAction("Edit", new { id = product.Id });
             }
 
-            if (model.Ticks != product.UpdatedOnUtc.Ticks)
+            if (modelIn.Ticks != product.UpdatedOnUtc.Ticks)
             {
                 ErrorNotification(_localizationService.GetResource("Admin.Catalog.Products.Fields.ChangedWarning"));
                 return RedirectToAction("Edit", new { id = product.Id });
             }
             if (ModelState.IsValid)
             {
-                product = await _productViewModelService.UpdateProductModel(product, model);
+                product = await _productViewModelService.UpdateProductModel(product, modelIn);
                 SuccessNotification(_localizationService.GetResource("Admin.Catalog.Products.Updated"));
                 if (continueEditing)
                 {
@@ -281,11 +281,11 @@ namespace Grand.Web.Areas.Admin.Controllers
                 return RedirectToAction("List");
             }
             //If we got this far, something failed, redisplay form
-            await _productViewModelService.PrepareProductModel(model, product, false, true);
-            await model.PrepareACLModel(product, true, _customerService);
-            await model.PrepareStoresMappingModel(product, _storeService, true, _workContext.CurrentCustomer.StaffStoreId);
+            await _productViewModelService.PrepareProductModel(modelIn, product, false, true);
+            await modelIn.PrepareACLModel(product, true, _customerService);
+            await modelIn.PrepareStoresMappingModel(product, _storeService, true, _workContext.CurrentCustomer.StaffStoreId);
 
-            return View(model);
+            return View(modelIn);
         }
         //delete product
         [PermissionAuthorizeAction(PermissionActionName.Delete)]
@@ -331,9 +331,9 @@ namespace Grand.Web.Areas.Admin.Controllers
 
         [PermissionAuthorizeAction(PermissionActionName.Create)]
         [HttpPost]
-        public async Task<IActionResult> CopyProduct(ProductModel model, [FromServices] ICopyProductService copyProductService)
+        public async Task<IActionResult> CopyProduct(ProductModel modelIn, [FromServices] ICopyProductService copyProductService)
         {
-            var copyModel = model.CopyProductModel;
+            var copyModel = modelIn.CopyProductModel;
             try
             {
                 var originalProduct = await _productService.GetProductById(copyModel.Id, true);

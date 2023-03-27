@@ -11,6 +11,7 @@
     <PreserveCompilationReferences>true</PreserveCompilationReferences>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <LangVersion>9</LangVersion>
+    <UserSecretsId>fca45fd0-6053-46d2-ab85-ef082d231756</UserSecretsId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <Optimize>true</Optimize>
@@ -77,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ColorHelper" Version="1.4.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
   </ItemGroup>
   <ProjectExtensions><VisualStudio><UserProperties app_3data_4appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 </Project>

@@ -134,7 +134,7 @@ namespace Grand.Web.ViewComponents
                     AdComment = ad.AdComment
                     //IsReturnRequestAllowed = await _mediator.Send(new IsReturnRequestAllowedQuery() { Ad = ad })
                 };
-                var adTotalInCustomerCurrency = 0;
+                //var adTotalInCustomerCurrency = 0;
                 retAds.Add(adModel);
             }
             return retAds;

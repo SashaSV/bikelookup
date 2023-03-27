@@ -23,11 +23,11 @@ namespace Grand.Web.Features.Handlers.Ads
 {
     public class GetCustomerAdListHandler : IRequestHandler<GetCustomerAdList, CustomerAdListModel>
     {
-        private readonly IAdService _adService;
+        //private readonly IAdService _adService;
         private readonly IDateTimeHelper _dateTimeHelper;
         private readonly ILocalizationService _localizationService;
-        private readonly IAdProcessingService _adProcessingService;
-        private readonly ICurrencyService _currencyService;
+        //private readonly IAdProcessingService _adProcessingService;
+        //private readonly ICurrencyService _currencyService;
         private readonly IPriceFormatter _priceFormatter;
         private readonly IMediator _mediator;
         private readonly IPictureService _pictureService;
@@ -37,11 +37,11 @@ namespace Grand.Web.Features.Handlers.Ads
         private readonly ForumSettings _forumSettings;
 
         public GetCustomerAdListHandler(
-            IAdService adService,
+            //IAdService adService,
             IDateTimeHelper dateTimeHelper,
             ILocalizationService localizationService,
-            IAdProcessingService adProcessingService,
-            ICurrencyService currencyService,
+            //IAdProcessingService adProcessingService,
+            //ICurrencyService currencyService,
             IMediator mediator,
             IPriceFormatter priceFormatter,
             IPictureService pictureService,
@@ -50,11 +50,11 @@ namespace Grand.Web.Features.Handlers.Ads
             IForumService forumService,
             ForumSettings forumSettings)
         {
-            _adService = adService;
+            //_adService = adService;
             _dateTimeHelper = dateTimeHelper;
             _localizationService = localizationService;
-            _adProcessingService = adProcessingService;
-            _currencyService = currencyService;
+            //_adProcessingService = adProcessingService;
+            //_currencyService = currencyService;
             _priceFormatter = priceFormatter;
             _mediator = mediator;
             _pictureService = pictureService;
@@ -125,7 +125,7 @@ namespace Grand.Web.Features.Handlers.Ads
                 };
 
                 adModel.AdComment = adModel.AdComment != null && adModel.AdComment.Trim().Length >= 250 
-                    ? adModel.AdComment.Trim().Substring(0, 250) + " ..." 
+                    ? adModel.AdComment.Trim()[..250] + " ..." 
                     : adModel.AdComment.Trim();
 
                 //var adTotalInCustomerCurrency = _currencyService.ConvertCurrency(ad.AdTotal, ad.CurrencyRate);
@@ -139,26 +139,26 @@ namespace Grand.Web.Features.Handlers.Ads
                 model.Ads.Add(adModel);
             }
         }
-        private async Task PrepareRecurringPayments(CustomerAdListModel model, GetCustomerAdList request)
-        {
-            var recurringPayments = await _adService.SearchRecurringPayments(request.Store.Id,
-                request.Customer.Id);
-            //foreach (var recurringPayment in recurringPayments)
-            //{
-            //    var recurringPaymentModel = new CustomerAdListModel.RecurringAdModel {
-            //        Id = recurringPayment.Id,
-            //        StartDate = _dateTimeHelper.ConvertToUserTime(recurringPayment.StartDateUtc, DateTimeKind.Utc).ToString(),
-            //        CycleInfo = string.Format("{0} {1}", recurringPayment.CycleLength, recurringPayment.CyclePeriod.GetLocalizedEnum(_localizationService, request.Language.Id)),
-            //        NextPayment = recurringPayment.NextPaymentDate.HasValue ? _dateTimeHelper.ConvertToUserTime(recurringPayment.NextPaymentDate.Value, DateTimeKind.Utc).ToString() : "",
-            //        TotalCycles = recurringPayment.TotalCycles,
-            //        CyclesRemaining = recurringPayment.CyclesRemaining,
-            //        InitialAdId = recurringPayment.InitialAd.Id,
-            //        CanCancel = await _adProcessingService.CanCancelRecurringPayment(request.Customer, recurringPayment),
-            //    };
+        //private async Task PrepareRecurringPayments(CustomerAdListModel model, GetCustomerAdList request)
+        //{
+        //    var recurringPayments = await _adService.SearchRecurringPayments(request.Store.Id,
+        //        request.Customer.Id);
+        //    //foreach (var recurringPayment in recurringPayments)
+        //    //{
+        //    //    var recurringPaymentModel = new CustomerAdListModel.RecurringAdModel {
+        //    //        Id = recurringPayment.Id,
+        //    //        StartDate = _dateTimeHelper.ConvertToUserTime(recurringPayment.StartDateUtc, DateTimeKind.Utc).ToString(),
+        //    //        CycleInfo = string.Format("{0} {1}", recurringPayment.CycleLength, recurringPayment.CyclePeriod.GetLocalizedEnum(_localizationService, request.Language.Id)),
+        //    //        NextPayment = recurringPayment.NextPaymentDate.HasValue ? _dateTimeHelper.ConvertToUserTime(recurringPayment.NextPaymentDate.Value, DateTimeKind.Utc).ToString() : "",
+        //    //        TotalCycles = recurringPayment.TotalCycles,
+        //    //        CyclesRemaining = recurringPayment.CyclesRemaining,
+        //    //        InitialAdId = recurringPayment.InitialAd.Id,
+        //    //        CanCancel = await _adProcessingService.CanCancelRecurringPayment(request.Customer, recurringPayment),
+        //    //    };
 
-                //model.RecurringAds.Add(recurringPaymentModel);
-            //}
-        }
+        //        //model.RecurringAds.Add(recurringPaymentModel);
+        //    //}
+        //}
 
     }
 }

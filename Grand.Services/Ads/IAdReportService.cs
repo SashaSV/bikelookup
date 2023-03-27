@@ -1,10 +1,8 @@
 using Grand.Domain;
 using Grand.Domain.Ads;
 using Grand.Domain.Catalog;
-using Grand.Domain.Ads;
 using Grand.Domain.Payments;
 using Grand.Domain.Shipping;
-using Grand.Services.Ads;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

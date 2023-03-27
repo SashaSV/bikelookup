@@ -515,30 +515,30 @@ namespace Grand.Services.Ads
         /// <param name="pageSize">Page size</param>
         /// <param name="showHidden">A value indicating whether to show hidden records</param>
         /// <returns>Recurring payments</returns>
-        public virtual async Task<IPagedList<RecurringPayment>> SearchRecurringPayments(string storeId = "",
-            string customerId = "", string initialAdId = "", AdStatus? initialAdStatus = null,
-            int pageIndex = 0, int pageSize = int.MaxValue, bool showHidden = false)
-        {
-            //int? initialAdStatusId = null;
-            //if (initialAdStatus.HasValue)
-            //    initialAdStatusId = (int)initialAdStatus.Value;
-            ////TO DO
-            //var query1 = from rp in _recurringPaymentRepository.Table
-            //             where
-            //             (!rp.Deleted) &&
-            //             (showHidden || rp.IsActive) &&
-            //             (customerId == "" || rp.InitialAd.CustomerId == customerId) &&
-            //             (storeId == "" || rp.InitialAd.StoreId == storeId) &&
-            //             (initialAdId == "" || rp.InitialAd.Id == initialAdId)
-            //             select rp.Id;
-            //var cc = query1.ToList();
-            //var query2 = from rp in _recurringPaymentRepository.Table
-            //             where cc.Contains(rp.Id)
-            //             adby rp.StartDateUtc
-            //             select rp;
-            //return await PagedList<RecurringPayment>.Create(query2, pageIndex, pageSize);
-            return null;
-        }
+        //public virtual async Task<IPagedList<RecurringPayment>> SearchRecurringPayments(string storeId = "",
+        //    string customerId = "", string initialAdId = "", AdStatus? initialAdStatus = null,
+        //    int pageIndex = 0, int pageSize = int.MaxValue, bool showHidden = false)
+        //{
+        //    //int? initialAdStatusId = null;
+        //    //if (initialAdStatus.HasValue)
+        //    //    initialAdStatusId = (int)initialAdStatus.Value;
+        //    ////TO DO
+        //    //var query1 = from rp in _recurringPaymentRepository.Table
+        //    //             where
+        //    //             (!rp.Deleted) &&
+        //    //             (showHidden || rp.IsActive) &&
+        //    //             (customerId == "" || rp.InitialAd.CustomerId == customerId) &&
+        //    //             (storeId == "" || rp.InitialAd.StoreId == storeId) &&
+        //    //             (initialAdId == "" || rp.InitialAd.Id == initialAdId)
+        //    //             select rp.Id;
+        //    //var cc = query1.ToList();
+        //    //var query2 = from rp in _recurringPaymentRepository.Table
+        //    //             where cc.Contains(rp.Id)
+        //    //             adby rp.StartDateUtc
+        //    //             select rp;
+        //    //return await PagedList<RecurringPayment>.Create(query2, pageIndex, pageSize);
+        //    return null;
+        //}
 
 
 

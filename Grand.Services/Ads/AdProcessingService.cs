@@ -1078,105 +1078,105 @@ namespace Grand.Services.Ads
 
         }
 
-        protected virtual async Task CreateRecurringPayment(ProcessPaymentRequest processPaymentRequest, Ad order)
-        {
-            //var rp = new RecurringPayment {
-            //    CycleLength = processPaymentRequest.RecurringCycleLength,
-            //    CyclePeriod = processPaymentRequest.RecurringCyclePeriod,
-            //    TotalCycles = processPaymentRequest.RecurringTotalCycles,
-            //    StartDateUtc = DateTime.UtcNow,
-            //    IsActive = true,
-            //    CreatedOnUtc = DateTime.UtcNow,
-            //    InitialAd = order,
-            //};
-            //await _orderService.InsertRecurringPayment(rp);
+        //protected virtual async Task CreateRecurringPayment(ProcessPaymentRequest processPaymentRequest, Ad order)
+        //{
+        //    //var rp = new RecurringPayment {
+        //    //    CycleLength = processPaymentRequest.RecurringCycleLength,
+        //    //    CyclePeriod = processPaymentRequest.RecurringCyclePeriod,
+        //    //    TotalCycles = processPaymentRequest.RecurringTotalCycles,
+        //    //    StartDateUtc = DateTime.UtcNow,
+        //    //    IsActive = true,
+        //    //    CreatedOnUtc = DateTime.UtcNow,
+        //    //    InitialAd = order,
+        //    //};
+        //    //await _orderService.InsertRecurringPayment(rp);
 
 
-            var recurringPaymentType = _paymentService.GetRecurringPaymentType(processPaymentRequest.PaymentMethodSystemName);
-            switch (recurringPaymentType)
-            {
-                case RecurringPaymentType.NotSupported:
-                    {
-                        //not supported
-                    }
-                    break;
-                case RecurringPaymentType.Manual:
-                    //{
-                    //    //first payment
-                    //    var rph = new RecurringPaymentHistory {
-                    //        CreatedOnUtc = DateTime.UtcNow,
-                    //        AdId = order.Id,
-                    //        RecurringPaymentId = rp.Id
-                    //    };
-                    //    rp.RecurringPaymentHistory.Add(rph);
-                    //    await _orderService.UpdateRecurringPayment(rp);
-                    //}
-                    break;
-                case RecurringPaymentType.Automatic:
-                    {
-                        //will be created later (process is automated)
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
+        //    var recurringPaymentType = _paymentService.GetRecurringPaymentType(processPaymentRequest.PaymentMethodSystemName);
+        //    switch (recurringPaymentType)
+        //    {
+        //        case RecurringPaymentType.NotSupported:
+        //            {
+        //                //not supported
+        //            }
+        //            break;
+        //        case RecurringPaymentType.Manual:
+        //            //{
+        //            //    //first payment
+        //            //    var rph = new RecurringPaymentHistory {
+        //            //        CreatedOnUtc = DateTime.UtcNow,
+        //            //        AdId = order.Id,
+        //            //        RecurringPaymentId = rp.Id
+        //            //    };
+        //            //    rp.RecurringPaymentHistory.Add(rph);
+        //            //    await _orderService.UpdateRecurringPayment(rp);
+        //            //}
+        //            break;
+        //        case RecurringPaymentType.Automatic:
+        //            {
+        //                //will be created later (process is automated)
+        //            }
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //}
 
-        /// <summary>
-        /// Return back redeemded reward points to a customer (spent when placing an order)
-        /// </summary>
-        /// <param name="order">Ad</param>
-        protected virtual async Task ReturnBackRedeemedRewardPoints(Ad order)
-        {
-            //were some points redeemed when placing an order?
-            if (order.RedeemedRewardPointsEntry == null)
-                return;
+        ///// <summary>
+        ///// Return back redeemded reward points to a customer (spent when placing an order)
+        ///// </summary>
+        ///// <param name="order">Ad</param>
+        //protected virtual async Task ReturnBackRedeemedRewardPoints(Ad order)
+        //{
+        //    //were some points redeemed when placing an order?
+        //    if (order.RedeemedRewardPointsEntry == null)
+        //        return;
 
-            //return back
-            //await _rewardPointsService.AddRewardPointsHistory(order.CustomerId, -order.RedeemedRewardPointsEntry.Points, order.StoreId,
-            //    string.Format(_localizationService.GetResource("RewardPoints.Message.ReturnedForAd"), order.AdNumber));
+        //    //return back
+        //    //await _rewardPointsService.AddRewardPointsHistory(order.CustomerId, -order.RedeemedRewardPointsEntry.Points, order.StoreId,
+        //    //    string.Format(_localizationService.GetResource("RewardPoints.Message.ReturnedForAd"), order.AdNumber));
 
-        }
+        //}
 
         /// <summary>
         /// Process order paid status
         /// </summary>
         /// <param name="order">Ad</param>
-        protected virtual async Task ProcessAdPaid(Ad order)
-        {
-            if (order == null)
-                throw new ArgumentNullException("order");
+        //protected virtual async Task ProcessAdPaid(Ad order)
+        //{
+        //    if (order == null)
+        //        throw new ArgumentNullException("order");
 
-            //raise event
-            //await _mediator.Publish(new AdPaidEvent(order));
+        //    //raise event
+        //    //await _mediator.Publish(new AdPaidEvent(order));
 
-            ////order paid email notification
-            //if (order.AdTotal != decimal.Zero)
-            //{
-            //    //we should not send it for free ($0 total) orders?
-            //    //remove this "if" statement if you want to send it in this case
+        //    ////order paid email notification
+        //    //if (order.AdTotal != decimal.Zero)
+        //    //{
+        //    //    //we should not send it for free ($0 total) orders?
+        //    //    //remove this "if" statement if you want to send it in this case
 
-            //    var orderPaidAttachmentFilePath = _orderSettings.AttachPdfInvoiceToAdPaidEmail && !_orderSettings.AttachPdfInvoiceToBinary ?
-            //        await _pdfService.PrintAdToPdf(order, "")
-            //        : null;
-            //    var orderPaidAttachmentFileName = _orderSettings.AttachPdfInvoiceToAdPaidEmail && !_orderSettings.AttachPdfInvoiceToBinary ?
-            //        "order.pdf" : null;
+        //    //    var orderPaidAttachmentFilePath = _orderSettings.AttachPdfInvoiceToAdPaidEmail && !_orderSettings.AttachPdfInvoiceToBinary ?
+        //    //        await _pdfService.PrintAdToPdf(order, "")
+        //    //        : null;
+        //    //    var orderPaidAttachmentFileName = _orderSettings.AttachPdfInvoiceToAdPaidEmail && !_orderSettings.AttachPdfInvoiceToBinary ?
+        //    //        "order.pdf" : null;
 
-            //    var orderPaidAttachments = _orderSettings.AttachPdfInvoiceToAdPaidEmail && _orderSettings.AttachPdfInvoiceToBinary ?
-            //        new List<string> { await _pdfService.SaveAdToBinary(order, "") } : new List<string>();
+        //    //    var orderPaidAttachments = _orderSettings.AttachPdfInvoiceToAdPaidEmail && _orderSettings.AttachPdfInvoiceToBinary ?
+        //    //        new List<string> { await _pdfService.SaveAdToBinary(order, "") } : new List<string>();
 
-            //    await _workflowMessageService.SendAdPaidCustomerNotification(order, order.CustomerLanguageId,
-            //        orderPaidAttachmentFilePath, orderPaidAttachmentFileName, orderPaidAttachments);
+        //    //    await _workflowMessageService.SendAdPaidCustomerNotification(order, order.CustomerLanguageId,
+        //    //        orderPaidAttachmentFilePath, orderPaidAttachmentFileName, orderPaidAttachments);
 
-            //    await _workflowMessageService.SendAdPaidStoreOwnerNotification(order, _localizationSettings.DefaultAdminLanguageId);
-            //    var vendors = await GetVendorsInAd(order);
-            //    foreach (var vendor in vendors)
-            //    {
-            //        await _workflowMessageService.SendAdPaidVendorNotification(order, vendor, _localizationSettings.DefaultAdminLanguageId);
-            //    }
-            //    //TODO add "order paid email sent" order note
-            //}
-        }
+        //    //    await _workflowMessageService.SendAdPaidStoreOwnerNotification(order, _localizationSettings.DefaultAdminLanguageId);
+        //    //    var vendors = await GetVendorsInAd(order);
+        //    //    foreach (var vendor in vendors)
+        //    //    {
+        //    //        await _workflowMessageService.SendAdPaidVendorNotification(order, vendor, _localizationSettings.DefaultAdminLanguageId);
+        //    //    }
+        //    //    //TODO add "order paid email sent" order note
+        //    //}
+        //}
 
         /// <summary>
         /// Get a list of vendors in order (order items)
@@ -1342,11 +1342,11 @@ namespace Grand.Services.Ads
 
                     }
                     //recurring orders
-                    if (details.IsRecurringShoppingCart && !processPaymentRequest.IsRecurringPayment)
-                    {
-                        //create recurring payment (the first payment)
-                        await CreateRecurringPayment(processPaymentRequest, order);
-                    }
+                    //if (details.IsRecurringShoppingCart && !processPaymentRequest.IsRecurringPayment)
+                    //{
+                    //    //create recurring payment (the first payment)
+                    //    await CreateRecurringPayment(processPaymentRequest, order);
+                    //}
                     //reward points history
                     if (details.RedeemedRewardPointsAmount > decimal.Zero)
                     {
@@ -1374,10 +1374,10 @@ namespace Grand.Services.Ads
                     //raise event       
                     //await _mediator.Publish(new AdPlacedEvent(order));
 
-                    if (order.PaymentStatus == PaymentStatus.Paid)
-                    {
-                        await ProcessAdPaid(order);
-                    }
+                    //if (order.PaymentStatus == PaymentStatus.Paid)
+                    //{
+                    //    await ProcessAdPaid(order);
+                    //}
                     #endregion
                 }
                 else
@@ -1823,10 +1823,10 @@ namespace Grand.Services.Ads
             });
 
             //await _mediator.Send(new CheckAdStatusCommand() { Ad = order });
-            if (order.PaymentStatus == PaymentStatus.Paid)
-            {
-                await ProcessAdPaid(order);
-            }
+            //if (order.PaymentStatus == PaymentStatus.Paid)
+            //{
+            //    await ProcessAdPaid(order);
+            //}
         }
 
         /// <summary>
@@ -2426,45 +2426,45 @@ namespace Grand.Services.Ads
         /// </summary>
         /// <param name="cart">Shopping cart</param>
         /// <returns>true - OK; false - minimum order sub-total amount is not reached</returns>
-        public virtual async Task<bool> ValidateMinAdSubtotalAmount(IList<ShoppingCartItem> cart)
-        {
-            if (cart == null)
-                throw new ArgumentNullException("cart");
+        //public virtual async Task<bool> ValidateMinAdSubtotalAmount(IList<ShoppingCartItem> cart)
+        //{
+        //    if (cart == null)
+        //        throw new ArgumentNullException("cart");
 
-            if (!cart.Any())
-                return false;
+        //    if (!cart.Any())
+        //        return false;
 
-            //min order amount sub-total validation
-            //if (cart.Any() && _orderSettings.MinAdSubtotalAmount > decimal.Zero)
-            //{
-            //    //subtotal
-            //    var (_, _, subTotalWithoutDiscount, _, _) = await _orderTotalCalculationService.GetShoppingCartSubTotal(cart, false);
-            //    if (subTotalWithoutDiscount < _orderSettings.MinAdSubtotalAmount)
-            //        return false;
-            //}
+        //    //min order amount sub-total validation
+        //    //if (cart.Any() && _orderSettings.MinAdSubtotalAmount > decimal.Zero)
+        //    //{
+        //    //    //subtotal
+        //    //    var (_, _, subTotalWithoutDiscount, _, _) = await _orderTotalCalculationService.GetShoppingCartSubTotal(cart, false);
+        //    //    if (subTotalWithoutDiscount < _orderSettings.MinAdSubtotalAmount)
+        //    //        return false;
+        //    //}
 
-            return true;
-        }
+        //    return true;
+        //}
 
         /// <summary>
         /// Valdiate minimum order total amount
         /// </summary>
         /// <param name="cart">Shopping cart</param>
         /// <returns>true - OK; false - minimum order total amount is not reached</returns>
-        public virtual async Task<bool> ValidateMinAdTotalAmount(IList<ShoppingCartItem> cart)
-        {
-            if (cart == null)
-                throw new ArgumentNullException("cart");
+        //public virtual async Task<bool> ValidateMinAdTotalAmount(IList<ShoppingCartItem> cart)
+        //{
+        //    if (cart == null)
+        //        throw new ArgumentNullException("cart");
 
-            //if (cart.Any() && _orderSettings.MinAdTotalAmount > decimal.Zero)
-            //{
-            //    decimal? shoppingCartTotalBase = (await _orderTotalCalculationService.GetShoppingCartTotal(cart)).shoppingCartTotal;
-            //    if (shoppingCartTotalBase.HasValue && shoppingCartTotalBase.Value < _orderSettings.MinAdTotalAmount)
-            //        return false;
-            //}
+        //    //if (cart.Any() && _orderSettings.MinAdTotalAmount > decimal.Zero)
+        //    //{
+        //    //    decimal? shoppingCartTotalBase = (await _orderTotalCalculationService.GetShoppingCartTotal(cart)).shoppingCartTotal;
+        //    //    if (shoppingCartTotalBase.HasValue && shoppingCartTotalBase.Value < _orderSettings.MinAdTotalAmount)
+        //    //        return false;
+        //    //}
 
-            return true;
-        }
+        //    return true;
+        //}
 
         /// <summary>
         /// Validate order total amount
@@ -2472,26 +2472,26 @@ namespace Grand.Services.Ads
         /// <param name="customer">Customer</param>
         /// <param name="cart">Shopping cart</param>
         /// <returns>true - OK; false - minimum/maximum order total amount is not reached</returns>
-        public virtual async Task<bool> ValidateAdTotalAmount(Customer customer, IList<ShoppingCartItem> cart)
-        {
-            if (cart == null)
-                throw new ArgumentNullException("cart");
+        //public virtual async Task<bool> ValidateAdTotalAmount(Customer customer, IList<ShoppingCartItem> cart)
+        //{
+        //    if (cart == null)
+        //        throw new ArgumentNullException("cart");
 
-            //var minroles = customer.CustomerRoles.AdBy(x => x.MinAdAmount).FirstOrDefault(x => x.Active && x.MinAdAmount.HasValue);
-            //var minAdAmount = minroles?.MinAdAmount ?? decimal.MinValue;
+        //    //var minroles = customer.CustomerRoles.AdBy(x => x.MinAdAmount).FirstOrDefault(x => x.Active && x.MinAdAmount.HasValue);
+        //    //var minAdAmount = minroles?.MinAdAmount ?? decimal.MinValue;
 
-            //var maxroles = customer.CustomerRoles.AdByDescending(x => x.MaxAdAmount).FirstOrDefault(x => x.Active && x.MaxAdAmount.HasValue);
-            //var maxAdAmount = maxroles?.MaxAdAmount ?? decimal.MaxValue;
+        //    //var maxroles = customer.CustomerRoles.AdByDescending(x => x.MaxAdAmount).FirstOrDefault(x => x.Active && x.MaxAdAmount.HasValue);
+        //    //var maxAdAmount = maxroles?.MaxAdAmount ?? decimal.MaxValue;
 
-            //if (cart.Any() && (minAdAmount > decimal.Zero || maxAdAmount > decimal.Zero))
-            //{
-            //    decimal? shoppingCartTotalBase = (await _orderTotalCalculationService.GetShoppingCartTotal(cart)).shoppingCartTotal;
-            //    if (shoppingCartTotalBase.HasValue && (shoppingCartTotalBase.Value < minAdAmount || shoppingCartTotalBase.Value > maxAdAmount))
-            //        return false;
-            //}
+        //    //if (cart.Any() && (minAdAmount > decimal.Zero || maxAdAmount > decimal.Zero))
+        //    //{
+        //    //    decimal? shoppingCartTotalBase = (await _orderTotalCalculationService.GetShoppingCartTotal(cart)).shoppingCartTotal;
+        //    //    if (shoppingCartTotalBase.HasValue && (shoppingCartTotalBase.Value < minAdAmount || shoppingCartTotalBase.Value > maxAdAmount))
+        //    //        return false;
+        //    //}
 
-            return true;
-        }
+        //    return true;
+        //}
         #endregion
     }
 }

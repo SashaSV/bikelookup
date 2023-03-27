@@ -579,24 +579,24 @@ namespace Grand.Web.Controllers
                 //save as recently viewed
                return RedirectToRoute("Product", new { SeName = product.GetSeName(_workContext.WorkingLanguage.Id), tab = "review"});
 
-               model = await _mediator.Send(new GetProductReviews() {
-                    Customer = _workContext.CurrentCustomer,
-                    Language = _workContext.WorkingLanguage,
-                    Product = product,
-                    Store = _storeContext.CurrentStore,
-                    Size = _catalogSettings.NumberOfReview
-                });
+               //model = await _mediator.Send(new GetProductReviews() {
+               //     Customer = _workContext.CurrentCustomer,
+               //     Language = _workContext.WorkingLanguage,
+               //     Product = product,
+               //     Store = _storeContext.CurrentStore,
+               //     Size = _catalogSettings.NumberOfReview
+               // });
 
-                model.AddProductReview.Title = null;
-                model.AddProductReview.ReviewText = null;
+               // model.AddProductReview.Title = null;
+               // model.AddProductReview.ReviewText = null;
 
-                model.AddProductReview.SuccessfullyAdded = true;
-                if (!productReview.IsApproved)
-                    model.AddProductReview.Result = _localizationService.GetResource("Reviews.SeeAfterApproving");
-                else
-                    model.AddProductReview.Result = _localizationService.GetResource("Reviews.SuccessfullyAdded");
+               // model.AddProductReview.SuccessfullyAdded = true;
+               // if (!productReview.IsApproved)
+               //     model.AddProductReview.Result = _localizationService.GetResource("Reviews.SeeAfterApproving");
+               // else
+               //     model.AddProductReview.Result = _localizationService.GetResource("Reviews.SuccessfullyAdded");
 
-                return View(model);
+               // return View(model);
             }
 
             //If we got this far, something failed, redisplay form

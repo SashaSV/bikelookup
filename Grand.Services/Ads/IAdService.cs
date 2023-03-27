@@ -232,9 +232,9 @@ namespace Grand.Services.Ads
         ///// <param name="pageSize">Page size</param>
         ///// <param name="showHidden">A value indicating whether to show hidden records</param>
         ///// <returns>Recurring payments</returns>
-        Task<IPagedList<RecurringPayment>> SearchRecurringPayments(string storeId = "",
-            string customerId = "", string initialAdsId = "", AdStatus? initialAdsStatus = null,
-            int pageIndex = 0, int pageSize = int.MaxValue, bool showHidden = false);
+        //Task<IPagedList<RecurringPayment>> SearchRecurringPayments(string storeId = "",
+        //    string customerId = "", string initialAdsId = "", AdStatus? initialAdsStatus = null,
+        //    int pageIndex = 0, int pageSize = int.MaxValue, bool showHidden = false);
 
 
 

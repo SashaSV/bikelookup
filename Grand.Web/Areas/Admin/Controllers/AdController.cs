@@ -1176,18 +1176,18 @@ namespace Grand.Web.Areas.Admin.Controllers
             //(await giftCardService.GetGiftCardsByPurchasedWithAdItemId(adItem.Id)).Count > 0
             if (false)
             {
-                //we cannot delete an ad item with associated gift cards
-                //a store owner should delete them first
+                ////we cannot delete an ad item with associated gift cards
+                ////a store owner should delete them first
 
-                var model = new AdModel();
-                await _adViewModelService.PrepareAdDetailsModel(model, ad);
+                //var model = new AdModel();
+                //await _adViewModelService.PrepareAdDetailsModel(model, ad);
 
-                ErrorNotification("This ad item has an associated gift card record. Please delete it first.", false);
+                //ErrorNotification("This ad item has an associated gift card record. Please delete it first.", false);
 
-                //selected tab
-                await SaveSelectedTabIndex(persistForTheNextRequest: false);
+                ////selected tab
+                //await SaveSelectedTabIndex(persistForTheNextRequest: false);
 
-                return View(model);
+                //return View(model);
 
             }
             else

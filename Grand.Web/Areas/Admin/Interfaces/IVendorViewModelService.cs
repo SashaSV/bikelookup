@@ -21,7 +21,7 @@ namespace Grand.Web.Areas.Admin.Interfaces
         Task<VendorModel> PrepareVendorModel();
         Task<Vendor> InsertVendorModel(VendorModel model);
         Task<Vendor> UpdateVendorModel(Vendor vendor, VendorModel model);
-        Task<Vendor> UpdateVendorAddressModel(Vendor vendor, AddressModel model);
+        //Task<Vendor> UpdateVendorAddressModel(Vendor vendor, AddressModel model);
         Task DeleteVendor(Vendor vendor);
         IList<VendorModel.VendorNote> PrepareVendorNote(Vendor vendor);
         Task<bool> InsertVendorNote(string vendorId, string message);
