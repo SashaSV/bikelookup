@@ -10,7 +10,7 @@
     <ServerGarbageCollection>false</ServerGarbageCollection>
     <PreserveCompilationReferences>true</PreserveCompilationReferences>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <LangVersion>?</LangVersion>
+    <LangVersion>8</LangVersion>
     <UserSecretsId>fca45fd0-6053-46d2-ab85-ef082d231756</UserSecretsId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
