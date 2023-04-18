@@ -1,6 +1,6 @@
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
 WORKDIR /app
-RUN apt-get update -qq && apt-get -y install libgdiplus libc6-dev
+RUN apt-get update -qq && apt-get -y install libgdiplus libc6-dev && apt-get -y install nano && apt-get -y install mc
 
 EXPOSE 80
 

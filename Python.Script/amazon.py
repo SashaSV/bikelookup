@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from scanner import dbservice, scanservice
+from scanner.gethtml import get_html
 from scanner.dbservice import DataScraps, dict2obj
 from pymongo import MongoClient
 import json
@@ -13,7 +14,7 @@ DBCONNECT = {'NAMEMACHINE': 'localhost',
              'NAMEDB': 'bldb'}
 
 PAGES_START = 1
-PAGES_COUNT = 5
+PAGES_COUNT = 2
 OUT_FILENAME = 'amazon'
 OUT_XLSX_FILENAME = 'amazon'
 VENDOR = 'amazon.es'
@@ -23,10 +24,11 @@ OUT_FILE_CATALOG = '/photo/'
 
 FTM = {
     'category': 'Portátiles',
-    'url': 'https://www.amazon.es/s?k=Apple&i=computers&rh=n%3A2457640031%2Cp_4%3AApple&page={page}&pf_rd_i=938008031&pf_rd_m=A1AT7YVPFBWXBL&pf_rd_p=bc93f755-eff3-453b-9e77-c2f6b3d2f854&pf_rd_p=bc93f755-eff3-453b-9e77-c2f6b3d2f854&pf_rd_r=E5N2A2BM8CZY8ZC7PHA5&pf_rd_r=E5N2A2BM8CZY8ZC7PHA5&pf_rd_s=merchandised-search-leftnav&pf_rd_t=101&qid=1678560440&ref=sr_pg_{page}'
+    'url': 'https://www.amazon.es/s?i=computers&bbn=938008031&rh=n%3A938008031%2Cp_n_feature_twenty-two_browse-bin%3A27387615031%2Cp_89%3AApple&dc&page={page}&qid=1681645819&rnid=1692911031&ref=sr_pg_{page}'
 }
 
 client = MongoClient(DBCONNECT['NAMEMACHINE'], DBCONNECT['PORTDB'])
+#client = MongoClient('mongodb+srv://admin:Zazimja129shura@cluster0.ofiehaa.mongodb.net/bldb')
 db = client[DBCONNECT['NAMEDB']]
 
 def pars_new_card_into_db():
@@ -52,10 +54,12 @@ def pars_new_card_into_db():
             a.techs = item.techs.__dict__
             dataJson.append(a.__dict__)
 
-        scanservice.dump_to_json(jsonfilename, dataJson)
+        if len(dataJson) > 0:
+            scanservice.dump_to_json(jsonfilename, dataJson)
     
-    dbservice.clear_all_product(db)
-    dbservice.check_product(db, data)
+    if len(data) > 0:
+        dbservice.clear_all_product(db)
+        dbservice.check_product(db, data)
 
 def crawl_products(pages_count):
     """
@@ -75,21 +79,30 @@ def crawl_products(pages_count):
 
         if soup is None:
             break
+        
+        find_result = soup.find('span', class_='rush-component s-latency-cf-section')
+        if find_result is None:
+            break
 
-        for tag in soup.find_all('div', class_='a-section a-spacing-base'):
+        html_urls = find_result.find_all('div', class_='sg-col-inner')
+        
+        if html_urls is None:
+            break
+        
+        for tag in html_urls:
 
             href = tag.find('a').get('href')
             
-            #if href.find('/ref='):
-            #    href = href[0:href.find('/ref=')].strip()
+            if href.find('/ref=') > 0 :
+                #href = href[0:href.find('/ref=')].strip()
             
-            url = '{0}{1}'.format(HOST, href)
+                url = '{0}{1}'.format(HOST, href)
 
-            if url.strip() == (HOST.strip() + '/') :
-                continue
+                if url.strip() == (HOST.strip() + '/') :
+                    continue
 
-            print(url)
-            urls.append(url)
+                print(url)
+                urls.append(url)
 
     return urls
 
@@ -114,8 +127,8 @@ def parse_products(urls) -> list[DataScraps]:
         print('#{num}, product: {url}'.format(num=number, url=url))
 
         scrapsData = DataScraps(vendor=VENDOR)
-        soup = scanservice.get_soup(url)
-        
+        #soup = scanservice.get_soup(url)
+        soup = get_html(url)
         if url.find('/ref='):
             scrapsData.url = url[0:url.find('/ref=')].strip()
         
@@ -126,8 +139,13 @@ def parse_products(urls) -> list[DataScraps]:
             break
         try:
             # name
-            scrapsData.name = soup.find('span', class_='a-size-large product-title-word-break').get_text(strip=True)
-
+            name = soup.find('span', class_='a-size-large product-title-word-break')
+            
+            if name is None:
+                seleniumScrapUrl.append(url)
+                continue
+            
+            scrapsData.name = name.get_text(strip=True)
             # brand
             scrapsData.manufacturer = 'Apple'
 

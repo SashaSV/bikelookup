@@ -27,7 +27,7 @@ def get_html(url) -> None:
     #driver = webdriver.Chrome(service=ser, options=op)
 
     html_text = None
-    file_name = 'source_page.html'
+    file_name = get_file_name(url)
     
     if os.path.exists(file_name):
         with open(file_name, encoding='utf-8') as thtml_file:
@@ -39,7 +39,7 @@ def get_html(url) -> None:
         driver.get(url)
         time.sleep(3)
         html_text = driver.page_source
-        with open("source_page.html", "w", encoding="utf-8") as file:
+        with open(file_name, "w", encoding="utf-8") as file:
             file.write(driver.page_source)
     
     soup = BeautifulSoup(html_text, features='html.parser')
@@ -53,3 +53,27 @@ def get_html(url) -> None:
     finally:
         driver.close()
         driver.quit()
+    
+    return soup
+
+def get_file_name(url) -> str:
+    CURR_DIR = os.getcwd()
+    if CURR_DIR.find("Python.Script") < 0 :
+        CURR_DIR = '{0}\\Python.Script\\html'.format(CURR_DIR)
+
+    return '{0}\\{1}.html'.format(CURR_DIR,get_sename(url))
+
+
+def get_sename(sename):
+        #replacechar = [' ', '-', '!', '?', ':', '"', '.', '+']
+        okChars = "abcdefghijklmnopqrstuvwxyz1234567890 _-"
+        sename_new = ''
+        for s in sename:
+            if okChars.__contains__(s):
+                sename_new = sename_new + s
+
+        sename_new = sename_new.replace(' ', '-')
+        sename_new = sename_new.replace('--', '-')
+        sename_new = sename_new.replace('__', '_')
+
+        return sename_new

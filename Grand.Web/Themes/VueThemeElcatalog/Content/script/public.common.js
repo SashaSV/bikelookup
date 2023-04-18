@@ -569,12 +569,12 @@ function backToTop() {
         }
     }
 
-    const headerUp = document.getElementById('headerup');
+    const headerUp = document.getElementById('header-nav');
     function fixHeader(num) {
         if (document.documentElement.scrollTop >= num) {
-            headerUp.classList.add('headerup__fixed');
+            headerUp.classList.add('header-nav__fixed');
         } else {
-            headerUp.classList.remove('headerup__fixed');
+            headerUp.classList.remove('header-nav__fixed');
         }
     }
 

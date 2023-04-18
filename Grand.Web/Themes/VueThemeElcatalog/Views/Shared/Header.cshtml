@@ -15,10 +15,10 @@
     }
 }
 @*@await Component.InvokeAsync("LanguageSelector")*@
-<div class="headerup" id="headerup">
+@* <div class="headerup" id="headerup"> *@
     @if (true)
     {
-        <div class="header-nav">
+        <div class="header-nav" id="header-nav">
             <b-navbar type="light">
                 <b-container :fluid="fluid" id="header-container">
                     <template>
@@ -32,7 +32,7 @@
                         </b-sidebar>
                     </template>
                     @*@await Component.InvokeAsync("Logo")*@
-                    <a href="@Url.RouteUrl("HomePage")">
+                    <a href="@Url.RouteUrl("HomePage")" class="navbar-brand mx-auto">
                         <span class="logo-header-text">
                             Elcatalog.es
                         </span>
@@ -71,5 +71,5 @@
         </div>
     }
     @*<header-up></header-up>*@
-</div>
+@* </div> *@
 @await Component.InvokeAsync("HeaderCategories")

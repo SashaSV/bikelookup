@@ -173,3 +173,4 @@ Grand.Web/Plugins/*
 !Grand.Web/App_Data/TempUploads/Index.htm
 /Grand.Web/wwwroot/content/images
 /Python.Script/env
+/Python.Script/html
