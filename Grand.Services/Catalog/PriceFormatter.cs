@@ -85,9 +85,9 @@ namespace Grand.Services.Catalog
                     return result;
                 }
             }
-            _currencySettings.DisplayCurrencyLabel = showCurrency;
+            //_currencySettings.DisplayCurrencyLabel = showCurrency;
             if (showCurrency && _currencySettings.DisplayCurrencyLabel)
-                result = String.Format("{0} ({1})", result, targetCurrency.Name);
+                result = String.Format("{0} ({1})", result, targetCurrency.CurrencyCode);
             return result;
         }
 
