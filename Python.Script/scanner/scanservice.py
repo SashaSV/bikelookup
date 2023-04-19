@@ -4,8 +4,9 @@ import os
 import posixpath
 import requests
 from urllib.parse import urlsplit, unquote
+from scanner.gethtml import get_html
 
-HEADERS = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36',
+HEADERS = {'user-agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Mobile Safari/537.36',
            'accept': '*/*'}
 
 def get_soup(url, **kwargs):
@@ -13,7 +14,8 @@ def get_soup(url, **kwargs):
     if response.status_code == 200:
         soup = BeautifulSoup(response.text, features='html.parser')
     else:
-        soup = None
+        soup = get_html(url)
+        #soup = None
     return soup
 
 def url2filename(url):

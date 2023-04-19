@@ -102,8 +102,7 @@
 <div class="page product-details-page product-standard product-grouped">
     @await Component.InvokeAsync("Widget", new { widgetZone = "productdetails_top", additionalData = Model.Id })
        <div itemscope itemtype="http://schema.org/Product" data-productid="@Model.Id">
-            <b-container class="product-essential" fluid>
-              
+            <b-container class="product-essential" >
                     <div class="product-name">
                         <h2 class="generalTitle mb-3" itemprop="name" align="left">@Model.Name</h2>
                     </div>
