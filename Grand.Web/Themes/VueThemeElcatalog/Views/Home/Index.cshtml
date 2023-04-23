@@ -38,10 +38,11 @@
     @await Component.InvokeAsync("PersonalizedProducts")
     @await Component.InvokeAsync("RecommendedProducts")
     @await Component.InvokeAsync("SuggestedProducts")
-    
+
     <!-- Top page products -->
     @await Component.InvokeAsync("HomePageProducts")
-    <!-- Home products --> 
+    <!-- Home products -->
+    @*@await Component.InvokeAsync("HomePageNewSlider")*@
     @await Component.InvokeAsync("HomePageBestOffers")
     @await Component.InvokeAsync("HomePageMostVisited")
     @await Component.InvokeAsync("HomePageNewProducts") 

@@ -2364,3 +2364,15 @@ button, input, optgroup, select, textarea {
 .form-row {
     padding-bottom: 6rem;
 }
+
+#GrandCarousel .carousel-control-prev-icon{
+    height: 100px !important;
+    width: 40px !important;
+    background-image: url("/Themes/VueThemeBike/Content/images/ChevronLeft.svg");
+}
+
+#GrandCarousel .carousel-control-next-icon {
+    height: 100px !important;
+    width: 40px !important;
+    background-image: url("/Themes/VueThemeBike/Content/images/ChevronRight.svg");
+}

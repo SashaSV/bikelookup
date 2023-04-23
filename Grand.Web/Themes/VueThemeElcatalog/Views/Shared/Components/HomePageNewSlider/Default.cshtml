@@ -1,0 +1,71 @@
+﻿@model IList<ProductOverviewModel>
+@inject DisplayOrderHomePage order
+
+<div class="container text-center my-3">
+    <h2 class="font-weight-light">Bootstrap 4 - Multi Item Carousel</h2>
+    <div class="row mx-auto my-auto">
+        <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
+            <div class="carousel-inner w-100" role="listbox">
+                @{
+                    var isActive = "active";
+
+                    @foreach (var item in Model)
+                    {
+                        <div class="carousel-item @isActive">
+                            @{
+                                //<div class="col-md-4">
+                                //<b-col xl="@order.Np_Xl" lg="@order.Np_Lg" md="@order.Np_Md" sm="@order.Np_Sm" cols="@order.Np_Col" class="product-card-carousel h-100">
+                                //</b-col>
+                              }
+                            <div class="col-md-4">
+                                <partial name="_ProductBoxCarousel" model="item" />
+                            </div>
+                            
+                        </div>
+                        isActive = "";
+                    }
+                }
+                
+            </div>
+            <a class="carousel-control-prev w-auto" href="#recipeCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon bg-dark border border-dark rounded-circle" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next w-auto" href="#recipeCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon bg-dark border border-dark rounded-circle" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+    <h5 class="mt-2">Advances one slide at a time</h5>
+    <script asp-location="Footer" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script asp-location="Footer" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+
+    <script asp-location="Footer">
+
+        $(function () {
+            $('#recipeCarousel').carousel({
+                interval: 6000
+            });
+
+            $('#recipeCarousel .carousel .carousel-item').each(function () {
+                var minPerSlide = 3;
+                //debugger
+                var next = $(this).next();
+                if (!next.length) {
+                    next = $(this).siblings(':first');
+                }
+                next.children(':first-child').clone().appendTo($(this));
+
+                for (var i = 0; i < minPerSlide; i++) {
+                    next = next.next();
+                    if (!next.length) {
+                        next = $(this).siblings(':first');
+                    }
+                    next.children(':first-child').clone().appendTo($(this));
+                }
+            });
+        });
+    </script>
+</div>
+
