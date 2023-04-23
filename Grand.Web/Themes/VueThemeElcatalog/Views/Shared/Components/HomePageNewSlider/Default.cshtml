@@ -9,21 +9,24 @@
 
                 @{
                     var isActive = "active";
-                    var cnt = 0;
+
                     @foreach (var item in Model)
                     {
-                        cnt++;
-
-                        <div class="carousel-item carousel-item-new @isActive">
+                        <div class="carousel-item @isActive">
+                            @{
+                                //<div class="col-md-4">
+                                //<b-col xl="@order.Np_Xl" lg="@order.Np_Lg" md="@order.Np_Md" sm="@order.Np_Sm" cols="@order.Np_Col" class="product-card-carousel h-100">
+                                //</b-col>
+                              }
                             <div class="col-md-4">
-                                <div class="card card-body">
-                                    <img class="img-fluid" src="http://placehold.it/380?text=@cnt">
-                                </div>
+                                <partial name="_ProductBoxCarousel" model="item" />
                             </div>
+                            
                         </div>
                         isActive = "";
                     }
                 }
+                
             </div>
             <a class="carousel-control-prev w-auto" href="#recipeCarousel" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon bg-dark border border-dark rounded-circle" aria-hidden="true"></span>
@@ -43,7 +46,7 @@
 
         $(function () {
             $('#recipeCarousel').carousel({
-                interval: 3000
+                interval: 6000
             });
 
             $('.carousel .carousel-item-new').each(function () {
@@ -65,6 +68,7 @@
             });
         });
     </script>
+</div>
 
     <h5 class="mt-2">Advances one slide at a time</h5>
 </b-container>
