@@ -12,16 +12,25 @@
 
                     @foreach (var item in Model)
                     {
-                        <div class="carousel-item @isActive">
+                        <div class="carousel-item carousel-item-new @isActive">
                             @{
                                 //<div class="col-md-4">
                                 //<b-col xl="@order.Np_Xl" lg="@order.Np_Lg" md="@order.Np_Md" sm="@order.Np_Sm" cols="@order.Np_Col" class="product-card-carousel h-100">
                                 //</b-col>
+                                
+                                //<div class="col-md-4">
+                                //    <partial name="_ProductBoxCarousel" model="item" />
+                                //</div>
                               }
+
                             <div class="col-md-4">
-                                <partial name="_ProductBoxCarousel" model="item" />
+                                
+                                    <b-link class="img-container" href="@Url.RouteUrl("Product", new { SeName = item.SeName })" title="@item.DefaultPictureModel.Title">
+                                        <b-card-img-lazy alt="@item.DefaultPictureModel.AlternateText" class="main-product-img" src="@item.DefaultPictureModel.ImageUrl" title="@item.DefaultPictureModel.Title"></b-card-img-lazy>
+                                    
+                                    </b-link>
+                                
                             </div>
-                            
                         </div>
                         isActive = "";
                     }
@@ -45,13 +54,13 @@
     <script asp-location="Footer">
 
         $(function () {
-            $('#recipeCarousel').carousel({
-                interval: 6000
-            });
-
+            //$('#recipeCarousel').carousel({
+            //    interval: 6000
+            //});
+            //debuging
             $('.carousel .carousel-item-new').each(function () {
                 var minPerSlide = 3;
-                //debugger
+                debugger
                 var next = $(this).next();
                 if (!next.length) {
                     next = $(this).siblings(':first');
@@ -68,7 +77,6 @@
             });
         });
     </script>
-</div>
 
     <h5 class="mt-2">Advances one slide at a time</h5>
 </b-container>

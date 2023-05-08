@@ -8,6 +8,9 @@ from urllib.request import urlretrieve
 from scanner.modeldb import Adresses, Venodr, Category, Picture, Manufacturer, UrlRecord, TierPrice, Product, SpecificationAttribute
 
 from datetime import datetime
+
+#from marshmallow import Schema, fields, post_load
+
 #
 _filteringAtribute = ["manufacturer", "vendor", "available"
                       ,"color", "model", "year"
@@ -164,18 +167,99 @@ def add_spec_to_product(db, p_main, prop_name, prop_val):
         sa = check_specificationattribute_by_name(db, prop_name)
         check_productspecificationattributeoption(db, p_main, sa, sao)
 
+
+class Option:
+    def __init__(self, id=None, parentId=None, name=None):
+        self.id = id
+        self.parentId = parentId
+        self.name = name
+        self.names = []
+        self.childs = []
+        self.parent = None
+
+class Options:
+    def __init__(self, specificationAttributeOptions:str):
+        self.alloptions = []
+        self.allchilds = []
+        self.alltrees = []
+        self.specificationAttributeOptions = specificationAttributeOptions
+        self._options()
+        self._trees(self.alltrees)
+
+    def find_childs(self, tree:Option) -> list[Option]:
+        
+        if len(tree.childs) > 0:
+            self._childs(tree.childs)
+        else:
+            self.allchilds.append(tree)
+
+        return self.allchilds
+    
+    def _childs(self, childs:list[Option]) -> None:
+        
+        if not childs:
+            return None
+         
+        for child in childs:
+            self._childs(child.childs)
+            self.allchilds.append(child)
+
+    def _options(self):
+        for so in self.specificationAttributeOptions:
+            option = Option(so.get('_id'), so.get('ParentSpecificationAttrOptionId'), so.get('Name')) 
+            self.alloptions.append(option)
+
+            if  option.parentId in (None, ''):
+                option.names.append(option.name)
+                self.alltrees.append(option)
+
+    def _trees(self, parents:list[Option]):
+        #economicalCars = [car for car in carsList if car.price <= 1000000]
+        for tree in parents:
+            childs = [child for child in self.alloptions if child.parentId == tree.id]
+            
+            if not childs:
+                return None
+            
+            for child in childs:
+                child.parent = tree
+                child.names = tree.names.copy()
+                child.names.append(child.name)
+                child.name = tree.name + ' ' + child.name
+
+            tree.childs = childs
+            self._trees(tree.childs)
+
 def chek_so_name(db, name, soname):
     sa = check_specificationattribute_by_name(db, soname)
     retSoName = ''
     seret = ''
-    for so in sa['SpecificationAttributeOptions']:
-        seson = get_sename(so.get('Name'), db)
-        sename = get_sename(name, db)
-        if sename.find(seson) >= 0:
-            if len(seson) > len(seret):
-                seret = seson
-                retSoName = so.get('Name')
+
+    specificationAttributeOptions = sa['SpecificationAttributeOptions']
+    trees = Options(specificationAttributeOptions)    
+    #trees = createTree(specificationAttributeOptions)
+
+    for tree in trees.alltrees:
+        for a in trees.find_childs(tree):
+            seson = get_sename(a.name, db)
+            sename = get_sename(name, db)
+            if sename.find(seson) >= 0:
+                if len(seson) > len(seret):
+                    seret = seson
+                    retSoName = a.name if len(a.names) < 2 else a.names 
+        
+    
+    # for so in specificationAttributeOptions:
+    #     seson = get_sename(so.get('Name').replace(' ',''), db)
+    #     sename = get_sename(name, db)
+    #     if sename.find(seson) >= 0:
+    #         if len(seson) > len(seret):
+    #             seret = seson
+    #             retSoName = so.get('Name')
     return retSoName
+
+def sorted_sa(f):
+    return f['ParentSpecificationAttrOptionId']
 
 def check_vendor(db, vendorName):
     collaction = db.Vendor

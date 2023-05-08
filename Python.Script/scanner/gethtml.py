@@ -11,13 +11,17 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 import json
 
-def get_html(url) -> None:
+def driver_init():
+    s = Service(ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=s)
+    return driver
+
+def get_html(driver, url) -> None:
 
     paswd = "/chromedriver"
 
     #s = Service(paswd)
-    s = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=s)
+
 
     #driver = webdriver.Chrome(
     #    executable_path=paswd
@@ -35,6 +39,7 @@ def get_html(url) -> None:
             thtml_file.close()
     
     if html_text is None:
+
         driver.maximize_window()
         driver.get(url)
         time.sleep(3)
@@ -49,19 +54,19 @@ def get_html(url) -> None:
         a=1
     except Exception as _ex:
         print(_ex)
-
-    finally:
-        driver.close()
-        driver.quit()
-    
+ 
     return soup
+
+def close_driver(driver):
+    driver.close()
+    driver.quit()
 
 def get_file_name(url) -> str:
     CURR_DIR = os.getcwd()
     if CURR_DIR.find("Python.Script") < 0 :
-        CURR_DIR = '{0}\\Python.Script\\html'.format(CURR_DIR)
+        CURR_DIR = '{0}\\Python.Script'.format(CURR_DIR)
 
-    return '{0}\\{1}.html'.format(CURR_DIR,get_sename(url))
+    return '{0}\\html\\{1}.html'.format(CURR_DIR,get_sename(url))
 
 
 def get_sename(sename):

@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 from scanner import dbservice, scanservice
-from scanner.gethtml import get_html
+from scanner.gethtml import get_html, driver_init, close_driver
 from scanner.dbservice import DataScraps, dict2obj
 from pymongo import MongoClient
 import json
 import copy
-
+import unicodedata
 #from munch import DefaultMunch
 
 # 86
@@ -23,7 +23,7 @@ OUT_FILE_CATALOG = '/photo/'
 #FTM = 'https://www.amazon.es/s?k=apple&i=computers&page={page}&crid=32CAS3PB7DQ6I&qid=1678216929&sprefix=ap%2Ccomputers%2C181&ref=sr_pg_{page}'
 
 FTM = {
-    'category': 'Portátiles',
+    'category': 'MacBook',
     'url': 'https://www.amazon.es/s?i=computers&bbn=938008031&rh=n%3A938008031%2Cp_n_feature_twenty-two_browse-bin%3A27387615031%2Cp_89%3AApple&dc&page={page}&qid=1681645819&rnid=1692911031&ref=sr_pg_{page}'
 }
 
@@ -32,7 +32,7 @@ client = MongoClient(DBCONNECT['NAMEMACHINE'], DBCONNECT['PORTDB'])
 db = client[DBCONNECT['NAMEDB']]
 
 def pars_new_card_into_db():
-        
+    #dbservice.chek_so_name(db, 'name', 'model')  
     jsonfilename = '{0}_{1}_{2}.json'.format(OUT_FILENAME, PAGES_START, (PAGES_START + PAGES_COUNT))
     jsonUrlFileName = 'URL_{0}_{1}_{2}.json'.format(OUT_FILENAME, PAGES_START, (PAGES_START + PAGES_COUNT))
     data = scanservice.getDataFromJsonFile(jsonfilename)
@@ -68,7 +68,8 @@ def crawl_products(pages_count):
     :return:                список URL товаров.
     """
     urls = []
-    
+    driver = driver_init()
+
     for page_n in range(PAGES_START, PAGES_START + pages_count):
         print('page: {0}'.format(page_n))
 
@@ -103,7 +104,7 @@ def crawl_products(pages_count):
 
                 print(url)
                 urls.append(url)
-
+    close_driver(driver)
     return urls
 
 def check_property(techs, text):
@@ -122,18 +123,20 @@ def parse_products(urls) -> list[DataScraps]:
     """
     seleniumScrapUrl = []
     data = []
-
+    driver = driver_init()
     for number, url in enumerate(urls, start=1):
         print('#{num}, product: {url}'.format(num=number, url=url))
 
         scrapsData = DataScraps(vendor=VENDOR)
         #soup = scanservice.get_soup(url)
-        soup = get_html(url)
+        soup = get_html(driver, url)
         if url.find('/ref='):
             scrapsData.url = url[0:url.find('/ref=')].strip()
         
         scrapsData.sku = scrapsData.url[scrapsData.url.rfind('/')+1:]
-        
+        #if scrapsData.sku == 'B0B3CPX356':
+        #    breakpoint()
+
         if soup is None:
             seleniumScrapUrl.append(url)
             break
@@ -145,7 +148,9 @@ def parse_products(urls) -> list[DataScraps]:
                 seleniumScrapUrl.append(url)
                 continue
             
-            scrapsData.name = name.get_text(strip=True)
+            name = unicodedata.normalize('NFKD', name.get_text(strip=True))
+
+            scrapsData.name = name
             # brand
             scrapsData.manufacturer = 'Apple'
 
@@ -160,6 +165,11 @@ def parse_products(urls) -> list[DataScraps]:
                 techs[nameoption] = valueoption
 
             scrapsData.display = check_property(techs, 'Tamaño de pantalla')
+            
+            if len(scrapsData.display) > 0:
+                if scrapsData.display.find('Pulgadas') < 0:
+                    scrapsData.display = '{0} Pulgadas'.format(scrapsData.display)
+
             scrapsData.hdd = check_property(techs, 'Tamaño del disco duro')
             scrapsData.memory = check_property(techs, 'Tamaño de memoria RAM instalada')
             scrapsData.color = check_property(techs, 'Color')
@@ -272,8 +282,9 @@ def parse_products(urls) -> list[DataScraps]:
 
             scrapsData.available = 'Vendido'
             av = soup.find('span', class_='a-size-medium a-color-success')
+
             if not av is None:
-                scrapsData.available = av.get_text(strip=True)
+                scrapsData.available = av.get_text(strip=True).replace('.','')
 
             if price.isdigit() and float(price) > 0 and scrapsData.available == 'En stock':
                 scrapsData.available = 'En stock'
@@ -284,7 +295,8 @@ def parse_products(urls) -> list[DataScraps]:
         except ImportError:
             seleniumScrapUrl.append(url)
             continue
-
+    
+    close_driver(driver)
     print(seleniumScrapUrl)
     return data
 
@@ -326,19 +338,24 @@ def pars_name(db, dataScraps: DataScraps) -> DataScraps:
     if len(display) > 0:
         dataScraps.display = display
 
-    memory = dbservice.chek_so_name(db, name, 'memory')
+    memory = dbservice.chek_so_name(db, name.replace(' ',''), 'memory')
     if len(memory) > 0:
         dataScraps.memory = memory
 
-    hdd = dbservice.chek_so_name(db, name, 'hdd')
+    hdd = dbservice.chek_so_name(db, name.replace(' ',''), 'hdd')
     if len(hdd) > 0:
-        dataScraps.memory = hdd
+        dataScraps.hdd = hdd
 
     color = dbservice.chek_so_name(db, name, 'color')
     if len(color) > 0:
         dataScraps.color = color
 
-    dataScraps.model = find_model(name)
+    #if dataScraps.sku == 'B09JRFPFW9':
+    #    breakpoint()
+
+    #dataScraps.model = find_model(s=name, retModels=[])
+
+    dataScraps.model = dbservice.chek_so_name(db, name, 'model')
 
     return dataScraps
 
@@ -352,7 +369,7 @@ def find_model(s:str, retModels:list[str] = [])->list[str]:
             model = dbservice.chek_so_name(db, n, 'model')
             if len(model) > 0:
                 retModels.append(model)
-                find_model(s)
+                find_model(s=s, retModels = retModels)
             if len(retModels) > 0:
                 break
     

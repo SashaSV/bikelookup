@@ -14,7 +14,7 @@ def get_soup(url, **kwargs):
     if response.status_code == 200:
         soup = BeautifulSoup(response.text, features='html.parser')
     else:
-        soup = get_html(url)
+        soup = get_html(url=url)
         #soup = None
     return soup
 
