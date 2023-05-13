@@ -18,10 +18,12 @@ using Grand.Web.Areas.Admin.Interfaces;
 using Grand.Web.Areas.Admin.Models.Catalog;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Grand.Web.Areas.Admin.Controllers
 {
@@ -34,6 +36,7 @@ namespace Grand.Web.Areas.Admin.Controllers
         private readonly ICategoryViewModelService _categoryViewModelService;
         private readonly ICustomerService _customerService;
         private readonly ILanguageService _languageService;
+        private readonly ISpecificationAttributeService _specificationAttributeService;
         private readonly ILocalizationService _localizationService;
         private readonly IStoreService _storeService;
         private readonly IExportManager _exportManager;
@@ -53,7 +56,8 @@ namespace Grand.Web.Areas.Admin.Controllers
             IStoreService storeService,
             IExportManager exportManager,
             IWorkContext workContext,
-            IImportManager importManager)
+            IImportManager importManager,
+            ISpecificationAttributeService specificationAttributeService)
         {
             _categoryService = categoryService;
             _categoryViewModelService = categoryViewModelService;
@@ -64,6 +68,7 @@ namespace Grand.Web.Areas.Admin.Controllers
             _exportManager = exportManager;
             _workContext = workContext;
             _importManager = importManager;
+            _specificationAttributeService = specificationAttributeService;
         }
 
         #endregion
@@ -199,6 +204,18 @@ namespace Grand.Web.Areas.Admin.Controllers
             await model.PrepareACLModel(category, false, _customerService);
             //Stores
             await model.PrepareStoresMappingModel(category, _storeService, false, _workContext.CurrentCustomer.StaffStoreId);
+            
+            //specification attributes
+            var availableSpecificationAttributes = new List<SelectListItem>();
+            foreach (var sa in await _specificationAttributeService.GetSpecificationAttributes())
+            {
+                availableSpecificationAttributes.Add(new SelectListItem {
+                    Text = sa.Name,
+                    Value = sa.Id.ToString()
+                });
+            }
+            
+            model.AddSpecificationAttributeModel.AvailableAttributes = availableSpecificationAttributes;
 
             return View(model);
         }
@@ -272,6 +289,79 @@ namespace Grand.Web.Areas.Admin.Controllers
             return RedirectToAction("List");
         }
 
+
+        [PermissionAuthorizeAction(PermissionActionName.Edit)]
+        public async Task<IActionResult> CategorySpecificationAttributeAdd(AddCategorySpecificationAttributeModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var category = await _categoryService.GetCategoryById(model.CategoryId);
+                if (category == null)
+                    return Content("Category not exists");
+
+                await _categoryViewModelService.InsertCategorySpecificationAttributeModel(model, category);
+
+                return Json(new { Result = true });
+            }
+            return Json(new { Result = false });
+        }
+        
+        [PermissionAuthorizeAction(PermissionActionName.Preview)]
+        [HttpPost]
+        public async Task<IActionResult> CategorySpecAttrList(DataSourceRequest command, string categoryId)
+        {
+            var category = await _categoryService.GetCategoryById(categoryId);
+            if (category == null)
+                //No vendor found with the specified id
+                return RedirectToAction("List");
+          
+            var categorySpecsModel = await _categoryViewModelService.PrepareCategorySpecificationAttributeModel(category);
+            var gridModel = new DataSourceResult {
+                Data = categorySpecsModel,
+                Total = categorySpecsModel.Count
+            };
+            return Json(gridModel);
+        }
+        
+        [PermissionAuthorizeAction(PermissionActionName.Edit)]
+        [HttpPost]
+        public async Task<IActionResult> CategorySpecAttrUpdate(CategorySpecificationAttributeModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var category = await _categoryService.GetCategoryById(model.ProductId);
+                if (category == null)
+                    return Content("Product not exists");
+
+                var psa = category.CategorySpecificationAttributes.Where(x => x.SpecificationAttributeId == model.ProductSpecificationId).Where(x => x.Id == model.Id).FirstOrDefault();
+                if (psa == null)
+                    return Content("No product specification attribute found with the specified id");
+
+                await _categoryViewModelService.UpdateCategorySpecificationAttributeModel(category, psa, model);
+                return new NullJsonResult();
+            }
+            return ErrorForKendoGridJson(ModelState);
+        }
+
+        [PermissionAuthorizeAction(PermissionActionName.Edit)]
+        [HttpPost]
+        public async Task<IActionResult> CategorySpecAttrDelete(CategorySpecificationAttributeModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var category = await _categoryService.GetCategoryById(model.ProductId);
+                if (category == null)
+                    return Content("Product not exists");
+
+                var psa = category.CategorySpecificationAttributes.Where(x => x.Id == model.Id && x.SpecificationAttributeId == model.ProductSpecificationId).FirstOrDefault();
+                if (psa == null)
+                    throw new ArgumentException("No specification attribute found with the specified id");
+
+                await _categoryViewModelService.DeleteCategorytSpecificationAttribute(category, psa);
+                return new NullJsonResult();
+            }
+            return ErrorForKendoGridJson(ModelState);
+        }
 
         #endregion
 

@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Grand.Core;
 
 namespace Grand.Web.Areas.Admin.Services
 {
@@ -42,6 +43,8 @@ namespace Grand.Web.Areas.Admin.Services
         private readonly CatalogSettings _catalogSettings;
         private readonly SeoSettings _seoSettings;
 
+        private readonly ISpecificationAttributeService _specificationAttributeService;
+        private readonly IWorkContext _workContext;
         public CategoryViewModelService(ICategoryService categoryService, ICategoryTemplateService categoryTemplateService, IDiscountService discountService,
             ILocalizationService localizationService, IStoreService storeService, ICustomerService customerService, IPictureService pictureService,
             IUrlRecordService urlRecordService, ICustomerActivityService customerActivityService, IProductService productService, IManufacturerService manufacturerService,
@@ -426,6 +429,102 @@ namespace Grand.Web.Areas.Admin.Services
         {
             var products = await _productService.PrepareProductList(model.SearchCategoryId, model.SearchManufacturerId, model.SearchStoreId, model.SearchVendorId, model.SearchProductTypeId, model.SearchProductName, pageIndex, pageSize);
             return (products.Select(x => x.ToModel(_dateTimeHelper)).ToList(), products.TotalCount);
+        }
+
+
+       public async Task<IList<CategorySpecificationAttributeModel>> PrepareCategorySpecificationAttributeModel(Category product)
+        {
+             var items = new List<CategorySpecificationAttributeModel>();
+            foreach (var x in product.CategorySpecificationAttributes.OrderBy(x => x.DisplayOrder))
+            {
+                var specificationAttribute = await _specificationAttributeService.GetSpecificationAttributeById(x.SpecificationAttributeId);
+                var psaModel = new CategorySpecificationAttributeModel {
+                    Id = x.Id,
+                    AttributeTypeId = (int)x.AttributeType,
+                    ProductSpecificationId = specificationAttribute.Id,
+                    AttributeId = x.SpecificationAttributeId,
+                    ProductId = product.Id,
+                    AttributeTypeName = x.AttributeType.GetLocalizedEnum(_localizationService, _workContext),
+                    AttributeName = specificationAttribute.Name,
+                    AllowFiltering = x.AllowFiltering,
+                    ShowOnProductPage = x.ShowOnProductPage,
+                    DisplayOrder = x.DisplayOrder,
+                    DetailsUrl = x.DetailsUrl
+                    
+                };
+                switch (x.AttributeType)
+                {
+                    case SpecificationAttributeType.Option:
+                        psaModel.ValueRaw = System.Net.WebUtility.HtmlEncode(specificationAttribute.SpecificationAttributeOptions.Where(y => y.Id == x.SpecificationAttributeOptionId).FirstOrDefault()?.Name);
+                        psaModel.SpecificationAttributeOptionId = x.SpecificationAttributeOptionId;
+                        break;
+                    case SpecificationAttributeType.CustomText:
+                        psaModel.ValueRaw = System.Net.WebUtility.HtmlEncode(x.CustomValue);
+                        break;
+                    case SpecificationAttributeType.CustomHtmlText:
+                        //do not encode?
+                        psaModel.ValueRaw = System.Net.WebUtility.HtmlEncode(x.CustomValue);
+                        break;
+                    case SpecificationAttributeType.Hyperlink:
+                        psaModel.ValueRaw = x.CustomValue;
+                        break;
+                    default:
+                        break;
+                }
+                items.Add(psaModel);
+            }
+            return items;
+        }
+
+        public async Task InsertCategorySpecificationAttributeModel(AddCategorySpecificationAttributeModel model, Category category)
+        {
+            //we allow filtering only for "Option" attribute type
+            if (model.AttributeTypeId != (int)SpecificationAttributeType.Option)
+            {
+                model.AllowFiltering = false;
+                model.SpecificationAttributeOptionId = null;
+            }
+
+            var psa = new CategorySpecificationAttribute {
+                AttributeTypeId = model.AttributeTypeId,
+                SpecificationAttributeOptionId = model.SpecificationAttributeOptionId,
+                SpecificationAttributeId = model.SpecificationAttributeId,
+                CategoryId = category.Id,
+                CustomValue = model.CustomValue,
+                AllowFiltering = model.AllowFiltering,
+                ShowOnProductPage = model.ShowOnProductPage,
+                DisplayOrder = model.DisplayOrder,
+                DetailsUrl = model.DetailsUrl
+            };
+
+            await _specificationAttributeService.InsertCategorySpecificationAttribute(psa);
+            category.CategorySpecificationAttributes.Add(psa);
+        }
+
+        public async Task UpdateCategorySpecificationAttributeModel(Category category, CategorySpecificationAttribute psa,
+            CategorySpecificationAttributeModel model)
+        {
+            if (model.AttributeTypeId == (int)SpecificationAttributeType.Option)
+            {
+                psa.AllowFiltering = model.AllowFiltering;
+                psa.SpecificationAttributeOptionId = model.SpecificationAttributeOptionId;
+            }
+            else
+            {
+                psa.CustomValue = model.ValueRaw;
+            }
+            psa.ShowOnProductPage = model.ShowOnProductPage;
+            psa.DisplayOrder = model.DisplayOrder;
+            psa.DetailsUrl = model.DetailsUrl;
+            psa.CategoryId = model.Id;
+            await _specificationAttributeService.UpdateCategorySpecificationAttribute(psa);
+        }
+
+        public async Task DeleteCategorytSpecificationAttribute(Category category, CategorySpecificationAttribute vsa)
+        {
+            vsa.CategoryId = category.Id;
+            category.CategorySpecificationAttributes.Remove(vsa);
+            await _specificationAttributeService.DeleteCategorySpecificationAttribute(vsa);
         }
     }
 }

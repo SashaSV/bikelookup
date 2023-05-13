@@ -13,13 +13,16 @@ namespace Grand.Domain.Catalog
     public partial class Category : BaseEntity, ISlugSupported, IAclSupported, ILocalizedEntity, IStoreMappingSupported, ITreeNode
     {
         private ICollection<string> _appliedDiscounts;
+        private ICollection<CategorySpecificationAttribute> _productSpecificationAttributes;
 
         public Category()
         {
             CustomerRoles = new List<string>();
             Stores = new List<string>();
             Locales = new List<LocalizedProperty>();
+             _productSpecificationAttributes = new List<CategorySpecificationAttribute>();
         }
+
         /// <summary>
         /// Gets or sets the name
         /// </summary>
@@ -133,6 +136,17 @@ namespace Grand.Domain.Catalog
         /// </summary>
         public bool Published { get; set; }
 
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the entity is active
+        /// </summary>
+        public bool Active { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the entity has been deleted
+        /// </summary>
+        public bool Deleted { get; set; }
+        
         /// <summary>
         /// Gets or sets the display order
         /// </summary>
@@ -185,6 +199,15 @@ namespace Grand.Domain.Catalog
         {
             get { return _appliedDiscounts ?? (_appliedDiscounts = new List<string>()); }
             protected set { _appliedDiscounts = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the product specification attribute
+        /// </summary>
+        public virtual ICollection<CategorySpecificationAttribute> CategorySpecificationAttributes
+        {
+            get { return _productSpecificationAttributes ?? (_productSpecificationAttributes = new List<CategorySpecificationAttribute>()); }
+            protected set { _productSpecificationAttributes = value; }
         }
     }
 }

@@ -3,6 +3,7 @@ using Grand.Domain.Directory;
 using Grand.Domain.Localization;
 using Grand.Domain.Tax;
 using Grand.Domain.Vendors;
+using Grand.Domain.Catalog;
 using System.Threading.Tasks;
 
 namespace Grand.Core
@@ -37,6 +38,15 @@ namespace Grand.Core
         /// Set the current vendor (logged-in manager)
         /// </summary>
         Task<Vendor> SetCurrentVendor(Customer customer);
+
+        /// <summary>
+        /// Gets the current vendor (logged-in manager)
+        /// </summary>
+        // Category CurrentCategory { get; }
+        // /// <summary>
+        // /// Set the current vendor (logged-in manager)
+        // /// </summary>
+        // Task<Category> SetCurrentCategory(Customer customer);
 
         /// <summary>
         /// Get or set current user working language

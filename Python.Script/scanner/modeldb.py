@@ -99,6 +99,7 @@ class Category:
     CreatedOnUtc: str=datetime.now()
     UpdatedOnUtc: str=datetime.now()
     AppliedDiscounts=[]
+    CategorySpecificationAttributes= []
     Locales= []
 
     def __post_init__(self):

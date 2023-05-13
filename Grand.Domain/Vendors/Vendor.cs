@@ -160,14 +160,14 @@ namespace Grand.Domain.Vendors
             protected set { _appliedDiscounts = value; }
         }
         
-          /// <summary>
-          /// Gets or sets the product specification attribute
-          /// </summary>
-          public virtual ICollection<VendorSpecificationAttribute> VendorSpecificationAttributes
-          {
-               get { return _productSpecificationAttributes ?? (_productSpecificationAttributes = new List<VendorSpecificationAttribute>()); }
-               protected set { _productSpecificationAttributes = value; }
-          }
+        /// <summary>
+        /// Gets or sets the product specification attribute
+        /// </summary>
+        public virtual ICollection<VendorSpecificationAttribute> VendorSpecificationAttributes
+        {
+            get { return _productSpecificationAttributes ?? (_productSpecificationAttributes = new List<VendorSpecificationAttribute>()); }
+            protected set { _productSpecificationAttributes = value; }
+        }
 
     }
 }

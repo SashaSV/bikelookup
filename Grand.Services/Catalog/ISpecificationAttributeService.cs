@@ -201,5 +201,11 @@ namespace Grand.Services.Catalog
         Task UpdateVendorSpecificationAttribute(VendorSpecificationAttribute productSpecificationAttribute);
 
         Task InsertVendorSpecificationAttribute(VendorSpecificationAttribute productSpecificationAttribute);
+
+        Task DeleteCategorySpecificationAttribute(CategorySpecificationAttribute categorySpecificationAttribute);
+        
+        Task UpdateCategorySpecificationAttribute(CategorySpecificationAttribute categorySpecificationAttribute);
+
+        Task InsertCategorySpecificationAttribute(CategorySpecificationAttribute categorySpecificationAttribute);
     }
 }

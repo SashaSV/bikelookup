@@ -85,6 +85,11 @@ namespace Grand.Domain.Customers
         public string VendorId { get; set; }
 
         /// <summary>
+        /// Gets or sets the vendor identifier with which this customer is associated (manager)
+        /// </summary>
+        public string CategoryId { get; set; }
+
+        /// <summary>
         /// Gets or sets the store identifier 
         /// </summary>
         public string StoreId { get; set; }

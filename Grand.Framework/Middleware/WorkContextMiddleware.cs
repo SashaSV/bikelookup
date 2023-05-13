@@ -45,6 +45,7 @@ namespace Grand.Framework.Middleware
             //set current customer
             var customer = await workContext.SetCurrentCustomer();
             var vendor = await workContext.SetCurrentVendor(customer);
+            //var category = await workContext.SetCurrentCategory(customer);
             var language = await workContext.SetWorkingLanguage(customer);
             var currency = await workContext.SetWorkingCurrency(customer);
             var taxtype = await workContext.SetTaxDisplayType(customer);

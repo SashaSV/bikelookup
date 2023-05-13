@@ -23,6 +23,7 @@ namespace Grand.Web.Areas.Admin.Models.Catalog
             AvailableCategoryTemplates = new List<SelectListItem>();
             AvailableCategories = new List<SelectListItem>();
             AvailableSortOptions = new List<SelectListItem>();
+            AddSpecificationAttributeModel = new AddCategorySpecificationAttributeModel();
         }
 
         [GrandResourceDisplayName("Admin.Catalog.Categories.Fields.Name")]
@@ -142,7 +143,7 @@ namespace Grand.Web.Areas.Admin.Models.Catalog
         public List<DiscountModel> AvailableDiscounts { get; set; }
         public string[] SelectedDiscountIds { get; set; }
 
-
+        public AddCategorySpecificationAttributeModel AddSpecificationAttributeModel { get; set; }
         #region Nested classes
         public partial class CategoryProductModel : BaseEntityModel
         {
@@ -211,7 +212,42 @@ namespace Grand.Web.Areas.Admin.Models.Catalog
 
         #endregion
     }
+    public partial class AddCategorySpecificationAttributeModel : BaseModel
+    {
+        public AddCategorySpecificationAttributeModel()
+        {
+            AvailableAttributes = new List<SelectListItem>();
+            AvailableOptions = new List<SelectListItem>();
+        }
 
+        [GrandResourceDisplayName("Admin.Catalog.Products.SpecificationAttributes.Fields.SpecificationAttribute")]
+        public string SpecificationAttributeId { get; set; }
+
+        [GrandResourceDisplayName("Admin.Catalog.Products.SpecificationAttributes.Fields.Url")]
+        public string DetailsUrl { get; set; }
+
+        [GrandResourceDisplayName("Admin.Catalog.Products.SpecificationAttributes.Fields.AttributeType")]
+        public int AttributeTypeId { get; set; }
+
+        [GrandResourceDisplayName("Admin.Catalog.Products.SpecificationAttributes.Fields.SpecificationAttributeOption")]
+        public string SpecificationAttributeOptionId { get; set; }
+
+        [GrandResourceDisplayName("Admin.Catalog.Products.SpecificationAttributes.Fields.CustomValue")]
+        public string CustomValue { get; set; }
+
+        [GrandResourceDisplayName("Admin.Catalog.Products.SpecificationAttributes.Fields.AllowFiltering")]
+        public bool AllowFiltering { get; set; }
+
+        [GrandResourceDisplayName("Admin.Catalog.Products.SpecificationAttributes.Fields.ShowOnProductPage")]
+        public bool ShowOnProductPage { get; set; }
+
+        [GrandResourceDisplayName("Admin.Catalog.Products.SpecificationAttributes.Fields.DisplayOrder")]
+        public int DisplayOrder { get; set; }
+
+        public string CategoryId { get; set; }
+        public IList<SelectListItem> AvailableAttributes { get; set; }
+        public IList<SelectListItem> AvailableOptions { get; set; }
+    }
     public partial class CategoryLocalizedModel : ILocalizedModelLocal, ISlugModelLocal
     {
         public string LanguageId { get; set; }

@@ -23,28 +23,35 @@
                 </div>
             </content>
         </tabstrip-item>
-        <tabstrip-item text="@T("Admin.Catalog.Categories.Products")" tab-index="2">
+        <tabstrip-item text="@T("Admin.Catalog.Categories.SpecificationAttributes")" tab-index="2">
+            <content>
+                <div>
+                    <partial name="_CreateOrUpdate.TabSpecificationAttributes" model="Model" />
+                </div>
+            </content>
+        </tabstrip-item> 
+        <tabstrip-item text="@T("Admin.Catalog.Categories.Products")" tab-index="3">
             <content>
                 <div>
                     <partial name="_CreateOrUpdate.TabProducts" model="Model" />
                 </div>
             </content>
         </tabstrip-item>
-        <tabstrip-item text="@T("Admin.Catalog.Categories.Discounts")" tab-index="3">
+        <tabstrip-item text="@T("Admin.Catalog.Categories.Discounts")" tab-index="4">
             <content>
                 <div>
                     <partial name="_CreateOrUpdate.TabDiscounts" model="Model" />
                 </div>
             </content>
         </tabstrip-item>
-        <tabstrip-item text="@T("Admin.Catalog.Categories.Acl")" tab-index="4">
+        <tabstrip-item text="@T("Admin.Catalog.Categories.Acl")" tab-index="5">
             <content>
                 <div>
                     <partial name="_TabAcl" model="Model" />
                 </div>
             </content>
         </tabstrip-item>
-        <tabstrip-item text="@T("Admin.Catalog.Categories.Stores")" tab-index="5">
+        <tabstrip-item text="@T("Admin.Catalog.Categories.Stores")" tab-index="6">
             <content>
                 <div>
                     <partial name="_TabStores" model="Model" />
@@ -53,7 +60,7 @@
         </tabstrip-item>
         @if (canManageDocuments)
         {
-            <tabstrip-item text="@T("Admin.Catalog.Categories.Documents")" tab-index="6">
+            <tabstrip-item text="@T("Admin.Catalog.Categories.Documents")" tab-index="7">
                 <content>
                     <div>
                         <partial name="_CreateOrUpdate.TabDocuments" model="Model" />
@@ -61,7 +68,7 @@
                 </content>
             </tabstrip-item>
         }
-        <tabstrip-item text="@T("Admin.Common.GenericAttributes.Tab")" tab-index="7">
+        <tabstrip-item text="@T("Admin.Common.GenericAttributes.Tab")" tab-index="8">
             <content>
                 <div>
                     @{
@@ -72,7 +79,7 @@
                 </div>
             </content>
         </tabstrip-item>
-        <tabstrip-item text="@T("Admin.Catalog.Categories.ActivityLog")" tab-index="8">
+        <tabstrip-item text="@T("Admin.Catalog.Categories.ActivityLog")" tab-index="9">
             <content>
                 <div>
                     <partial name="_CreateOrUpdate.TabActivityLog" model="Model" />

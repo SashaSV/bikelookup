@@ -22,5 +22,12 @@ namespace Grand.Web.Areas.Admin.Interfaces
         Task InsertCategoryProductModel(CategoryModel.AddCategoryProductModel model);
         Task<(IEnumerable<CategoryModel.ActivityLogModel> activityLogModel, int totalCount)> PrepareActivityLogModel(string categoryId, int pageIndex, int pageSize);
         Task<(IList<ProductModel> products, int totalCount)> PrepareProductModel(CategoryModel.AddCategoryProductModel model, int pageIndex, int pageSize);
+
+        //Product specification
+        Task<IList<CategorySpecificationAttributeModel>> PrepareCategorySpecificationAttributeModel(Category category);
+        Task InsertCategorySpecificationAttributeModel(AddCategorySpecificationAttributeModel model, Category category);
+        Task UpdateCategorySpecificationAttributeModel(Category category, CategorySpecificationAttribute psa, CategorySpecificationAttributeModel model);
+        Task DeleteCategorytSpecificationAttribute(Category category, CategorySpecificationAttribute psa);
+
     }
 }

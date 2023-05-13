@@ -5,6 +5,7 @@ using Grand.Domain.Directory;
 using Grand.Domain.Localization;
 using Grand.Domain.Tax;
 using Grand.Domain.Vendors;
+using Grand.Domain.Catalog;
 using Grand.Services.Authentication;
 using Grand.Services.Common;
 using Grand.Services.Customers;
@@ -12,6 +13,7 @@ using Grand.Services.Directory;
 using Grand.Services.Localization;
 using Grand.Services.Stores;
 using Grand.Services.Vendors;
+using Grand.Services.Catalog;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
@@ -40,7 +42,7 @@ namespace Grand.Framework
         private readonly IStoreContext _storeContext;
         private readonly IStoreMappingService _storeMappingService;
         private readonly IVendorService _vendorService;
-
+        // private readonly ICategoryService _categoryService;
         private readonly LocalizationSettings _localizationSettings;
         private readonly TaxSettings _taxSettings;
         private readonly GrandConfig _config;
@@ -48,6 +50,7 @@ namespace Grand.Framework
         private Customer _cachedCustomer;
         private Customer _originalCustomerIfImpersonated;
         private Vendor _cachedVendor;
+        private Category _cachedCategory;
         private Language _cachedLanguage;
         private Currency _cachedCurrency;
         private TaxDisplayType _cachedTaxDisplayType;
@@ -66,6 +69,7 @@ namespace Grand.Framework
             IStoreContext storeContext,
             IStoreMappingService storeMappingService,
             IVendorService vendorService,
+            // ICategoryService categoryService,
             LocalizationSettings localizationSettings,
             TaxSettings taxSettings,
             GrandConfig config)
@@ -80,6 +84,7 @@ namespace Grand.Framework
             _storeContext = storeContext;
             _storeMappingService = storeMappingService;
             _vendorService = vendorService;
+            // _categoryService = categoryService;
             _localizationSettings = localizationSettings;
             _taxSettings = taxSettings;
             _config = config;
@@ -284,6 +289,32 @@ namespace Grand.Framework
             //cache the found vendor
             return _cachedVendor = vendor;
         }
+        
+        // /// <summary>
+        // /// Gets the current vendor (logged-in manager)
+        // /// </summary>
+        // public virtual Category CurrentCategory => _cachedCategory;
+        // /// <summary>
+        // /// Set the current vendor (logged-in manager)
+        // /// </summary>
+        // public virtual async Task<Category> SetCurrentCategory(Customer customer)
+        // {
+        //     if (customer == null)
+        //         return await Task.FromResult<Category>(null);
+
+        //     if (string.IsNullOrEmpty(customer.CategoryId))
+        //         return await Task.FromResult<Category>(null);
+
+        //     //try to get vendor
+        //     var category = await _categoryService.GetCategoryById(customer.CategoryId);
+
+        //     //check vendor availability
+        //     if (category == null || category.Deleted || !category.Active)
+        //         return await Task.FromResult<Category>(null);
+
+        //     //cache the found vendor
+        //     return _cachedCategory = category;
+        // }
 
         /// <summary>
         /// Gets or sets current user working language
