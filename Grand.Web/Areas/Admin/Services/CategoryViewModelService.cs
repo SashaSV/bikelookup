@@ -48,7 +48,8 @@ namespace Grand.Web.Areas.Admin.Services
         public CategoryViewModelService(ICategoryService categoryService, ICategoryTemplateService categoryTemplateService, IDiscountService discountService,
             ILocalizationService localizationService, IStoreService storeService, ICustomerService customerService, IPictureService pictureService,
             IUrlRecordService urlRecordService, ICustomerActivityService customerActivityService, IProductService productService, IManufacturerService manufacturerService,
-            IVendorService vendorService, IDateTimeHelper dateTimeHelper, ILanguageService languageService, CatalogSettings catalogSettings, SeoSettings seoSettings)
+            IVendorService vendorService, IDateTimeHelper dateTimeHelper, ILanguageService languageService, CatalogSettings catalogSettings, SeoSettings seoSettings,
+            ISpecificationAttributeService specificationAttributeService, IWorkContext workContext)
         {
             _categoryService = categoryService;
             _categoryTemplateService = categoryTemplateService;
@@ -66,6 +67,8 @@ namespace Grand.Web.Areas.Admin.Services
             _catalogSettings = catalogSettings;
             _dateTimeHelper = dateTimeHelper;
             _seoSettings = seoSettings;
+            _specificationAttributeService = specificationAttributeService;
+            _workContext = workContext;
         }
 
         protected virtual async Task PrepareAllCategoriesModel(CategoryModel model, string storeId)
