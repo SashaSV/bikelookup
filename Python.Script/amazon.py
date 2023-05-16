@@ -289,7 +289,8 @@ def parse_products(urls) -> list[DataScraps]:
             if price.isdigit() and float(price) > 0 and scrapsData.available == 'En stock':
                 scrapsData.available = 'En stock'
 
-            scrapsData = pars_name(db,scrapsData)
+            #scrapsData = pars_name(db,scrapsData)
+            scrapsData.pars_name(db)
             data.append(scrapsData)
 
         except ImportError:

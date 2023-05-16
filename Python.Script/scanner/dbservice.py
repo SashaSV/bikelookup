@@ -16,6 +16,8 @@ _filteringAtribute = ["manufacturer", "vendor", "available"
                       ,"color", "model", "year"
                       ,"memory", "display", "cpu", "hdd"]
 
+from datetime import datetime
+
 @dataclass
 class DataScraps:
     url: str = ''
@@ -23,6 +25,7 @@ class DataScraps:
     sku: str = ''
     manufacturer: str = ''
     category: str = ''
+    subcategory: list[str] = None
     price: float = 0.0
     oldprice: float = 0.0
     vendor: str = ''
@@ -41,7 +44,60 @@ class DataScraps:
         self.techs = []
         self.images = []
         self.model = []
+        self.subcategory = []
 
+    def pars_name(self, db) -> None:
+        deletewords = []
+
+        name = self.name
+
+        for word in deletewords:
+            name = name.replace(word, '').strip()
+
+        for n in name.split(' '):
+            manufacturer = chek_so_name(db, n, 'manufacturer')
+            if len(manufacturer) > 0:
+                self.manufacturer = manufacturer
+                
+            year = chek_so_name(db, n, 'year')
+            
+            if len(year) == 0:
+                curyear = datetime.now().year+1
+                y = curyear
+
+                while y >= curyear - 15:
+                    if name.find(str(y)) > 0:
+                        year = str(y)
+                        
+                    y = y - 1
+
+            if len(year) > 0:
+                self.year = year
+            
+            cpu = chek_so_name(db, n, 'cpu')
+            if len(cpu) > 0:
+                self.cpu = cpu
+        
+        display = chek_so_name(db, name, 'display')
+        if len(display) > 0:
+            self.display = display
+
+        memory = chek_so_name(db, name.replace(' ',''), 'memory')
+        if len(memory) > 0:
+            self.memory = memory
+
+        hdd = chek_so_name(db, name.replace(' ',''), 'hdd')
+        if len(hdd) > 0:
+            self.hdd = hdd
+
+        color = chek_so_name(db, name, 'color')
+        if len(color) > 0:
+            self.color = color
+
+        self.model = chek_so_name(db, name, 'model')
+
+    def check_category(self, db) -> None:
+        aa = 0
 class DataScrapsEncoder(json.JSONEncoder):
     def default(self, obj):
             return obj.__dict__
@@ -166,7 +222,6 @@ def add_spec_to_product(db, p_main, prop_name, prop_val):
         sao = check_specificationattributeoption_by_name(db, prop_name, prop_val)
         sa = check_specificationattribute_by_name(db, prop_name)
         check_productspecificationattributeoption(db, p_main, sa, sao)
-
 
 class Option:
     def __init__(self, id=None, parentId=None, name=None):
