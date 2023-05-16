@@ -1,0 +1,46 @@
+from marshmallow import Schema, fields, post_load
+from modeldb import Category
+
+
+class CategorySchema(Schema):
+    _id = fields.Str()
+    GenericAttributes = fields.List(fields.Str())
+    Name = fields.Str()
+    SeName = fields.Str()
+    Description = fields.Str()
+    BottomDescription = fields.Str()
+    CategoryTemplateId = fields.Str()
+    MetaKeywords = fields.Str()
+    MetaDescription = fields.Str()
+    MetaTitle = fields.Str()
+    ParentCategoryId = fields.Str()
+    PictureId = fields.Str()
+    PageSize = fields.Int()
+    AllowCustomersToSelectPageSize = fields.Bool()
+    PageSizeOptions = fields.Str()
+    PriceRanges = fields.Decimal()
+    ShowOnHomePage = fields.Bool()
+    FeaturedProductsOnHomaPage = fields.Bool()
+    ShowOnSearchBox = fields.Bool()
+    SearchBoxDisplayOrder = fields.Int()
+    IncludeInTopMenu = fields.Bool()
+    SubjectToAcl = fields.Bool()
+    CustomerRoles = fields.List(fields.Str())
+    Stores = fields.List(fields.Str())
+    LimitedToStores = fields.Bool()
+    Published = fields.Bool()
+    DisplayOrder = fields.Int()
+    Flag = fields.Str()
+    FlagStyle = fields.Str()
+    Icon = fields.Str()
+    DefaultSort = fields.Int()
+    HideOnCatalog = fields.Bool()
+    CreatedOnUtc = fields.Str()
+    UpdatedOnUtc = fields.Str()
+    AppliedDiscounts = fields.List(fields.Str())
+    CategorySpecificationAttributes = fields.List(fields.Str())
+    Locales = fields.List(fields.Str())
+
+    @post_load
+    def make_category(self, data, **kwargs):
+        return Category(**data)

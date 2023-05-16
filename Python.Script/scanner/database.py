@@ -1,6 +1,7 @@
 import pymongo
 
-class Database:	
+class Database:
+	
 	@classmethod
 	def initialize(cls, dbconnect):
 		client = pymongo.MongoClient(dbconnect)
@@ -8,8 +9,8 @@ class Database:
 
 	@classmethod
 	def insert_to_db(cls, data):
-		cls.database.stores.insert_one(data)
+		cls.database.Category.insert_one(data)
 
 	@classmethod
 	def load_from_db(cls, query):
-		return cls.database.stores.find(query)
+		return cls.database.Category.find(query)

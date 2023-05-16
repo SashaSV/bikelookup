@@ -1,17 +1,12 @@
 from database import Database
-from schema import StoreSchema
+from storeschema import CategorySchema
+from modeldb import Category
 
-store_schema = StoreSchema()
+category_schema = CategorySchema()
 
-Database.initialize()
+Database.initialize("mongodb://localhost:27017/bldb")
 
-user_input = input("Enter a store dictionary: ")
-user_dict = json.loads(user_input)
-validated_dict = store_schema.load(user_dict)
+loaded_categorys = Database.load_from_db({})
 
-Database.save_to_db(validated_dict)
-
-loaded_objects = Database.load_from_db({"name": "Walmart"})
-
-for loaded_store in loaded_objects:
-    store = Store(**store_schema.load(loaded_store))
+for loaded_category in loaded_categorys:
+    category = Category(**category_schema.load(loaded_category))
