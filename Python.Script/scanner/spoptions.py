@@ -11,5 +11,6 @@ loaded_categorys = Database.load_from_db({})
 for loaded_category in loaded_categorys:
     #js = dump_to_json('testjson.json', loaded_category)
     category = Category(**category_schema.load(loaded_category))
+    
 
 

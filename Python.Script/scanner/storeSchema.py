@@ -102,8 +102,89 @@ class CategorySpecificationAttributeSchema(Schema):
 from datetime import datetime
 from datetime import timezone
 
-@dataclass
 class Category:
+     def __init__(self
+                , _id: str = None
+                , GenericAttributes=[]
+                , Name: str=None
+                , SeName: str=None
+                , Description: str=None
+                , BottomDescription: str=None
+                , CategoryTemplateId: str=None
+                , MetaKeywords=None
+                , MetaDescription: str=None
+                , MetaTitle: str=None
+                , ParentCategoryId: str=None
+                , PictureId: str=None
+                , PageSize: int=20
+                , AllowCustomersToSelectPageSize: bool=False
+                , PageSizeOptions: str="6 3 9"
+                , PriceRanges: float=None
+                , ShowOnHomePage: bool=False
+                , FeaturedProductsOnHomaPage: bool=False
+                , ShowOnSearchBox: bool=False
+                , SearchBoxDisplayOrder: int=0
+                , IncludeInTopMenu: bool=False
+                , SubjectToAcl: bool=False
+                , CustomerRoles=[]
+                , Stores= []
+                , LimitedToStores: bool=False
+                , Published: bool=True
+                , DisplayOrder: int=0
+                , Flag: str=None
+                , FlagStyle: str=None
+                , Icon: str=None
+                , Active: bool=False
+                , Deleted: bool=False
+                , DefaultSort: int=5
+                , HideOnCatalog: bool=False
+                , CreatedOnUtc: datetime = datetime.now(tz = timezone.utc)
+                , UpdatedOnUtc: datetime = datetime.now(tz = timezone.utc)
+                , AppliedDiscounts=[]
+                , CategorySpecificationAttributes= []
+                , Locales= []):
+        self._id = _id
+        self.GenericAttributes=GenericAttributes
+        self.Name = Name
+        self.SeName = SeName
+        self.Description = Description
+        self.BottomDescription = BottomDescription
+        self.CategoryTemplateId = CategoryTemplateId
+        self.MetaKeywords = MetaKeywords
+        self.MetaDescription = MetaDescription
+        self.MetaTitle = MetaTitle
+        self.ParentCategoryId = ParentCategoryId
+        self.PictureId = PictureId
+        self.PageSize = PageSize
+        self.AllowCustomersToSelectPageSize = AllowCustomersToSelectPageSize
+        self.PageSizeOptions = PageSizeOptions
+        self.PriceRanges = PriceRanges
+        self.ShowOnHomePage = ShowOnHomePage
+        self.FeaturedProductsOnHomaPage = FeaturedProductsOnHomaPage
+        self.ShowOnSearchBox = ShowOnSearchBox
+        self.SearchBoxDisplayOrder = SearchBoxDisplayOrder
+        self.IncludeInTopMenu = IncludeInTopMenu
+        self.SubjectToAcl = SubjectToAcl
+        self.CustomerRoles=CustomerRoles
+        self.Stores= Stores
+        self.LimitedToStores = LimitedToStores
+        self.Published = Published
+        self.DisplayOrder = DisplayOrder
+        self.Flag = Flag
+        self.FlagStyle = FlagStyle 
+        self.Icon = Icon
+        self.Active = Active
+        self.Deleted = Deleted
+        self.DefaultSort = DefaultSort
+        self.HideOnCatalog = HideOnCatalog
+        self.CreatedOnUtc = CreatedOnUtc
+        self.UpdatedOnUtc = UpdatedOnUtc
+        self.AppliedDiscounts = AppliedDiscounts
+        self.CategorySpecificationAttributes = CategorySpecificationAttributes
+        self.Locales= Locales
+
+@dataclass
+class Category2:
     _id: str=None
     GenericAttributes=[]
     Name: str=None
@@ -160,8 +241,8 @@ class CategorySchema(Schema):
     MetaKeywords = fields.Str(allow_none=True)
     MetaDescription = fields.Str(allow_none=True)
     MetaTitle = fields.Str(allow_none=True)
-    ParentCategoryId = fields.Str()
-    PictureId = fields.Str()
+    ParentCategoryId = fields.Str(allow_none=True)
+    PictureId = fields.Str(allow_none=True)
     PageSize = fields.Int()
     AllowCustomersToSelectPageSize = fields.Bool()
     PageSizeOptions = fields.Str()
@@ -184,8 +265,8 @@ class CategorySchema(Schema):
     HideOnCatalog = fields.Bool()
     CreatedOnUtc = fields.DateTime(
                         #dump_only=True,
-                        default=lambda: datetime.utcnow(),
-                        missing=lambda: datetime.utcnow(),
+                        default=lambda: datetime.now(tz = timezone.utc),
+                        missing=lambda: datetime.now(tz = timezone.utc),
                         allow_none=False)
     UpdatedOnUtc = fields.DateTime()
     AppliedDiscounts = fields.List(fields.Str())
