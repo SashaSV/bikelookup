@@ -1,0 +1,82 @@
+{
+ "Active": false,
+ "AllowCustomersToSelectPageSize": false,
+ "AppliedDiscounts": [],
+ "BottomDescription": null,
+ "CategorySpecificationAttributes": [
+  {
+   "AllowFiltering": false,
+   "AttributeType": 0,
+   "AttributeTypeId": 0,
+   "CategoryId": "640f64eccb70aa87741e4e30",
+   "CustomValue": null,
+   "DetailsUrl": null,
+   "DisplayOrder": 0,
+   "GenericAttributes": [],
+   "Locales": [],
+   "ShowOnProductPage": false,
+   "SpecificationAttributeId": "64177e06ed05c6cb2bdb02a1",
+   "SpecificationAttributeOptionId": "64177e9ded05c6cb2bdb035f",
+   "_id": "646137b04f484f0829470373"
+  }
+ ],
+ "CategoryTemplateId": "63ffb501183bfd3c8b2e735e",
+ "CreatedOnUtc": "2023-03-13 20:01:10.432000",
+ "CustomerRoles": [],
+ "DefaultSort": 5,
+ "Deleted": false,
+ "Description": null,
+ "DisplayOrder": 0,
+ "FeaturedProductsOnHomaPage": false,
+ "Flag": null,
+ "FlagStyle": null,
+ "GenericAttributes": [],
+ "HideOnCatalog": false,
+ "Icon": null,
+ "IncludeInTopMenu": true,
+ "LimitedToStores": false,
+ "Locales": [
+  {
+   "LanguageId": "6415a0946a190707b6d301e2",
+   "LocaleKey": "Name",
+   "LocaleValue": "MacBook",
+   "_id": "646140833768ab801dd55f1b"
+  },
+  {
+   "LanguageId": "6415a0946a190707b6d301e2",
+   "LocaleKey": "SeName",
+   "LocaleValue": "portátiles",
+   "_id": "646140833768ab801dd55f1e"
+  },
+  {
+   "LanguageId": "63ffb4fd183bfd3c8b2e52f5",
+   "LocaleKey": "Name",
+   "LocaleValue": "MacBook",
+   "_id": "646140833768ab801dd55f1f"
+  },
+  {
+   "LanguageId": "63ffb4fd183bfd3c8b2e52f5",
+   "LocaleKey": "SeName",
+   "LocaleValue": "laptop",
+   "_id": "646140833768ab801dd55f22"
+  }
+ ],
+ "MetaDescription": null,
+ "MetaKeywords": null,
+ "MetaTitle": null,
+ "Name": "MacBook",
+ "PageSize": 20,
+ "PageSizeOptions": "6 3 9",
+ "ParentCategoryId": "",
+ "PictureId": "643c24256f5d27ddc5acca2f",
+ "PriceRanges": null,
+ "Published": true,
+ "SeName": "porttiles",
+ "SearchBoxDisplayOrder": 0,
+ "ShowOnHomePage": true,
+ "ShowOnSearchBox": true,
+ "Stores": [],
+ "SubjectToAcl": false,
+ "UpdatedOnUtc": "2023-05-14 20:11:47.001000",
+ "_id": "640f64eccb70aa87741e4e30"
+}

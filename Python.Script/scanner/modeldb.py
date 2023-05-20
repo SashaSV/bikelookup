@@ -94,17 +94,21 @@ class Category:
     Flag: str=None
     FlagStyle: str=None
     Icon: str=None
+    Active: bool=False
+    Deleted: bool=False
     DefaultSort: int=5
     HideOnCatalog: bool=False
-    CreatedOnUtc: str=datetime.now()
-    UpdatedOnUtc: str=datetime.now()
+    CreatedOnUtc: datetime=datetime.now()
+    UpdatedOnUtc: datetime=datetime.now()
     AppliedDiscounts=[]
     CategorySpecificationAttributes= []
     Locales= []
 
     def __post_init__(self):
         self._id = str(ObjectId())
-
+        #self.CreatedOnUtc = datetime.now()
+        #self.UpdatedOnUtc = datetime.now()
+        
 @dataclass
 class Picture:
     _id: str=None
