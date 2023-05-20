@@ -138,8 +138,8 @@ class Category:
                 , Deleted: bool=False
                 , DefaultSort: int=5
                 , HideOnCatalog: bool=False
-                , CreatedOnUtc: datetime = datetime.now(tz = timezone.utc)
-                , UpdatedOnUtc: datetime = datetime.now(tz = timezone.utc)
+                , CreatedOnUtc: datetime = datetime.now()
+                , UpdatedOnUtc: datetime = datetime.now()
                 , AppliedDiscounts=[]
                 , CategorySpecificationAttributes= []
                 , Locales= []):
@@ -263,12 +263,13 @@ class CategorySchema(Schema):
     Icon = fields.Str(allow_none=True)
     DefaultSort = fields.Int()
     HideOnCatalog = fields.Bool()
-    CreatedOnUtc = fields.DateTime(
+    CreatedOnUtc = fields.DateTime()
+    #fields.Function(lambda obj: obj.CreatedOnUtc.isoformat())
+    UpdatedOnUtc = fields.DateTime(
                         #dump_only=True,
                         default=lambda: datetime.now(tz = timezone.utc),
                         missing=lambda: datetime.now(tz = timezone.utc),
                         allow_none=False)
-    UpdatedOnUtc = fields.DateTime()
     AppliedDiscounts = fields.List(fields.Str())
     CategorySpecificationAttributes = fields.List(fields.Nested(CategorySpecificationAttributeSchema))
     Locales = fields.List(fields.Nested(LocaleSchema))

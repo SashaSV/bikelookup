@@ -491,12 +491,27 @@ def check_сategories(db, c_name) -> Category:
 
     return c_main
 
+def check_сategories(c_name) -> Category:
+    c_main = Category.find({'Name': c_name})
+    c_main.commit()
+
+    if c_main == None:
+        categoryTemplateId = find_document(db.CategoryTemplate, {})
+        categoryTemplateId = categoryTemplateId['_id'] if not categoryTemplateId is None else None
+        #c_main = Category(Name=c_name, CategoryTemplateId=categoryTemplateId)
+        #c_main.SeName = get_sename(c_name, db, c_main._id, 'Category', '')
+        #c_main = c_main.__dict__
+        #insert_document(collaction, c_main)
+
+    return c_main
+
 def check_rel_сategories_to_product(db, p, c_name):
     cat_ret = None
     cat = p.get('ProductCategories')
     cat = cat if not cat is None else []
 
     c = check_сategories(db, c_name)
+    
     for ind, cr in enumerate(cat):
         if cr['CategoryId'] == c.get('_id'):
             cat_ret = cat[ind]

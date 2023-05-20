@@ -2,6 +2,19 @@ from dataclasses import dataclass
 from datetime import datetime
 from bson.objectid import ObjectId
 from datetime import timedelta
+from pymongo import MongoClient
+from umongo import Document, EmbeddedDocument, fields, validate
+from umongo.frameworks import PyMongoInstance
+import pytils.translit
+
+class Database:
+	@classmethod
+	def initialize(cls, dbconnect):
+		client = MongoClient(dbconnect)
+		cls.database = client.get_default_database()
+		return PyMongoInstance(cls.database)
+
+instance = Database.initialize("mongodb://localhost:27017/bldb")
 
 @dataclass
 class Adresses:
@@ -62,52 +75,52 @@ class Venodr:
     def __post_init__(self):
         self._id = str(ObjectId())
 
-@dataclass
-class Category:
-    _id: str=None
-    GenericAttributes=[]
-    Name: str=None
-    SeName: str=None
-    Description: str=None
-    BottomDescription: str=None
-    CategoryTemplateId: str=None
-    MetaKeywords=None
-    MetaDescription: str=None
-    MetaTitle: str=None
-    ParentCategoryId: str=None
-    PictureId: str=None
-    PageSize: int=20
-    AllowCustomersToSelectPageSize: bool=False
-    PageSizeOptions: str="6 3 9"
-    PriceRanges: float=None
-    ShowOnHomePage: bool=False
-    FeaturedProductsOnHomaPage: bool=False
-    ShowOnSearchBox: bool=False
-    SearchBoxDisplayOrder: int=0
-    IncludeInTopMenu: bool=False
-    SubjectToAcl: bool=False
-    CustomerRoles=[]
-    Stores= []
-    LimitedToStores: bool=False
-    Published: bool=True
-    DisplayOrder: int=0
-    Flag: str=None
-    FlagStyle: str=None
-    Icon: str=None
-    Active: bool=False
-    Deleted: bool=False
-    DefaultSort: int=5
-    HideOnCatalog: bool=False
-    CreatedOnUtc: datetime=datetime.now()
-    UpdatedOnUtc: datetime=datetime.now()
-    AppliedDiscounts=[]
-    CategorySpecificationAttributes= []
-    Locales= []
+# @dataclass
+# class Category:
+#     _id: str=None
+#     GenericAttributes=[]
+#     Name: str=None
+#     SeName: str=None
+#     Description: str=None
+#     BottomDescription: str=None
+#     CategoryTemplateId: str=None
+#     MetaKeywords=None
+#     MetaDescription: str=None
+#     MetaTitle: str=None
+#     ParentCategoryId: str=None
+#     PictureId: str=None
+#     PageSize: int=20
+#     AllowCustomersToSelectPageSize: bool=False
+#     PageSizeOptions: str="6 3 9"
+#     PriceRanges: float=None
+#     ShowOnHomePage: bool=False
+#     FeaturedProductsOnHomaPage: bool=False
+#     ShowOnSearchBox: bool=False
+#     SearchBoxDisplayOrder: int=0
+#     IncludeInTopMenu: bool=False
+#     SubjectToAcl: bool=False
+#     CustomerRoles=[]
+#     Stores= []
+#     LimitedToStores: bool=False
+#     Published: bool=True
+#     DisplayOrder: int=0
+#     Flag: str=None
+#     FlagStyle: str=None
+#     Icon: str=None
+#     Active: bool=False
+#     Deleted: bool=False
+#     DefaultSort: int=5
+#     HideOnCatalog: bool=False
+#     CreatedOnUtc: datetime=datetime.now()
+#     UpdatedOnUtc: datetime=datetime.now()
+#     AppliedDiscounts=[]
+#     CategorySpecificationAttributes= []
+#     Locales= []
 
-    def __post_init__(self):
-        self._id = str(ObjectId())
-        #self.CreatedOnUtc = datetime.now()
-        #self.UpdatedOnUtc = datetime.now()
+#     def __post_init__(self):
+#         self._id = str(ObjectId())
+#         #self.CreatedOnUtc = datetime.now()
+#         #self.UpdatedOnUtc = datetime.now()
         
 @dataclass
 class Picture:
@@ -356,3 +369,130 @@ class SpecificationAttribute:
     
     def __post_init__(self):
         self._id = str(ObjectId())
+
+def get_sename(sename, entityId = None, entityName = None, languageId = None):
+        #replacechar = [' ', '-', '!', '?', ':', '"', '.', '+']
+        okChars = "abcdefghijklmnopqrstuvwxyz1234567890 _-"
+        okRuChars = "abcdefghijklmnopqrstuvwxyzабвгдеёжзийлкмнопрстуфхцчшщъыьэюя1234567890 _-"
+        senamenew_ru = sename.lower().replace('і', 'i')
+        senamenew_ru = senamenew_ru.replace('є', 'e')
+        senamenew_ru = senamenew_ru.replace('ї', 'i')
+        senamenew_ru = senamenew_ru.replace('"', '_inch_')
+        senamenew_ru = senamenew_ru.replace('+', '_plus_')
+        senamenew_ru = senamenew_ru.replace('-', '_minus_')
+        sename_new = ''
+
+        for s in senamenew_ru:
+            if okRuChars.__contains__(s):
+                sename_new = sename_new + s
+
+        senamenew_ru = sename_new
+
+        senamenew_ru = pytils.translit.translify(senamenew_ru.strip()).lower()
+
+        sename_new = ''
+        for s in senamenew_ru:
+            if okChars.__contains__(s):
+                sename_new = sename_new + s
+
+        sename_new = sename_new.replace(' ', '-')
+        sename_new = sename_new.replace('--', '-')
+        sename_new = sename_new.replace('__', '_')
+
+        if not entityId is None:
+            urlrecord = UrlRecord(EntityId=entityId,
+                      EntityName=entityName,
+                      Slug=sename_new,
+                      LanguageId=languageId)
+            
+            urlrecord.commit()
+        return sename_new
+
+@instance.register
+class UrlRecord(Document):
+	GenericAttributes = fields.ListField(fields.StrField())
+	EntityId = fields.StringField(default=None)
+	EntityName = fields.StringField(default=None)
+	Slug = fields.StringField(default=None)
+	IsActive = fields.BooleanField(default=True)
+	LanguageId = fields.StringField(default=None)
+    
+	class Meta:
+		collection_name = "UrlRecord"
+                
+@instance.register
+class Locales(EmbeddedDocument):
+    _id = fields.StringField()
+    LanguageId = fields.StringField()
+    LocaleKey = fields.StringField()
+    LocaleValue = fields.StringField()
+
+@instance.register
+class CategorySpecificationAttributes(EmbeddedDocument):
+    _id = fields.StringField()
+    GenericAttributes = fields.ListField(fields.StringField())
+    CategoryId = fields.StringField()
+    AttributeTypeId = fields.IntegerField()
+    SpecificationAttributeId = fields.StringField()
+    DetailsUrl = fields.StringField()
+    SpecificationAttributeOptionId = fields.StringField()
+    CustomValue = fields.StringField()
+    AllowFiltering = fields.BooleanField()
+    ShowOnProductPage = fields.BooleanField()
+    DisplayOrder = fields.IntegerField()
+    Locales = fields.ListField(fields.EmbeddedField(Locales))
+    AttributeType = fields.IntegerField()
+
+@instance.register
+class CategoryTemplate(Document):
+    GenericAttributes = fields.ListField(fields.StringField())
+    Name = fields.StringField(default=None)
+    ViewPath = fields.StringField(default=None)
+    DisplayOrder = fields.IntegerField(default=0)
+    class Meta:
+        collection_name = "CategoryTemplate"
+
+@instance.register
+class Category(Document):
+    _id = fields.StringField(default=str(ObjectId()))
+    GenericAttributes = fields.ListField(fields.StringField())
+    Name = fields.StringField(default=None)
+    SeName = fields.StringField(default=None)
+    Description = fields.StringField(default=None)
+    BottomDescription = fields.StringField(default=None)
+    CategoryTemplateId = fields.StringField(default=CategoryTemplate.find_one().id)
+    MetaKeywords = fields.StringField(default=None)
+    MetaDescription = fields.StringField(default=None)
+    MetaTitle = fields.StringField(default=None)
+    ParentCategoryId = fields.StringField(default=None)
+    PictureId = fields.StringField(default=None)
+    PageSize = fields.IntegerField(default=20)
+    AllowCustomersToSelectPageSize = fields.BooleanField(default=False)
+    PageSizeOptions = fields.StringField(default="6 3 9")
+    PriceRanges = fields.NumberField(default=None)
+    ShowOnHomePage = fields.BooleanField(default=False)
+    FeaturedProductsOnHomaPage = fields.BooleanField(default=False)
+    ShowOnSearchBox = fields.BooleanField(default=False)
+    SearchBoxDisplayOrder = fields.IntegerField(default=False)
+    IncludeInTopMenu = fields.BooleanField(default=False)
+    SubjectToAcl = fields.BooleanField(default=False)
+    CustomerRoles = fields.ListField(fields.StringField())
+    Stores = fields.ListField(fields.StringField())
+    LimitedToStores = fields.BooleanField(default=False)
+    Published = fields.BooleanField(default=True)
+    DisplayOrder = fields.IntegerField(default=0)
+    Flag = fields.StringField(default=None)
+    FlagStyle = fields.StringField(default=None)
+    Icon = fields.StringField(default=None)
+    DefaultSort = fields.IntegerField(default=0)
+    HideOnCatalog = fields.BooleanField(default=False)
+    CreatedOnUtc = fields.DateTimeField(validate=validate.Range(min=datetime.datetime.now()))
+    UpdatedOnUtc = fields.DateTimeField(validate=validate.Range(min=datetime.datetime.now()))
+    AppliedDiscounts = fields.ListField(fields.StringField())
+    CategorySpecificationAttributes = fields.ListField(fields.EmbeddedField(CategorySpecificationAttributes))
+    Locales = fields.ListField(fields.EmbeddedField(Locales))
+    Active = fields.BooleanField(default=False)
+    Deleted = fields.BooleanField(default=False)
+    
+    class Meta:
+        collection_name = "Category"

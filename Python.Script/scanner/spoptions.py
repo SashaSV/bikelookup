@@ -5,12 +5,14 @@ from storeschema import Category, CategorySchema, dump_to_json
 category_schema = CategorySchema()
 
 Database.initialize("mongodb://localhost:27017/bldb")
-
+Database.database.Ca
 loaded_categorys = Database.load_from_db({})
 
 for loaded_category in loaded_categorys:
-    #js = dump_to_json('testjson.json', loaded_category)
-    category = Category(**category_schema.load(loaded_category))
+    loaded_category['CreatedOnUtc'] = loaded_category['CreatedOnUtc'].isoformat()
+    loaded_category['UpdatedOnUtc'] = loaded_category['UpdatedOnUtc'].isoformat()
+    category = Category(**category_schema.load(loaded_category).__dict__)
+
     
 
 
