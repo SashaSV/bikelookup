@@ -59,7 +59,7 @@ def pars_new_card_into_db():
     
     if len(data) > 0:
         dbservice.clear_all_product(db)
-        dbservice.check_product(db, data)
+        dbservice.check_product(data)
 
 def crawl_products(pages_count):
     """

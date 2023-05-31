@@ -5,7 +5,11 @@ from bson.objectid import ObjectId
 import pytils.translit
 import os
 from urllib.request import urlretrieve
-from scanner.modeldb import Adresses, Venodr, Category, Picture, Manufacturer, UrlRecord, TierPrice, Product, SpecificationAttribute
+from scanner.modeldb import Adress, Vendor, Category, Picture, Manufacturer, UrlRecord, TierPrice, Product, ProductCategoryRel,\
+                            SpecificationAttribute, SpecificationAttributeOption, Locale,\
+                            Language, Manufacturer, ProductManufacturerRel, ManufacturerTemplate,\
+                            ProductTemplate, DeliveryDate, TaxCategory, MeasureUnit, Warehouse,\
+                            ProductSpecificationAttributeRel, ProductPicture
 
 from datetime import datetime
 
@@ -96,8 +100,10 @@ class DataScraps:
 
         self.model = chek_so_name(db, name, 'model')
 
-    def check_category(self, db) -> None:
+    def check_category(self) -> None:
         aa = 0
+
+
 class DataScrapsEncoder(json.JSONEncoder):
     def default(self, obj):
             return obj.__dict__
@@ -135,93 +141,69 @@ def delete_document(collection, query):
     collection.delete_one(query)
 
 
-def check_product(db, data:list[DataScraps]):
+def check_product(data:list[DataScraps]):
 
-    collaction = db.Product
-
-    simpleTemplateId = find_document(db.ProductTemplate, {'Name': 'Simple product'})
-    groupTemplateId = find_document(db.ProductTemplate, {'Name': 'Grouped product (with variants)'})
-    groupTemplateId = groupTemplateId['_id'] if not groupTemplateId is None else None
-    deliveryDateId = find_document(db.DeliveryDate, {})
-    taxCategoryId = find_document(db.TaxCategory, {})
-    warehouseId = find_document(db.Warehouse, {})
-    unitId = find_document(db.MeasureUnit, {})
-
-    constData = Product(ProductTemplateId = simpleTemplateId['_id'] if not simpleTemplateId is None else None,
-                        DeliveryDateId = deliveryDateId['_id'] if not deliveryDateId is None else None,
-                        TaxCategoryId = taxCategoryId['_id'] if not taxCategoryId is None else None,
-                        WarehouseId = warehouseId['_id'] if not warehouseId is None else None,
-                        UnitId = unitId['_id'] if not unitId is None else None,
-                        ) 
-    
     cnt = 0
     for d in data:
-        vendorid = check_vendor(db, d.vendor)
-        vendorid = vendorid.get('_id')  if not vendorid is None else None
-        p = find_document(collaction, {'Sku': d.sku, 'VendorId': vendorid})
-        constData.VendorId = vendorid
+        vendorid = check_vendor(d.vendor)
+        #vendorid = vendorid._id  if not vendorid is None else None
         ##
         manufacturer = d.manufacturer
         
         name = d.name.strip()
         cnt = cnt + 1
+
         print('{0}. Загрузка {1}'.format(cnt, name))
-
-        #d.techs.available = d.available
-        #d.techs['category'] = d.category
-
-        constData.ProductTemplateId = groupTemplateId
-        constData.VisibleIndividually = True
-        constData.ProductTypeId = 10
-
-        p_main = check_mainproduct(db, d, constData)
-
-        if p == None:
-            constData.ProductTemplateId = groupTemplateId
-            constData.VisibleIndividually = False
-            constData.ProductTypeId = 5
-            new_p = create_product(db, d, constData)
-            new_p.ParentGroupedProductId = p_main.get('_id')
-            new_p.Name = '{0} - {1}'.format(name, d.vendor)
-
-            insert_document(collaction, new_p.__dict__)
-            p = new_p.__dict__
-
-        check_rel_сategories_to_product(db, p, d.category)
-        check_rel_manufacturers_to_product(db, p, manufacturer)
         
-        add_spec_to_product(db, p, 'available', d.available)
+        p_main = check_mainproduct(d)        
+
+        new_p = Product.find_one({'Sku': d.sku, 'VendorId': vendorid._id  if not vendorid else None})
+        if not new_p:
+            groupTemplateId = ProductTemplate.find_one({'Name': 'Grouped product (with variants)'})
+            
+            new_p = create_product(d)
+            new_p.ProductTemplateId = groupTemplateId = groupTemplateId.id if not groupTemplateId else None
+            new_p.VisibleIndividually = False
+            new_p.ProductTypeId = 5
+            new_p.VendorId = vendorid._id
+            new_p.ParentGroupedProductId = p_main._id
+            new_p.Name = '{0} - {1}'.format(name, d.vendor)
+            new_p.commit()
+
+        check_rel_сategories_to_product(new_p, d.category)
+        check_rel_manufacturers_to_product(new_p, manufacturer)
+        
+        add_spec_to_product(new_p, 'available', d.available)
 
         for f in _filteringAtribute:
-            add_spec_to_product(db, p_main, f, d.__dict__.get(f))
+            add_spec_to_product(p_main, f, d.__dict__.get(f))
 
         print('     Подгрузка характеристик')
         for prop_name, prop_value in d.techs.__dict__.items():
             if prop_value.strip() == '':
                 continue
             
-            add_spec_to_product(db, p_main, prop_name, prop_value)
+            add_spec_to_product(p_main, prop_name, prop_value)
 
-        images = [] if p_main.get('ProductPictures') is None else p_main.get('ProductPictures')
+        images = [] if p_main.ProductPictures is None else p_main.ProductPictures
 
         if len(images) == 0:
             print('     Подгрузка картинок')
             for urlimage in d.images:
-                check_image_to_product(db, p_main, urlimage)
-    return p
-
+                check_image_to_product(p_main, urlimage)
+        
+        p_main.commit()
 import sys
 sys.setrecursionlimit(1500)
-
-def add_spec_to_product(db, p_main, prop_name, prop_val):
+def add_spec_to_product(p_main, prop_name, prop_val):
     
     if type(prop_val) is list:
         for pv in prop_val:
-            add_spec_to_product(db, p_main, prop_name, pv)
+            add_spec_to_product(p_main, prop_name, pv)
     else:
-        sao = check_specificationattributeoption_by_name(db, prop_name, prop_val)
-        sa = check_specificationattribute_by_name(db, prop_name)
-        check_productspecificationattributeoption(db, p_main, sa, sao)
+        sao = check_specificationattributeoption_by_name(prop_name, prop_val)
+        sa = check_specificationattribute_by_name(prop_name)
+        check_productspecificationattributeoption(p_main, sa, sao)
 
 class Option:
     def __init__(self, id=None, parentId=None, name=None):
@@ -261,7 +243,7 @@ class Options:
 
     def _options(self):
         for so in self.specificationAttributeOptions:
-            option = Option(so.get('_id'), so.get('ParentSpecificationAttrOptionId'), so.get('Name')) 
+            option = Option(so._id, so.ParentSpecificationAttrOptionId, so.Name) 
             self.alloptions.append(option)
 
             if  option.parentId in (None, ''):
@@ -286,7 +268,7 @@ class Options:
             self._trees(tree.childs)
 
 def chek_so_name(db, name, soname):
-    sa = check_specificationattribute_by_name(db, soname)
+    sa = check_specificationattribute_by_name(soname)
     retSoName = ''
     seret = ''
 
@@ -296,228 +278,158 @@ def chek_so_name(db, name, soname):
 
     for tree in trees.alltrees:
         for a in trees.find_childs(tree):
-            seson = get_sename(a.name, db)
-            sename = get_sename(name, db)
+            seson = get_sename(a.name)
+            sename = get_sename(name)
             if sename.find(seson) >= 0:
                 if len(seson) > len(seret):
                     seret = seson
                     retSoName = a.name if len(a.names) < 2 else a.names 
         
-    
-    # for so in specificationAttributeOptions:
-    #     seson = get_sename(so.get('Name').replace(' ',''), db)
-    #     sename = get_sename(name, db)
-    #     if sename.find(seson) >= 0:
-    #         if len(seson) > len(seret):
-    #             seret = seson
-    #             retSoName = so.get('Name')
     return retSoName
 
 def sorted_sa(f):
     return f['ParentSpecificationAttrOptionId']
 
-def check_vendor(db, vendorName):
-    collaction = db.Vendor
-    v = find_document(collaction, {'Name': vendorName})
-    if v is None:
-        adresses = Adresses() 
-        new_v = Venodr(Name=vendorName)
-        
-        new_v.SeName = get_sename(vendorName, db, new_v._id, 'Vendor', '')
-        new_v.Email = "sales@"+vendorName
-        new_v.Address = adresses.__dict__
+def check_vendor(vendorName):
+    new_v = Vendor().find_one({'Name': vendorName})
+    if not new_v:
+        new_v = Vendor(_id = str(ObjectId()), Name=vendorName, Email = "sales@"+vendorName)
+        new_v.SeName = get_sename(vendorName, new_v._id, 'Vendor', '')
+    
+        if not new_v.is_created:
+            new_v.commit()
 
-        print({'CreatedOnUtc':datetime.now()})
-        
-        insert_document(collaction, new_v.__dict__)
-        v = new_v.__dict__
-    return v
+    return new_v
 
-def add_specificationattributeoption(db, sa, sao, prop_name, color_hex = None, parentSPO = None):
-    id_ = str(ObjectId())
-
-    new_sao = {
-        '_id': id_,
-        'Name': prop_name,
-        'SeName': get_sename(prop_name, db, id_, 'SpecificationAttributeOption', ''),
-        'ColorSquaresRgb': '',
-        'DisplayOrder': 0,
-        'ParentSpecificationAttrOptionId': '' if parentSPO == None else parentSPO,
-        'Locales': []
-    }
+def add_specificationattributeoption(sa, sao, prop_name, color_hex = None, parentSPO = None):
+    new_sao = SpecificationAttributeOption(_id = str(ObjectId()), Name = prop_name, ParentSpecificationAttrOptionId = '' if parentSPO == None else parentSPO)
+    new_sao.SeName = get_sename(prop_name, new_sao._id, 'SpecificationAttributeOption', '')
 
     if not color_hex is None:
-        new_sao['ColorSquaresRgb'] = color_hex
+        new_sao.ColorSquaresRgb = color_hex
 
     sao.append(new_sao)
-
-    update_document(db.SpecificationAttribute, {'_id': sa.get('_id')},
-                    {'SpecificationAttributeOptions': sao})
+    sa.SpecificationAttributeOptions = sao
+    sa.commit()
     return new_sao
 
-def check_specificationattributeoption_by_name(db, prop_name, prop_value, color_hex = None, parentSPO = None):
-    sa = check_specificationattribute_by_name(db, prop_name)
-    sao = sa.get('SpecificationAttributeOptions')
-    sao = sao if not sao is None else [] 
+def check_specificationattributeoption_by_name(prop_name, prop_value, color_hex = None, parentSPO = None):
+    sa = check_specificationattribute_by_name(prop_name)
+    
     sao_ret = None
     
-    for ind, a in enumerate(sao):
-        if a['Name'].lower().strip() == prop_value.lower().strip():
-             sao_ret = sao[ind]
+    for ind, a in enumerate(sa.SpecificationAttributeOptions):
+        if a.Name.lower().strip() == prop_value.lower().strip():
+             sao_ret = sa.SpecificationAttributeOptions[ind]
 
     if sao_ret is None:
-        sao_ret = add_specificationattributeoption(db, sa, sao, prop_value, color_hex = color_hex, parentSPO = parentSPO)
+        sao_ret = add_specificationattributeoption(sa, sa.SpecificationAttributeOptions, prop_value, color_hex = color_hex, parentSPO = parentSPO)
+        new_sao = SpecificationAttributeOption(_id = str(ObjectId()), Name = prop_name, ParentSpecificationAttrOptionId = '' if parentSPO == None else parentSPO)
+        new_sao.SeName = get_sename(prop_name, new_sao._id, 'SpecificationAttributeOption', '')
 
+        if not color_hex is None:
+            new_sao.ColorSquaresRgb = color_hex
+
+        sa.SpecificationAttributeOptions.append(new_sao)
+        sa.commit()
     return sao_ret
 
-def add_productspecificationattributeoption(db, p, sa, sao, psao):
-    new_psao = {
-        '_id': str(ObjectId()),
-        'AttributeTypeId': 0,
-        'SpecificationAttributeId': sa.get('_id'),
-        'SpecificationAttributeOptionId': sao['_id'],
-        'CustomValue': 'null',
-        'AllowFiltering': _filteringAtribute.__contains__(sa['Name']),
-        'ShowOnProductPage': True,
-        'ShowOnSellerPage': True,
-        'DisplayOrder': 0,
-        'Locales': []
-    }
-
-    psao.append(new_psao)
-    update_document(db.Product, {'_id': p['_id']},
-                    {'ProductSpecificationAttributes': psao})
-    return psao
-
-def check_productspecificationattributeoption(db, p, sa, sao):
+def check_productspecificationattributeoption(p, sa, sao):
     psao_ret = None
-    psao = p.get('ProductSpecificationAttributes')
 
-    psao = psao if not psao is None else []
-
-    for ind, a in enumerate(psao):
-        if a['SpecificationAttributeId'] == sa.get('_id') and a['SpecificationAttributeOptionId'] == sao['_id']:
-            psao_ret = psao[ind]
-            spOption = sa['Name']
+    for ind, a in enumerate(p.ProductSpecificationAttributes):
+        if a.SpecificationAttributeId == sa._id and a.SpecificationAttributeOptionId == sao._id:
+            psao_ret = p.ProductSpecificationAttributes[ind]
+            spOption = sa.Name
 
             do = 99 #if spOption.get('displayOrderOnTabProduct') is None else spOption.get('displayOrderOnTabProduct')
 
-            psao[ind]['AllowFiltering'] = _filteringAtribute.__contains__(sa['Name'])
-            psao[ind]['ShowOnProductPage'] = True
-            psao[ind]['ShowOnSellerPage'] = True
-            psao[ind]['DisplayOrder'] = do
-
-            update_document(db.Product, {'_id': p['_id']},
-                    {'ProductSpecificationAttributes': psao})
+            p.ProductSpecificationAttributes[ind].AllowFiltering = _filteringAtribute.__contains__(sa.Name)
+            p.ProductSpecificationAttributes[ind].ShowOnProductPage = True
+            p.ProductSpecificationAttributes[ind].ShowOnSellerPage = True
+            p.ProductSpecificationAttributes[ind].DisplayOrder = do
 
             break
 
     if psao_ret is None:
-        add_productspecificationattributeoption(db, p, sa, sao, psao)
+        new_psao = ProductSpecificationAttributeRel(_id = str(ObjectId()),
+                                    SpecificationAttributeId = sa._id,
+                                    SpecificationAttributeOptionId = sao._id,
+                                    AllowFiltering = _filteringAtribute.__contains__(sa.Name))
+        p.ProductSpecificationAttributes.append(new_psao)
+
 
     return
 
-def check_specificationattribute_by_name(db, prop_name:str):
-    collaction = db.SpecificationAttribute
-    
+def check_specificationattribute_by_name(prop_name:str):   
     do = 99 if not _filteringAtribute.__contains__(prop_name) else 0 
 
-    sa = find_document(collaction, {'Name': prop_name})
-    if sa == None:
-        sa = SpecificationAttribute(Name = prop_name,
-                                    Locales = get_locals(db, prop_name))
-        sa.DisplayOrder = do
-        sa.SeName = get_sename(prop_name, db, sa._id, 'SpecificationAttribute', '')
-        sa = sa.__dict__
-        insert_document(collaction, sa)
-    else:
-        updExpr ={}
-        updExpr['DisplayOrder'] = do
-        update_document(collaction, {'_id': sa.get('_id')}, updExpr)
+    sa = SpecificationAttribute(_id = str(ObjectId()),
+                                Name = prop_name,
+                                DisplayOrder = do, 
+                                Locales = get_locals(prop_name)).find_one({'Name': prop_name})
+    sa.commit()
     return sa
 
-def get_locals(db, prop_name):
-    collaction = db.Language
-    lngs = find_document(collaction, {}, multiple = True)
+def get_locals(prop_name):
+    lngs = Language.find({})
     locals = []
+    
+    if prop_name is None:
+        return None
+    
     for l in lngs:
-        name_local = prop_name
-        if name_local is None:
-            continue
-        #name_local = name_local.get(l['Name'].lower())
-        if name_local is None:
-            continue
-        id_ = str(ObjectId())
-        new_lng = {
-            '_id': id_,
-            'LanguageId': l['_id'],
-            'LocaleKey': 'Name',
-            'LocaleValue': name_local
-        }
+        new_lng = Locale(LanguageId = l._id, LocaleKey = 'Name', LocaleValue = prop_name)
         locals.append(new_lng)
+
     return locals
 
-def check_mainproduct(db, d, constData):
-    collaction = db.Product
-    p_main = find_document(collaction, {'Sku': d.sku, 'VendorId': ''})
-    if p_main == None:
-        new_p = create_product(db, d, constData)
-        new_p.Url = ''
-        new_p.ShortDescription = ''
-        new_p.VendorId = ''
-        new_p.ProductCategories = []
-        insert_document(collaction, new_p.__dict__)
-        p_main = new_p.__dict__
-    else:
-        updateExpr = {}
-        updateExpr['Name'] = d.name
-        update_document(collaction, {'_id': p_main.get('_id')}, updateExpr)
+def check_mainproduct(d):   
+    p_main = Product.find_one({'Sku': d.sku, 'VendorId': ''})
+    if not p_main:
+        groupTemplateId = ProductTemplate.find_one({'Name': 'Grouped product (with variants)'})
 
-    check_rel_сategories_to_product(db, p_main, d.category)
-    check_rel_manufacturers_to_product(db, p_main, d.manufacturer)
+        p_main = create_product(d)
+        p_main.Url = ''
+        p_main.ShortDescription = ''
+        p_main.VendorId = ''
+        p_main.ProductTemplateId = groupTemplateId.id if not groupTemplateId else None
+        p_main.VisibleIndividually = True
+        p_main.ProductTypeId = 10
+
+    p_main.Name = d.name
+    
+    check_rel_сategories_to_product(p_main, d.category)
+    check_rel_manufacturers_to_product(p_main, d.manufacturer)
     return p_main
 
-def check_сategories(db, c_name) -> Category:
-    collaction = db.Category
-    c_main = find_document(collaction, {'Name': c_name})
+def check_сategories(c_name):
+    c_main = Category().find_one({'Name': c_name})
     
-    if c_main == None:
-        categoryTemplateId = find_document(db.CategoryTemplate, {})
-        categoryTemplateId = categoryTemplateId['_id'] if not categoryTemplateId is None else None
-        c_main = Category(Name=c_name, CategoryTemplateId=categoryTemplateId)
-        c_main.SeName = get_sename(c_name, db, c_main._id, 'Category', '')
-        c_main = c_main.__dict__
-        insert_document(collaction, c_main)
+    if not c_main:
+        c_main = Category(_id = str(ObjectId()), Name = c_name)
+        c_main.SeName = get_sename(c_name, c_main._id, 'Category', '')
+        if not c_main.is_created:
+            c_main.commit()
 
     return c_main
 
-def check_сategories(c_name) -> Category:
-    c_main = Category.find({'Name': c_name})
-    c_main.commit()
-
-    if c_main == None:
-        categoryTemplateId = find_document(db.CategoryTemplate, {})
-        categoryTemplateId = categoryTemplateId['_id'] if not categoryTemplateId is None else None
-        #c_main = Category(Name=c_name, CategoryTemplateId=categoryTemplateId)
-        #c_main.SeName = get_sename(c_name, db, c_main._id, 'Category', '')
-        #c_main = c_main.__dict__
-        #insert_document(collaction, c_main)
-
-    return c_main
-
-def check_rel_сategories_to_product(db, p, c_name):
+def check_rel_сategories_to_product(p:Product, c_name):
     cat_ret = None
-    cat = p.get('ProductCategories')
+    cat = p.ProductCategories
     cat = cat if not cat is None else []
 
-    c = check_сategories(db, c_name)
+    c = check_сategories(c_name)
     
     for ind, cr in enumerate(cat):
-        if cr['CategoryId'] == c.get('_id'):
+        if cr.CategoryId == c._id:
             cat_ret = cat[ind]
 
     if cat_ret is None:
-        cat_ret = add_rel_сategories_to_product(db, p, c, cat)
+        #cat_ret = add_rel_сategories_to_product(p, c, cat)
+        productCategoryRel = ProductCategoryRel(CategoryId = c._id)
+        p.ProductCategories.append(productCategoryRel)
+
 
 def get_file_picture_name(pictureId:str) -> str:
         CURR_DIR = os.getcwd()
@@ -531,10 +443,10 @@ def get_file_picture_name(pictureId:str) -> str:
 
         return '{0}{1}_0.jpeg'.format(file_catalog, pictureId)
 
-def check_picture(db, pictureId, urlimage, productname):
-    collaction = db.Picture
-    p_main = find_document(collaction, {'UrlImage': urlimage})
-    if p_main == None:
+def check_picture(pictureId, urlimage, productname):
+    p_main = Picture.find_one({'UrlImage': urlimage})
+    
+    if not p_main:
         id_ = str(ObjectId())
         filename = get_file_picture_name(id_)
         load_image(urlimage, filename)
@@ -543,74 +455,49 @@ def check_picture(db, pictureId, urlimage, productname):
         data = in_file.read()  # if you only wanted to read 512 bytes, do .read(512)
         in_file.close()
 
-        p = find_document(collaction, {'_id': pictureId})
-        
-        if not p is None:
-            if p['PictureBinary'] == data:
+        p = Picture.find_one({'_id': pictureId})
+        if p:
+            if p.PictureBinary == data:
                 p_main = p
                 if os.path.exists(filename):
                     os.remove(filename)
-
-        if p_main == None:
-            p_main = Picture(PictureBinary=data)
-            p_main._id = id_ 
-            p_main.SeoFilename = get_sename(productname, db)
+        p = Picture.find_one({'_id':'642d2b87a73257d819559b8d'})
+        if not p_main:
+            p_main = Picture(PictureBinary = data)
+            p_main._id = id_
+            p_main.SeoFilename = get_sename(productname)
             p_main.UrlImage = urlimage
             p_main.AltAttribute = productname
             p_main.TitleAttribute = productname
-
-            p_main = p_main.__dict__
-            insert_document(collaction, p_main)
-
+            
+            p_main.commit()
     return p_main
 
-def check_image_to_product(db, p, urlimage):
+def check_image_to_product(p, urlimage):
     pict_ret = None
-    pictures = p['ProductPictures']
-    pName = p['Name']
-    for ind, pictFP in enumerate(pictures):
-        pictureId = pictFP['PictureId']
-        picture = check_picture(db, pictureId, urlimage, pName)
-        if pictureId == picture['_id']:
-            pict_ret = pictures[ind]
+    pName = p.Name
+    for ind, pictFP in enumerate(p.ProductPictures):
+        pictureId = pictFP.PictureId
+        picture = check_picture(pictureId, urlimage, pName)
+        if pictureId == picture._id:
+            pict_ret = p.ProductPictures[ind]
 
-    if pict_ret is None:
-        picture = check_picture(db, '', urlimage, pName)
-        add_rel_picture_to_product(db, p, picture, pictures, pName)
+    if not pict_ret:
+        picture = check_picture('', urlimage, p.Name)
+        new_rel = ProductPicture(_id = str(ObjectId()),
+                            PictureId = picture._id,
+                            SeoFilename = get_sename(p.Name),
+                            AltAttribute = p.Name,
+                            TitleAttribute = p.Name)
+        p.ProductPictures.append(new_rel)
 
-def add_rel_picture_to_product(db, p, picture, pictures, productname):
-
-    new_rel = {
-        '_id': str(ObjectId()),
-        'PictureId': picture['_id'],
-        'DisplayOrder': 1,
-        'MimeType': None,
-        'SeoFilename': get_sename(productname, db),
-        'AltAttribute': productname,
-        'TitleAttribute': productname
-    }
-
-    pictures.append(new_rel)
-    update_document(db.Product, {'_id': p['_id']},
-                    {'ProductPictures': pictures})
-    return pictures
-
-def add_rel_сategories_to_product(db, p, c, cat):
-
-    new_rel = {
-        '_id': str(ObjectId()),
-        'CategoryId': c.get('_id'),
-        'IsFeaturedProduct': False,
-        'DisplayOrder': 0
-    }
-
-    cat.append(new_rel)
-    update_document(db.Product, {'_id': p.get('_id')},
-                    {'ProductCategories': cat})
+def add_rel_сategories_to_product(p:Product, c:Category, cat):
+    productCategoryRel = ProductCategoryRel(_id = str(ObjectId()), CategoryId = c._id)
+    p.ProductCategories.append(productCategoryRel)
+    #p.commit()
     return cat
 
-def check_manufacturers(db, manufacturer):
-    collaction = db.Manufacturer
+def check_manufacturers(manufacturer):
 
     if type(manufacturer) is str:
         brandname = manufacturer
@@ -622,149 +509,99 @@ def check_manufacturers(db, manufacturer):
     if brandname is None:
         brandname = manufacturer
 
-    m_main = find_document(collaction, {'Name': brandname})
-
+    #m_main = find_document(collaction, {'Name': brandname})
+    m_main = Manufacturer.find_one({'Name': brandname})
+    
     pictureId = None
     if not brandimg is None:
         pId = ''
         if not m_main is None:
-            pId = m_main.get('PictureId') if not m_main.get('PictureId') is None else ''
+            pId = m_main.PictureId if not m_main.PictureId is None else ''
 
-        picture = check_picture(db, pId, brandimg, brandname)
-        pictureId = picture['_id']
+        picture = check_picture(pId, brandimg, brandname)
+        pictureId = picture._id
 
-    if m_main == None:
-        manufacturerTemplateId = find_document(db.ManufacturerTemplate, {})
-        manufacturerTemplateId = manufacturerTemplateId['_id'] if not manufacturerTemplateId is None else None
-
-        m_main = Manufacturer(Name=brandname, 
-                              ManufacturerTemplateId = manufacturerTemplateId,
+    if not m_main:
+        m_main = Manufacturer(_id = str(ObjectId()),
+                              Name=brandname, 
+                              ManufacturerTemplateId = ManufacturerTemplate.find_one({}).id,
                               PictureId = pictureId)
-        m_main.SeName = get_sename(brandname, db, m_main._id, 'Manufacturer', '')
-        m_main = m_main.__dict__
-        insert_document(collaction, m_main)
+        
+        m_main.SeName = get_sename(brandname, m_main._id, 'Manufacturer', '')
+        m_main.commit()
     else:
         if not pictureId is None:
-            updExpr = {}
-            updExpr['PictureId'] = pictureId
-            update_document(collaction, {'_id': m_main._id}, updExpr)
+            m_main.PictureId = pictureId
+            m_main.commit()
+
     return m_main
 
-def check_rel_manufacturers_to_product(db, p, m_name):
+def check_rel_manufacturers_to_product(p, m_name):
     mun_ret = None
-    man = p['ProductManufacturers']
+    man = p.ProductManufacturers
     man = man if not man is None else []
-    m = check_manufacturers(db, m_name)
+    m = check_manufacturers(m_name)
 
     for ind, mr in enumerate(man):
-        if mr['ManufacturerId'] == m['_id']:
+        if mr.ManufacturerId == m._id:
             mun_ret = man[ind]
 
     if mun_ret is None:
-        mun_ret = add_rel_manufacturers_to_product(db, p, m, man)
+        new_rel = ProductManufacturerRel(_id = str(ObjectId()),ManufacturerId = m._id)
+        p.ProductManufacturers.append(new_rel) 
 
-def add_rel_manufacturers_to_product(db, p, c, cat):
-
-    new_rel = {
-        '_id': str(ObjectId()),
-        'ManufacturerId': c['_id'],
-        'IsFeaturedProduct': False,
-        'DisplayOrder': 0
-    }
-
-    cat.append(new_rel)
-    update_document(db.Product, {'_id': p['_id']},
-                    {'ProductManufacturers': cat})
-    return cat
-
-def create_product(db, d:DataScraps, constData:Product):
+def create_product(d:DataScraps):
     
-    curTierPrice = [TierPrice(Price=d.price).__dict__]
-    
-    product_card = Product(ProductTypeId = constData.ProductTypeId,
-                            ParentGroupedProductId = constData.ParentGroupedProductId,
-                            VisibleIndividually = constData.VisibleIndividually,
+    curTierPrice = [TierPrice(Price=d.price)]
+   
+    deliveryDateId = DeliveryDate.find_one({})
+    taxCategoryId = TaxCategory.find_one({})
+    warehouseId = Warehouse.find_one({})
+    unitId = MeasureUnit.find_one({})
+
+    product_card = Product(_id = str(ObjectId()),
                             Name = d.name,
                             ShortDescription = d.url,
                             Url = d.url,
-                            ProductTemplateId = constData.ProductTemplateId,
-                            VendorId = constData.VendorId,
                             Sku = d.sku,
-                            DeliveryDateId = constData.DeliveryDateId,
-                            TaxCategoryId = constData.TaxCategoryId,
-                            WarehouseId = constData.WarehouseId,
+                            DeliveryDateId = None if not deliveryDateId else deliveryDateId.id ,
+                            TaxCategoryId = None if not taxCategoryId else taxCategoryId.id,
+                            WarehouseId = None if not warehouseId else warehouseId.id,
                             Price = d.price,
                             OldPrice = d.oldprice,
-                            UnitId = constData.UnitId,
-                            TierPrices = curTierPrice
+                            UnitId = None if not unitId else unitId.id,
+                            TierPrices = curTierPrice,
+                            ProductCategories = [],
+                            ProductManufacturers = [],
+                            ProductPictures = [],
+                            ProductSpecificationAttributes = []
                            )
-    product_card.SeName = get_sename(d.sku, db, product_card._id, 'Product', '')
+    product_card.SeName = get_sename(d.sku, product_card._id, 'Product', '')
 
     return product_card
-
-def get_sename(sename, db, entityId = None, entityName = None, languageId = None):
-        #replacechar = [' ', '-', '!', '?', ':', '"', '.', '+']
-        okChars = "abcdefghijklmnopqrstuvwxyz1234567890 _-"
-        okRuChars = "abcdefghijklmnopqrstuvwxyzабвгдеёжзийлкмнопрстуфхцчшщъыьэюя1234567890 _-"
-        senamenew_ru = sename.lower().replace('і', 'i')
-        senamenew_ru = senamenew_ru.replace('є', 'e')
-        senamenew_ru = senamenew_ru.replace('ї', 'i')
-        senamenew_ru = senamenew_ru.replace('"', '_inch_')
-        senamenew_ru = senamenew_ru.replace('+', '_plus_')
-        senamenew_ru = senamenew_ru.replace('-', '_minus_')
-        sename_new = ''
-
-        for s in senamenew_ru:
-            if okRuChars.__contains__(s):
-                sename_new = sename_new + s
-
-        senamenew_ru = sename_new
-
-        senamenew_ru = pytils.translit.translify(senamenew_ru.strip()).lower()
-
-        sename_new = ''
-        for s in senamenew_ru:
-            if okChars.__contains__(s):
-                sename_new = sename_new + s
-
-        sename_new = sename_new.replace(' ', '-')
-        sename_new = sename_new.replace('--', '-')
-        sename_new = sename_new.replace('__', '_')
-
-        if not entityId is None:
-            check_slug(sename_new, db, entityId, entityName, languageId)
-        return sename_new
-
-def check_slug(slug, db, entityId, entityName, languageId):
-
-    if find_document(db.UrlRecord, {'EntityId': entityId, 'EntityName': entityName, 'LanguageId': languageId}) is None:
-        new_v = UrlRecord(EntityId=entityId, 
-                          EntityName=entityName, 
-                          Slug=slug, 
-                          LanguageId=languageId)
-
-        insert_document(db.UrlRecord, new_v.__dict__)
 
 def load_image(url,filename):
     if not os.path.exists(filename):
         urlretrieve(url, filename)
 
 def clear_all_product(db):
-    products = find_document(db.Product, {}, multiple = True)
+    products = Product.find()
     for product in products:
-        pictures = product.get('ProductPictures')
-        pictures = [] if pictures is None else pictures
-        SeName = product.get('SeName')
+        for picture in product.ProductPictures:
+            p = Picture.find_one({'_id': picture.PictureId})            
+            if not p is None:
+                p.delete()
 
-        for picture in pictures:
-            delete_document(db.Picture, {'_id': picture.get('PictureId')})
-            filename = get_file_picture_name(picture.get('PictureId'))
+            filename = get_file_picture_name(picture.PictureId)
             if os.path.exists(filename):
                 os.remove(filename)
-
-        delete_document(db.Product, {'_id': product.get('_id')})
-        delete_document(db.UrlRecord, {'EntityName': 'Product', 'Slug': SeName})
-        print('Deleted product id = {0}',product.get('_id'))
+        
+        url = UrlRecord.find_one({'EntityName': 'Product', 'Slug': product.SeName})
+        if not url is None:
+            url.delete()
+        
+        print('Deleted product id = {0}',product._id)
+        product.delete()
 
     ads = find_document(db.Ad, {}, multiple = True)
     for ad in ads:
@@ -773,3 +610,44 @@ def clear_all_product(db):
     PrivateMessages = find_document(db.PrivateMessage, {}, multiple = True)
     for pm in PrivateMessages:
         delete_document(db.PrivateMessage, {'_id': pm.get('_id')})
+
+def get_sename(sename, entityId = None, entityName = None, languageId = None):
+    #replacechar = [' ', '-', '!', '?', ':', '"', '.', '+']
+    okChars = "abcdefghijklmnopqrstuvwxyz1234567890 _-"
+    okRuChars = "abcdefghijklmnopqrstuvwxyzабвгдеёжзийлкмнопрстуфхцчшщъыьэюя1234567890 _-"
+    senamenew_ru = sename.lower().replace('і', 'i')
+    senamenew_ru = senamenew_ru.replace('є', 'e')
+    senamenew_ru = senamenew_ru.replace('ї', 'i')
+    senamenew_ru = senamenew_ru.replace('"', '_inch_')
+    senamenew_ru = senamenew_ru.replace('+', '_plus_')
+    senamenew_ru = senamenew_ru.replace('-', '_minus_')
+    sename_new = ''
+
+    for s in senamenew_ru:
+        if okRuChars.__contains__(s):
+            sename_new = sename_new + s
+
+    senamenew_ru = sename_new
+
+    senamenew_ru = pytils.translit.translify(senamenew_ru.strip()).lower()
+
+    sename_new = ''
+    for s in senamenew_ru:
+        if okChars.__contains__(s):
+            sename_new = sename_new + s
+
+    sename_new = sename_new.replace(' ', '-')
+    sename_new = sename_new.replace('--', '-')
+    sename_new = sename_new.replace('__', '_')
+
+    if not entityId is None:
+        if not UrlRecord.find_one({'EntityId': entityId, 'EntityName': entityName, 'LanguageId': languageId}):
+            urlrecord = UrlRecord(_id = str(ObjectId()),
+                                EntityId=entityId,
+                                EntityName=entityName,
+                                Slug=sename_new,
+                                LanguageId=languageId)
+            
+            if urlrecord.is_created:
+                urlrecord.commit()
+    return sename_new
