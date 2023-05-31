@@ -524,3 +524,19 @@ class Warehouse(Document):
 
     class Meta:
         collection_name = "Warehouse"
+
+@instance.register
+class PrivateMessage(Document):
+    StoreId = fields.StringField(default=None)
+    AdId = fields.StringField(default=None)
+    FromCustomerId = fields.StringField(default=None)
+    ToCustomerId = fields.StringField(default=None)
+    Subject = fields.StringField(default=None)
+    Text = fields.StringField(default=None)
+    IsRead = fields.BooleanField(default=False)
+    IsDeletedByAuthor = fields.BooleanField(default=False)
+    IsDeletedByRecipient = fields.BooleanField(default=False)
+    CreatedOnUtc = fields.DateTimeField(validate=validate.Range(min=datetime.now()))
+
+    class Meta:
+        collection_name = "PrivateMessage"

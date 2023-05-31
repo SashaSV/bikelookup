@@ -9,7 +9,7 @@ from scanner.modeldb import Adress, Vendor, Category, Picture, Manufacturer, Url
                             SpecificationAttribute, SpecificationAttributeOption, Locale,\
                             Language, Manufacturer, ProductManufacturerRel, ManufacturerTemplate,\
                             ProductTemplate, DeliveryDate, TaxCategory, MeasureUnit, Warehouse,\
-                            ProductSpecificationAttributeRel, ProductPicture
+                            ProductSpecificationAttributeRel, ProductPicture, PrivateMessage
 
 from datetime import datetime
 
@@ -115,32 +115,6 @@ class obj(object):
 def dict2obj(d):
     return json.loads(json.dumps(d), object_hook=obj)
 
-
-def find_document(collection, elements, multiple=False, retfields = None):
-    if multiple:
-        results = collection.find(elements, retfields)
-        return [r for r in results]
-    else:
-        return collection.find_one(elements)
-    
-def update_document(collection, query_elements, new_values):
-    """ Function to update a single document in a collection.
-    """
-    collection.update_one(query_elements, {'$set': new_values})
-
-def insert_document(collection, data):
-    """ Function to insert a document into a collection and
-    return the document's id.
-    """
-
-    return collection.insert_one(data).inserted_id
-
-def delete_document(collection, query):
-    """ Function to delete a single document from a collection.
-    """
-    collection.delete_one(query)
-
-
 def check_product(data:list[DataScraps]):
 
     cnt = 0
@@ -157,7 +131,7 @@ def check_product(data:list[DataScraps]):
         
         p_main = check_mainproduct(d)        
 
-        new_p = Product.find_one({'Sku': d.sku, 'VendorId': vendorid._id  if not vendorid else None})
+        new_p = Product.find_one({'Sku': d.sku, 'VendorId': None  if not vendorid else vendorid._id})
         if not new_p:
             groupTemplateId = ProductTemplate.find_one({'Name': 'Grouped product (with variants)'})
             
@@ -603,13 +577,15 @@ def clear_all_product(db):
         print('Deleted product id = {0}',product._id)
         product.delete()
 
-    ads = find_document(db.Ad, {}, multiple = True)
-    for ad in ads:
-        delete_document(db.Ad, {'_id': ad.get('_id')})
+    #ads = find_document(db.Ad, {}, multiple = True)
+    #for ad in ads:
+        #delete_document(db.Ad, {'_id': ad.get('_id')})
 
-    PrivateMessages = find_document(db.PrivateMessage, {}, multiple = True)
+    #PrivateMessages = find_document(db.PrivateMessage, {}, multiple = True)
+    PrivateMessages = PrivateMessage.find({})
     for pm in PrivateMessages:
-        delete_document(db.PrivateMessage, {'_id': pm.get('_id')})
+        #delete_document(db.PrivateMessage, {'_id': pm.get('_id')})
+        pm.delete()
 
 def get_sename(sename, entityId = None, entityName = None, languageId = None):
     #replacechar = [' ', '-', '!', '?', ':', '"', '.', '+']
