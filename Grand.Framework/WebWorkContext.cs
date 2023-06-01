@@ -50,7 +50,6 @@ namespace Grand.Framework
         private Customer _cachedCustomer;
         private Customer _originalCustomerIfImpersonated;
         private Vendor _cachedVendor;
-        private Category _cachedCategory;
         private Language _cachedLanguage;
         private Currency _cachedCurrency;
         private TaxDisplayType _cachedTaxDisplayType;
@@ -327,7 +326,7 @@ namespace Grand.Framework
         public virtual async Task<Language> SetWorkingLanguage(Language language)
         {
             if (language != null)
-                await _genericAttributeService.SaveAttribute(this.CurrentCustomer, SystemCustomerAttributeNames.LanguageId, language.Id, _storeContext.CurrentStore.Id);
+                await _genericAttributeService.SaveAttribute(CurrentCustomer, SystemCustomerAttributeNames.LanguageId, language.Id, _storeContext.CurrentStore.Id);
 
             //then reset the cache value
             _cachedLanguage = null;
@@ -362,7 +361,7 @@ namespace Grand.Framework
                     if (detectedLanguage != null)
                     {
                         //language already detected
-                        await _genericAttributeService.SaveAttribute(this.CurrentCustomer,
+                        await _genericAttributeService.SaveAttribute(CurrentCustomer,
                             SystemCustomerAttributeNames.LanguageAutomaticallyDetected, true, _storeContext.CurrentStore.Id);
                     }
                 }
@@ -386,16 +385,9 @@ namespace Grand.Framework
             var customerLanguageId = customer.GetAttributeFromEntity<string>(SystemCustomerAttributeNames.LanguageId, _storeContext.CurrentStore.Id);
 
             //check customer language availability
-            var customerLanguage = allStoreLanguages.FirstOrDefault(language => language.Id == customerLanguageId);
-            if (customerLanguage == null)
-            {
-                //it not found, then try to get the default language for the current store (if specified)
-                customerLanguage = allStoreLanguages.FirstOrDefault(language => language.Id == _storeContext.CurrentStore.DefaultLanguageId);
-            }
-
-            //if the default language for the current store not found, then try to get the first one
-            if (customerLanguage == null)
-                customerLanguage = allStoreLanguages.FirstOrDefault();
+            var customerLanguage = (allStoreLanguages.FirstOrDefault(language => language.Id == customerLanguageId) 
+                ?? allStoreLanguages.FirstOrDefault(language => language.Id == _storeContext.CurrentStore.DefaultLanguageId)) 
+                ?? allStoreLanguages.FirstOrDefault();
 
             //cache the found language
             _cachedLanguage = customerLanguage;
@@ -431,16 +423,9 @@ namespace Grand.Framework
             var allStoreCurrencies = await _currencyService.GetAllCurrencies();
 
             //check customer currency availability
-            var customerCurrency = allStoreCurrencies.FirstOrDefault(currency => currency.Id == customerCurrencyId);
-            if (customerCurrency == null)
-            {
-                //it not found, then try to get the default currency for the current language (if specified)
-                customerCurrency = allStoreCurrencies.FirstOrDefault(currency => currency.Id == this.WorkingLanguage.DefaultCurrencyId);
-            }
-
-            //if the default currency for the current store not found, then try to get the first one
-            if (customerCurrency == null)
-                customerCurrency = allStoreCurrencies.FirstOrDefault();
+            var customerCurrency = (allStoreCurrencies.FirstOrDefault(currency => currency.Id == customerCurrencyId) 
+                ?? allStoreCurrencies.FirstOrDefault(currency => currency.Id == WorkingLanguage.DefaultCurrencyId)) 
+                ?? allStoreCurrencies.FirstOrDefault();
 
             //cache the found currency
             _cachedCurrency = customerCurrency;
@@ -453,7 +438,7 @@ namespace Grand.Framework
         public virtual async Task<Currency> SetWorkingCurrency(Currency currency)
         {
             //and save it
-            await _genericAttributeService.SaveAttribute(this.CurrentCustomer,
+            await _genericAttributeService.SaveAttribute(CurrentCustomer,
                 SystemCustomerAttributeNames.CurrencyId, currency.Id, _storeContext.CurrentStore.Id);
 
             //then reset the cache value
@@ -497,7 +482,7 @@ namespace Grand.Framework
                 return await Task.FromResult(taxDisplayType);
 
             //save passed value
-            await _genericAttributeService.SaveAttribute(this.CurrentCustomer,
+            await _genericAttributeService.SaveAttribute(CurrentCustomer,
                 SystemCustomerAttributeNames.TaxDisplayTypeId, (int)taxDisplayType, _storeContext.CurrentStore.Id);
 
             //then reset the cache value

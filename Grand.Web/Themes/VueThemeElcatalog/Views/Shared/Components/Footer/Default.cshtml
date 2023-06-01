@@ -22,10 +22,10 @@
                             <b-list-group-item href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</b-list-group-item>
                         }
                         <b-list-group-item href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</b-list-group-item>
-                        @if (false)
+@*                        @if (false)
                         {
                             <b-list-group-item href="@Url.RouteUrl("ProductSearch")">@T("Search")</b-list-group-item>
-                        }
+                        }*@
                         @if (Model.NewsEnabled)
                         {
                             <b-list-group-item href="@Url.RouteUrl("NewsArchive")">@T("News")</b-list-group-item>

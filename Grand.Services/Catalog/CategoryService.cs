@@ -203,10 +203,10 @@ namespace Grand.Services.Catalog
 
             if (!showHidden)
                 query = query.Where(c => c.Published);
-            if (!String.IsNullOrWhiteSpace(categoryName))
+            if (!string.IsNullOrWhiteSpace(categoryName))
                 query = query.Where(m => m.Name != null && m.Name.ToLower().Contains(categoryName.ToLower()));
 
-            if ((!_catalogSettings.IgnoreAcl || (!String.IsNullOrEmpty(storeId) && !_catalogSettings.IgnoreStoreLimitations)))
+            if ((!_catalogSettings.IgnoreAcl || (!string.IsNullOrEmpty(storeId) && !_catalogSettings.IgnoreStoreLimitations)))
             {
                 if (!showHidden && !_catalogSettings.IgnoreAcl)
                 {
@@ -216,7 +216,7 @@ namespace Grand.Services.Catalog
                             where !p.SubjectToAcl || allowedCustomerRolesIds.Any(x => p.CustomerRoles.Contains(x))
                             select p;
                 }
-                if (!String.IsNullOrEmpty(storeId) && !_catalogSettings.IgnoreStoreLimitations)
+                if (!string.IsNullOrEmpty(storeId) && !_catalogSettings.IgnoreStoreLimitations)
                 {
                     //Store mapping
                     query = from p in query
@@ -246,13 +246,13 @@ namespace Grand.Services.Catalog
         {
             var storeId = _storeContext.CurrentStore.Id;
             var customer = _workContext.CurrentCustomer;
-            string key = string.Format(CATEGORIES_BY_PARENT_CATEGORY_ID_KEY, parentCategoryId, showHidden, customer.Id, storeId, includeAllLevels);
+            var key = string.Format(CATEGORIES_BY_PARENT_CATEGORY_ID_KEY, parentCategoryId, showHidden, customer.Id, storeId, includeAllLevels);
             return await _cacheManager.GetAsync(key, async () =>
             {
                 var builder = Builders<Category>.Filter;
                 var filter = builder.Where(c => c.ParentCategoryId == parentCategoryId);
                 if (!showHidden)
-                    filter = filter & builder.Where(c => c.Published);
+                    filter &= builder.Where(c => c.Published);
 
                 if (!showHidden && (!_catalogSettings.IgnoreAcl || !_catalogSettings.IgnoreStoreLimitations))
                 {
@@ -260,14 +260,14 @@ namespace Grand.Services.Catalog
                     {
                         //ACL (access control list)
                         var allowedCustomerRolesIds = customer.GetCustomerRoleIds();
-                        filter = filter & (builder.AnyIn(x => x.CustomerRoles, allowedCustomerRolesIds) | builder.Where(x => !x.SubjectToAcl));
+                        filter &= (builder.AnyIn(x => x.CustomerRoles, allowedCustomerRolesIds) | builder.Where(x => !x.SubjectToAcl));
 
                     }
                     if (!_catalogSettings.IgnoreStoreLimitations)
                     {
                         //Store mapping
                         var currentStoreId = new List<string> { storeId };
-                        filter = filter & (builder.AnyIn(x => x.Stores, currentStoreId) | builder.Where(x => !x.LimitedToStores));
+                        filter &= (builder.AnyIn(x => x.Stores, currentStoreId) | builder.Where(x => !x.LimitedToStores));
                     }
 
                 }
@@ -295,7 +295,7 @@ namespace Grand.Services.Catalog
         {
             var builder = Builders<Category>.Filter;
             var filter = builder.Eq(x => x.Published, true);
-            filter = filter & builder.Eq(x => x.ShowOnHomePage, true);
+            filter &= builder.Eq(x => x.ShowOnHomePage, true);
             var query = _categoryRepository.Collection.Find(filter).SortBy(x => x.DisplayOrder);
 
             var categories = await query.ToListAsync();
@@ -318,7 +318,7 @@ namespace Grand.Services.Catalog
         {
             var builder = Builders<Category>.Filter;
             var filter = builder.Eq(x => x.Published, true);
-            filter = filter & builder.Eq(x => x.FeaturedProductsOnHomaPage, true);
+            filter &= builder.Eq(x => x.FeaturedProductsOnHomaPage, true);
             var query = _categoryRepository.Collection.Find(filter).SortBy(x => x.DisplayOrder);
 
             var categories = await query.ToListAsync();
@@ -340,7 +340,7 @@ namespace Grand.Services.Catalog
         {
             var builder = Builders<Category>.Filter;
             var filter = builder.Eq(x => x.Published, true);
-            filter = filter & builder.Eq(x => x.ShowOnSearchBox, true);
+            filter &= builder.Eq(x => x.ShowOnSearchBox, true);
             var query = _categoryRepository.Collection.Find(filter).SortBy(x => x.SearchBoxDisplayOrder);
             var categories = (await query.ToListAsync())
                 .Where(c => _aclService.Authorize(c) && _storeMappingService.Authorize(c))
@@ -423,13 +423,13 @@ namespace Grand.Services.Catalog
         /// <returns>Formatted breadcrumb</returns>
         public virtual async Task<string> GetFormattedBreadCrumb(Category category, string separator = ">>", string languageId = "")
         {
-            string result = string.Empty;
+            var result = string.Empty;
 
             var breadcrumb = await GetCategoryBreadCrumb(category, true);
-            for (int i = 0; i <= breadcrumb.Count - 1; i++)
+            for (var i = 0; i <= breadcrumb.Count - 1; i++)
             {
                 var categoryName = breadcrumb[i].GetLocalized(x => x.Name, languageId);
-                result = String.IsNullOrEmpty(result)
+                result = string.IsNullOrEmpty(result)
                     ? categoryName
                     : string.Format("{0} {1} {2}", result, separator, categoryName);
             }
@@ -448,13 +448,13 @@ namespace Grand.Services.Catalog
         public virtual string GetFormattedBreadCrumb(Category category,
             IList<Category> allCategories, string separator = ">>", string languageId = "")
         {
-            string result = string.Empty;
+            var result = string.Empty;
 
             var breadcrumb = GetCategoryBreadCrumb(category, allCategories, true);
-            for (int i = 0; i <= breadcrumb.Count - 1; i++)
+            for (var i = 0; i <= breadcrumb.Count - 1; i++)
             {
                 var categoryName = breadcrumb[i].GetLocalized(x => x.Name, languageId);
-                result = String.IsNullOrEmpty(result)
+                result = string.IsNullOrEmpty(result)
                     ? categoryName
                     : string.Format("{0} {1} {2}", result, separator, categoryName);
             }
@@ -482,7 +482,7 @@ namespace Grand.Services.Catalog
         /// <returns>Category</returns>
         public virtual async Task<Category> GetCategoryById(string categoryId)
         {
-            string key = string.Format(CATEGORIES_BY_ID_KEY, categoryId);
+            var key = string.Format(CATEGORIES_BY_ID_KEY, categoryId);
             return await _cacheManager.GetAsync(key, () => _categoryRepository.GetByIdAsync(categoryId));
         }
 
@@ -514,7 +514,7 @@ namespace Grand.Services.Catalog
         {
             if (category == null)
                 throw new ArgumentNullException("category");
-            if (String.IsNullOrEmpty(category.ParentCategoryId))
+            if (string.IsNullOrEmpty(category.ParentCategoryId))
                 category.ParentCategoryId = "";
 
             //validate category hierarchy
@@ -574,10 +574,10 @@ namespace Grand.Services.Catalog
         public virtual async Task<IPagedList<ProductCategory>> GetProductCategoriesByCategoryId(string categoryId,
             int pageIndex = 0, int pageSize = int.MaxValue, bool showHidden = false)
         {
-            if (String.IsNullOrEmpty(categoryId))
+            if (string.IsNullOrEmpty(categoryId))
                 return new PagedList<ProductCategory>(new List<ProductCategory>(), pageIndex, pageSize);
 
-            string key = string.Format(PRODUCTCATEGORIES_ALLBYCATEGORYID_KEY, showHidden, categoryId, pageIndex, pageSize, _workContext.CurrentCustomer.Id, _storeContext.CurrentStore.Id);
+            var key = string.Format(PRODUCTCATEGORIES_ALLBYCATEGORYID_KEY, showHidden, categoryId, pageIndex, pageSize, _workContext.CurrentCustomer.Id, _storeContext.CurrentStore.Id);
             return await _cacheManager.GetAsync(key, () =>
             {
                 var query = _productRepository.Table.Where(x => x.ProductCategories.Any(y => y.CategoryId == categoryId));
@@ -657,7 +657,7 @@ namespace Grand.Services.Catalog
 
             var builder = Builders<Product>.Filter;
             var filter = builder.Eq(x => x.Id, productCategory.ProductId);
-            filter = filter & builder.Where(x => x.ProductCategories.Any(y => y.Id == productCategory.Id));
+            filter &= builder.Where(x => x.ProductCategories.Any(y => y.Id == productCategory.Id));
             var update = Builders<Product>.Update
                 .Set(x => x.ProductCategories.ElementAt(-1).CategoryId, productCategory.CategoryId)
                 .Set(x => x.ProductCategories.ElementAt(-1).IsFeaturedProduct, productCategory.IsFeaturedProduct)
