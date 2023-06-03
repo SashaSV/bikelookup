@@ -14,7 +14,7 @@ DBCONNECT = {'NAMEMACHINE': 'localhost',
              'NAMEDB': 'bldb'}
 
 PAGES_START = 1
-PAGES_COUNT = 2
+#PAGES_COUNT = 2
 OUT_FILENAME = 'amazon'
 OUT_XLSX_FILENAME = 'amazon'
 VENDOR = 'amazon.es'
@@ -22,19 +22,42 @@ HOST = 'https://www.amazon.es'
 OUT_FILE_CATALOG = '/photo/'
 #FTM = 'https://www.amazon.es/s?k=apple&i=computers&page={page}&crid=32CAS3PB7DQ6I&qid=1678216929&sprefix=ap%2Ccomputers%2C181&ref=sr_pg_{page}'
 
-FTM = {
+FTMS = [{
     'category': 'MacBook',
-    'url': 'https://www.amazon.es/s?i=computers&bbn=938008031&rh=n%3A938008031%2Cp_n_feature_twenty-two_browse-bin%3A27387615031%2Cp_89%3AApple&dc&page={page}&qid=1681645819&rnid=1692911031&ref=sr_pg_{page}'
+    'url': 'https://www.amazon.es/s?i=computers&bbn=938008031&rh=n%3A938008031%2Cp_n_feature_twenty-two_browse-bin%3A27387615031%2Cp_89%3AApple&dc&page={page}&qid=1681645819&rnid=1692911031&ref=sr_pg_{page}',
+    'PAGES_COUNT':1
+},
+{
+    'category': 'iPad',
+    'url': 'https://www.amazon.es/s?i=computers&bbn=938010031&rh=n%3A667049031%2Cn%3A667050031%2Cn%3A938010031%2Cp_89%3AApple&page={page}&qid=1685814004&ref=sr_pg_{page}',
+    'PAGES_COUNT':11
+},
+{
+    'category': 'Apple Watch',
+    'url': 'https://www.amazon.es/s?i=electronics&bbn=665492031&rh=n%3A599370031%2Cn%3A931491031%2Cn%3A665492031%2Cn%3A3457446031%2Cp_89%3AApple&dc&page={page}&qid=1685815194&rnid=665492031&ref=sr_pg_{page}',
+    'PAGES_COUNT':7
+},
+{
+    'category': 'AirPods',
+    'url': 'https://www.amazon.es/s?i=electronics&bbn=17420905031&rh=n%3A599370031%2Cn%3A931491031%2Cn%3A665492031%2Cn%3A665494031%2Cn%3A17420905031%2Cn%3A934056031%2Cp_89%3AApple&dc&ds=v1%3AXkmwXEQTkLAGWfNfsZTGEI2f33q1Ac8JtnXqOqPLrGA&qid=1685815513&rnid=17420905031&ref=sr_nr_n_2',
+    'PAGES_COUNT':1
+},
+{
+    'category': 'Accessories',
+    'url': 'https://www.amazon.es/s?i=electronics&bbn=665494031&rh=n%3A599370031%2Cn%3A931491031%2Cn%3A665492031%2Cn%3A665494031%2Cp_89%3AApple&dc&page={page}&qid=1685815621&ref=sr_pg_{page}',
+    'PAGES_COUNT':16
 }
+]
 
 client = MongoClient(DBCONNECT['NAMEMACHINE'], DBCONNECT['PORTDB'])
 #client = MongoClient('mongodb+srv://admin:Zazimja129shura@cluster0.ofiehaa.mongodb.net/bldb')
 db = client[DBCONNECT['NAMEDB']]
 
-def pars_new_card_into_db():
+def pars_new_card_into_db(ftm):
     #dbservice.chek_so_name(db, 'name', 'model')  
-    jsonfilename = '{0}_{1}_{2}.json'.format(OUT_FILENAME, PAGES_START, (PAGES_START + PAGES_COUNT))
-    jsonUrlFileName = 'URL_{0}_{1}_{2}.json'.format(OUT_FILENAME, PAGES_START, (PAGES_START + PAGES_COUNT))
+    PAGES_COUNT = ftm['PAGES_COUNT']
+    jsonfilename = '{0}_{1}_{2}.json'.format(ftm['category'], PAGES_START, (PAGES_START + PAGES_COUNT))
+    jsonUrlFileName = 'URL_{0}_{1}_{2}.json'.format(ftm['category'], PAGES_START, (PAGES_START + PAGES_COUNT))
     data = scanservice.getDataFromJsonFile(jsonfilename)
     
     #d1 = DefaultMunch.fromDict(data, DataScraps())
@@ -44,10 +67,10 @@ def pars_new_card_into_db():
         urls = scanservice.getDataFromJsonFile(jsonUrlFileName)
         
         if len(urls) == 0:
-            urls = crawl_products(PAGES_COUNT)
+            urls = crawl_products(PAGES_COUNT, ftm)
             scanservice.dump_to_json(jsonUrlFileName, urls)
         
-        data = parse_products(urls)
+        data = parse_products(urls, ftm)
         dataJson = []
         for row, item in enumerate(data, start=0):
             a = copy.copy(item)
@@ -58,10 +81,10 @@ def pars_new_card_into_db():
             scanservice.dump_to_json(jsonfilename, dataJson)
     
     if len(data) > 0:
-        dbservice.clear_all_product(db)
+        dbservice.clear_all_product()
         dbservice.check_product(data)
 
-def crawl_products(pages_count):
+def crawl_products(pages_count, ftm):
     """
     Собирает со страниц с 1 по pages_count включительно ссылки на товары.
     :param pages_count:     номер последней страницы с товарами.
@@ -75,7 +98,7 @@ def crawl_products(pages_count):
 
         page_num = 1 if page_n == 1 else page_n
 
-        page_url = FTM['url'].format(page=page_num)
+        page_url = ftm['url'].format(page=page_num)
         soup = scanservice.get_soup(page_url)
 
         if soup is None:
@@ -96,9 +119,13 @@ def crawl_products(pages_count):
             
             if href.find('/ref=') > 0 :
                 #href = href[0:href.find('/ref=')].strip()
-            
-                url = '{0}{1}'.format(HOST, href)
 
+                
+                url_shot = href[0:href.find('/ref=')].strip()
+                #url_shot = url_shot[url_shot.rfind('/')+1:]
+
+                #url = '{0}{1}'.format(HOST, href)
+                url = '{0}{1}'.format(HOST, url_shot)
                 if url.strip() == (HOST.strip() + '/') :
                     continue
 
@@ -113,7 +140,7 @@ def check_property(techs, text):
         ret = techs.get(text)
     return ret
 
-def parse_products(urls) -> list[DataScraps]:
+def parse_products(urls, ftm) -> list[DataScraps]:
     """
     Парсинг полей:
         название, цена и таблица характеристик
@@ -134,8 +161,8 @@ def parse_products(urls) -> list[DataScraps]:
             scrapsData.url = url[0:url.find('/ref=')].strip()
         
         scrapsData.sku = scrapsData.url[scrapsData.url.rfind('/')+1:]
-        #if scrapsData.sku == 'B0B3CPX356':
-        #    breakpoint()
+        if scrapsData.sku == 'B0BSJ124T':
+            breakpoint()
 
         if soup is None:
             seleniumScrapUrl.append(url)
@@ -155,7 +182,7 @@ def parse_products(urls) -> list[DataScraps]:
             scrapsData.manufacturer = 'Apple'
 
             # category
-            scrapsData.category = FTM['category']
+            scrapsData.category = ftm['category']
 
             # options
             techs = {}
@@ -184,22 +211,23 @@ def parse_products(urls) -> list[DataScraps]:
             images = []
             i = 0
             
-            script = soup.find('div', id='imageBlockVariations_feature_div').find('script').get_text(strip=True)
+            script = soup.find('div', id='imageBlockVariations_feature_div').find('script').string
             jstext = script[script.find('jQuery.parseJSON(')+len('jQuery.parseJSON(')+1 : script.find('''}\')''',script.find('jQuery.parseJSON('))+1]
             jstext = '['+jstext+']'
             d = json.loads(jstext)
             
             images = []
-            for row, item in enumerate(d[0].get('colorToAsin'), start=0):
-                if d[0].get('colorToAsin')[item].get('asin') == sku:
-                    images = d[0].get('colorImages').get(item)
-                    continue
+            if len(d) > 0:
+                for row, item in enumerate(d[0].get('colorToAsin'), start=0):
+                    if d[0].get('colorToAsin')[item].get('asin') == sku:
+                        images = d[0].get('colorImages').get(item)
+                        continue
 
-            for image in images:
-                i = i + 1
-                urlimage = image.get('hiRes')
-                if not urlimage is None:
-                    scrapsData.images.append(urlimage)
+                for image in images:
+                    i = i + 1
+                    urlimage = image.get('hiRes')
+                    if not urlimage is None:
+                        scrapsData.images.append(urlimage)
 
             if len(scrapsData.images) == 0:
                 for script in soup.find_all('script', type="text/javascript"):
@@ -221,6 +249,11 @@ def parse_products(urls) -> list[DataScraps]:
                             if not urlimage is None:
                                 scrapsData.images.append(urlimage)
                         continue
+            
+            if len(scrapsData.images) == 0:
+                img= soup.find('div', id='imgTagWrapperId')
+                if img:
+                    scrapsData.images.append(img.find('img').get('src'))
 
             for script in soup.find_all('script', type="text/javascript"):
                 script = script.get_text(strip=True)
@@ -238,8 +271,8 @@ def parse_products(urls) -> list[DataScraps]:
                     scanservice.dump_to_json('test.json', jstext)
                     #d = json.loads(jstext)
 
-            if len(images) == 0:
-                seleniumScrapUrl.append(url)
+            #if len(images) == 0:
+                #seleniumScrapUrl.append(url)
 
             price = '0'
             oldprice = '0'
@@ -290,7 +323,7 @@ def parse_products(urls) -> list[DataScraps]:
                 scrapsData.available = 'En stock'
 
             #scrapsData = pars_name(db,scrapsData)
-            scrapsData.pars_name(db)
+            scrapsData.pars_name()
             data.append(scrapsData)
 
         except ImportError:
@@ -301,65 +334,6 @@ def parse_products(urls) -> list[DataScraps]:
     print(seleniumScrapUrl)
     return data
 
-from datetime import datetime
-def pars_name(db, dataScraps: DataScraps) -> DataScraps:
-    deletewords = []
-
-    name = dataScraps.name
-
-    for word in deletewords:
-        name = name.replace(word, '').strip()
-
-    for n in name.split(' '):
-        manufacturer = dbservice.chek_so_name(db, n, 'manufacturer')
-        if len(manufacturer) > 0:
-            dataScraps.manufacturer = manufacturer
-            
-        year = dbservice.chek_so_name(db, n, 'year')
-        
-        if len(year) == 0:
-            curyear = datetime.now().year+1
-            y = curyear
-
-            while y >= curyear - 15:
-                if name.find(str(y)) > 0:
-                    year = str(y)
-                    
-
-                y = y - 1
-
-        if len(year) > 0:
-            dataScraps.year = year
-        
-        cpu = dbservice.chek_so_name(db, n, 'cpu')
-        if len(cpu) > 0:
-            dataScraps.cpu = cpu
-    
-    display = dbservice.chek_so_name(db, name, 'display')
-    if len(display) > 0:
-        dataScraps.display = display
-
-    memory = dbservice.chek_so_name(db, name.replace(' ',''), 'memory')
-    if len(memory) > 0:
-        dataScraps.memory = memory
-
-    hdd = dbservice.chek_so_name(db, name.replace(' ',''), 'hdd')
-    if len(hdd) > 0:
-        dataScraps.hdd = hdd
-
-    color = dbservice.chek_so_name(db, name, 'color')
-    if len(color) > 0:
-        dataScraps.color = color
-
-    #if dataScraps.sku == 'B09JRFPFW9':
-    #    breakpoint()
-
-    #dataScraps.model = find_model(s=name, retModels=[])
-
-    dataScraps.model = dbservice.chek_so_name(db, name, 'model')
-
-    return dataScraps
-
 import sys
 sys.setrecursionlimit(1500)
 
@@ -367,7 +341,7 @@ def find_model(s:str, retModels:list[str] = [])->list[str]:
     if len(s) > 0:
         for n in s.split(' '):
             s = s.replace(n,'').strip()
-            model = dbservice.chek_so_name(db, n, 'model')
+            model = dbservice.chek_so_name(n, 'model')
             if len(model) > 0:
                 retModels.append(model)
                 find_model(s=s, retModels = retModels)
@@ -377,7 +351,8 @@ def find_model(s:str, retModels:list[str] = [])->list[str]:
     return retModels
 
 def main():
-    pars_new_card_into_db()
+    for ftm in FTMS:
+        pars_new_card_into_db(ftm)
 
 if __name__ == '__main__':
     main()

@@ -50,20 +50,20 @@ class DataScraps:
         self.model = []
         self.subcategory = []
 
-    def pars_name(self, db) -> None:
+    def pars_name(self) -> None:
         deletewords = []
 
         name = self.name
-
+        
         for word in deletewords:
             name = name.replace(word, '').strip()
 
         for n in name.split(' '):
-            manufacturer = chek_so_name(db, n, 'manufacturer')
+            manufacturer = chek_so_name(n, 'manufacturer')
             if len(manufacturer) > 0:
                 self.manufacturer = manufacturer
                 
-            year = chek_so_name(db, n, 'year')
+            year = chek_so_name(n, 'year')
             
             if len(year) == 0:
                 curyear = datetime.now().year+1
@@ -78,27 +78,27 @@ class DataScraps:
             if len(year) > 0:
                 self.year = year
             
-            cpu = chek_so_name(db, n, 'cpu')
+            cpu = chek_so_name(n, 'cpu')
             if len(cpu) > 0:
                 self.cpu = cpu
         
-        display = chek_so_name(db, name, 'display')
+        display = chek_so_name(name, 'display')
         if len(display) > 0:
             self.display = display
 
-        memory = chek_so_name(db, name.replace(' ',''), 'memory')
+        memory = chek_so_name(name, 'memory')
         if len(memory) > 0:
             self.memory = memory
 
-        hdd = chek_so_name(db, name.replace(' ',''), 'hdd')
+        hdd = chek_so_name(name, 'hdd')
         if len(hdd) > 0:
             self.hdd = hdd
 
-        color = chek_so_name(db, name, 'color')
+        color = chek_so_name(name, 'color')
         if len(color) > 0:
             self.color = color
 
-        self.model = chek_so_name(db, name, 'model')
+        self.model = chek_so_name(name, 'model')
 
     def check_category(self) -> None:
         aa = 0
@@ -119,11 +119,7 @@ def check_product(data:list[DataScraps]):
 
     cnt = 0
     for d in data:
-        vendorid = check_vendor(d.vendor)
-        #vendorid = vendorid._id  if not vendorid is None else None
-        ##
-        manufacturer = d.manufacturer
-        
+        vendorid = check_vendor(d.vendor)      
         name = d.name.strip()
         cnt = cnt + 1
 
@@ -143,10 +139,7 @@ def check_product(data:list[DataScraps]):
             new_p.ParentGroupedProductId = p_main._id
             new_p.Name = '{0} - {1}'.format(name, d.vendor)
             new_p.commit()
-
-        check_rel_сategories_to_product(new_p, d.category)
-        check_rel_manufacturers_to_product(new_p, manufacturer)
-        
+       
         add_spec_to_product(new_p, 'available', d.available)
 
         for f in _filteringAtribute:
@@ -166,7 +159,45 @@ def check_product(data:list[DataScraps]):
             for urlimage in d.images:
                 check_image_to_product(p_main, urlimage)
         
+        find_categories(p_main)
         p_main.commit()
+
+class CategoryRel:
+    def __init__(self, categorySpecificationAttributes=None, productSpecificationAttributes=None, productCategories = None):
+        self.categorySpecificationAttributes = categorySpecificationAttributes if categorySpecificationAttributes else []
+        self.productSpecificationAttributes = productSpecificationAttributes if productSpecificationAttributes else []
+        self.productCategories = productCategories if productCategories else []
+        self.NewCategoryRel = None
+        self._newCategories()
+    
+    def _findInCurentCategoriesRel(self, categoryId = None) -> bool:
+        retVal = False
+        for pCatrel in self.productCategories:
+            if pCatrel.CategoryId == categoryId:
+                retVal = True
+        
+        return retVal
+
+    def _newCategories(self):
+        countFind = 0
+        for categorySA in self.categorySpecificationAttributes:
+            for producrSA in self.productSpecificationAttributes:
+                if (producrSA.SpecificationAttributeId == categorySA.SpecificationAttributeId 
+                    and producrSA.SpecificationAttributeOptionId == categorySA.SpecificationAttributeOptionId):
+                    countFind += 1
+                    if countFind == len(self.categorySpecificationAttributes):
+                        if not self._findInCurentCategoriesRel(categorySA.CategoryId):
+                            self.NewCategoryRel = ProductCategoryRel(_id = str(ObjectId()), CategoryId = categorySA.CategoryId) 
+    
+def find_categories(product):
+    categories = Category.find()
+    
+    for category in categories:
+        newCategory = CategoryRel(category.CategorySpecificationAttributes, product.ProductSpecificationAttributes, product.ProductCategories).NewCategoryRel
+        if newCategory:
+            product.ProductCategories.append(newCategory)
+
+
 import sys
 sys.setrecursionlimit(1500)
 def add_spec_to_product(p_main, prop_name, prop_val):
@@ -241,19 +272,19 @@ class Options:
             tree.childs = childs
             self._trees(tree.childs)
 
-def chek_so_name(db, name, soname):
+def chek_so_name(name, soname):
     sa = check_specificationattribute_by_name(soname)
     retSoName = ''
     seret = ''
 
-    specificationAttributeOptions = sa['SpecificationAttributeOptions']
+    specificationAttributeOptions = sa.SpecificationAttributeOptions
     trees = Options(specificationAttributeOptions)    
     #trees = createTree(specificationAttributeOptions)
 
     for tree in trees.alltrees:
         for a in trees.find_childs(tree):
-            seson = get_sename(a.name)
-            sename = get_sename(name)
+            seson = get_sename(a.name.replace(' ', ''))
+            sename = get_sename(name.replace(' ', ''))
             if sename.find(seson) >= 0:
                 if len(seson) > len(seret):
                     seret = seson
@@ -338,11 +369,14 @@ def check_productspecificationattributeoption(p, sa, sao):
 def check_specificationattribute_by_name(prop_name:str):   
     do = 99 if not _filteringAtribute.__contains__(prop_name) else 0 
 
-    sa = SpecificationAttribute(_id = str(ObjectId()),
-                                Name = prop_name,
-                                DisplayOrder = do, 
-                                Locales = get_locals(prop_name)).find_one({'Name': prop_name})
-    sa.commit()
+    sa = SpecificationAttribute().find_one({'Name': prop_name})
+    
+    if not sa:
+        sa = SpecificationAttribute(_id = str(ObjectId()),
+                                    Name = prop_name,
+                                    DisplayOrder = do, 
+                                    Locales = get_locals(prop_name))
+        sa.commit()
     return sa
 
 def get_locals(prop_name):
@@ -372,8 +406,6 @@ def check_mainproduct(d):
         p_main.ProductTypeId = 10
 
     p_main.Name = d.name
-    
-    check_rel_сategories_to_product(p_main, d.category)
     check_rel_manufacturers_to_product(p_main, d.manufacturer)
     return p_main
 
@@ -401,7 +433,7 @@ def check_rel_сategories_to_product(p:Product, c_name):
 
     if cat_ret is None:
         #cat_ret = add_rel_сategories_to_product(p, c, cat)
-        productCategoryRel = ProductCategoryRel(CategoryId = c._id)
+        productCategoryRel = ProductCategoryRel(_id = str(ObjectId()), CategoryId = c._id)
         p.ProductCategories.append(productCategoryRel)
 
 
@@ -465,12 +497,6 @@ def check_image_to_product(p, urlimage):
                             TitleAttribute = p.Name)
         p.ProductPictures.append(new_rel)
 
-def add_rel_сategories_to_product(p:Product, c:Category, cat):
-    productCategoryRel = ProductCategoryRel(_id = str(ObjectId()), CategoryId = c._id)
-    p.ProductCategories.append(productCategoryRel)
-    #p.commit()
-    return cat
-
 def check_manufacturers(manufacturer):
 
     if type(manufacturer) is str:
@@ -526,7 +552,7 @@ def check_rel_manufacturers_to_product(p, m_name):
 
 def create_product(d:DataScraps):
     
-    curTierPrice = [TierPrice(Price=d.price)]
+    curTierPrice = TierPrice(Price=d.price)
    
     deliveryDateId = DeliveryDate.find_one({})
     taxCategoryId = TaxCategory.find_one({})
@@ -544,13 +570,13 @@ def create_product(d:DataScraps):
                             Price = d.price,
                             OldPrice = d.oldprice,
                             UnitId = None if not unitId else unitId.id,
-                            TierPrices = curTierPrice,
+                            TierPrices = [curTierPrice],
                             ProductCategories = [],
                             ProductManufacturers = [],
                             ProductPictures = [],
                             ProductSpecificationAttributes = []
                            )
-    product_card.SeName = get_sename(d.sku, product_card._id, 'Product', '')
+    product_card.SeName = get_sename(product_card.Sku, product_card._id, 'Product', '')
 
     return product_card
 
@@ -558,7 +584,7 @@ def load_image(url,filename):
     if not os.path.exists(filename):
         urlretrieve(url, filename)
 
-def clear_all_product(db):
+def clear_all_product():
     products = Product.find()
     for product in products:
         for picture in product.ProductPictures:
@@ -624,6 +650,6 @@ def get_sename(sename, entityId = None, entityName = None, languageId = None):
                                 Slug=sename_new,
                                 LanguageId=languageId)
             
-            if urlrecord.is_created:
+            if not urlrecord.is_created:
                 urlrecord.commit()
     return sename_new

@@ -1,0 +1,647 @@
+[
+ {
+  "url": "https://www.amazon.es/2022-Apple-Ordenador-Port%C3%A1til-MacBook/dp/B0B3CFJRF",
+  "name": "Apple 2022 Ordenador Portátil MacBook Pro con Chip M2 Pantalla Retina de 13 Pulgadas, 8GB de RAM, 512 GB SSD ​​​​​​​de Almacenamiento SSD, Touch Bar, Color​​​​​​​ Gris Espacial ​​​​​​​",
+  "sku": "B0B3CFJRFB",
+  "manufacturer": "Apple",
+  "category": "MacBook",
+  "subcategory": [],
+  "price": 1579.0,
+  "oldprice": 1849.0,
+  "vendor": "amazon.es",
+  "available": "En stock",
+  "techs": {
+   "Marca": "Apple",
+   "Nombre del modelo": "MacBook Pro",
+   "Tamaño de pantalla": "13.3",
+   "Color": "Gris espacial",
+   "Modelo de CPU": "5X86",
+   "Tamaño de memoria RAM instalada": "8 GB",
+   "Sistema operativo": "Mac OS",
+   "Función especial": "Tareas En,Y",
+   "Descripción de la tarjeta gráfica": "Integrada",
+   "Velocidad de CPU": "3,2 GHz"
+  },
+  "images": [
+   "https://m.media-amazon.com/images/I/61NRYreJ2cL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/71+TX1bTh+L._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/61cYj+1xeQL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/91gy6107QXL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/71256GSeCgL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/6147tMA5MhL._AC_SL1500_.jpg"
+  ],
+  "model": [
+   "MacBook",
+   "Pro"
+  ],
+  "color": "Gris espacial",
+  "year": "2022",
+  "memory": "8 GB",
+  "display": "13 Pulgadas",
+  "cpu": "M2",
+  "hdd": "512 GB"
+ },
+ {
+  "url": "https://www.amazon.es/2022-Apple-Ordenador-Port%C3%A1til-MacBook/dp/B0B3CT179",
+  "name": "Apple 2022 Ordenador Portátil MacBook Air con Chip M2 Pantalla Liquid Retina de 13,6 Pulgadas, 8GB de RAM, 256 GB de Almacenamiento SSD, Teclado retroiluminado, Color Negro Noche",
+  "sku": "B0B3CT179",
+  "manufacturer": "Apple",
+  "category": "MacBook",
+  "subcategory": [],
+  "price": 1295.91,
+  "oldprice": 0.0,
+  "vendor": "amazon.es",
+  "available": "Vendido",
+  "techs": {},
+  "images": [
+   "https://m.media-amazon.com/images/I/71uJwr1IrZL._AC_SX679_.jpg"
+  ],
+  "model": [
+   "MacBook",
+   "Air"
+  ],
+  "color": "",
+  "year": "2022",
+  "memory": "8 GB",
+  "display": "13,6 Pulgadas",
+  "cpu": "M2",
+  "hdd": "256 GB"
+ },
+ {
+  "url": "https://www.amazon.es/Apple-2023-MacBook-n%C3%BAcleos-diecinueve/dp/B0BSJ124T",
+  "name": "Apple 2023 MacBook Pro con Chip M2 Pro con CPU de Doce núcleos y GPU de diecinueve núcleos: Liquid Retina XDR de 14,2 Pulgadas, 16GB de Memoria unificada, 1 TB de Almacenamiento SSD, Gris Espacial",
+  "sku": "B0BSJ124TS",
+  "manufacturer": "Apple",
+  "category": "MacBook",
+  "subcategory": [],
+  "price": 2719.0,
+  "oldprice": 3049.0,
+  "vendor": "amazon.es",
+  "available": "En stock",
+  "techs": {},
+  "images": [
+   "https://m.media-amazon.com/images/I/61lYIKPieDL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/71UFJh40m3L._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/61C9irOOQVL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/81gor+j2TLL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/81OBjqVEGwL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/617OM0ij7ZL._AC_SL1500_.jpg"
+  ],
+  "model": [
+   "MacBook",
+   "Pro"
+  ],
+  "color": "Gris espacial",
+  "year": "2023",
+  "memory": "16 GB",
+  "display": "14,2 Pulgadas",
+  "cpu": "M2",
+  "hdd": "1 TB"
+ },
+ {
+  "url": "https://www.amazon.es/Apple-2023-MacBook-n%C3%BAcleos-diecinueve/dp/B0BSJ7XV9",
+  "name": "Apple 2023 MacBook Pro con Chip M2 Pro con CPU de Doce núcleos y GPU de diecinueve núcleos: Liquid Retina XDR de 16,2 Pulgadas, 16GB de Memoria unificada, 512 GB de Almacenamiento SSD,Gris Espacial",
+  "sku": "B0BSJ7XV9N",
+  "manufacturer": "Apple",
+  "category": "MacBook",
+  "subcategory": [],
+  "price": 2719.0,
+  "oldprice": 3049.0,
+  "vendor": "amazon.es",
+  "available": "En stock",
+  "techs": {},
+  "images": [
+   "https://m.media-amazon.com/images/I/61fd2oCrvyL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/71ByFMG82LL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/61C9irOOQVL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/81Q6HWsK0rL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/81OBjqVEGwL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/61CZUv2Qh5L._AC_SL1500_.jpg"
+  ],
+  "model": [
+   "MacBook",
+   "Pro"
+  ],
+  "color": "Gris espacial",
+  "year": "2023",
+  "memory": "16 GB",
+  "display": "",
+  "cpu": "M2",
+  "hdd": "512 GB"
+ },
+ {
+  "url": "https://www.amazon.es/Apple-MacBook-Air-Reacondicionado-Certificado/dp/B074XFGDM",
+  "name": "Apple MacBook Air 13 (Reacondicionado)",
+  "sku": "B074XFGDM",
+  "manufacturer": "Apple",
+  "category": "MacBook",
+  "subcategory": [],
+  "price": 399.0,
+  "oldprice": 0.0,
+  "vendor": "amazon.es",
+  "available": "En stock",
+  "techs": {
+   "Marca": "Apple",
+   "Tamaño de pantalla": "13,3 Pulgadas",
+   "Color": "Plata",
+   "Tamaño de memoria RAM instalada": "4 GB",
+   "Sistema operativo": "Mac OS",
+   "Coprocesador de gráficos": "Intel HD Graphics 5000",
+   "Descripción del disco duro": "SSD",
+   "Resolución": "720p",
+   "Total de puertos USB": "2",
+   "Tecnología de conectividad": "USB"
+  },
+  "images": [
+   "https://m.media-amazon.com/images/I/61gKpL5FcNL._AC_SX679_.jpg"
+  ],
+  "model": [
+   "MacBook",
+   "Air"
+  ],
+  "color": "Plata",
+  "year": "",
+  "memory": "4 GB",
+  "display": "13,3 Pulgadas",
+  "cpu": "",
+  "hdd": ""
+ },
+ {
+  "url": "https://www.amazon.es/Apple-MacBook-Pro-Chip-13-Pulgadas/dp/B08N5WRTN",
+  "name": "Apple 2020 MacBook Pro con Chip M1 (13 Pulgadas, 8 GB RAM, 256 GB SSD) - Gris Espacial",
+  "sku": "B08N5WRTN",
+  "manufacturer": "Apple",
+  "category": "MacBook",
+  "subcategory": [],
+  "price": 1140.83,
+  "oldprice": 0.0,
+  "vendor": "amazon.es",
+  "available": "Vendido",
+  "techs": {
+   "Marca": "Apple",
+   "Nombre del modelo": "MacBook Pro",
+   "Tamaño de pantalla": "13 Pulgadas",
+   "Color": "Gris espacial",
+   "Tamaño del disco duro": "256 GB",
+   "Modelo de CPU": "Core M Family",
+   "Tamaño de memoria RAM instalada": "8 GB",
+   "Sistema operativo": "MacOS 11 Big Sur",
+   "Descripción de la tarjeta gráfica": "Integrada",
+   "Velocidad de CPU": "3,1 GHz"
+  },
+  "images": [
+   "https://m.media-amazon.com/images/I/71rqP3sMUXL._AC_SX679_.jpg"
+  ],
+  "model": [
+   "MacBook",
+   "Pro"
+  ],
+  "color": "Gris espacial",
+  "year": "2020",
+  "memory": "8 GB",
+  "display": "13 Pulgadas",
+  "cpu": "M1",
+  "hdd": "256 GB"
+ },
+ {
+  "url": "https://www.amazon.es/Apple-MacBook-14-polegadas-Processador-GPU-16%E2%80%91Core/dp/B09JR5FG6",
+  "name": "Apple 2021 MacBook Pro (de 14 Pulgadas, Chip M1 Pro CPU de Diez núcleos y GPU de dieciséis núcleos, 16 GB RAM, 1 TB SSD) - Plata",
+  "sku": "B09JR5FG6L",
+  "manufacturer": "Apple",
+  "category": "MacBook",
+  "subcategory": [],
+  "price": 2734.0,
+  "oldprice": 0.0,
+  "vendor": "amazon.es",
+  "available": "En stock",
+  "techs": {
+   "Marca": "Apple",
+   "Nombre del modelo": "MacBook Pro",
+   "Tamaño de pantalla": "14 Pulgadas",
+   "Color": "Plata",
+   "Modelo de CPU": "Apple M1",
+   "Tamaño de memoria RAM instalada": "16 GB",
+   "Sistema operativo": "Mac OS",
+   "Descripción de la tarjeta gráfica": "Integrada",
+   "Velocidad de CPU": "3,1 GHz",
+   "Descripción del disco duro": "SSD"
+  },
+  "images": [
+   "https://m.media-amazon.com/images/I/61UIpXjNTHL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/71t8EDdqIDL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/81P1bkg3MKL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/81BqCxCftxL._AC_SL1500_.jpg",
+   "https://m.media-amazon.com/images/I/6168XVm2RoL._AC_SL1500_.jpg"
+  ],
+  "model": [
+   "MacBook",
+   "Pro"
+  ],
+  "color": "Plata",
+  "year": "2021",
+  "memory": "16 GB",
+  "display": "14 Pulgadas",
+  "cpu": "M1",
+  "hdd": "1 TB"
+ },
+ {
+  "url": "https://www.amazon.es/Apple-MacBook-16-pulgadas-diez-n%C3%BAcleos-diecis%C3%A9is-n%C3%BAcleos/dp/B09JR3FNV",
+  "name": "Apple 2021 MacBook Pro (de 16 Pulgadas, Chip M1 Pro CPU de Diez núcleos y GPU de dieciséis núcleos, 16 GB RAM, 1 TB SSD) - Gris Espacial",
+  "sku": "B09JR3FNV",
+  "manufacturer": "Apple",
+  "category": "MacBook",
+  "subcategory": [],
+  "price": 2483.21,
+  "oldprice": 0.0,
+  "vendor": "amazon.es",
+  "available": "Vendido",
+  "techs": {
+   "Marca": "Apple",
+   "Nombre del modelo": "MacBook Pro",
+   "Tamaño de pantalla": "16 Pulgadas",
+   "Color": "Gris espacial",
+   "Modelo de CPU": "Apple M1",
+   "Tamaño de memoria RAM instalada": "16 GB",
+   "Sistema operativo": "Mac OS",
+   "Función especial": "Anti Glare Coating",
+   "Descripción de la tarjeta gráfica": "Integrada",
+   "Coprocesador de gráficos": "NVIDIA GeForce RTX 3080 Ti"
+  },
+  "images": [
+   "https://m.media-amazon.com/images/I/61aUBxqc5PL._AC_SX679_.jpg"
+  ],
+  "model": [
+   "MacBook",
+   "Pro"
+  ],
+  "color": "Gris espacial",
+  "year": "2021",
+  "memory": "16 GB",
+  "display": "16 Pulgadas",
+  "cpu": "M1",
+  "hdd": "1 TB"
+ },
+ {
+  "url": "https://www.amazon.es/Apple-MacBook-1-4GHz-256GB-Reacondicionado/dp/B07WZVDBY",
+  "name": "Inicios-2014 Apple MacBook Air con 1.4GHz Intel Core i5 (13-pulgadas, 4GB RAM, 256GB SSD Almacenamiento) (Reacondicionado)",
+  "sku": "B07WZVDBY",
+  "manufacturer": "Apple",
+  "category": "MacBook",
+  "subcategory": [],
+  "price": 355.0,
+  "oldprice": 0.0,
+  "vendor": "amazon.es",
+  "available": "En stock",
+  "techs": {
+   "Marca": "Apple",
+   "Tamaño de pantalla": "13 Pulgadas",
+   "Modelo de CPU": "Core i5",
+   "Tamaño de memoria RAM instalada": "4 GB",
+   "Sistema operativo": "Mac OS",
+   "Velocidad de CPU": "1,4 GHz",
+   "Descripción del disco duro": "SSD",
+   "Fabricante de CPU": "Apple",
+   "Entrada de interfaz humana": "Teclado, Panel táctil"
+  },
+  "images": [
+   "https://m.media-amazon.com/images/I/61gKpL5FcNL._AC_SX679_.jpg"
+  ],
+  "model": [
+   "MacBook",
+   "Air"
+  ],
+  "color": "",
+  "year": "2014",
+  "memory": "4 GB",
+  "display": "13 Pulgadas",
+  "cpu": "Intel",
+  "hdd": "256 GB"
+ },
+ {
+  "url": "https://www.amazon.es/Apple-MacBook-13-polegadas-Processador-GPU-8%E2%80%91Core/dp/B08T15LYG",
+  "name": "Apple MacBook Pro (de 13 polegadas, Processador M1 da com CPU 8‐Core e GPU 8‐Core, 8 GB RAM, 512 GB SSD) - Cinzento sideral (novembro 2020)",
+  "sku": "B08T15LYG",
+  "manufacturer": "Apple",
+  "category": "MacBook",
+  "subcategory": [],
+  "price": 1458.46,
+  "oldprice": 0.0,
+  "vendor": "amazon.es",
+  "available": "Vendido",
+  "techs": {
+   "Marca": "Apple",
+   "Nombre del modelo": "Novo Apple MacBook Pro (de 13 polegadas, Processador M1 da Apple com CPU 8‑core e GPU 8‑core, 8 GB RAM, 512 GB SSD) - Cinzento sideralNovo Apple MacBook Pro (de 13 polegadas, Processador M1 da Apple com CPU 8‑core e GPU 8‑core, 8 GB RAM, 512 GB SSD) - Cinze…Ver más",
+   "Tamaño de pantalla": "13 Pulgadas",
+   "Color": "Gris espacial",
+   "Tamaño del disco duro": "512 GB",
+   "Modelo de CPU": "Apple A8",
+   "Tamaño de memoria RAM instalada": "8 GB",
+   "Sistema operativo": "MacOS 11 Big Sur",
+   "Descripción de la tarjeta gráfica": "Integrada",
+   "Velocidad de CPU": "3,1 GHz"
+  },
+  "images": [
+   "https://m.media-amazon.com/images/I/71t+W15UvBL._AC_SX679_.jpg"
+  ],
+  "model": [
+   "MacBook",
+   "Pro"
+  ],
+  "color": "Cinzento sideral",
+  "year": "2020",
+  "memory": "8 GB",
+  "display": "13 Pulgadas",
+  "cpu": "M1",
+  "hdd": "512 GB"
+ },
+ {
+  "url": "https://www.amazon.es/Apple-Macbook-Ordenador-port%C3%A1til-Teclado/dp/B072MR6Y8",
+  "name": "Nuevo Apple MacBook (de 12 pulgadas, Intel Core m3 de doble núcleo a 1,2 GHz, 256GB) - Gris espacial",
+  "sku": "B072MR6Y8",
+  "manufacturer": "Apple",
+  "category": "MacBook",
+  "subcategory": [],
+  "price": 595.13,
+  "oldprice": 0.0,
+  "vendor": "amazon.es",
+  "available": "Vendido",
+  "techs": {
+   "Marca": "Apple",
+   "Tamaño de pantalla": "12 Pulgadas",
+   "Color": "Gris Espacial",
+   "Tamaño del disco duro": "256 GB",
+   "Tamaño de memoria RAM instalada": "8 GB",
+   "Descripción de la tarjeta gráfica": "HD Graphics 615",
+   "Coprocesador de gráficos": "Intel HD Graphics 615",
+   "Descripción del disco duro": "SSD",
+   "Peso del producto": "1,55 Kilogramos",
+   "Recuento de procesadores": "2"
+  },
+  "images": [
+   "https://m.media-amazon.com/images/I/41uNXkd5v0L._AC_SY741_.jpg"
+  ],
+  "model": "",
+  "color": "Gris espacial",
+  "year": "",
+  "memory": "8 GB",
+  "display": "12 Pulgadas",
+  "cpu": "Intel",
+  "hdd": "256 GB"
+ },
+ {
+  "url": "https://www.amazon.es/Apple-MacBook-Pro-Retina-Core/dp/B081FFKBV",
+  "name": "Apple MacBook Pro 15\" Retina Core i7 2,5 GHz - SSD 512 Go RAM 16 Go AZERTY (Renewed)",
+  "sku": "B081FFKBV",
+  "manufacturer": "Apple",
+  "category": "MacBook",
+  "subcategory": [],
+  "price": 990.0,
+  "oldprice": 0.0,
+  "vendor": "amazon.es",
+  "available": "Sólo queda(n) 3 en stock",
+  "techs": {
+   "Marca": "Apple",
+   "Tamaño de pantalla": "15 Pulgadas",
+   "Modelo de CPU": "Core i7",
+   "Sistema operativo": "Mac OS",
+   "Velocidad de CPU": "2,5 GHz",
+   "Descripción del disco duro": "SSD",
+   "Tecnología de conectividad": "Wifi",
+   "Recuento de procesadores": "2",
+   "Fabricante de CPU": "Apple",
+   "Entrada de interfaz humana": "Micrófono, Panel, Teclado numérico, Pantalla táctil"
+  },
+  "images": [
+   "https://m.media-amazon.com/images/I/71-OBUfsx+L._AC_SX679_.jpg"
+  ],
+  "model": [
+   "MacBook",
+   "Pro"
+  ],
+  "color": "",
+  "year": "",
+  "memory": "",
+  "display": "15 Pulgadas",
+  "cpu": "",
+  "hdd": ""
+ },
+ {
+  "url": "https://www.amazon.es/Finales-Apple-MacBook-Espacial-Renovado/dp/B0B9STY4S",
+  "name": "Apple Finales de 2016 MacBook Pro con Core i5 2.9 GHz (13 Inches 16 GB RAM, 256 GB SSD) (QWERTY inglés) Gris Espacial (Renovado)",
+  "sku": "B0B9STY4S",
+  "manufacturer": "Apple",
+  "category": "MacBook",
+  "subcategory": [],
+  "price": 799.0,
+  "oldprice": 0.0,
+  "vendor": "amazon.es",
+  "available": "Sólo queda(n) 1 en stock",
+  "techs": {
+   "Marca": "Apple",
+   "Tamaño de pantalla": "13,3 Pulgadas",
+   "Color": "Gris Espacial",
+   "Tamaño del disco duro": "256 GB",
+   "Modelo de CPU": "Core i5-2540M",
+   "Sistema operativo": "MacOS 12 Monterey",
+   "Coprocesador de gráficos": "Iris Graphics 550",
+   "Velocidad de CPU": "2,9 GHz",
+   "Descripción del disco duro": "SSD",
+   "Recuento de procesadores": "2"
+  },
+  "images": [
+   "https://m.media-amazon.com/images/I/61iyyQi8MXL._AC_SX679_.jpg"
+  ],
+  "model": [
+   "MacBook",
+   "Pro"
+  ],
+  "color": "Gris espacial",
+  "year": "2016",
+  "memory": "16 GB",
+  "display": "13,3 Pulgadas",
+  "cpu": "",
+  "hdd": "256 GB"
+ },
+ {
+  "url": "https://www.amazon.es/Apple-MacBook-2-4GHz-Pulgadas-QWERTY/dp/B0B845K9S",
+  "name": "2019 Apple MacBook Pro con 2.4GHz Intel Core i5 (13 Pulgadas, 16GB RAM, 256GB SSD) (QWERTY en inglés) - Gris Espacial (Reacondicionado)",
+  "sku": "B0B845K9S",
+  "manufacturer": "Apple",
+  "category": "MacBook",
+  "subcategory": [],
+  "price": 1149.0,
+  "oldprice": 0.0,
+  "vendor": "amazon.es",
+  "available": "Sólo queda(n) 1 en stock",
+  "techs": {
+   "Marca": "Apple",
+   "Tamaño de pantalla": "13,3 Pulgadas",
+   "Color": "Space Gray",
+   "Tamaño del disco duro": "256 GB",
+   "Modelo de CPU": "Core i5",
+   "Sistema operativo": "MacOS 12 Monterey",
+   "Coprocesador de gráficos": "Iris Graphics 550",
+   "Velocidad de CPU": "2,4 GHz",
+   "Descripción del disco duro": "SSD",
+   "Recuento de procesadores": "4"
+  },
+  "images": [
+   "https://m.media-amazon.com/images/I/61ZrTtAyzPL._AC_SX679_.jpg"
+  ],
+  "model": [
+   "MacBook",
+   "Pro"
+  ],
+  "color": "Gris espacial",
+  "year": "2019",
+  "memory": "16 GB",
+  "display": "13 Pulgadas",
+  "cpu": "Intel",
+  "hdd": "256 GB"
+ },
+ {
+  "url": "https://www.amazon.es/Apple-MacBook-Pro-2019-TouchBar/dp/B08G8T4M6",
+  "name": "Apple MacBook Pro 15\" 2019 TouchBar - 2.3GHz i9 - 16GB RAM - Radeon 560X - 512GB SSD - Space Grey (Renewed)",
+  "sku": "B08G8T4M6",
+  "manufacturer": "Apple",
+  "category": "MacBook",
+  "subcategory": [],
+  "price": 1135.0,
+  "oldprice": 0.0,
+  "vendor": "amazon.es",
+  "available": "Sólo queda(n) 1 en stock",
+  "techs": {
+   "Marca": "Apple",
+   "Tamaño de pantalla": "15 Pulgadas",
+   "Color": "Gris",
+   "Modelo de CPU": "Intel Core i9",
+   "Tamaño de memoria RAM instalada": "16 GB",
+   "Sistema operativo": "Mac OS",
+   "Velocidad de CPU": "2,3 GHz",
+   "Descripción del disco duro": "SSD",
+   "Recuento de procesadores": "4",
+   "Fabricante de CPU": "Apple"
+  },
+  "images": [
+   "https://m.media-amazon.com/images/I/31MPDqy1LKL._AC_.jpg"
+  ],
+  "model": [
+   "MacBook",
+   "Pro"
+  ],
+  "color": "Space Grey",
+  "year": "2019",
+  "memory": "16 GB",
+  "display": "15 Pulgadas",
+  "cpu": "",
+  "hdd": "512 GB"
+ },
+ {
+  "url": "https://www.amazon.es/Apple-Macbook-13-inch-TouchBar-Reacondicionado/dp/B07RRF6MS",
+  "name": "2018 Apple Macbook Pro con 2.3 GHz Core i5 (13-inch, 8GB RAM, 512GB SSD, TouchBar) Space Grey (Reacondicionado)",
+  "sku": "B07RRF6MS",
+  "manufacturer": "Apple",
+  "category": "MacBook",
+  "subcategory": [],
+  "price": 722.0,
+  "oldprice": 0.0,
+  "vendor": "amazon.es",
+  "available": "Sólo queda(n) 5 en stock",
+  "techs": {
+   "Marca": "Apple",
+   "Tamaño de pantalla": "13 Pulgadas",
+   "Color": "Gris",
+   "Modelo de CPU": "Core i5",
+   "Tamaño de memoria RAM instalada": "8 GB",
+   "Sistema operativo": "Mac OS",
+   "Velocidad de CPU": "2,3 GHz",
+   "Descripción del disco duro": "SSD",
+   "Peso del producto": "1,37 Kilogramos",
+   "Recuento de procesadores": "4"
+  },
+  "images": [
+   "https://m.media-amazon.com/images/I/61qlz3XHWgL._AC_SX679_.jpg"
+  ],
+  "model": [
+   "MacBook",
+   "Pro"
+  ],
+  "color": "Space Grey",
+  "year": "2018",
+  "memory": "8 GB",
+  "display": "13 Pulgadas",
+  "cpu": "",
+  "hdd": "512 GB"
+ },
+ {
+  "url": "https://www.amazon.es/Apple-MacBook-Early-2015-Reacondicionado/dp/B07J5MDV1",
+  "name": "Apple MacBook 12\" (Early 2015) - Core M 1.2GHz, 8GB RAM, 512GB SSD - Gold (Reacondicionado)",
+  "sku": "B07J5MDV1",
+  "manufacturer": "Apple",
+  "category": "MacBook",
+  "subcategory": [],
+  "price": 499.0,
+  "oldprice": 0.0,
+  "vendor": "amazon.es",
+  "available": "Sólo queda(n) 3 en stock",
+  "techs": {
+   "Marca": "Apple",
+   "Tamaño de pantalla": "12 Pulgadas",
+   "Modelo de CPU": "Core_m",
+   "Tamaño de memoria RAM instalada": "8 GB",
+   "Sistema operativo": "Mac OS",
+   "Velocidad de CPU": "1,2 GHz",
+   "Descripción del disco duro": "SSD",
+   "Peso del producto": "920 Gramos",
+   "Recuento de procesadores": "2",
+   "Fabricante de CPU": "Apple"
+  },
+  "images": [
+   "https://m.media-amazon.com/images/I/5172jL1hmmL._AC_.jpg"
+  ],
+  "model": "",
+  "color": "Gold",
+  "year": "2015",
+  "memory": "8 GB",
+  "display": "12 Pulgadas",
+  "cpu": "",
+  "hdd": "512 GB"
+ },
+ {
+  "url": "https://www.amazon.es/Apple-MacBook-1-6GHz-Silver-Reacondicionado/dp/B077QNZQF",
+  "name": "Early 2015 Apple MacBook Air 1.6GHz with Core i5 (13 inch, 4GB, 256GB SSD) Silver (Reacondicionado)",
+  "sku": "B077QNZQF",
+  "manufacturer": "Apple",
+  "category": "MacBook",
+  "subcategory": [],
+  "price": 375.0,
+  "oldprice": 0.0,
+  "vendor": "amazon.es",
+  "available": "Sólo queda(n) 3 en stock",
+  "techs": {
+   "Marca": "Apple",
+   "Tamaño de pantalla": "13,3 Pulgadas",
+   "Tamaño de memoria RAM instalada": "4 GB",
+   "Sistema operativo": "Mac OS",
+   "Descripción del disco duro": "SSD",
+   "Peso del producto": "2,96 Libras",
+   "Total de puertos USB": "2",
+   "Recuento de procesadores": "2",
+   "Fabricante de CPU": "Apple",
+   "Entrada de interfaz humana": "Teclado"
+  },
+  "images": [
+   "https://m.media-amazon.com/images/I/61LrPO+0feL._AC_SX679_.jpg"
+  ],
+  "model": [
+   "MacBook",
+   "Air"
+  ],
+  "color": "Silver",
+  "year": "2015",
+  "memory": "4 GB",
+  "display": "13,3 Pulgadas",
+  "cpu": "",
+  "hdd": "256 GB"
+ }
+]

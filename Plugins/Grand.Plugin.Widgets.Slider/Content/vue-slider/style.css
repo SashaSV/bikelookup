@@ -13,7 +13,7 @@
     background-image: url("/Themes/VueThemeBike/Content/images/ChevronLeft.svg");
 }
 
-.carousel-control-next-icon {
+#GrandCarousel .carousel-control-next-icon {
     height: 100px !important;
     width: 40px !important;
     background-image: url("/Themes/VueThemeBike/Content/images/ChevronRight.svg");

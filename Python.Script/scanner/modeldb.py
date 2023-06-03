@@ -40,7 +40,7 @@ class Adress(EmbeddedDocument):
     PhoneNumber = fields.StringField(default=None)
     FaxNumber = fields.StringField(default=None)
     CustomAttributes = fields.ListField(fields.StrField())
-    CreatedOnUtc = fields.DateTimeField(validate=validate.Range(min=datetime.now()))
+    CreatedOnUtc = fields.DateTimeField(validate=validate.Range(min=datetime.now()), default = datetime.now())
     
 
 @instance.register
@@ -109,8 +109,8 @@ class Manufacturer(Document):
     Icon = fields.StringField(default=None)
     DefaultSort = fields.IntegerField(default=5)
     HideOnCatalog = fields.BooleanField(default=False)
-    CreatedOnUtc = fields.DateTimeField(validate=validate.Range(min=datetime.now()))
-    UpdatedOnUtc = fields.DateTimeField(validate=validate.Range(min=datetime.now()))
+    CreatedOnUtc = fields.DateTimeField(validate=validate.Range(min=datetime.now()), default = datetime.now())
+    UpdatedOnUtc = fields.DateTimeField(validate=validate.Range(min=datetime.now()), default = datetime.now())
     AppliedDiscounts = fields.ListField(fields.StrField())
     Locales = fields.ListField(fields.EmbeddedField(Locale))
 
@@ -214,8 +214,8 @@ class Category(Document):
     Icon = fields.StringField(default=None)
     DefaultSort = fields.IntegerField(default=0)
     HideOnCatalog = fields.BooleanField(default=False)
-    CreatedOnUtc = fields.DateTimeField(validate=validate.Range(min=datetime.now()))
-    UpdatedOnUtc = fields.DateTimeField(validate=validate.Range(min=datetime.now()))
+    CreatedOnUtc = fields.DateTimeField(validate=validate.Range(min=datetime.now()), default = datetime.now())
+    UpdatedOnUtc = fields.DateTimeField(validate=validate.Range(min=datetime.now()), default = datetime.now())
     AppliedDiscounts = fields.ListField(fields.StringField())
     CategorySpecificationAttributes = fields.ListField(fields.EmbeddedField(CategorySpecificationAttributes))
     Locales = fields.ListField(fields.EmbeddedField(Locale))
@@ -259,7 +259,7 @@ class TierPrice(EmbeddedDocument):
     CustomerRoleId = fields.StringField(default=None)
     Quantity = fields.IntegerField(default=0)
     Price = fields.NumberField(default=0.0)
-    StartDateTimeUtc = fields.DateTimeField(validate=validate.Range(min=datetime.now()))
+    StartDateTimeUtc = fields.DateTimeField(validate=validate.Range(min=datetime.now()), default = datetime.now())
     EndDateTimeUtc = fields.StringField(default=None)
 
 @instance.register
@@ -378,8 +378,8 @@ class Product(Document):
     UnitId = fields.StringField(default=None)
     CourseId = fields.StringField(default=None)
     MarkAsNew = fields.BooleanField(default=True)
-    MarkAsNewStartDateTimeUtc = fields.DateTimeField(validate=validate.Range(min=datetime.now()-timedelta(days=1)))
-    MarkAsNewEndDateTimeUtc = fields.DateTimeField(validate=validate.Range(min=datetime.now()+timedelta(days=30)))
+    MarkAsNewStartDateTimeUtc = fields.DateTimeField(validate=validate.Range(min=datetime.now()-timedelta(days=1)), default = datetime.now()+timedelta(days=30))
+    MarkAsNewEndDateTimeUtc = fields.DateTimeField(validate=validate.Range(min=datetime.now()+timedelta(days=30)), default = datetime.now()+timedelta(days=30))
     Weight = fields.IntegerField(default=0)
     Length = fields.IntegerField(default=0)
     Width = fields.IntegerField(default=0)
@@ -394,8 +394,8 @@ class Product(Document):
     DisplayOrderCategory = fields.IntegerField(default=0)
     DisplayOrderManufacturer = fields.IntegerField(default=0)
     Published = fields.BooleanField(default=True)
-    CreatedOnUtc = fields.DateTimeField(validate=validate.Range(min=datetime.now()))
-    UpdatedOnUtc = fields.DateTimeField(validate=validate.Range(min=datetime.now()))
+    CreatedOnUtc = fields.DateTimeField(validate=validate.Range(min=datetime.now()), default = datetime.now())
+    UpdatedOnUtc = fields.DateTimeField(validate=validate.Range(min=datetime.now()), default = datetime.now())
     Sold = fields.IntegerField(default=0)
     Viewed = fields.IntegerField(default=0)
     OnSale = fields.IntegerField(default=0)
@@ -536,7 +536,7 @@ class PrivateMessage(Document):
     IsRead = fields.BooleanField(default=False)
     IsDeletedByAuthor = fields.BooleanField(default=False)
     IsDeletedByRecipient = fields.BooleanField(default=False)
-    CreatedOnUtc = fields.DateTimeField(validate=validate.Range(min=datetime.now()))
+    CreatedOnUtc = fields.DateTimeField(validate=validate.Range(min=datetime.now()), default = datetime.now())
 
     class Meta:
         collection_name = "PrivateMessage"

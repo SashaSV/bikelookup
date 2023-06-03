@@ -181,7 +181,8 @@ input[type=range]::-webkit-slider-thumb {
     /*padding-bottom: 5px;*/
     padding: 5px;
     border-color: rgb(0 0 0 / 8%);
-    background-color: #f8f9fa;
+    /*background-color: #f8f9fa;*/
+    background-color: #ffffff;
 }
 .generalLeftSide .block-category-navigation li.active > .sublist > li a {
     color: #000;
