@@ -122,10 +122,10 @@ def crawl_products(pages_count, ftm):
 
                 
                 url_shot = href[0:href.find('/ref=')].strip()
-                #url_shot = url_shot[url_shot.rfind('/')+1:]
+                url_shot = url_shot[url_shot.rfind('/')+1:]
 
                 #url = '{0}{1}'.format(HOST, href)
-                url = '{0}{1}'.format(HOST, url_shot)
+                url = '{0}/dp/{1}'.format(HOST, url_shot)
                 if url.strip() == (HOST.strip() + '/') :
                     continue
 
@@ -149,6 +149,7 @@ def parse_products(urls, ftm) -> list[DataScraps]:
     :return:                массив спарсенных данных по каждому из товаров.
     """
     seleniumScrapUrl = []
+    newScrapUrl = []
     data = []
     driver = driver_init()
     for number, url in enumerate(urls, start=1):
@@ -258,25 +259,18 @@ def parse_products(urls, ftm) -> list[DataScraps]:
                 if img:
                     scrapsData.images.append(img.find('img').get('src'))
 
-            for script in soup.find_all('script', type="text/javascript"):
-                script = script.get_text(strip=True)
-
-                if script.find('twister-js-init-dpx-data') > 0:
-                    start = script.find('var dataToReturn = {')+len('var dataToReturn = {')-1
-                    finish = script.find('return dataToReturn;')    
-                    jstext = script[start : finish].strip()
-                    jstext = jstext[0:len(jstext)-1]
-                    
-                    jstext = jstext.replace('\n','')
-                    jstext = jstext.replace('\\','')
-                    jstext = jstext.replace(' ','')
-                    jstext = '['+jstext+']'
-                    scanservice.dump_to_json('test.json', jstext)
-                    #d = json.loads(jstext)
-
-            #if len(images) == 0:
-                #seleniumScrapUrl.append(url)
-
+            variants = soup.find('div', id="twisterContainer")
+            if variants:
+                variants = variants.find_all('li')
+                if variants:
+                    for variant in variants:
+                        asin = variant.get('data-defaultasin')
+                        if asin:
+                            if asin != scrapsData.sku:
+                                url = '{0}/dp/{1}'.format(HOST, asin)
+                                if not url in urls:
+                                    newScrapUrl.append(url)
+                        
             price = '0'
             oldprice = '0'
             
