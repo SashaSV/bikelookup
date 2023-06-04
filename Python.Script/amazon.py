@@ -157,11 +157,14 @@ def parse_products(urls, ftm) -> list[DataScraps]:
         scrapsData = DataScraps(vendor=VENDOR)
         #soup = scanservice.get_soup(url)
         soup = get_html(driver, url)
-        if url.find('/ref='):
+        scrapsData.url = url
+        if url.find('/ref=') > 0:
             scrapsData.url = url[0:url.find('/ref=')].strip()
         
         scrapsData.sku = scrapsData.url[scrapsData.url.rfind('/')+1:]
-        if scrapsData.sku == 'B0BSJ124T':
+
+        scrapsData.url = url = '{0}/dp/{1}'.format(HOST, scrapsData.sku)
+        if scrapsData.sku == 'B08N5VXMK6':
             breakpoint()
 
         if soup is None:

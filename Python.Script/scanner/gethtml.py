@@ -18,7 +18,7 @@ def driver_init():
 
 def get_html(driver, url) -> None:
 
-    paswd = "/chromedriver"
+    #paswd = "/chromedriver"
 
     #s = Service(paswd)
 
@@ -31,7 +31,7 @@ def get_html(driver, url) -> None:
     #driver = webdriver.Chrome(service=ser, options=op)
 
     html_text = None
-    file_name = get_file_name(url)
+    file_name = get_file_name(url[url.rfind('/')+1:])
     
     if os.path.exists(file_name):
         with open(file_name, encoding='utf-8') as thtml_file:
@@ -72,7 +72,9 @@ def get_file_name(url) -> str:
 def get_sename(sename):
         #replacechar = [' ', '-', '!', '?', ':', '"', '.', '+']
         okChars = "abcdefghijklmnopqrstuvwxyz1234567890 _-"
+        sename = sename.lower().strip()
         sename_new = ''
+        
         for s in sename:
             if okChars.__contains__(s):
                 sename_new = sename_new + s
