@@ -140,7 +140,7 @@ def check_property(techs, text):
         ret = techs.get(text)
     return ret
 
-def parse_products(urls, ftm) -> list[DataScraps]:
+def parse_products(urls, ftm, dataScraps:list[DataScraps] = None) -> list[DataScraps]:
     """
     Парсинг полей:
         название, цена и таблица характеристик
@@ -150,14 +150,14 @@ def parse_products(urls, ftm) -> list[DataScraps]:
     """
     seleniumScrapUrl = []
     newScrapUrl = []
-    data = []
+    data = dataScraps if dataScraps else []
     driver = driver_init()
     for number, url in enumerate(urls, start=1):
         print('#{num}, product: {url}'.format(num=number, url=url))
 
         scrapsData = DataScraps(vendor=VENDOR)
         #soup = scanservice.get_soup(url)
-        soup = get_html(driver, url)
+        soup = get_html(driver, url, ftm)
         scrapsData.url = url
         if url.find('/ref=') > 0:
             scrapsData.url = url[0:url.find('/ref=')].strip()
@@ -165,8 +165,8 @@ def parse_products(urls, ftm) -> list[DataScraps]:
         scrapsData.sku = scrapsData.url[scrapsData.url.rfind('/')+1:]
 
         scrapsData.url = url = '{0}/dp/{1}'.format(HOST, scrapsData.sku)
-        if scrapsData.sku == 'B08N5VXMK6':
-            breakpoint()
+        #if scrapsData.sku == 'B08N5VXMK6':
+        #    breakpoint()
 
         if soup is None:
             seleniumScrapUrl.append(url)
@@ -269,7 +269,7 @@ def parse_products(urls, ftm) -> list[DataScraps]:
                             if asin != scrapsData.sku:
                                 url = '{0}/dp/{1}'.format(HOST, asin)
                                 if not url in urls:
-                                    newScrapUrl.append(url)
+                                    urls.append(url)
                         
             price = '0'
             oldprice = '0'
@@ -329,6 +329,8 @@ def parse_products(urls, ftm) -> list[DataScraps]:
     
     close_driver(driver)
     print(seleniumScrapUrl)
+    #if len(newScrapUrl) > 0 :
+    #    data = parse_products(urls=newScrapUrl, ftm=ftm, dataScraps=data)
     return data
 
 import sys

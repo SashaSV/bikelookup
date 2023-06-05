@@ -16,7 +16,7 @@ def driver_init():
     driver = webdriver.Chrome(service=s)
     return driver
 
-def get_html(driver, url) -> None:
+def get_html(driver, url, ftm) -> None:
 
     #paswd = "/chromedriver"
 
@@ -31,7 +31,7 @@ def get_html(driver, url) -> None:
     #driver = webdriver.Chrome(service=ser, options=op)
 
     html_text = None
-    file_name = get_file_name(url[url.rfind('/')+1:])
+    file_name = get_file_name(url[url.rfind('/')+1:], ftm)
     
     if os.path.exists(file_name):
         with open(file_name, encoding='utf-8') as thtml_file:
@@ -61,12 +61,15 @@ def close_driver(driver):
     driver.close()
     driver.quit()
 
-def get_file_name(url) -> str:
+def get_file_name(url, ftm) -> str:
     CURR_DIR = os.getcwd()
     if CURR_DIR.find("Python.Script") < 0 :
         CURR_DIR = '{0}\\Python.Script'.format(CURR_DIR)
-
-    return '{0}\\html\\{1}.html'.format(CURR_DIR,get_sename(url))
+    path = '{0}\\html\\{1}'.format(CURR_DIR,ftm['category']) 
+    if not os.path.exists(path):
+        os.mkdir(path)
+    
+    return '{0}\\{1}.html'.format(path,get_sename(url))
 
 
 def get_sename(sename):
