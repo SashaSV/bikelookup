@@ -69,11 +69,11 @@ class Vendor(Document):
     ApprovedTotalReviews = fields.IntegerField(default=0)
     NotApprovedTotalReviews = fields.IntegerField(default=0)
     Commission = fields.IntegerField(default=0)
-    Addresses = fields.ListField(fields.EmbeddedField(Adress,default=None))
-    Locales = fields.ListField(fields.EmbeddedField(Locale,default=None))
+    Addresses = fields.ListField(fields.EmbeddedField(Adress,default=None), default = [])
+    Locales = fields.ListField(fields.EmbeddedField(Locale,default=None), default = [])
     VendorNotes = fields.ListField(fields.StrField(default=None))
     AppliedDiscounts = fields.ListField(fields.StrField(default=None))
-    VendorSpecificationAttributes = fields.ListField(fields.StrField(default=None))
+    VendorSpecificationAttributes = fields.ListField(fields.StrField(default=None), default = [])
     IsPrivatePerson = fields.BooleanField(default=False)
 
     class Meta:
@@ -112,7 +112,7 @@ class Manufacturer(Document):
     CreatedOnUtc = fields.DateTimeField(validate=validate.Range(min=datetime.now()), default = datetime.now())
     UpdatedOnUtc = fields.DateTimeField(validate=validate.Range(min=datetime.now()), default = datetime.now())
     AppliedDiscounts = fields.ListField(fields.StrField())
-    Locales = fields.ListField(fields.EmbeddedField(Locale))
+    Locales = fields.ListField(fields.EmbeddedField(Locale),default=[])
 
     class Meta:
         collection_name = "Manufacturer"
@@ -125,7 +125,7 @@ class SpecificationAttributeOption(EmbeddedDocument):
     ColorSquaresRgb = fields.StringField(default=None)
     DisplayOrder = fields.IntegerField(default=0)
     ParentSpecificationAttrOptionId = fields.StringField(default=None)
-    Locales = fields.ListField(fields.EmbeddedField(Locale))
+    Locales = fields.ListField(fields.EmbeddedField(Locale),default=[])
 
 @instance.register
 class SpecificationAttribute(Document):
@@ -134,8 +134,8 @@ class SpecificationAttribute(Document):
     Name = fields.StringField(default=None)
     SeName = fields.StringField(default=None)
     DisplayOrder = fields.IntegerField(default=0)
-    Locales = fields.ListField(fields.EmbeddedField(Locale))
-    SpecificationAttributeOptions= fields.ListField(fields.EmbeddedField(SpecificationAttributeOption)) 
+    Locales = fields.ListField(fields.EmbeddedField(Locale),default=[])
+    SpecificationAttributeOptions= fields.ListField(fields.EmbeddedField(SpecificationAttributeOption), default=[]) 
     
     class Meta:
         collection_name = "SpecificationAttribute"
@@ -158,16 +158,16 @@ class UrlRecord(Document):
 class CategorySpecificationAttributes(EmbeddedDocument):
     _id = fields.StringField(default=str(ObjectId()))
     GenericAttributes = fields.ListField(fields.StringField())
-    CategoryId = fields.StringField()
-    AttributeTypeId = fields.IntegerField()
-    SpecificationAttributeId = fields.StringField()
-    DetailsUrl = fields.StringField()
-    SpecificationAttributeOptionId = fields.StringField()
-    CustomValue = fields.StringField()
-    AllowFiltering = fields.BooleanField()
-    ShowOnProductPage = fields.BooleanField()
+    CategoryId = fields.StringField(default=None)
+    AttributeTypeId = fields.IntegerField(default=0)
+    SpecificationAttributeId = fields.StringField(default=None)
+    DetailsUrl = fields.StringField(default=None)
+    SpecificationAttributeOptionId = fields.StringField(default=None)
+    CustomValue = fields.StringField(default=None)
+    AllowFiltering = fields.BooleanField(default=False)
+    ShowOnProductPage = fields.BooleanField(default=True)
     DisplayOrder = fields.IntegerField(default=0)
-    Locales = fields.ListField(fields.EmbeddedField(Locale))
+    Locales = fields.ListField(fields.EmbeddedField(Locale), default = [])
     AttributeType = fields.IntegerField()
 
 @instance.register
@@ -217,8 +217,8 @@ class Category(Document):
     CreatedOnUtc = fields.DateTimeField(validate=validate.Range(min=datetime.now()), default = datetime.now())
     UpdatedOnUtc = fields.DateTimeField(validate=validate.Range(min=datetime.now()), default = datetime.now())
     AppliedDiscounts = fields.ListField(fields.StringField())
-    CategorySpecificationAttributes = fields.ListField(fields.EmbeddedField(CategorySpecificationAttributes))
-    Locales = fields.ListField(fields.EmbeddedField(Locale))
+    CategorySpecificationAttributes = fields.ListField(fields.EmbeddedField(CategorySpecificationAttributes), default = [])
+    Locales = fields.ListField(fields.EmbeddedField(Locale), default = [])
     Active = fields.BooleanField(default=False)
     Deleted = fields.BooleanField(default=False)
     
@@ -250,7 +250,7 @@ class ProductSpecificationAttributeRel(EmbeddedDocument):
         ShowOnProductPage = fields.BooleanField(default=True)
         ShowOnSellerPage = fields.BooleanField(default=True)
         DisplayOrder = fields.IntegerField(default=0)
-        Locales = fields.ListField(fields.EmbeddedField(Locale))
+        Locales = fields.ListField(fields.EmbeddedField(Locale), default = [])
     
 @instance.register
 class TierPrice(EmbeddedDocument):
@@ -400,15 +400,15 @@ class Product(Document):
     Viewed = fields.IntegerField(default=0)
     OnSale = fields.IntegerField(default=0)
     Flag = fields.StringField(default=None)
-    Locales = fields.ListField(fields.EmbeddedField(Locale))
-    ProductCategories = fields.ListField(fields.EmbeddedField(ProductCategoryRel))
-    ProductManufacturers = fields.ListField(fields.EmbeddedField(ProductManufacturerRel))
-    ProductPictures = fields.ListField(fields.EmbeddedField(ProductPicture)) 
-    ProductSpecificationAttributes = fields.ListField(fields.EmbeddedField(ProductSpecificationAttributeRel))
+    Locales = fields.ListField(fields.EmbeddedField(Locale), default = [])
+    ProductCategories = fields.ListField(fields.EmbeddedField(ProductCategoryRel), default = [])
+    ProductManufacturers = fields.ListField(fields.EmbeddedField(ProductManufacturerRel), default = [])
+    ProductPictures = fields.ListField(fields.EmbeddedField(ProductPicture), default = []) 
+    ProductSpecificationAttributes = fields.ListField(fields.EmbeddedField(ProductSpecificationAttributeRel), default = [])
     ProductTags = fields.ListField(fields.StringField())
     ProductAttributeMappings = fields.ListField(fields.StringField())
     ProductAttributeCombinations = fields.ListField(fields.StringField())
-    TierPrices = fields.ListField(fields.EmbeddedField(TierPrice))
+    TierPrices = fields.ListField(fields.EmbeddedField(TierPrice), default = [])
     AppliedDiscounts = fields.ListField(fields.StringField())
     ProductWarehouseInventory = fields.ListField(fields.StringField())
     CrossSellProduct = fields.ListField(fields.StringField())
@@ -493,7 +493,7 @@ class DeliveryDate(Document):
     ViewPath = fields.StringField(default=None)
     DisplayOrder = fields.IntegerField(default=1)
     ColorSquaresRgb = fields.StringField(default=None)
-    Locales = fields.ListField(fields.EmbeddedField(Locale))
+    Locales = fields.ListField(fields.EmbeddedField(Locale), default = [])
     class Meta:
         collection_name = "DeliveryDate"
 

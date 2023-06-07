@@ -820,7 +820,7 @@ input:checked ~ .color-container .color::before {
 .product-box .picture-container {
     position: relative;
     overflow: hidden;
-    margin: -20px 0;
+    margin: -5px 0;
 }
 .product-box .picture-container .img-container {
     display: block;
@@ -838,7 +838,9 @@ input:checked ~ .color-container .color::before {
     bottom: 0;
     left: 0;
     max-width: 100%;
+    max-height: 100%;
     margin: auto;
+    width:auto;
 }
 .product-box .hover-img {
     position: absolute;
@@ -853,8 +855,8 @@ input:checked ~ .color-container .color::before {
 .product-box:hover .hover-img {
     opacity: 1;
     visibility: visible;
-    width: 120%;
-    /*height:150px;
+    /*width: 120%;
+    height:150px;
     min-height:150px;
     max-height:150px;*/
     background-size: contain;
@@ -862,9 +864,9 @@ input:checked ~ .color-container .color::before {
 }
 
 .product-box:hover .main-product-img {
-    /*opacity: 0;
-    visibility: hidden;*/
-    width: 60%;
+    /*opacity: 0;*/
+    visibility: hidden;
+    /*width: auto;*/
     /*height:150px;
     min-height:150px;
     max-height:150px;*/

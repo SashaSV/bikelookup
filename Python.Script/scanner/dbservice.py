@@ -306,36 +306,36 @@ def check_vendor(vendorName):
 
     return new_v
 
-def add_specificationattributeoption(sa, sao, prop_name, color_hex = None, parentSPO = None):
-    new_sao = SpecificationAttributeOption(_id = str(ObjectId()), Name = prop_name, ParentSpecificationAttrOptionId = '' if parentSPO == None else parentSPO)
-    new_sao.SeName = get_sename(prop_name, new_sao._id, 'SpecificationAttributeOption', '')
+# def add_specificationattributeoption(sa, sao, prop_name, color_hex = None, parentSPO = None):
+#     new_sao = SpecificationAttributeOption(_id = str(ObjectId()), Name = prop_name, ParentSpecificationAttrOptionId = '' if parentSPO == None else parentSPO)
+#     new_sao.SeName = get_sename(prop_name, new_sao._id, 'SpecificationAttributeOption', '')
 
-    if not color_hex is None:
-        new_sao.ColorSquaresRgb = color_hex
+#     if not color_hex is None:
+#         new_sao.ColorSquaresRgb = color_hex
 
-    sao.append(new_sao)
-    sa.SpecificationAttributeOptions = sao
-    sa.commit()
-    return new_sao
+#     sao.append(new_sao)
+#     sa.SpecificationAttributeOptions = sao
+#     sa.commit()
+#     return new_sao
 
 def check_specificationattributeoption_by_name(prop_name, prop_value, color_hex = None, parentSPO = None):
     sa = check_specificationattribute_by_name(prop_name)
     
     sao_ret = None
-    
-    for ind, a in enumerate(sa.SpecificationAttributeOptions):
-        if a.Name.lower().strip() == prop_value.lower().strip():
-             sao_ret = sa.SpecificationAttributeOptions[ind]
+    if sa.SpecificationAttributeOptions:
+        for ind, a in enumerate(sa.SpecificationAttributeOptions):
+            if a.Name.lower().strip() == prop_value.lower().strip():
+                sao_ret = sa.SpecificationAttributeOptions[ind]
 
-    if sao_ret is None:
-        sao_ret = add_specificationattributeoption(sa, sa.SpecificationAttributeOptions, prop_value, color_hex = color_hex, parentSPO = parentSPO)
-        new_sao = SpecificationAttributeOption(_id = str(ObjectId()), Name = prop_name, ParentSpecificationAttrOptionId = '' if parentSPO == None else parentSPO)
-        new_sao.SeName = get_sename(prop_name, new_sao._id, 'SpecificationAttributeOption', '')
+    if not sao_ret:
+        #sao_ret = add_specificationattributeoption(sa, sa.SpecificationAttributeOptions, prop_value, color_hex = color_hex, parentSPO = parentSPO)
+        sao_ret = SpecificationAttributeOption(_id = str(ObjectId()), Name = prop_value, ParentSpecificationAttrOptionId = '' if parentSPO == None else parentSPO)
+        sao_ret.SeName = get_sename(prop_value, sao_ret._id, 'SpecificationAttributeOption', '')
 
         if not color_hex is None:
-            new_sao.ColorSquaresRgb = color_hex
+            sao_ret.ColorSquaresRgb = color_hex
 
-        sa.SpecificationAttributeOptions.append(new_sao)
+        sa.SpecificationAttributeOptions.append(sao_ret)
         sa.commit()
     return sao_ret
 
@@ -584,8 +584,11 @@ def load_image(url,filename):
     if not os.path.exists(filename):
         urlretrieve(url, filename)
 
-def clear_all_product():
-    products = Product.find()
+def clear_all_product(categoryName):
+
+    
+    category = Category.find_one({'Name':categoryName})
+    products = Product.find({'ProductCategories':{ '$elemMatch': {'CategoryId':category._id}}})
     for product in products:
         for picture in product.ProductPictures:
             p = Picture.find_one({'_id': picture.PictureId})            
@@ -600,7 +603,11 @@ def clear_all_product():
         if not url is None:
             url.delete()
         
-        print('Deleted product id = {0}',product._id)
+        productsRel = Product.find({'ParentGroupedProductId':product._id})
+        for pRel in productsRel:
+            print('Deleted releted product id = {0}, {1}',pRel._id,pRel.Name)
+            pRel.delete()
+        print('Deleted product id = {0}, {1}',product._id, product.Name)
         product.delete()
 
     #ads = find_document(db.Ad, {}, multiple = True)
