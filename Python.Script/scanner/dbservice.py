@@ -588,27 +588,29 @@ def clear_all_product(categoryName):
 
     
     category = Category.find_one({'Name':categoryName})
-    products = Product.find({'ProductCategories':{ '$elemMatch': {'CategoryId':category._id}}})
-    for product in products:
-        for picture in product.ProductPictures:
-            p = Picture.find_one({'_id': picture.PictureId})            
-            if not p is None:
-                p.delete()
+    if category:
+        products = Product.find({'ProductCategories':{ '$elemMatch': {'CategoryId':category._id}}})
 
-            filename = get_file_picture_name(picture.PictureId)
-            if os.path.exists(filename):
-                os.remove(filename)
-        
-        url = UrlRecord.find_one({'EntityName': 'Product', 'Slug': product.SeName})
-        if not url is None:
-            url.delete()
-        
-        productsRel = Product.find({'ParentGroupedProductId':product._id})
-        for pRel in productsRel:
-            print('Deleted releted product id = {0}, {1}',pRel._id,pRel.Name)
-            pRel.delete()
-        print('Deleted product id = {0}, {1}',product._id, product.Name)
-        product.delete()
+        for product in products:
+            for picture in product.ProductPictures:
+                p = Picture.find_one({'_id': picture.PictureId})            
+                if not p is None:
+                    p.delete()
+
+                filename = get_file_picture_name(picture.PictureId)
+                if os.path.exists(filename):
+                    os.remove(filename)
+            
+            url = UrlRecord.find_one({'EntityName': 'Product', 'Slug': product.SeName})
+            if not url is None:
+                url.delete()
+            
+            productsRel = Product.find({'ParentGroupedProductId':product._id})
+            for pRel in productsRel:
+                print('Deleted releted product id = {0}, {1}',pRel._id,pRel.Name)
+                pRel.delete()
+            print('Deleted product id = {0}, {1}',product._id, product.Name)
+            product.delete()
 
     #ads = find_document(db.Ad, {}, multiple = True)
     #for ad in ads:
@@ -651,6 +653,10 @@ def get_sename(sename, entityId = None, entityName = None, languageId = None):
 
     if not entityId is None:
         if not UrlRecord.find_one({'EntityId': entityId, 'EntityName': entityName, 'LanguageId': languageId}):
+            
+            for udel in UrlRecord.find({'Slug': sename_new}):
+                udel.delete()
+
             urlrecord = UrlRecord(_id = str(ObjectId()),
                                 EntityId=entityId,
                                 EntityName=entityName,
@@ -660,3 +666,12 @@ def get_sename(sename, entityId = None, entityName = None, languageId = None):
             if not urlrecord.is_created:
                 urlrecord.commit()
     return sename_new
+
+def clear_spec():
+    specAtrs = SpecificationAttribute().find()
+    for sa in specAtrs:
+        for option in sa.SpecificationAttributeOptions:
+            if option.Name == sa.Name:
+                sa.SpecificationAttributeOptions.remove(option)
+
+        sa.commit()
