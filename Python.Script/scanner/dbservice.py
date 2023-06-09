@@ -127,12 +127,15 @@ def check_product(data:list[DataScraps]):
         
         p_main = check_mainproduct(d)        
 
-        new_p = Product.find_one({'Sku': d.sku, 'VendorId': None  if not vendorid else vendorid._id})
+        #new_p = Product.find_one({'Sku': d.sku, 'VendorId': None  if not vendorid else vendorid._id})
+        new_p = Product.find_one({'ParentGroupedProductId': d.sku, 
+                                  'VendorId': None  if not vendorid else vendorid._id,
+                                  'ParentGroupedProductId':p_main._id})
         if not new_p:
             groupTemplateId = ProductTemplate.find_one({'Name': 'Grouped product (with variants)'})
-            
             new_p = create_product(d)
-            new_p.ProductTemplateId = groupTemplateId = groupTemplateId.id if not groupTemplateId else None
+            new_p.ProductTemplateId = groupTemplateId.id if groupTemplateId else None
+            new_p.SeName = get_sename('{0}_{1}'.format(p_main._id,new_p.Sku), new_p._id, 'Product', '')
             new_p.VisibleIndividually = False
             new_p.ProductTypeId = 5
             new_p.VendorId = vendorid._id
@@ -392,7 +395,7 @@ def get_locals(prop_name):
 
     return locals
 
-def check_mainproduct(d):   
+def check_mainproduct(d:DataScraps):   
     p_main = Product.find_one({'Sku': d.sku, 'VendorId': ''})
     if not p_main:
         groupTemplateId = ProductTemplate.find_one({'Name': 'Grouped product (with variants)'})
@@ -401,9 +404,15 @@ def check_mainproduct(d):
         p_main.Url = ''
         p_main.ShortDescription = ''
         p_main.VendorId = ''
-        p_main.ProductTemplateId = groupTemplateId.id if not groupTemplateId else None
+        p_main.ProductTemplateId = groupTemplateId.id if groupTemplateId else None
+        p_main.SeName = get_sename(p_main.Sku, p_main._id, 'Product', '')
         p_main.VisibleIndividually = True
         p_main.ProductTypeId = 10
+
+        category = Category().find_one({'Name':d.category})
+        if category:
+            newCategory = ProductCategoryRel(_id = str(ObjectId()), CategoryId = category._id)
+            p_main.ProductCategories.append(newCategory)
 
     p_main.Name = d.name
     check_rel_manufacturers_to_product(p_main, d.manufacturer)
@@ -423,7 +432,7 @@ def check_сategories(c_name):
 def check_rel_сategories_to_product(p:Product, c_name):
     cat_ret = None
     cat = p.ProductCategories
-    cat = cat if not cat is None else []
+    cat = cat if cat else []
 
     c = check_сategories(c_name)
     
@@ -576,7 +585,6 @@ def create_product(d:DataScraps):
                             ProductPictures = [],
                             ProductSpecificationAttributes = []
                            )
-    product_card.SeName = get_sename(product_card.Sku, product_card._id, 'Product', '')
 
     return product_card
 
@@ -654,7 +662,7 @@ def get_sename(sename, entityId = None, entityName = None, languageId = None):
     if not entityId is None:
         if not UrlRecord.find_one({'EntityId': entityId, 'EntityName': entityName, 'LanguageId': languageId}):
             
-            for udel in UrlRecord.find({'Slug': sename_new}):
+            for udel in UrlRecord.find({'Slug': sename_new, 'EntityName': entityName}):
                 udel.delete()
 
             urlrecord = UrlRecord(_id = str(ObjectId()),
@@ -670,8 +678,14 @@ def get_sename(sename, entityId = None, entityName = None, languageId = None):
 def clear_spec():
     specAtrs = SpecificationAttribute().find()
     for sa in specAtrs:
+        odels = []
         for option in sa.SpecificationAttributeOptions:
-            if option.Name == sa.Name:
-                sa.SpecificationAttributeOptions.remove(option)
+            if option.Name in (sa.Name, None, ''):
+                if sa.Name == 'model':
+                    q =1
+                odels.append(option)
+        
+        for odel in odels:
+            sa.SpecificationAttributeOptions.remove(odel)
 
         sa.commit()

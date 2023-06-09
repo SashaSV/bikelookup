@@ -27,27 +27,27 @@ FTMS = [
     'category': 'MacBook',
     'url': 'https://www.amazon.es/s?i=computers&bbn=938008031&rh=n%3A938008031%2Cp_n_feature_twenty-two_browse-bin%3A27387615031%2Cp_89%3AApple&dc&page={page}&qid=1681645819&rnid=1692911031&ref=sr_pg_{page}',
     'PAGES_COUNT':1,
-    'pars': False
+    'pars': True
 },
 {
     'category': 'iPhone',
     'url': 'https://www.amazon.es/s?i=electronics&bbn=665492031&rh=n%3A599370031%2Cn%3A931491031%2Cn%3A665492031%2Cn%3A17425698031%2Cp_89%3AApple&dc&page={page}&qid=1685990505&rnid=665492031&ref=sr_pg_{page}',
     'PAGES_COUNT':2,
-    'pars': False
+    'pars': True
     #'PAGES_COUNT':27
 },
 {
     'category': 'iPad',
     'url': 'https://www.amazon.es/s?i=computers&bbn=938010031&rh=n%3A667049031%2Cn%3A667050031%2Cn%3A938010031%2Cp_89%3AApple&page={page}&qid=1685814004&ref=sr_pg_{page}',
     'PAGES_COUNT':1,
-    'pars': False
+    'pars': True
     #'PAGES_COUNT':11
 },
 {
     'category': 'Apple Watch',
     'url': 'https://www.amazon.es/s?i=electronics&bbn=665492031&rh=n%3A599370031%2Cn%3A931491031%2Cn%3A665492031%2Cn%3A3457446031%2Cp_89%3AApple&dc&page={page}&qid=1685815194&rnid=665492031&ref=sr_pg_{page}',
     'PAGES_COUNT':1,
-    'pars': False
+    'pars': True
     #'PAGES_COUNT':7
 },
 {
@@ -370,6 +370,7 @@ def main():
  
     for ftm in FTMS:
         if ftm['pars']:
+            print(ftm['category'])
             pars_new_card_into_db(ftm)
 
 if __name__ == '__main__':
