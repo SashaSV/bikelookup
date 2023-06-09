@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from scanner import dbservice, scanservice
 from scanner.gethtml import get_html, driver_init, close_driver
-from scanner.dbservice import DataScraps, dict2obj
+from scanner.dbservice import DataScraps, dict2obj, clear_spec
 from pymongo import MongoClient
 import json
 import copy
@@ -26,35 +26,41 @@ FTMS = [
 {
     'category': 'MacBook',
     'url': 'https://www.amazon.es/s?i=computers&bbn=938008031&rh=n%3A938008031%2Cp_n_feature_twenty-two_browse-bin%3A27387615031%2Cp_89%3AApple&dc&page={page}&qid=1681645819&rnid=1692911031&ref=sr_pg_{page}',
-    'PAGES_COUNT':1
+    'PAGES_COUNT':1,
+    'pars': False
 },
 {
     'category': 'iPhone',
     'url': 'https://www.amazon.es/s?i=electronics&bbn=665492031&rh=n%3A599370031%2Cn%3A931491031%2Cn%3A665492031%2Cn%3A17425698031%2Cp_89%3AApple&dc&page={page}&qid=1685990505&rnid=665492031&ref=sr_pg_{page}',
-    'PAGES_COUNT':2
+    'PAGES_COUNT':2,
+    'pars': False
     #'PAGES_COUNT':27
 },
 {
     'category': 'iPad',
     'url': 'https://www.amazon.es/s?i=computers&bbn=938010031&rh=n%3A667049031%2Cn%3A667050031%2Cn%3A938010031%2Cp_89%3AApple&page={page}&qid=1685814004&ref=sr_pg_{page}',
-    'PAGES_COUNT':1
+    'PAGES_COUNT':1,
+    'pars': False
     #'PAGES_COUNT':11
 },
 {
     'category': 'Apple Watch',
     'url': 'https://www.amazon.es/s?i=electronics&bbn=665492031&rh=n%3A599370031%2Cn%3A931491031%2Cn%3A665492031%2Cn%3A3457446031%2Cp_89%3AApple&dc&page={page}&qid=1685815194&rnid=665492031&ref=sr_pg_{page}',
-    'PAGES_COUNT':1
+    'PAGES_COUNT':1,
+    'pars': False
     #'PAGES_COUNT':7
 },
 {
     'category': 'AirPods',
     'url': 'https://www.amazon.es/s?i=electronics&bbn=17420905031&rh=n%3A599370031%2Cn%3A931491031%2Cn%3A665492031%2Cn%3A665494031%2Cn%3A17420905031%2Cn%3A934056031%2Cp_89%3AApple&dc&ds=v1%3AXkmwXEQTkLAGWfNfsZTGEI2f33q1Ac8JtnXqOqPLrGA&qid=1685815513&rnid=17420905031&ref=sr_nr_n_2',
-    'PAGES_COUNT':1
+    'PAGES_COUNT':1,
+    'pars': True
 },
 {
     'category': 'Accessories',
     'url': 'https://www.amazon.es/s?i=electronics&bbn=665494031&rh=n%3A599370031%2Cn%3A931491031%2Cn%3A665492031%2Cn%3A665494031%2Cp_89%3AApple&dc&page={page}&qid=1685815621&ref=sr_pg_{page}',
-    'PAGES_COUNT':1
+    'PAGES_COUNT':1,
+    'pars': True
     #'PAGES_COUNT':16
 }
 ]
@@ -360,8 +366,11 @@ def find_model(s:str, retModels:list[str] = [])->list[str]:
     return retModels
 
 def main():
+    clear_spec()
+ 
     for ftm in FTMS:
-        pars_new_card_into_db(ftm)
+        if ftm['pars']:
+            pars_new_card_into_db(ftm)
 
 if __name__ == '__main__':
     main()
