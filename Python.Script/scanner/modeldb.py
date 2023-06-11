@@ -378,7 +378,7 @@ class Product(Document):
     UnitId = fields.StringField(default=None)
     CourseId = fields.StringField(default=None)
     MarkAsNew = fields.BooleanField(default=True)
-    MarkAsNewStartDateTimeUtc = fields.DateTimeField(validate=validate.Range(min=datetime.now()-timedelta(days=1)), default = datetime.now()+timedelta(days=30))
+    MarkAsNewStartDateTimeUtc = fields.DateTimeField(validate=validate.Range(min=datetime.now()-timedelta(days=1)), default = datetime.now()-timedelta(days=1))
     MarkAsNewEndDateTimeUtc = fields.DateTimeField(validate=validate.Range(min=datetime.now()+timedelta(days=30)), default = datetime.now()+timedelta(days=30))
     Weight = fields.IntegerField(default=0)
     Length = fields.IntegerField(default=0)

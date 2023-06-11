@@ -90,7 +90,7 @@
                     <b-col md="10">
                         <b-carousel ref="tmbcarousel" id="carousel-thumbs" class="mt-4 carousel">
                             @{
-                                var itemsPerSlide = 4;
+                                var itemsPerSlide = 3;
                                 var numSlides = Math.Ceiling((decimal) Model.PictureModels.Count / itemsPerSlide);
                                 var imgNumber = 0;
                                 @for (var slideNumber = 0; slideNumber < numSlides; slideNumber++)

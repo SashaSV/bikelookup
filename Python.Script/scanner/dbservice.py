@@ -203,15 +203,16 @@ def find_categories(product):
 
 import sys
 sys.setrecursionlimit(1500)
+
 def add_spec_to_product(p_main, prop_name, prop_val):
-    
-    if type(prop_val) is list:
-        for pv in prop_val:
-            add_spec_to_product(p_main, prop_name, pv)
-    else:
-        sao = check_specificationattributeoption_by_name(prop_name, prop_val)
-        sa = check_specificationattribute_by_name(prop_name)
-        check_productspecificationattributeoption(p_main, sa, sao)
+    if not prop_val in (None, ''):
+        if type(prop_val) is list:
+            for pv in prop_val:
+                add_spec_to_product(p_main, prop_name, pv)
+        else:
+            sao = check_specificationattributeoption_by_name(prop_name, prop_val)
+            sa = check_specificationattribute_by_name(prop_name)
+            check_productspecificationattributeoption(p_main, sa, sao)
 
 class Option:
     def __init__(self, id=None, parentId=None, name=None):
