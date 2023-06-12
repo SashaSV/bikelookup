@@ -67,15 +67,15 @@
             }
         </b-button-group>
     </div>
-        @if (isAssociatedProductWithDiscount)
-        {
-            <div class="sale-label">
-                <span class="product-discount badge product-box-label">
-                    @(Math.Round(Model.BestDiscount * -100, 0))%
-                </span>
-            </div>
-        }
         <div class="picture-container">
+            @if (isAssociatedProductWithDiscount)
+            {
+                <div class="sale-label">
+                    <span class="product-discount badge product-box-label">
+                        @(Math.Round(Model.BestDiscount * -100, 0))%
+                    </span>
+                </div>
+            }
             <b-link class="img-container" href="@Url.RouteUrl("Product", new { SeName = Model.SeName })" title="@Model.DefaultPictureModel.Title">
                 <b-card-img-lazy alt="@Model.DefaultPictureModel.AlternateText" class="main-product-img" src="@Model.DefaultPictureModel.ImageUrl" title="@Model.DefaultPictureModel.Title"></b-card-img-lazy>
                 @if (!string.IsNullOrEmpty(Model.SecondPictureModel.ImageUrl))

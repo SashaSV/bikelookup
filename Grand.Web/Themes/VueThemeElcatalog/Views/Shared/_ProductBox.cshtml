@@ -36,7 +36,8 @@
 }
 
 @await Component.InvokeAsync("Widget", new { widgetZone = "productbox_before_content", additionalData = Model})
-<b-card no-body tag="article" v-bind:class="{ mobile: isMobile()}" class="product-box mb-2">
+<b-card no-body tag="article" v-bind:class="{ mobile: isMobile()}" class="product-box grid-box animation lazyload mb-2">
+    <div class="box-unvisible"></div>
     <div class="prod-controls">
         <div v-b-tooltip.hover.bottom title="@T("Vendor.ViewCount")" class="view-block">
             <div class="view-block-img">

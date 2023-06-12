@@ -46,6 +46,24 @@ function displayPopupPrivacyPreference(html) {
     });
 }
 
+// productbox info
+
+function productInfo() {
+    $('.product-box').each(function () {
+        var PB_bottom_h = $('.product-info .bottom', this).height();
+        $('.box-unvisible', this).css('margin-bottom', - PB_bottom_h);
+    });
+}
+
+$(document).ready(function () {
+    //debugger
+    productInfo(); 
+
+    $(window).resize(function () {
+        productInfo();
+    });
+});
+
 function displayPopupAddToCart(html) {
     document.querySelector('.modal-place').innerHTML = html;
         new Vue({

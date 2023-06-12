@@ -19,7 +19,7 @@
                     </b-breadcrumb-item>
                 }
                 <b-breadcrumb-item active itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                    <strong class="current-item" itemprop="name">@Model.ProductName</strong>
+                    <strong class="current-item" itemprop="name">@Model.ProductName.Substring(0,150)</strong>
                     <span itemprop="item" itemscope itemtype="http://schema.org/Thing"
                           id="@Url.RouteUrl("Product", new { SeName = Model.ProductSeName })">
                     </span>

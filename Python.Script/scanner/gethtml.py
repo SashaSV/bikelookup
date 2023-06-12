@@ -12,24 +12,18 @@ from selenium.common.exceptions import TimeoutException
 import json
 
 def driver_init():
+    #paswd = "/chromedriver"
+    #s = Service(paswd)
+    #driver = webdriver.Chrome(
+    #    executable_path=paswd
+    #)
+    #driver.get("https://www.google.com")
+    #driver = webdriver.Chrome(service=ser, options=op)
     s = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=s)
     return driver
 
 def get_html(driver, url, ftm) -> None:
-
-    #paswd = "/chromedriver"
-
-    #s = Service(paswd)
-
-
-    #driver = webdriver.Chrome(
-    #    executable_path=paswd
-    #)
-
-    #driver.get("https://www.google.com")
-    #driver = webdriver.Chrome(service=ser, options=op)
-
     html_text = None
     file_name = get_file_name(url[url.rfind('/')+1:], ftm)
     
@@ -73,7 +67,6 @@ def get_file_name(url, ftm) -> str:
 
 
 def get_sename(sename):
-        #replacechar = [' ', '-', '!', '?', ':', '"', '.', '+']
         okChars = "abcdefghijklmnopqrstuvwxyz1234567890 _-"
         sename = sename.lower().strip()
         sename_new = ''

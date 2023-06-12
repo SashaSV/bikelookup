@@ -85,10 +85,12 @@ a:hover {
 body:not(.modal-open) {
     overflow-x: hidden;
 }
+
 .modal {
     -webkit-transition: none;
     transition: none;
 }
+
 .breadcrumb-item.active{
     color: #000;
 }
@@ -780,7 +782,7 @@ input:checked ~ .color-container .color::before {
      height: 400px; 
 }  */
 
-.product-box:hover {
+.product-box:hover .product-box {
     z-index: 5;
     /*border: 1px solid transparent;*/
     border: 1px solid rgba(0,0,0,.2);
@@ -871,6 +873,10 @@ input:checked ~ .color-container .color::before {
     max-height:150px;*/
     background-size: contain;
     background-position: center;
+    /*-webkit-transition: all 0.2s ease-out 0.2s;
+    -moz-transition: all 0.2s ease-out 0.2s;
+    -o-transition: all 0.2s ease-out 0.2s;
+    transition: all 0.2s ease-out 0.2s;*/
 }
 
 .product-box:hover .main-product-img {
@@ -1921,7 +1927,7 @@ footer .list-group-item span:last-child {
     flex-direction: column;
     align-items: flex-start;*/
     position: absolute;
-    top: 65px;
+    top: 5px;
     left: 10px;
     z-index: 2;
 }

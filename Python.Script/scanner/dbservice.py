@@ -100,10 +100,6 @@ class DataScraps:
 
         self.model = chek_so_name(name, 'model')
 
-    def check_category(self) -> None:
-        aa = 0
-
-
 class DataScrapsEncoder(json.JSONEncoder):
     def default(self, obj):
             return obj.__dict__
@@ -127,7 +123,6 @@ def check_product(data:list[DataScraps]):
         
         p_main = check_mainproduct(d)        
 
-        #new_p = Product.find_one({'Sku': d.sku, 'VendorId': None  if not vendorid else vendorid._id})
         new_p = Product.find_one({'ParentGroupedProductId': d.sku, 
                                   'VendorId': None  if not vendorid else vendorid._id,
                                   'ParentGroupedProductId':p_main._id})
@@ -310,18 +305,6 @@ def check_vendor(vendorName):
 
     return new_v
 
-# def add_specificationattributeoption(sa, sao, prop_name, color_hex = None, parentSPO = None):
-#     new_sao = SpecificationAttributeOption(_id = str(ObjectId()), Name = prop_name, ParentSpecificationAttrOptionId = '' if parentSPO == None else parentSPO)
-#     new_sao.SeName = get_sename(prop_name, new_sao._id, 'SpecificationAttributeOption', '')
-
-#     if not color_hex is None:
-#         new_sao.ColorSquaresRgb = color_hex
-
-#     sao.append(new_sao)
-#     sa.SpecificationAttributeOptions = sao
-#     sa.commit()
-#     return new_sao
-
 def check_specificationattributeoption_by_name(prop_name, prop_value, color_hex = None, parentSPO = None):
     sa = check_specificationattribute_by_name(prop_name)
     
@@ -332,7 +315,6 @@ def check_specificationattributeoption_by_name(prop_name, prop_value, color_hex 
                 sao_ret = sa.SpecificationAttributeOptions[ind]
 
     if not sao_ret:
-        #sao_ret = add_specificationattributeoption(sa, sa.SpecificationAttributeOptions, prop_value, color_hex = color_hex, parentSPO = parentSPO)
         sao_ret = SpecificationAttributeOption(_id = str(ObjectId()), Name = prop_value, ParentSpecificationAttrOptionId = '' if parentSPO == None else parentSPO)
         sao_ret.SeName = get_sename(prop_value, sao_ret._id, 'SpecificationAttributeOption', '')
 
@@ -460,9 +442,9 @@ def get_file_picture_name(pictureId:str) -> str:
         return '{0}{1}_0.jpeg'.format(file_catalog, pictureId)
 
 def check_picture(pictureId, urlimage, productname):
-    p_main = Picture.find_one({'UrlImage': urlimage})
+    picture = Picture.find_one({'UrlImage': urlimage})
     
-    if not p_main:
+    if not picture:
         id_ = str(ObjectId())
         filename = get_file_picture_name(id_)
         load_image(urlimage, filename)
@@ -472,22 +454,23 @@ def check_picture(pictureId, urlimage, productname):
         in_file.close()
 
         p = Picture.find_one({'_id': pictureId})
+
         if p:
             if p.PictureBinary == data:
-                p_main = p
+                picture = p
                 if os.path.exists(filename):
                     os.remove(filename)
-        p = Picture.find_one({'_id':'642d2b87a73257d819559b8d'})
-        if not p_main:
-            p_main = Picture(PictureBinary = data)
-            p_main._id = id_
-            p_main.SeoFilename = get_sename(productname)
-            p_main.UrlImage = urlimage
-            p_main.AltAttribute = productname
-            p_main.TitleAttribute = productname
+
+        if not picture:
+            picture = Picture(_id = id_, 
+                             PictureBinary = data,
+                             SeoFilename = get_sename(productname),
+                             UrlImage = urlimage,
+                             AltAttribute = productname,
+                             TitleAttribute = productname)
             
-            p_main.commit()
-    return p_main
+            picture.commit()
+    return picture
 
 def check_image_to_product(p, urlimage):
     pict_ret = None
@@ -594,8 +577,6 @@ def load_image(url,filename):
         urlretrieve(url, filename)
 
 def clear_all_product(categoryName):
-
-    
     category = Category.find_one({'Name':categoryName})
     if category:
         products = Product.find({'ProductCategories':{ '$elemMatch': {'CategoryId':category._id}}})
