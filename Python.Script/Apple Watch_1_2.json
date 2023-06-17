@@ -3,7 +3,10 @@
   "url": "https://www.amazon.es/dp/B0BDJPZ44X",
   "name": "Apple Watch SE de 2.ageneración (GPS, 44mm) Reloj Inteligente con Caja de Aluminio en Color Medianoche - Correa Deportiva en Color Medianoche - Talla única. Monitor de entreno y sueño",
   "sku": "B0BDJPZ44X",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "Apple Watch",
   "subcategory": [],
   "price": 319.0,
@@ -25,19 +28,49 @@
    "https://m.media-amazon.com/images/I/71I0macj2KL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71ULfWnvx+L._AC_SL1500_.jpg"
   ],
-  "model": "Apple Watch",
-  "color": "color",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "Intel",
-  "hdd": ""
+  "model": [
+   {
+    "name": "Apple Watch",
+    "id": "647b7ffc54073063db0e0db7"
+   },
+   {
+    "name": "SE",
+    "id": "6485bf75126bc6a1fac154f3"
+   }
+  ],
+  "color": {
+   "name": "Medianoche",
+   "id": "6482d6a54769aca19d239eb4"
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BDJF8C8S",
   "name": "Apple Watch Series 8 (GPS, 45mm) Reloj Inteligente con Caja de Aluminio en Color Medianoche - Correa Deportiva en Color Medianoche - Talla única. Monitor de entreno, Resistencia alagua",
   "sku": "B0BDJF8C8S",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "Apple Watch",
   "subcategory": [],
   "price": 515.0,
@@ -53,19 +86,49 @@
    "https://m.media-amazon.com/images/I/71KDjomhnBL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71O4tPB2JrL._AC_SL1500_.jpg"
   ],
-  "model": "Apple Watch",
-  "color": "color",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "Intel",
-  "hdd": ""
+  "model": [
+   {
+    "name": "Apple Watch",
+    "id": "647b7ffc54073063db0e0db7"
+   },
+   {
+    "name": "Series 8",
+    "id": "6485bf53126bc6a1fac1545a"
+   }
+  ],
+  "color": {
+   "name": "Medianoche",
+   "id": "6482d6a54769aca19d239eb4"
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BDJ3RH9L",
   "name": "Apple Watch SE de 2.ageneración (GPS, 44mm) Reloj Inteligente con Caja de Aluminio en Blanco Estrella - Correa Deportiva Blanco Estrella - Talla única. Monitor de entreno y sueño",
   "sku": "B0BDJ3RH9L",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "Apple Watch",
   "subcategory": [],
   "price": 322.05,
@@ -91,19 +154,49 @@
    "https://m.media-amazon.com/images/I/71I0macj2KL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71oCQMN1uqL._AC_SL1500_.jpg"
   ],
-  "model": "Apple Watch",
-  "color": "Blanco estrella",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "Intel",
-  "hdd": ""
+  "model": [
+   {
+    "name": "Apple Watch",
+    "id": "647b7ffc54073063db0e0db7"
+   },
+   {
+    "name": "SE",
+    "id": "6485bf75126bc6a1fac154f3"
+   }
+  ],
+  "color": {
+   "name": "Blanco estrella",
+   "id": "647e31b3e18b01a681c13ce1"
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BDHR3ZKJ",
   "name": "Apple Watch SE de 2.ageneración (GPS, 40mm) Reloj Inteligente con Caja de Aluminio en Blanco Estrella - Correa Deportiva Blanco Estrella - Talla única. Monitor de entreno y sueño",
   "sku": "B0BDHR3ZKJ",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "Apple Watch",
   "subcategory": [],
   "price": 295.0,
@@ -125,19 +218,49 @@
    "https://m.media-amazon.com/images/I/71I0macj2KL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71EzoGW9t5L._AC_SL1500_.jpg"
   ],
-  "model": "Apple Watch",
-  "color": "Blanco estrella",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "Intel",
-  "hdd": ""
+  "model": [
+   {
+    "name": "Apple Watch",
+    "id": "647b7ffc54073063db0e0db7"
+   },
+   {
+    "name": "SE",
+    "id": "6485bf75126bc6a1fac154f3"
+   }
+  ],
+  "color": {
+   "name": "Blanco estrella",
+   "id": "647e31b3e18b01a681c13ce1"
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BDHRGYWT",
   "name": "Apple Watch Series 8 (GPS, 41mm) Reloj Inteligente con Caja de Aluminio en Blanco Estrella - Correa Deportiva Blanco Estrella - Talla única. Monitor de entreno, Resistencia alagua",
   "sku": "B0BDHRGYWT",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "Apple Watch",
   "subcategory": [],
   "price": 469.0,
@@ -153,19 +276,49 @@
    "https://m.media-amazon.com/images/I/71KDjomhnBL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71-xOgzkEQL._AC_SL1500_.jpg"
   ],
-  "model": "Apple Watch",
-  "color": "Blanco estrella",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "Intel",
-  "hdd": ""
+  "model": [
+   {
+    "name": "Apple Watch",
+    "id": "647b7ffc54073063db0e0db7"
+   },
+   {
+    "name": "Series 8",
+    "id": "6485bf53126bc6a1fac1545a"
+   }
+  ],
+  "color": {
+   "name": "Blanco estrella",
+   "id": "647e31b3e18b01a681c13ce1"
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BDJCDR6B",
   "name": "Apple Watch SE de 2.ageneración (GPS, 40mm) Reloj Inteligente con Caja de Aluminio en Color Medianoche - Correa Deportiva en Color Medianoche - Talla única. Monitor de entreno y sueño",
   "sku": "B0BDJCDR6B",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "Apple Watch",
   "subcategory": [],
   "price": 296.0,
@@ -187,19 +340,49 @@
    "https://m.media-amazon.com/images/I/71I0macj2KL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71bOOMtutjL._AC_SL1500_.jpg"
   ],
-  "model": "Apple Watch",
-  "color": "color",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "Intel",
-  "hdd": ""
+  "model": [
+   {
+    "name": "Apple Watch",
+    "id": "647b7ffc54073063db0e0db7"
+   },
+   {
+    "name": "SE",
+    "id": "6485bf75126bc6a1fac154f3"
+   }
+  ],
+  "color": {
+   "name": "Medianoche",
+   "id": "6482d6a54769aca19d239eb4"
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BDHZ2LD7",
   "name": "Apple Watch Ultra (GPS + Cellular, 49mm) Reloj Inteligente con Caja de Titanio - Correa Ocean Amarilla. Monitor de entreno, GPS de Alta precisión, autonomía Extraordinaria",
   "sku": "B0BDHZ2LD7",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "Apple Watch",
   "subcategory": [],
   "price": 949.05,
@@ -216,19 +399,49 @@
    "https://m.media-amazon.com/images/I/81JrFtnZTeL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71IlKQv+iGL._AC_SL1500_.jpg"
   ],
-  "model": "Apple Watch",
-  "color": "",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "Intel",
-  "hdd": ""
+  "model": [
+   {
+    "name": "Apple Watch",
+    "id": "647b7ffc54073063db0e0db7"
+   },
+   {
+    "name": "Ultra",
+    "id": "6485bf20126bc6a1fac153ae"
+   }
+  ],
+  "color": {
+   "name": "",
+   "id": ""
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BDHR54XS",
   "name": "Apple Watch Ultra (GPS + Cellular, 49mm) Reloj Inteligente con Caja de Titanio - Correa Loop Alpine Verde - Talla M. Monitor de entreno, GPS de Alta precisión, autonomía Extraordinaria",
   "sku": "B0BDHR54XS",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "Apple Watch",
   "subcategory": [],
   "price": 949.05,
@@ -245,19 +458,49 @@
    "https://m.media-amazon.com/images/I/81JrFtnZTeL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71jHE97cPpL._AC_SL1500_.jpg"
   ],
-  "model": "Apple Watch",
-  "color": "",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "Intel",
-  "hdd": ""
+  "model": [
+   {
+    "name": "Apple Watch",
+    "id": "647b7ffc54073063db0e0db7"
+   },
+   {
+    "name": "Ultra",
+    "id": "6485bf20126bc6a1fac153ae"
+   }
+  ],
+  "color": {
+   "name": "Verde",
+   "id": "6482d66eb485477a26a49a91"
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09RTRHTM2",
   "name": "Apple Watch Series 7 (GPS, 41MM) con Caja de Aluminio Starlight y Banda Deportiva Starlight (Reacondicionado)",
   "sku": "B09RTRHTM2",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "Apple Watch",
   "subcategory": [],
   "price": 365.0,
@@ -277,22 +520,51 @@
    "Duración de la batería": "18 Horas"
   },
   "images": [
-   "https://m.media-amazon.com/images/I/71egrdyA8zL._AC_UL1500_.jpg",
-   "https://m.media-amazon.com/images/I/51630VEsMeL._AC_UL1500_.jpg"
+   "https://m.media-amazon.com/images/I/71egrdyA8zL._AC_UX522_.jpg"
   ],
-  "model": "Apple Watch",
-  "color": "Aluminio: Starlight",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "name": "Apple Watch",
+    "id": "647b7ffc54073063db0e0db7"
+   },
+   {
+    "name": "Series 7",
+    "id": "6485bf5f126bc6a1fac1548c"
+   }
+  ],
+  "color": {
+   "name": "Aluminio: Starlight",
+   "id": "6482d7154769aca19d23bae0"
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BDJGFLR1",
   "name": "Apple Watch Series 8 (GPS, 41mm) Reloj Inteligente con Caja de Aluminio en Color Medianoche - Correa Deportiva en Color Medianoche - Talla única. Monitor de entreno, Resistencia alagua",
   "sku": "B0BDJGFLR1",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "Apple Watch",
   "subcategory": [],
   "price": 478.99,
@@ -313,19 +585,49 @@
    "https://m.media-amazon.com/images/I/71KDjomhnBL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71nOO0S0ZFL._AC_SL1500_.jpg"
   ],
-  "model": "Apple Watch",
-  "color": "color",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "Intel",
-  "hdd": ""
+  "model": [
+   {
+    "name": "Apple Watch",
+    "id": "647b7ffc54073063db0e0db7"
+   },
+   {
+    "name": "Series 8",
+    "id": "6485bf53126bc6a1fac1545a"
+   }
+  ],
+  "color": {
+   "name": "Medianoche",
+   "id": "6482d6a54769aca19d239eb4"
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B08QN25XCF",
   "name": "Apple Watch Series 6 44mm (GPS) - Caja De Aluminio En (PRODUCT)Red / (PRODUCT)Red Correa Deportiva (Reacondicionado)",
   "sku": "B08QN25XCF",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "Apple Watch",
   "subcategory": [],
   "price": 407.88,
@@ -345,27 +647,51 @@
    "Tipo de material de la caja": "Aluminio"
   },
   "images": [
-   "https://m.media-amazon.com/images/I/81iYOy3JjEL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/81EnN0aZ19L._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/81iLrroUgjL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/81ecN83L1PL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/81RCxjciDRL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/719NkJApHiL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/713hGyqOXaL._AC_SL1500_.jpg"
+   "https://m.media-amazon.com/images/I/81iYOy3JjEL._AC_SX425_.jpg"
   ],
-  "model": "Apple Watch",
-  "color": "Rojo",
-  "year": "",
-  "memory": "",
-  "display": "44 Milímetros Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "name": "Apple Watch",
+    "id": "647b7ffc54073063db0e0db7"
+   },
+   {
+    "name": "SE",
+    "id": "6485bf75126bc6a1fac154f3"
+   }
+  ],
+  "color": {
+   "name": "(PRODUCT)RED",
+   "id": "6482d6ae4769aca19d23a0e2"
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BDJQ2B3Z",
   "name": "Apple Watch Ultra (GPS + Cellular, 49mm) Reloj Inteligente con Caja de Titanio - Correa Loop Alpine Verde - Talla L. Monitor de entreno, GPS de Alta precisión, autonomía Extraordinaria",
   "sku": "B0BDJQ2B3Z",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "Apple Watch",
   "subcategory": [],
   "price": 966.0,
@@ -393,19 +719,49 @@
    "https://m.media-amazon.com/images/I/81JrFtnZTeL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71jHE97cPpL._AC_SL1500_.jpg"
   ],
-  "model": "Apple Watch",
-  "color": "verde",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "Intel",
-  "hdd": ""
+  "model": [
+   {
+    "name": "Apple Watch",
+    "id": "647b7ffc54073063db0e0db7"
+   },
+   {
+    "name": "Ultra",
+    "id": "6485bf20126bc6a1fac153ae"
+   }
+  ],
+  "color": {
+   "name": "Verde",
+   "id": "6482d66eb485477a26a49a91"
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BDHZ1YLB",
   "name": "Apple Watch Ultra (GPS + Cellular, 49mm) Reloj Inteligente con Caja de Titanio - Correa Loop Alpine Verde - Talla S. Monitor de entreno, GPS de Alta precisión, autonomía Extraordinaria",
   "sku": "B0BDHZ1YLB",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "Apple Watch",
   "subcategory": [],
   "price": 949.05,
@@ -422,19 +778,49 @@
    "https://m.media-amazon.com/images/I/81JrFtnZTeL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71jHE97cPpL._AC_SL1500_.jpg"
   ],
-  "model": "Apple Watch",
-  "color": "",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "Intel",
-  "hdd": ""
+  "model": [
+   {
+    "name": "Apple Watch",
+    "id": "647b7ffc54073063db0e0db7"
+   },
+   {
+    "name": "Ultra",
+    "id": "6485bf20126bc6a1fac153ae"
+   }
+  ],
+  "color": {
+   "name": "Verde",
+   "id": "6482d66eb485477a26a49a91"
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BDJ81WFZ",
   "name": "Apple Watch Ultra (GPS + Cellular, 49mm) Reloj Inteligente con Caja de Titanio - Correa Loop Trail Negra/Gris - Talla M/L. Monitor de entreno, GPS de Alta precisión, autonomía Extraordinaria",
   "sku": "B0BDJ81WFZ",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "Apple Watch",
   "subcategory": [],
   "price": 949.05,
@@ -451,19 +837,49 @@
    "https://m.media-amazon.com/images/I/81JrFtnZTeL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71Z+CO9ta9L._AC_SL1500_.jpg"
   ],
-  "model": "Apple Watch",
-  "color": "Gris",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "Intel",
-  "hdd": ""
+  "model": [
+   {
+    "name": "Apple Watch",
+    "id": "647b7ffc54073063db0e0db7"
+   },
+   {
+    "name": "Ultra",
+    "id": "6485bf20126bc6a1fac153ae"
+   }
+  ],
+  "color": {
+   "name": "Gris",
+   "id": "6414adedb6dbda757d92d91b"
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BDJKHHY6",
   "name": "Apple Watch Ultra (GPS + Cellular, 49mm) Reloj Inteligente con Caja de Titanio - Correa Ocean en Color Medianoche. Monitor de entreno, GPS de Alta precisión, autonomía Extraordinaria",
   "sku": "B0BDJKHHY6",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "Apple Watch",
   "subcategory": [],
   "price": 949.0,
@@ -480,19 +896,49 @@
    "https://m.media-amazon.com/images/I/81JrFtnZTeL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71JXlfuckzL._AC_SL1500_.jpg"
   ],
-  "model": "Apple Watch",
-  "color": "color",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "Intel",
-  "hdd": ""
+  "model": [
+   {
+    "name": "Apple Watch",
+    "id": "647b7ffc54073063db0e0db7"
+   },
+   {
+    "name": "Ultra",
+    "id": "6485bf20126bc6a1fac153ae"
+   }
+  ],
+  "color": {
+   "name": "Medianoche",
+   "id": "6482d6a54769aca19d239eb4"
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B08N6XSWKJ",
   "name": "Apple Watch SE 40mm (GPS) - Caja De Aluminio En Oro / Pomelo Correa Deportiva (Reacondicionado)",
   "sku": "B08N6XSWKJ",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "Apple Watch",
   "subcategory": [],
   "price": 279.0,
@@ -512,28 +958,51 @@
    "Tipo de material de la caja": "Aluminio"
   },
   "images": [
-   "https://m.media-amazon.com/images/I/71VZRp9YOcL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/71IC8zsf6KL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/71EIPzTaIhL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/71MNE0CMygL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/81-FKX80LCL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/61Kz5mlwRbL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/71yMjFoojTL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/51JDSbeklCL._AC_SL1500_.jpg"
+   "https://m.media-amazon.com/images/I/71VZRp9YOcL._AC_SX425_.jpg"
   ],
-  "model": "Apple Watch",
-  "color": "Oro",
-  "year": "",
-  "memory": "",
-  "display": "40 Milímetros Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "name": "Apple Watch",
+    "id": "647b7ffc54073063db0e0db7"
+   },
+   {
+    "name": "SE",
+    "id": "6485bf75126bc6a1fac154f3"
+   }
+  ],
+  "color": {
+   "name": "Oro",
+   "id": "6412189af01ce174d348f0f9"
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B08N6ZYT4V",
   "name": "Apple Watch SE (GPS + Celular, 40MM) - Caja de Aluminio Gris Espacial con Banda Negra Deportiva (Reacondicionado)",
   "sku": "B08N6ZYT4V",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "Apple Watch",
   "subcategory": [],
   "price": 279.0,
@@ -550,27 +1019,51 @@
    "Dimensiones del producto: largo x ancho x alto": "26,6 x 7,6 x 3,4 centímetros"
   },
   "images": [
-   "https://m.media-amazon.com/images/I/71WTg7PZZ4L._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/81HdTCIWNrL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/81C7bjyArKL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/814Z1ujOV3L._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/814WVlAyRaL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/71arOid68TL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/71TE0rxlDlL._AC_SL1500_.jpg"
+   "https://m.media-amazon.com/images/I/71WTg7PZZ4L._AC_SX425_.jpg"
   ],
-  "model": "Apple Watch",
-  "color": "Gris espacial",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "name": "Apple Watch",
+    "id": "647b7ffc54073063db0e0db7"
+   },
+   {
+    "name": "SE",
+    "id": "6485bf75126bc6a1fac154f3"
+   }
+  ],
+  "color": {
+   "name": "Gris espacial",
+   "id": "640f6593996606d4d5af9925"
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BDJB16Q9",
   "name": "Apple Watch Ultra (GPS + Cellular, 49mm) Reloj Inteligente con Caja de Titanio - Correa Loop Alpine Naranja - Talla L. Monitor de entreno, GPS de Alta precisión, autonomía Extraordinaria",
   "sku": "B0BDJB16Q9",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "Apple Watch",
   "subcategory": [],
   "price": 952.0,
@@ -587,19 +1080,49 @@
    "https://m.media-amazon.com/images/I/81JrFtnZTeL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71V64efr1qL._AC_SL1500_.jpg"
   ],
-  "model": "Apple Watch",
-  "color": "",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "Intel",
-  "hdd": ""
+  "model": [
+   {
+    "name": "Apple Watch",
+    "id": "647b7ffc54073063db0e0db7"
+   },
+   {
+    "name": "Ultra",
+    "id": "6485bf20126bc6a1fac153ae"
+   }
+  ],
+  "color": {
+   "name": "",
+   "id": ""
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BDJBL944",
   "name": "Apple Watch Ultra (GPS + Cellular, 49mm) Reloj Inteligente con Caja de Titanio - Correa Loop Alpine Naranja - Talla M. Monitor de entreno, GPS de Alta precisión, autonomía Extraordinaria",
   "sku": "B0BDJBL944",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "Apple Watch",
   "subcategory": [],
   "price": 952.0,
@@ -615,19 +1138,49 @@
    "https://m.media-amazon.com/images/I/81JrFtnZTeL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71V64efr1qL._AC_SL1500_.jpg"
   ],
-  "model": "Apple Watch",
-  "color": "",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "Intel",
-  "hdd": ""
+  "model": [
+   {
+    "name": "Apple Watch",
+    "id": "647b7ffc54073063db0e0db7"
+   },
+   {
+    "name": "Ultra",
+    "id": "6485bf20126bc6a1fac153ae"
+   }
+  ],
+  "color": {
+   "name": "",
+   "id": ""
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BDJJQLKY",
   "name": "Apple Watch Series 8 (GPS, 45mm) Caja de Aluminio (Product) Red con Correa Deportiva (Product) Red (Reacondicionado)",
   "sku": "B0BDJJQLKY",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "Apple Watch",
   "subcategory": [],
   "price": 529.0,
@@ -643,19 +1196,49 @@
    "https://m.media-amazon.com/images/I/71KDjomhnBL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/710fpkx2xZL._AC_SL1500_.jpg"
   ],
-  "model": "Apple Watch",
-  "color": "",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "name": "Apple Watch",
+    "id": "647b7ffc54073063db0e0db7"
+   },
+   {
+    "name": "Series 8",
+    "id": "6485bf53126bc6a1fac1545a"
+   }
+  ],
+  "color": {
+   "name": "(PRODUCT)RED",
+   "id": "6482d6ae4769aca19d23a0e2"
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BDJ978JD",
   "name": "Apple Watch Series 8 (GPS, 45mm) Reloj Inteligente con Caja de Aluminio en Blanco Estrella - Correa Deportiva Blanco Estrella - Talla única. Monitor de entreno, Resistencia alagua",
   "sku": "B0BDJ978JD",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "Apple Watch",
   "subcategory": [],
   "price": 512.05,
@@ -671,19 +1254,49 @@
    "https://m.media-amazon.com/images/I/71KDjomhnBL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71intObhrgL._AC_SL1500_.jpg"
   ],
-  "model": "Apple Watch",
-  "color": "Blanco estrella",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "Intel",
-  "hdd": ""
+  "model": [
+   {
+    "name": "Apple Watch",
+    "id": "647b7ffc54073063db0e0db7"
+   },
+   {
+    "name": "Series 8",
+    "id": "6485bf53126bc6a1fac1545a"
+   }
+  ],
+  "color": {
+   "name": "Blanco estrella",
+   "id": "647e31b3e18b01a681c13ce1"
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BDJ7SW9B",
   "name": "Apple Watch Series 8 (GPS + Cellular, 45mm) Reloj Inteligente con Caja de Aluminio en Color Medianoche - Correa Deportiva en Color Medianoche - Talla única. Monitor de entreno, Resistencia alagua",
   "sku": "B0BDJ7SW9B",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "Apple Watch",
   "subcategory": [],
   "price": 626.05,
@@ -699,19 +1312,49 @@
    "https://m.media-amazon.com/images/I/71Da+bI-fYL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71r8MgvGWML._AC_SL1500_.jpg"
   ],
-  "model": "Apple Watch",
-  "color": "color",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "Intel",
-  "hdd": ""
+  "model": [
+   {
+    "name": "Apple Watch",
+    "id": "647b7ffc54073063db0e0db7"
+   },
+   {
+    "name": "Series 8",
+    "id": "6485bf53126bc6a1fac1545a"
+   }
+  ],
+  "color": {
+   "name": "Medianoche",
+   "id": "6482d6a54769aca19d239eb4"
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BDJCNTDS",
   "name": "Apple Watch Ultra (GPS + Cellular, 49mm) Reloj Inteligente con Caja de Titanio - Correa Ocean Blanca. Monitor de entreno, GPS de Alta precisión, autonomía Extraordinaria",
   "sku": "B0BDJCNTDS",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "Apple Watch",
   "subcategory": [],
   "price": 999.0,
@@ -728,19 +1371,49 @@
    "https://m.media-amazon.com/images/I/81JrFtnZTeL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71RzRHeFM4L._AC_SL1500_.jpg"
   ],
-  "model": "Apple Watch",
-  "color": "",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "Intel",
-  "hdd": ""
+  "model": [
+   {
+    "name": "Apple Watch",
+    "id": "647b7ffc54073063db0e0db7"
+   },
+   {
+    "name": "Ultra",
+    "id": "6485bf20126bc6a1fac153ae"
+   }
+  ],
+  "color": {
+   "name": "",
+   "id": ""
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BDHZRJG1",
   "name": "Apple Watch Ultra (GPS + Cellular, 49mm) Reloj Inteligente con Caja de Titanio - Correa Loop Alpine Blanco Estrella - Talla M. Monitor de entreno, GPS de Alta precisión, autonomía Extraordinaria",
   "sku": "B0BDHZRJG1",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "Apple Watch",
   "subcategory": [],
   "price": 939.0,
@@ -757,19 +1430,49 @@
    "https://m.media-amazon.com/images/I/81JrFtnZTeL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71Vz+qJCVPL._AC_SL1500_.jpg"
   ],
-  "model": "Apple Watch",
-  "color": "Blanco estrella",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "Intel",
-  "hdd": ""
+  "model": [
+   {
+    "name": "Apple Watch",
+    "id": "647b7ffc54073063db0e0db7"
+   },
+   {
+    "name": "Ultra",
+    "id": "6485bf20126bc6a1fac153ae"
+   }
+  ],
+  "color": {
+   "name": "Blanco estrella",
+   "id": "647e31b3e18b01a681c13ce1"
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BDJ1ZFVL",
   "name": "Apple Watch Ultra (GPS + Cellular, 49mm) Reloj Inteligente con Caja de Titanio - Correa Loop Alpine Blanco Estrella - Talla L. Monitor de entreno, GPS de Alta precisión, autonomía Extraordinaria",
   "sku": "B0BDJ1ZFVL",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "Apple Watch",
   "subcategory": [],
   "price": 949.0,
@@ -786,19 +1489,49 @@
    "https://m.media-amazon.com/images/I/81JrFtnZTeL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71Vz+qJCVPL._AC_SL1500_.jpg"
   ],
-  "model": "Apple Watch",
-  "color": "Blanco estrella",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "Intel",
-  "hdd": ""
+  "model": [
+   {
+    "name": "Apple Watch",
+    "id": "647b7ffc54073063db0e0db7"
+   },
+   {
+    "name": "Ultra",
+    "id": "6485bf20126bc6a1fac153ae"
+   }
+  ],
+  "color": {
+   "name": "Blanco estrella",
+   "id": "647e31b3e18b01a681c13ce1"
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BDJ7DZ6H",
   "name": "Apple Watch Ultra (GPS + Cellular, 49mm) Reloj Inteligente con Caja de Titanio - Correa Loop Alpine Blanco Estrella - Talla S. Monitor de entreno, GPS de Alta precisión, autonomía Extraordinaria",
   "sku": "B0BDJ7DZ6H",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "Apple Watch",
   "subcategory": [],
   "price": 939.0,
@@ -815,19 +1548,49 @@
    "https://m.media-amazon.com/images/I/81JrFtnZTeL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71Vz+qJCVPL._AC_SL1500_.jpg"
   ],
-  "model": "Apple Watch",
-  "color": "Blanco estrella",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "Intel",
-  "hdd": ""
+  "model": [
+   {
+    "name": "Apple Watch",
+    "id": "647b7ffc54073063db0e0db7"
+   },
+   {
+    "name": "Ultra",
+    "id": "6485bf20126bc6a1fac153ae"
+   }
+  ],
+  "color": {
+   "name": "Blanco estrella",
+   "id": "647e31b3e18b01a681c13ce1"
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BDHMFLC6",
   "name": "Apple Watch Ultra (GPS + Cellular, 49mm) Reloj Inteligente con Caja de Titanio - Correa Loop Alpine Naranja - Talla S. Monitor de entreno, GPS de Alta precisión, autonomía Extraordinaria",
   "sku": "B0BDHMFLC6",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "Apple Watch",
   "subcategory": [],
   "price": 952.0,
@@ -844,19 +1607,49 @@
    "https://m.media-amazon.com/images/I/81JrFtnZTeL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71V64efr1qL._AC_SL1500_.jpg"
   ],
-  "model": "Apple Watch",
-  "color": "",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "Intel",
-  "hdd": ""
+  "model": [
+   {
+    "name": "Apple Watch",
+    "id": "647b7ffc54073063db0e0db7"
+   },
+   {
+    "name": "Ultra",
+    "id": "6485bf20126bc6a1fac153ae"
+   }
+  ],
+  "color": {
+   "name": "",
+   "id": ""
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BDJ2THFW",
   "name": "Apple Watch Ultra (GPS + Cellular, 49mm) Reloj Inteligente con Caja de Titanio - Correa Loop Trail Amarilla/Beis - Talla M/L. Monitor de entreno, GPS de Alta precisión, autonomía Extraordinaria",
   "sku": "B0BDJ2THFW",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "Apple Watch",
   "subcategory": [],
   "price": 949.0,
@@ -873,19 +1666,49 @@
    "https://m.media-amazon.com/images/I/81JrFtnZTeL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71Nk-Zu1dGL._AC_SL1500_.jpg"
   ],
-  "model": "Apple Watch",
-  "color": "",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "Intel",
-  "hdd": ""
+  "model": [
+   {
+    "name": "Apple Watch",
+    "id": "647b7ffc54073063db0e0db7"
+   },
+   {
+    "name": "Ultra",
+    "id": "6485bf20126bc6a1fac153ae"
+   }
+  ],
+  "color": {
+   "name": "",
+   "id": ""
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BDJGFLR9",
   "name": "Apple Watch Ultra (GPS + Cellular, 49mm) Reloj Inteligente con Caja de Titanio - Correa Loop Trail Azul/Gris - Talla M/L. Monitor de entreno, GPS de Alta precisión, autonomía Extraordinaria",
   "sku": "B0BDJGFLR9",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "Apple Watch",
   "subcategory": [],
   "price": 952.0,
@@ -913,19 +1736,49 @@
    "https://m.media-amazon.com/images/I/81JrFtnZTeL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71Q+6LCTl9L._AC_SL1500_.jpg"
   ],
-  "model": "Apple Watch",
-  "color": "Gris",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "Intel",
-  "hdd": ""
+  "model": [
+   {
+    "name": "Apple Watch",
+    "id": "647b7ffc54073063db0e0db7"
+   },
+   {
+    "name": "Ultra",
+    "id": "6485bf20126bc6a1fac153ae"
+   }
+  ],
+  "color": {
+   "name": "Gris",
+   "id": "6414adedb6dbda757d92d91b"
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BDHMQBZL",
   "name": "Apple Watch Ultra (GPS + Cellular, 49mm) Reloj Inteligente con Caja de Titanio - Correa Loop Trail Negra/Gris - Talla S/M. Monitor de entreno, GPS de Alta precisión, autonomía Extraordinaria",
   "sku": "B0BDHMQBZL",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "Apple Watch",
   "subcategory": [],
   "price": 949.05,
@@ -942,19 +1795,49 @@
    "https://m.media-amazon.com/images/I/81JrFtnZTeL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71Z+CO9ta9L._AC_SL1500_.jpg"
   ],
-  "model": "Apple Watch",
-  "color": "Gris",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "Intel",
-  "hdd": ""
+  "model": [
+   {
+    "name": "Apple Watch",
+    "id": "647b7ffc54073063db0e0db7"
+   },
+   {
+    "name": "Ultra",
+    "id": "6485bf20126bc6a1fac153ae"
+   }
+  ],
+  "color": {
+   "name": "Gris",
+   "id": "6414adedb6dbda757d92d91b"
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BDHMQN7C",
   "name": "Apple Watch Series 8 (GPS + Cellular, 45mm) Reloj Inteligente con Caja de Aluminio (Product) Red - Correa Deportiva (Product) Red - Talla única. Monitor de entreno, Resistencia alagua",
   "sku": "B0BDHMQN7C",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "Apple Watch",
   "subcategory": [],
   "price": 626.05,
@@ -970,19 +1853,49 @@
    "https://m.media-amazon.com/images/I/71Da+bI-fYL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71k0-o2Yf9L._AC_SL1500_.jpg"
   ],
-  "model": "Apple Watch",
-  "color": "",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "Intel",
-  "hdd": ""
+  "model": [
+   {
+    "name": "Apple Watch",
+    "id": "647b7ffc54073063db0e0db7"
+   },
+   {
+    "name": "Series 8",
+    "id": "6485bf53126bc6a1fac1545a"
+   }
+  ],
+  "color": {
+   "name": "(PRODUCT)RED",
+   "id": "6482d6ae4769aca19d23a0e2"
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BDJB48V1",
   "name": "Apple Watch Series 8 (GPS + Cellular, 45mm) Reloj Inteligente con Caja de Aluminio en Blanco Estrella - Correa Deportiva Blanco Estrella - Talla única. Monitor de entreno, Resistencia alagua",
   "sku": "B0BDJB48V1",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "Apple Watch",
   "subcategory": [],
   "price": 619.0,
@@ -998,19 +1911,49 @@
    "https://m.media-amazon.com/images/I/71Da+bI-fYL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/718A1xAiPkL._AC_SL1500_.jpg"
   ],
-  "model": "Apple Watch",
-  "color": "Blanco estrella",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "Intel",
-  "hdd": ""
+  "model": [
+   {
+    "name": "Apple Watch",
+    "id": "647b7ffc54073063db0e0db7"
+   },
+   {
+    "name": "Series 8",
+    "id": "6485bf53126bc6a1fac1545a"
+   }
+  ],
+  "color": {
+   "name": "Blanco estrella",
+   "id": "647e31b3e18b01a681c13ce1"
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BDJ3BCGT",
   "name": "Apple Watch Series 8 (GPS + Cellular, 41mm) Reloj Inteligente con Caja de Aluminio (Product) Red - Correa Deportiva (Product) Red - Talla única. Monitor de entreno, Resistencia alagua",
   "sku": "B0BDJ3BCGT",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "Apple Watch",
   "subcategory": [],
   "price": 588.05,
@@ -1026,19 +1969,49 @@
    "https://m.media-amazon.com/images/I/71Da+bI-fYL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71fSOM8CKlL._AC_SL1500_.jpg"
   ],
-  "model": "Apple Watch",
-  "color": "",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "Intel",
-  "hdd": ""
+  "model": [
+   {
+    "name": "Apple Watch",
+    "id": "647b7ffc54073063db0e0db7"
+   },
+   {
+    "name": "Series 8",
+    "id": "6485bf53126bc6a1fac1545a"
+   }
+  ],
+  "color": {
+   "name": "(PRODUCT)RED",
+   "id": "6482d6ae4769aca19d23a0e2"
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BDJ6WBBJ",
   "name": "Apple Watch Ultra (GPS + Cellular, 49mm) Reloj Inteligente con Caja de Titanio - Correa Loop Trail Amarilla/Beis - Talla S/M. Monitor de entreno, GPS de Alta precisión, autonomía Extraordinaria",
   "sku": "B0BDJ6WBBJ",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "Apple Watch",
   "subcategory": [],
   "price": 949.05,
@@ -1055,19 +2028,49 @@
    "https://m.media-amazon.com/images/I/81JrFtnZTeL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71Nk-Zu1dGL._AC_SL1500_.jpg"
   ],
-  "model": "Apple Watch",
-  "color": "",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "Intel",
-  "hdd": ""
+  "model": [
+   {
+    "name": "Apple Watch",
+    "id": "647b7ffc54073063db0e0db7"
+   },
+   {
+    "name": "Ultra",
+    "id": "6485bf20126bc6a1fac153ae"
+   }
+  ],
+  "color": {
+   "name": "",
+   "id": ""
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BDJFT3MQ",
   "name": "Apple Watch Ultra (GPS + Cellular, 49mm) Reloj Inteligente con Caja de Titanio - Correa Loop Trail Azul/Gris - Talla S/M. Monitor de entreno, GPS de Alta precisión, autonomía Extraordinaria",
   "sku": "B0BDJFT3MQ",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "Apple Watch",
   "subcategory": [],
   "price": 949.05,
@@ -1084,12 +2087,39 @@
    "https://m.media-amazon.com/images/I/81JrFtnZTeL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71Q+6LCTl9L._AC_SL1500_.jpg"
   ],
-  "model": "Apple Watch",
-  "color": "Gris",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "Intel",
-  "hdd": ""
+  "model": [
+   {
+    "name": "Apple Watch",
+    "id": "647b7ffc54073063db0e0db7"
+   },
+   {
+    "name": "Ultra",
+    "id": "6485bf20126bc6a1fac153ae"
+   }
+  ],
+  "color": {
+   "name": "Gris",
+   "id": "6414adedb6dbda757d92d91b"
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  }
 ]

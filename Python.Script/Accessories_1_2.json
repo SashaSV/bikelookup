@@ -3,7 +3,10 @@
   "url": "https://www.amazon.es/dp/B09364K56M",
   "name": "Apple AirTag",
   "sku": "B09364K56M",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "id": "6418cbfc36f134df58935c57",
+   "name": "Apple"
+  },
   "category": "Accessories",
   "subcategory": [],
   "price": 32.5,
@@ -29,19 +32,43 @@
    "https://m.media-amazon.com/images/I/71Z3IhmnirS._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/81RCdF1Pq4S._AC_SL1500_.jpg"
   ],
-  "model": "",
-  "color": "",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": {
+   "id": "6485c826126bc6a1fac24f92",
+   "name": "Apple"
+  },
+  "color": {
+   "id": "",
+   "name": ""
+  },
+  "year": {
+   "id": "",
+   "name": ""
+  },
+  "memory": {
+   "id": "",
+   "name": ""
+  },
+  "display": {
+   "id": "",
+   "name": ""
+  },
+  "cpu": {
+   "id": "",
+   "name": ""
+  },
+  "hdd": {
+   "id": "",
+   "name": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B01M1EEPOB",
   "name": "Apple EarPods con Conector Lightning",
   "sku": "B01M1EEPOB",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "id": "6418cbfc36f134df58935c57",
+   "name": "Apple"
+  },
   "category": "Accessories",
   "subcategory": [],
   "price": 15.98,
@@ -61,26 +88,45 @@
    "Material": "Plastico y metal"
   },
   "images": [
-   "https://m.media-amazon.com/images/I/418AP8pw3KL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/41s-4Mp3HXL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/41uIBSbhpXL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/41C3ty0leuL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/41RGKf1nTlL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/41A+Sng0iFL._AC_SL1500_.jpg"
+   "https://m.media-amazon.com/images/I/418AP8pw3KL._AC_SX679_.jpg"
   ],
-  "model": "",
-  "color": "Blanco",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": {
+   "id": "6485c826126bc6a1fac24f92",
+   "name": "Apple"
+  },
+  "color": {
+   "id": "",
+   "name": ""
+  },
+  "year": {
+   "id": "",
+   "name": ""
+  },
+  "memory": {
+   "id": "",
+   "name": ""
+  },
+  "display": {
+   "id": "",
+   "name": ""
+  },
+  "cpu": {
+   "id": "",
+   "name": ""
+  },
+  "hdd": {
+   "id": "",
+   "name": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B07PYMK77Y",
   "name": "Apple AirPods con Estuche de Carga con Cable (2.a generación)",
   "sku": "B07PYMK77Y",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "id": "6418cbfc36f134df58935c57",
+   "name": "Apple"
+  },
   "category": "Accessories",
   "subcategory": [],
   "price": 145.0,
@@ -107,19 +153,43 @@
    "https://m.media-amazon.com/images/I/81W5RSDOy-L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71djnhmfy-L._AC_SL1500_.jpg"
   ],
-  "model": "",
-  "color": "Blanco",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": {
+   "id": "6482dffa8334764c48548929",
+   "name": "AirPods"
+  },
+  "color": {
+   "id": "",
+   "name": ""
+  },
+  "year": {
+   "id": "",
+   "name": ""
+  },
+  "memory": {
+   "id": "",
+   "name": ""
+  },
+  "display": {
+   "id": "",
+   "name": ""
+  },
+  "cpu": {
+   "id": "",
+   "name": ""
+  },
+  "hdd": {
+   "id": "",
+   "name": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BDK9X2ZC",
   "name": "Apple AirPods Pro (2.a generación)",
   "sku": "B0BDK9X2ZC",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "id": "6418cbfc36f134df58935c57",
+   "name": "Apple"
+  },
   "category": "Accessories",
   "subcategory": [],
   "price": 265.0,
@@ -128,25 +198,51 @@
   "available": "En stock",
   "techs": {},
   "images": [
-   "https://m.media-amazon.com/images/I/41vD6acz3tL._AC_SL1200_.jpg",
-   "https://m.media-amazon.com/images/I/61sRKTAfrhL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/51emillNpWL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/51+vJkbGtJL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/51s3yLTjWSL._AC_SL1500_.jpg"
+   "https://m.media-amazon.com/images/I/41vD6acz3tL._AC_SX679_.jpg"
   ],
-  "model": "",
-  "color": "",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "id": "6482dffa8334764c48548929",
+    "name": "AirPods"
+   },
+   {
+    "id": "6485c3d5126bc6a1fac1f3ad",
+    "name": "Pro"
+   }
+  ],
+  "color": {
+   "id": "",
+   "name": ""
+  },
+  "year": {
+   "id": "",
+   "name": ""
+  },
+  "memory": {
+   "id": "",
+   "name": ""
+  },
+  "display": {
+   "id": "",
+   "name": ""
+  },
+  "cpu": {
+   "id": "",
+   "name": ""
+  },
+  "hdd": {
+   "id": "",
+   "name": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B06XDLJL26",
   "name": "Apple EarPods con Clavija de 3,5 mm",
   "sku": "B06XDLJL26",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "id": "6418cbfc36f134df58935c57",
+   "name": "Apple"
+  },
   "category": "Accessories",
   "subcategory": [],
   "price": 15.98,
@@ -166,27 +262,45 @@
    "Conector para auriculares": "Jack de 3,5 mm"
   },
   "images": [
-   "https://m.media-amazon.com/images/I/41KUAk5FspL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/41CLYN9bXLL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/41JM53aYCAL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/51CydgDqrwL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/51I1-dDEP1L._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/21OPFM1ENhL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/21oTg06WmXL._AC_SL1000_.jpg"
+   "https://m.media-amazon.com/images/I/41KUAk5FspL._AC_SX679_.jpg"
   ],
-  "model": "",
-  "color": "Blanco",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": {
+   "id": "6485c826126bc6a1fac24f92",
+   "name": "Apple"
+  },
+  "color": {
+   "id": "",
+   "name": ""
+  },
+  "year": {
+   "id": "",
+   "name": ""
+  },
+  "memory": {
+   "id": "",
+   "name": ""
+  },
+  "display": {
+   "id": "",
+   "name": ""
+  },
+  "cpu": {
+   "id": "",
+   "name": ""
+  },
+  "hdd": {
+   "id": "",
+   "name": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BDKSF6M8",
   "name": "Apple AirPods (3.a generación) con Estuche de Carga Lightning (2021)",
   "sku": "B0BDKSF6M8",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "id": "6418cbfc36f134df58935c57",
+   "name": "Apple"
+  },
   "category": "Accessories",
   "subcategory": [],
   "price": 185.0,
@@ -203,26 +317,45 @@
    "Dimensiones del producto: largo x ancho x alto": "24 x 69 x 2,5 centímetros"
   },
   "images": [
-   "https://m.media-amazon.com/images/I/61s0kQY5gKL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/61BNlsxZR3L._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/81U5ZNSUiGL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/61kt+fd7JuL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/61wS3asVDfL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/7161cLnZzmL._AC_SL1500_.jpg"
+   "https://m.media-amazon.com/images/I/61s0kQY5gKL._AC_SX679_.jpg"
   ],
-  "model": "",
-  "color": "",
-  "year": "2021",
-  "memory": "",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": {
+   "id": "6482dffa8334764c48548929",
+   "name": "AirPods"
+  },
+  "color": {
+   "id": "",
+   "name": ""
+  },
+  "year": {
+   "id": "64177fafed05c6cb2bdb2399",
+   "name": "2021"
+  },
+  "memory": {
+   "id": "",
+   "name": ""
+  },
+  "display": {
+   "id": "",
+   "name": ""
+  },
+  "cpu": {
+   "id": "",
+   "name": ""
+  },
+  "hdd": {
+   "id": "",
+   "name": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0936LWNHQ",
   "name": "Apple AirTag (4 Pack) AirTag, Silver, White, iOS, W126169536 (AirTag, Silver, White, iOS 14.5, IP67, CR2032, 3.19 cm, 8 mm)",
   "sku": "B0936LWNHQ",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "id": "6418cbfc36f134df58935c57",
+   "name": "Apple"
+  },
   "category": "Accessories",
   "subcategory": [],
   "price": 115.45,
@@ -246,19 +379,43 @@
    "https://m.media-amazon.com/images/I/71Z3IhmnirS._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/81RCdF1Pq4S._AC_SL1500_.jpg"
   ],
-  "model": "",
-  "color": "Silver",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": {
+   "id": "6485c826126bc6a1fac24f92",
+   "name": "Apple"
+  },
+  "color": {
+   "id": "6414ade4b6dbda757d92d691",
+   "name": "Silver"
+  },
+  "year": {
+   "id": "",
+   "name": ""
+  },
+  "memory": {
+   "id": "",
+   "name": ""
+  },
+  "display": {
+   "id": "",
+   "name": ""
+  },
+  "cpu": {
+   "id": "",
+   "name": ""
+  },
+  "hdd": {
+   "id": "",
+   "name": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B08L5R6ZHP",
   "name": "Apple Cargador MagSafe",
   "sku": "B08L5R6ZHP",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "id": "6418cbfc36f134df58935c57",
+   "name": "Apple"
+  },
   "category": "Accessories",
   "subcategory": [],
   "price": 38.99,
@@ -278,24 +435,45 @@
    "Número de productos": "1"
   },
   "images": [
-   "https://m.media-amazon.com/images/I/91Rh8F1g3kL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/71DhkdAxznS._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/21MFLs1EGLS._AC_SL1000_.jpg",
-   "https://m.media-amazon.com/images/I/71Aaplgi+VL._AC_SL1500_.jpg"
+   "https://m.media-amazon.com/images/I/91Rh8F1g3kL._AC_SX679_.jpg"
   ],
-  "model": "",
-  "color": "Black",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": {
+   "id": "6485c826126bc6a1fac24f92",
+   "name": "Apple"
+  },
+  "color": {
+   "id": "",
+   "name": ""
+  },
+  "year": {
+   "id": "",
+   "name": ""
+  },
+  "memory": {
+   "id": "",
+   "name": ""
+  },
+  "display": {
+   "id": "",
+   "name": ""
+  },
+  "cpu": {
+   "id": "",
+   "name": ""
+  },
+  "hdd": {
+   "id": "",
+   "name": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09JRBY3H4",
   "name": "Apple AirPods (3.a generación) con Estuche de Carga MagSafe (2021)",
   "sku": "B09JRBY3H4",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "id": "6418cbfc36f134df58935c57",
+   "name": "Apple"
+  },
   "category": "Accessories",
   "subcategory": [],
   "price": 194.0,
@@ -315,26 +493,45 @@
    "Usos específicos del producto": "Música"
   },
   "images": [
-   "https://m.media-amazon.com/images/I/61Z5J-fq7KL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/61ZRU9gnbxL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/81kUhm40nQL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/61fTopgP4bL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/61jMxzQcPjL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/71P47lfI8BL._AC_SL1500_.jpg"
+   "https://m.media-amazon.com/images/I/61Z5J-fq7KL._AC_SX679_.jpg"
   ],
-  "model": "",
-  "color": "En blanco",
-  "year": "2021",
-  "memory": "",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": {
+   "id": "6482dffa8334764c48548929",
+   "name": "AirPods"
+  },
+  "color": {
+   "id": "",
+   "name": ""
+  },
+  "year": {
+   "id": "64177fafed05c6cb2bdb2399",
+   "name": "2021"
+  },
+  "memory": {
+   "id": "",
+   "name": ""
+  },
+  "display": {
+   "id": "",
+   "name": ""
+  },
+  "cpu": {
+   "id": "",
+   "name": ""
+  },
+  "hdd": {
+   "id": "",
+   "name": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09JR5M5LV",
   "name": "Apple Cable de USB-C a Conector Lightning (1 m)",
   "sku": "B09JR5M5LV",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "id": "6418cbfc36f134df58935c57",
+   "name": "Apple"
+  },
   "category": "Accessories",
   "subcategory": [],
   "price": 21.99,
@@ -354,24 +551,51 @@
    "Número de productos": "1"
   },
   "images": [
-   "https://m.media-amazon.com/images/I/61QHx7l9ukL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/61o0it4fs4L._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/31F+fPyPF5L._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/31XzDihnjfL._AC_SL1500_.jpg"
+   "https://m.media-amazon.com/images/I/61QHx7l9ukL._AC_SX679_.jpg"
   ],
-  "model": "",
-  "color": "En blanco",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "id": "6485c826126bc6a1fac24f92",
+    "name": "Apple"
+   },
+   {
+    "id": "6485c833126bc6a1fac24fcd",
+    "name": "Cable"
+   }
+  ],
+  "color": {
+   "id": "",
+   "name": ""
+  },
+  "year": {
+   "id": "",
+   "name": ""
+  },
+  "memory": {
+   "id": "",
+   "name": ""
+  },
+  "display": {
+   "id": "",
+   "name": ""
+  },
+  "cpu": {
+   "id": "",
+   "name": ""
+  },
+  "hdd": {
+   "id": "",
+   "name": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B081FWVSG8",
   "name": "Apple Cable de Conector Lightning a USB (1 m)",
   "sku": "B081FWVSG8",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "id": "6418cbfc36f134df58935c57",
+   "name": "Apple"
+  },
   "category": "Accessories",
   "subcategory": [],
   "price": 24.99,
@@ -391,24 +615,51 @@
    "Velocidad de transferencia de datos": "12 Gigabits por segundo"
   },
   "images": [
-   "https://m.media-amazon.com/images/I/51hhaBx5PCL._AC_SL1024_.jpg",
-   "https://m.media-amazon.com/images/I/51MwZeqwn8L._AC_SL1000_.jpg",
-   "https://m.media-amazon.com/images/I/41AxMv2j6FL._AC_SL1000_.jpg",
-   "https://m.media-amazon.com/images/I/410r68MtuqL._AC_SL1000_.jpg"
+   "https://m.media-amazon.com/images/I/51hhaBx5PCL._AC_SX679_.jpg"
   ],
-  "model": "",
-  "color": "Multicolour",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "id": "6485c826126bc6a1fac24f92",
+    "name": "Apple"
+   },
+   {
+    "id": "6485c833126bc6a1fac24fcd",
+    "name": "Cable"
+   }
+  ],
+  "color": {
+   "id": "",
+   "name": ""
+  },
+  "year": {
+   "id": "",
+   "name": ""
+  },
+  "memory": {
+   "id": "",
+   "name": ""
+  },
+  "display": {
+   "id": "",
+   "name": ""
+  },
+  "cpu": {
+   "id": "",
+   "name": ""
+  },
+  "hdd": {
+   "id": "",
+   "name": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B07K2PK3BV",
   "name": "Apple Pencil (2.a Generación)",
   "sku": "B07K2PK3BV",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "id": "6418cbfc36f134df58935c57",
+   "name": "Apple"
+  },
   "category": "Accessories",
   "subcategory": [],
   "price": 145.0,
@@ -425,22 +676,45 @@
    "Descripción de la pila": "Litio"
   },
   "images": [
-   "https://m.media-amazon.com/images/I/21bn7AjfSnS._AC_SL1000_.jpg",
-   "https://m.media-amazon.com/images/I/21BfIIiHYlL._AC_.jpg"
+   "https://m.media-amazon.com/images/I/21bn7AjfSnS._AC_SX679_.jpg"
   ],
-  "model": "",
-  "color": "",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": {
+   "id": "6485c826126bc6a1fac24f92",
+   "name": "Apple"
+  },
+  "color": {
+   "id": "",
+   "name": ""
+  },
+  "year": {
+   "id": "",
+   "name": ""
+  },
+  "memory": {
+   "id": "",
+   "name": ""
+  },
+  "display": {
+   "id": "",
+   "name": ""
+  },
+  "cpu": {
+   "id": "",
+   "name": ""
+  },
+  "hdd": {
+   "id": "",
+   "name": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B01M2AMPMU",
   "name": "Apple Cable de carga USB-C (2 metros)",
   "sku": "B01M2AMPMU",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "id": "6418cbfc36f134df58935c57",
+   "name": "Apple"
+  },
   "category": "Accessories",
   "subcategory": [],
   "price": 23.99,
@@ -464,19 +738,49 @@
    "https://m.media-amazon.com/images/I/31cNkv3aosL._AC_SL1024_.jpg",
    "https://m.media-amazon.com/images/I/41gpf4JEWkL._AC_SL1024_.jpg"
   ],
-  "model": "",
-  "color": "Multicolour",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "id": "6485c826126bc6a1fac24f92",
+    "name": "Apple"
+   },
+   {
+    "id": "6485c833126bc6a1fac24fcd",
+    "name": "Cable"
+   }
+  ],
+  "color": {
+   "id": "",
+   "name": ""
+  },
+  "year": {
+   "id": "",
+   "name": ""
+  },
+  "memory": {
+   "id": "",
+   "name": ""
+  },
+  "display": {
+   "id": "",
+   "name": ""
+  },
+  "cpu": {
+   "id": "",
+   "name": ""
+  },
+  "hdd": {
+   "id": "",
+   "name": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B099BVG1P9",
   "name": "Apple Batería MagSafe (para el iPhone 14, iPhone 14 Pro, iPhone 13, iPhone 13 Pro, iPhone 14, iPhone 14 Pro)",
   "sku": "B099BVG1P9",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "id": "6418cbfc36f134df58935c57",
+   "name": "Apple"
+  },
   "category": "Accessories",
   "subcategory": [],
   "price": 109.0,
@@ -496,27 +800,51 @@
    "Dimensiones del producto: largo x ancho x alto": "11,3 x 8,2 x 2,4 centímetros"
   },
   "images": [
-   "https://m.media-amazon.com/images/I/41tbRWAJfES._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/51K7CM+L+gS._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/4198fhPZ+3S._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/71o0Z3PCX+S._AC_SL1500_.jpg"
+   "https://m.media-amazon.com/images/I/41tbRWAJfES._AC_SX679_.jpg"
   ],
   "model": [
-   "iPhone",
-   "13 Pro"
+   {
+    "id": "64177ea9ed05c6cb2bdb0376",
+    "name": "iPhone"
+   },
+   {
+    "id": "64184518ed05c6cb2bdb4977",
+    "name": "13"
+   }
   ],
-  "color": "",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "color": {
+   "id": "",
+   "name": ""
+  },
+  "year": {
+   "id": "",
+   "name": ""
+  },
+  "memory": {
+   "id": "",
+   "name": ""
+  },
+  "display": {
+   "id": "",
+   "name": ""
+  },
+  "cpu": {
+   "id": "",
+   "name": ""
+  },
+  "hdd": {
+   "id": "",
+   "name": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B00BFGYPZ4",
   "name": "Apple ME291ZM/A - Cable Lightning a USB (0.5 m), Blanco",
   "sku": "B00BFGYPZ4",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "id": "6418cbfc36f134df58935c57",
+   "name": "Apple"
+  },
   "category": "Accessories",
   "subcategory": [],
   "price": 19.0,
@@ -536,22 +864,45 @@
    "Velocidad de transferencia de datos": "480 Megabits por segundo"
   },
   "images": [
-   "https://m.media-amazon.com/images/I/41T8Q0rxVeL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/515WhiisadL._AC_SL1459_.jpg"
+   "https://m.media-amazon.com/images/I/41T8Q0rxVeL._AC_SX679_.jpg"
   ],
-  "model": "",
-  "color": "Blanco",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": {
+   "id": "6485c826126bc6a1fac24f92",
+   "name": "Apple"
+  },
+  "color": {
+   "id": "6482d661b485477a26a4989f",
+   "name": "Blanco"
+  },
+  "year": {
+   "id": "",
+   "name": ""
+  },
+  "memory": {
+   "id": "",
+   "name": ""
+  },
+  "display": {
+   "id": "",
+   "name": ""
+  },
+  "cpu": {
+   "id": "",
+   "name": ""
+  },
+  "hdd": {
+   "id": "",
+   "name": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B01DGDKASE",
   "name": "Apple Puntas para el Apple Pencil - Pack de 4",
   "sku": "B01DGDKASE",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "id": "6418cbfc36f134df58935c57",
+   "name": "Apple"
+  },
   "category": "Accessories",
   "subcategory": [],
   "price": 25.0,
@@ -571,23 +922,45 @@
    "Peso del producto": "1,8 Gramos"
   },
   "images": [
-   "https://m.media-amazon.com/images/I/41nvx0VoAFL._AC_SL1096_.jpg",
-   "https://m.media-amazon.com/images/I/212UkvmrdWL._AC_SL1032_.jpg",
-   "https://m.media-amazon.com/images/I/31zRTWiOh3L._AC_SL1032_.jpg"
+   "https://m.media-amazon.com/images/I/41nvx0VoAFL._AC_SX679_.jpg"
   ],
-  "model": "",
-  "color": "Blanco",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": {
+   "id": "6485c826126bc6a1fac24f92",
+   "name": "Apple"
+  },
+  "color": {
+   "id": "",
+   "name": ""
+  },
+  "year": {
+   "id": "",
+   "name": ""
+  },
+  "memory": {
+   "id": "",
+   "name": ""
+  },
+  "display": {
+   "id": "",
+   "name": ""
+  },
+  "cpu": {
+   "id": "",
+   "name": ""
+  },
+  "hdd": {
+   "id": "",
+   "name": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B01LWAUW1P",
   "name": "Apple Adaptador de Lightning a toma para auriculares de 3,5 mm",
   "sku": "B01LWAUW1P",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "id": "6418cbfc36f134df58935c57",
+   "name": "Apple"
+  },
   "category": "Accessories",
   "subcategory": [],
   "price": 9.99,
@@ -607,26 +980,45 @@
    "Número de productos": "1"
   },
   "images": [
-   "https://m.media-amazon.com/images/I/31-D+QlfzCL._AC_SL1200_.jpg",
-   "https://m.media-amazon.com/images/I/41Nh0dq85aL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/51j1ZzUFlzL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/31Ftnnd-AIL._AC_.jpg",
-   "https://m.media-amazon.com/images/I/31F2KaspgCL._AC_.jpg",
-   "https://m.media-amazon.com/images/I/31V9RY8rsHL._AC_.jpg"
+   "https://m.media-amazon.com/images/I/31-D+QlfzCL._AC_SX679_.jpg"
   ],
-  "model": "",
-  "color": "Blanco",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": {
+   "id": "6485c826126bc6a1fac24f92",
+   "name": "Apple"
+  },
+  "color": {
+   "id": "",
+   "name": ""
+  },
+  "year": {
+   "id": "",
+   "name": ""
+  },
+  "memory": {
+   "id": "",
+   "name": ""
+  },
+  "display": {
+   "id": "",
+   "name": ""
+  },
+  "cpu": {
+   "id": "",
+   "name": ""
+  },
+  "hdd": {
+   "id": "",
+   "name": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09BTBTJF7",
   "name": "Apple Cable de USB-C a conector Lightning (2 m)",
   "sku": "B09BTBTJF7",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "id": "6418cbfc36f134df58935c57",
+   "name": "Apple"
+  },
   "category": "Accessories",
   "subcategory": [],
   "price": 32.98,
@@ -646,24 +1038,51 @@
    "Número de productos": "1"
   },
   "images": [
-   "https://m.media-amazon.com/images/I/61QvSXD+InL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/61o0it4fs4L._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/31jEMLU6E-L._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/31XzDihnjfL._AC_SL1500_.jpg"
+   "https://m.media-amazon.com/images/I/61QvSXD+InL._AC_SX679_.jpg"
   ],
-  "model": "",
-  "color": "White",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "id": "6485c826126bc6a1fac24f92",
+    "name": "Apple"
+   },
+   {
+    "id": "6485c833126bc6a1fac24fcd",
+    "name": "Cable"
+   }
+  ],
+  "color": {
+   "id": "",
+   "name": ""
+  },
+  "year": {
+   "id": "",
+   "name": ""
+  },
+  "memory": {
+   "id": "",
+   "name": ""
+  },
+  "display": {
+   "id": "",
+   "name": ""
+  },
+  "cpu": {
+   "id": "",
+   "name": ""
+  },
+  "hdd": {
+   "id": "",
+   "name": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B07K2NH6ZN",
   "name": "Apple Adaptador de USB-C a Toma para Auriculares de 3,5 mm",
   "sku": "B07K2NH6ZN",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "id": "6418cbfc36f134df58935c57",
+   "name": "Apple"
+  },
   "category": "Accessories",
   "subcategory": [],
   "price": 8.78,
@@ -683,23 +1102,45 @@
    "Cantidad de productos por paquete": "1"
   },
   "images": [
-   "https://m.media-amazon.com/images/I/41ODwOsjJYL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/41HwbkaGcOL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/51+tCX-CQZL._AC_SL1500_.jpg"
+   "https://m.media-amazon.com/images/I/41ODwOsjJYL._AC_SX679_.jpg"
   ],
-  "model": "",
-  "color": "Multicolour",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": {
+   "id": "6485c826126bc6a1fac24f92",
+   "name": "Apple"
+  },
+  "color": {
+   "id": "",
+   "name": ""
+  },
+  "year": {
+   "id": "",
+   "name": ""
+  },
+  "memory": {
+   "id": "",
+   "name": ""
+  },
+  "display": {
+   "id": "",
+   "name": ""
+  },
+  "cpu": {
+   "id": "",
+   "name": ""
+  },
+  "hdd": {
+   "id": "",
+   "name": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09G9136XY",
   "name": "Apple Cable de Carga magnética rápida a USB‐C para el Apple Watch (1 m)",
   "sku": "B09G9136XY",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "id": "6418cbfc36f134df58935c57",
+   "name": "Apple"
+  },
   "category": "Accessories",
   "subcategory": [],
   "price": 35.01,
@@ -719,17 +1160,35 @@
    "Número de productos": "1"
   },
   "images": [
-   "https://m.media-amazon.com/images/I/51pSFMSWEiL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/41XgfXz2umL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/51KAxGv19SL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/41lUM+SOkeL._AC_SL1500_.jpg"
+   "https://m.media-amazon.com/images/I/51pSFMSWEiL._AC_SX679_.jpg"
   ],
-  "model": "Apple Watch",
-  "color": "En blanco",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": {
+   "id": "647b7ffc54073063db0e0db7",
+   "name": "Apple Watch"
+  },
+  "color": {
+   "id": "",
+   "name": ""
+  },
+  "year": {
+   "id": "",
+   "name": ""
+  },
+  "memory": {
+   "id": "",
+   "name": ""
+  },
+  "display": {
+   "id": "",
+   "name": ""
+  },
+  "cpu": {
+   "id": "",
+   "name": ""
+  },
+  "hdd": {
+   "id": "",
+   "name": ""
+  }
  }
 ]

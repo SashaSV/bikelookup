@@ -3,7 +3,10 @@
   "url": "https://www.amazon.es/dp/B01M1EEPOB",
   "name": "Apple EarPods con Conector Lightning",
   "sku": "B01M1EEPOB",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "id": "6418cbfc36f134df58935c57",
+   "name": "Apple"
+  },
   "category": "AirPods",
   "subcategory": [],
   "price": 15.98,
@@ -23,26 +26,45 @@
    "Material": "Plastico y metal"
   },
   "images": [
-   "https://m.media-amazon.com/images/I/418AP8pw3KL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/41s-4Mp3HXL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/41uIBSbhpXL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/41C3ty0leuL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/41RGKf1nTlL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/41A+Sng0iFL._AC_SL1500_.jpg"
+   "https://m.media-amazon.com/images/I/418AP8pw3KL._AC_SX679_.jpg"
   ],
-  "model": "",
-  "color": "Blanco",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": {
+   "id": "6485c826126bc6a1fac24f92",
+   "name": "Apple"
+  },
+  "color": {
+   "id": null,
+   "name": null
+  },
+  "year": {
+   "id": null,
+   "name": null
+  },
+  "memory": {
+   "id": null,
+   "name": null
+  },
+  "display": {
+   "id": null,
+   "name": null
+  },
+  "cpu": {
+   "id": null,
+   "name": null
+  },
+  "hdd": {
+   "id": null,
+   "name": null
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B07PYMK77Y",
   "name": "Apple AirPods con Estuche de Carga con Cable (2.a generación)",
   "sku": "B07PYMK77Y",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "id": "6418cbfc36f134df58935c57",
+   "name": "Apple"
+  },
   "category": "AirPods",
   "subcategory": [],
   "price": 140.99,
@@ -69,19 +91,43 @@
    "https://m.media-amazon.com/images/I/81W5RSDOy-L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71djnhmfy-L._AC_SL1500_.jpg"
   ],
-  "model": "",
-  "color": "Blanco",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": {
+   "id": "6482dffa8334764c48548929",
+   "name": "AirPods"
+  },
+  "color": {
+   "id": null,
+   "name": null
+  },
+  "year": {
+   "id": null,
+   "name": null
+  },
+  "memory": {
+   "id": null,
+   "name": null
+  },
+  "display": {
+   "id": null,
+   "name": null
+  },
+  "cpu": {
+   "id": null,
+   "name": null
+  },
+  "hdd": {
+   "id": null,
+   "name": null
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BDK9X2ZC",
   "name": "Apple AirPods Pro (2.a generación)",
   "sku": "B0BDK9X2ZC",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "id": "6418cbfc36f134df58935c57",
+   "name": "Apple"
+  },
   "category": "AirPods",
   "subcategory": [],
   "price": 265.0,
@@ -90,25 +136,51 @@
   "available": "En stock",
   "techs": {},
   "images": [
-   "https://m.media-amazon.com/images/I/41vD6acz3tL._AC_SL1200_.jpg",
-   "https://m.media-amazon.com/images/I/61sRKTAfrhL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/51emillNpWL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/51+vJkbGtJL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/51s3yLTjWSL._AC_SL1500_.jpg"
+   "https://m.media-amazon.com/images/I/41vD6acz3tL._AC_SX679_.jpg"
   ],
-  "model": "",
-  "color": "",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "id": "6482dffa8334764c48548929",
+    "name": "AirPods"
+   },
+   {
+    "id": "6485c3d5126bc6a1fac1f3ad",
+    "name": "Pro"
+   }
+  ],
+  "color": {
+   "id": null,
+   "name": null
+  },
+  "year": {
+   "id": null,
+   "name": null
+  },
+  "memory": {
+   "id": null,
+   "name": null
+  },
+  "display": {
+   "id": null,
+   "name": null
+  },
+  "cpu": {
+   "id": null,
+   "name": null
+  },
+  "hdd": {
+   "id": null,
+   "name": null
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BDKSF6M8",
   "name": "Apple AirPods (3.a generación) con Estuche de Carga Lightning (2021)",
   "sku": "B0BDKSF6M8",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "id": "6418cbfc36f134df58935c57",
+   "name": "Apple"
+  },
   "category": "AirPods",
   "subcategory": [],
   "price": 185.0,
@@ -125,26 +197,45 @@
    "Dimensiones del producto: largo x ancho x alto": "24 x 69 x 2,5 centímetros"
   },
   "images": [
-   "https://m.media-amazon.com/images/I/61s0kQY5gKL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/61BNlsxZR3L._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/81U5ZNSUiGL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/61kt+fd7JuL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/61wS3asVDfL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/7161cLnZzmL._AC_SL1500_.jpg"
+   "https://m.media-amazon.com/images/I/61s0kQY5gKL._AC_SX679_.jpg"
   ],
-  "model": "",
-  "color": "",
-  "year": "2021",
-  "memory": "",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": {
+   "id": "6482dffa8334764c48548929",
+   "name": "AirPods"
+  },
+  "color": {
+   "id": null,
+   "name": null
+  },
+  "year": {
+   "id": "64177fafed05c6cb2bdb2399",
+   "name": "2021"
+  },
+  "memory": {
+   "id": null,
+   "name": null
+  },
+  "display": {
+   "id": null,
+   "name": null
+  },
+  "cpu": {
+   "id": null,
+   "name": null
+  },
+  "hdd": {
+   "id": null,
+   "name": null
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09JRBY3H4",
   "name": "Apple AirPods (3.a generación) con Estuche de Carga MagSafe (2021)",
   "sku": "B09JRBY3H4",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "id": "6418cbfc36f134df58935c57",
+   "name": "Apple"
+  },
   "category": "AirPods",
   "subcategory": [],
   "price": 194.0,
@@ -164,26 +255,45 @@
    "Usos específicos del producto": "Música"
   },
   "images": [
-   "https://m.media-amazon.com/images/I/61Z5J-fq7KL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/61ZRU9gnbxL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/81kUhm40nQL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/61fTopgP4bL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/61jMxzQcPjL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/71P47lfI8BL._AC_SL1500_.jpg"
+   "https://m.media-amazon.com/images/I/61Z5J-fq7KL._AC_SX679_.jpg"
   ],
-  "model": "",
-  "color": "en blanco",
-  "year": "2021",
-  "memory": "",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": {
+   "id": "6482dffa8334764c48548929",
+   "name": "AirPods"
+  },
+  "color": {
+   "id": null,
+   "name": null
+  },
+  "year": {
+   "id": "64177fafed05c6cb2bdb2399",
+   "name": "2021"
+  },
+  "memory": {
+   "id": null,
+   "name": null
+  },
+  "display": {
+   "id": null,
+   "name": null
+  },
+  "cpu": {
+   "id": null,
+   "name": null
+  },
+  "hdd": {
+   "id": null,
+   "name": null
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B07ZPNLGDP",
   "name": "Apple AirPods Pro",
   "sku": "B07ZPNLGDP",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "id": "6418cbfc36f134df58935c57",
+   "name": "Apple"
+  },
   "category": "AirPods",
   "subcategory": [],
   "price": 235.22,
@@ -203,28 +313,51 @@
    "Material": "Silicona"
   },
   "images": [
-   "https://m.media-amazon.com/images/I/71zny7BTRlL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/718UsV0ns5L._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/71bhWgQK-cL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/71WeaMll-gL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/71SJDhJtEVL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/81W8oX780iL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/71tbMyhmxcL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/81PylQDRYoL._AC_SL1500_.jpg"
+   "https://m.media-amazon.com/images/I/71zny7BTRlL._AC_SX679_.jpg"
   ],
-  "model": "",
-  "color": "Blanco",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "id": "6482dffa8334764c48548929",
+    "name": "AirPods"
+   },
+   {
+    "id": "6485c3d5126bc6a1fac1f3ad",
+    "name": "Pro"
+   }
+  ],
+  "color": {
+   "id": null,
+   "name": null
+  },
+  "year": {
+   "id": null,
+   "name": null
+  },
+  "memory": {
+   "id": null,
+   "name": null
+  },
+  "display": {
+   "id": null,
+   "name": null
+  },
+  "cpu": {
+   "id": null,
+   "name": null
+  },
+  "hdd": {
+   "id": null,
+   "name": null
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B08Q29FLHD",
   "name": "Apple Nuevo AirPods MAX - Azul Cielo",
   "sku": "B08Q29FLHD",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "id": "6418cbfc36f134df58935c57",
+   "name": "Apple"
+  },
   "category": "AirPods",
   "subcategory": [],
   "price": 588.99,
@@ -251,19 +384,49 @@
    "https://m.media-amazon.com/images/I/91en68epbEL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71qPgoujWNL._AC_SL1500_.jpg"
   ],
-  "model": "",
-  "color": "Azul cielo",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "id": "6482dffa8334764c48548929",
+    "name": "AirPods"
+   },
+   {
+    "id": "6485c353126bc6a1fac1f315",
+    "name": "Max"
+   }
+  ],
+  "color": {
+   "id": "6482d669b485477a26a499c5",
+   "name": "Azul cielo"
+  },
+  "year": {
+   "id": null,
+   "name": null
+  },
+  "memory": {
+   "id": null,
+   "name": null
+  },
+  "display": {
+   "id": null,
+   "name": null
+  },
+  "cpu": {
+   "id": null,
+   "name": null
+  },
+  "hdd": {
+   "id": null,
+   "name": null
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09JR6YL4B",
   "name": "Apple 2021 Airpods Pro (1.a generación) con Estuche de Carga MagSafe",
   "sku": "B09JR6YL4B",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "id": "6418cbfc36f134df58935c57",
+   "name": "Apple"
+  },
   "category": "AirPods",
   "subcategory": [],
   "price": 259.62,
@@ -283,26 +446,51 @@
    "Material": "Silicona"
   },
   "images": [
-   "https://m.media-amazon.com/images/I/71bhWgQK-cL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/71+oSLK5SIL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/71zny7BTRlL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/71llQwico7L._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/71V9-3bT9rL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/81nuOe+XCtL._AC_SL1500_.jpg"
+   "https://m.media-amazon.com/images/I/71bhWgQK-cL._AC_SX679_.jpg"
   ],
-  "model": "",
-  "color": "en blanco",
-  "year": "2021",
-  "memory": "",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "id": "6482dffa8334764c48548929",
+    "name": "AirPods"
+   },
+   {
+    "id": "6485c3d5126bc6a1fac1f3ad",
+    "name": "Pro"
+   }
+  ],
+  "color": {
+   "id": null,
+   "name": null
+  },
+  "year": {
+   "id": "64177fafed05c6cb2bdb2399",
+   "name": "2021"
+  },
+  "memory": {
+   "id": null,
+   "name": null
+  },
+  "display": {
+   "id": null,
+   "name": null
+  },
+  "cpu": {
+   "id": null,
+   "name": null
+  },
+  "hdd": {
+   "id": null,
+   "name": null
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B08Q2Z9T34",
   "name": "Apple Nuevo AirPods MAX - Gris Espacial",
   "sku": "B08Q2Z9T34",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "id": "6418cbfc36f134df58935c57",
+   "name": "Apple"
+  },
   "category": "AirPods",
   "subcategory": [],
   "price": 629.0,
@@ -329,19 +517,49 @@
    "https://m.media-amazon.com/images/I/91en68epbEL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71qyPsBUb8L._AC_SL1500_.jpg"
   ],
-  "model": "",
-  "color": "Gris espacial",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "id": "6482dffa8334764c48548929",
+    "name": "AirPods"
+   },
+   {
+    "id": "6485c353126bc6a1fac1f315",
+    "name": "Max"
+   }
+  ],
+  "color": {
+   "id": "640f6593996606d4d5af9925",
+   "name": "Gris espacial"
+  },
+  "year": {
+   "id": null,
+   "name": null
+  },
+  "memory": {
+   "id": null,
+   "name": null
+  },
+  "display": {
+   "id": null,
+   "name": null
+  },
+  "cpu": {
+   "id": null,
+   "name": null
+  },
+  "hdd": {
+   "id": null,
+   "name": null
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B08Q22XBMY",
   "name": "Apple Nuevo AirPods MAX - Plata",
   "sku": "B08Q22XBMY",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "id": "6418cbfc36f134df58935c57",
+   "name": "Apple"
+  },
   "category": "AirPods",
   "subcategory": [],
   "price": 609.53,
@@ -368,19 +586,49 @@
    "https://m.media-amazon.com/images/I/91en68epbEL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71lridysmwL._AC_SL1500_.jpg"
   ],
-  "model": "",
-  "color": "Plata",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "id": "6482dffa8334764c48548929",
+    "name": "AirPods"
+   },
+   {
+    "id": "6485c353126bc6a1fac1f315",
+    "name": "Max"
+   }
+  ],
+  "color": {
+   "id": "640f6593996606d4d5af98ea",
+   "name": "Plata"
+  },
+  "year": {
+   "id": null,
+   "name": null
+  },
+  "memory": {
+   "id": null,
+   "name": null
+  },
+  "display": {
+   "id": null,
+   "name": null
+  },
+  "cpu": {
+   "id": null,
+   "name": null
+  },
+  "hdd": {
+   "id": null,
+   "name": null
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B07PZRD7C5",
   "name": "Apple AirPods con estuche de carga inalámbrica (2a generación)",
   "sku": "B07PZRD7C5",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "id": "6418cbfc36f134df58935c57",
+   "name": "Apple"
+  },
   "category": "AirPods",
   "subcategory": [],
   "price": 193.08,
@@ -400,26 +648,45 @@
    "Material": "Policarbonato (PC)"
   },
   "images": [
-   "https://m.media-amazon.com/images/I/71IPFP9WJIL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/71dm5q3NT2L._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/71SoT+rBYpL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/716It+1cqXL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/81iqvkZ3EtL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/71E1hsKn8tL._AC_SL1500_.jpg"
+   "https://m.media-amazon.com/images/I/71IPFP9WJIL._AC_SX679_.jpg"
   ],
-  "model": "",
-  "color": "Blanco",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": {
+   "id": "6482dffa8334764c48548929",
+   "name": "AirPods"
+  },
+  "color": {
+   "id": null,
+   "name": null
+  },
+  "year": {
+   "id": null,
+   "name": null
+  },
+  "memory": {
+   "id": null,
+   "name": null
+  },
+  "display": {
+   "id": null,
+   "name": null
+  },
+  "cpu": {
+   "id": null,
+   "name": null
+  },
+  "hdd": {
+   "id": null,
+   "name": null
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B08Q2BP3CT",
   "name": "Apple Nuevo AirPods MAX - Verde",
   "sku": "B08Q2BP3CT",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "id": "6418cbfc36f134df58935c57",
+   "name": "Apple"
+  },
   "category": "AirPods",
   "subcategory": [],
   "price": 592.7,
@@ -446,19 +713,49 @@
    "https://m.media-amazon.com/images/I/91en68epbEL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71tjAbzm0jL._AC_SL1500_.jpg"
   ],
-  "model": "",
-  "color": "Verde",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "id": "6482dffa8334764c48548929",
+    "name": "AirPods"
+   },
+   {
+    "id": "6485c353126bc6a1fac1f315",
+    "name": "Max"
+   }
+  ],
+  "color": {
+   "id": "6482d66eb485477a26a49a91",
+   "name": "Verde"
+  },
+  "year": {
+   "id": null,
+   "name": null
+  },
+  "memory": {
+   "id": null,
+   "name": null
+  },
+  "display": {
+   "id": null,
+   "name": null
+  },
+  "cpu": {
+   "id": null,
+   "name": null
+  },
+  "hdd": {
+   "id": null,
+   "name": null
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B08Q1YX6J8",
   "name": "Apple Nuevo AirPods MAX - Rosa",
   "sku": "B08Q1YX6J8",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "id": "6418cbfc36f134df58935c57",
+   "name": "Apple"
+  },
   "category": "AirPods",
   "subcategory": [],
   "price": 598.67,
@@ -485,19 +782,49 @@
    "https://m.media-amazon.com/images/I/91en68epbEL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71LTDtJYULL._AC_SL1500_.jpg"
   ],
-  "model": "",
-  "color": "Rosa",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "id": "6482dffa8334764c48548929",
+    "name": "AirPods"
+   },
+   {
+    "id": "6485c353126bc6a1fac1f315",
+    "name": "Max"
+   }
+  ],
+  "color": {
+   "id": "6482d66eb485477a26a49abb",
+   "name": "Rosa"
+  },
+  "year": {
+   "id": null,
+   "name": null
+  },
+  "memory": {
+   "id": null,
+   "name": null
+  },
+  "display": {
+   "id": null,
+   "name": null
+  },
+  "cpu": {
+   "id": null,
+   "name": null
+  },
+  "hdd": {
+   "id": null,
+   "name": null
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B008EQ1ZQK",
   "name": "Beats By Dr. Dre Mirx - Auriculares de diadema cerrados, negro",
   "sku": "B008EQ1ZQK",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "id": null,
+   "name": null
+  },
   "category": "AirPods",
   "subcategory": [],
   "price": 174.88,
@@ -517,27 +844,45 @@
    "Dispositivos compatibles": "Apple iPod/iPhone/iPad"
   },
   "images": [
-   "https://m.media-amazon.com/images/I/611EmU3782L._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/71ynTFEii4L._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/51BhPE9cIdL._AC_SL1000_.jpg",
-   "https://m.media-amazon.com/images/I/613T26EjIhL._AC_SL1000_.jpg",
-   "https://m.media-amazon.com/images/I/51kPcUUWkzL._AC_SL1000_.jpg",
-   "https://m.media-amazon.com/images/I/71ckQAGNbHL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/81lQ57BAUDL._AC_SL1500_.jpg"
+   "https://m.media-amazon.com/images/I/611EmU3782L._AC_SX425_.jpg"
   ],
-  "model": "",
-  "color": "Negro",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": {
+   "id": null,
+   "name": null
+  },
+  "color": {
+   "id": "6482d66fb485477a26a49ae3",
+   "name": "Negro"
+  },
+  "year": {
+   "id": null,
+   "name": null
+  },
+  "memory": {
+   "id": null,
+   "name": null
+  },
+  "display": {
+   "id": null,
+   "name": null
+  },
+  "cpu": {
+   "id": null,
+   "name": null
+  },
+  "hdd": {
+   "id": null,
+   "name": null
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B07MFYSL52",
   "name": "Muvit M1S - Kit de pie para Deporte estéreo (3,5 mm), Color Rojo",
   "sku": "B07MFYSL52",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "id": null,
+   "name": null
+  },
   "category": "AirPods",
   "subcategory": [],
   "price": 20.06,
@@ -554,16 +899,35 @@
    "Peso del producto": "75 Gramos"
   },
   "images": [
-   "https://m.media-amazon.com/images/I/71GMTBssGXL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/31p3zgYIuEL._AC_.jpg",
-   "https://m.media-amazon.com/images/I/21jMqyjfYnL._AC_.jpg"
+   "https://m.media-amazon.com/images/I/71GMTBssGXL._AC_SX425_.jpg"
   ],
-  "model": "",
-  "color": "Rojo",
-  "year": "",
-  "memory": "",
-  "display": "",
-  "cpu": "M1",
-  "hdd": ""
+  "model": {
+   "id": null,
+   "name": null
+  },
+  "color": {
+   "id": "6482d671b485477a26a49b1f",
+   "name": "Rojo"
+  },
+  "year": {
+   "id": null,
+   "name": null
+  },
+  "memory": {
+   "id": null,
+   "name": null
+  },
+  "display": {
+   "id": null,
+   "name": null
+  },
+  "cpu": {
+   "id": null,
+   "name": null
+  },
+  "hdd": {
+   "id": null,
+   "name": null
+  }
  }
 ]

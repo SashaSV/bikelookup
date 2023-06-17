@@ -47,21 +47,26 @@ def load_image(url,filename):
         urlretrieve(url, filename)
         #urlretrieve(url, './')
 
+from json import JSONEncoder
+class DataEncoder(JSONEncoder):
+        def default(self, o):
+            return o.__dict__
+        
 def dump_to_json(filename, data, **kwargs):
     kwargs.setdefault('ensure_ascii', False)
     kwargs.setdefault('indent', 1)
     
     filename = '{0}\\{1}'.format(CURR_DIR,filename)
-    
     with open(filename, 'w', encoding='utf-8') as f:
         json.dump(data, f, **kwargs)
 
-def dumps_to_json(filename, data, clsEncode):
+def dumps_to_json(filename, data, **kwargs):
     #print(json.dumps(data, cls=clsEncode))
     filename = '{0}\\{1}'.format(CURR_DIR,filename)
-    
+    kwargs.setdefault('ensure_ascii', False)
+    kwargs.setdefault('indent', 1)
     with open(filename, 'w', encoding='utf-8') as f:
-        json.dump(data, f, cls=clsEncode)
+        json.dump(data, f, cls=DataEncoder, **kwargs)
 
 def all_uniq_name(data, name_item):
     uniq_n = []

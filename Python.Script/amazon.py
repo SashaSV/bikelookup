@@ -26,28 +26,28 @@ FTMS = [
 {
     'category': 'MacBook',
     'url': 'https://www.amazon.es/s?i=computers&bbn=938008031&rh=n%3A938008031%2Cp_n_feature_twenty-two_browse-bin%3A27387615031%2Cp_89%3AApple&dc&page={page}&qid=1681645819&rnid=1692911031&ref=sr_pg_{page}',
-    'PAGES_COUNT':1,
-    'pars': True
+    'PAGES_COUNT':2,
+    'pars': False
 },
 {
     'category': 'iPhone',
     'url': 'https://www.amazon.es/s?i=electronics&bbn=665492031&rh=n%3A599370031%2Cn%3A931491031%2Cn%3A665492031%2Cn%3A17425698031%2Cp_89%3AApple&dc&page={page}&qid=1685990505&rnid=665492031&ref=sr_pg_{page}',
     'PAGES_COUNT':2,
-    'pars': True
+    'pars': False
     #'PAGES_COUNT':27
 },
 {
     'category': 'iPad',
     'url': 'https://www.amazon.es/s?i=computers&bbn=938010031&rh=n%3A667049031%2Cn%3A667050031%2Cn%3A938010031%2Cp_89%3AApple&page={page}&qid=1685814004&ref=sr_pg_{page}',
     'PAGES_COUNT':1,
-    'pars': True
+    'pars': False
     #'PAGES_COUNT':11
 },
 {
     'category': 'Apple Watch',
     'url': 'https://www.amazon.es/s?i=electronics&bbn=665492031&rh=n%3A599370031%2Cn%3A931491031%2Cn%3A665492031%2Cn%3A3457446031%2Cp_89%3AApple&dc&page={page}&qid=1685815194&rnid=665492031&ref=sr_pg_{page}',
     'PAGES_COUNT':1,
-    'pars': True
+    'pars': False
     #'PAGES_COUNT':7
 },
 {
@@ -64,7 +64,7 @@ FTMS = [
     #'PAGES_COUNT':16
 }
 ]
-
+       
 client = MongoClient(DBCONNECT['NAMEMACHINE'], DBCONNECT['PORTDB'])
 #client = MongoClient('mongodb+srv://admin:Zazimja129shura@cluster0.ofiehaa.mongodb.net/bldb')
 db = client[DBCONNECT['NAMEDB']]
@@ -87,14 +87,15 @@ def pars_new_card_into_db(ftm):
             scanservice.dump_to_json(jsonUrlFileName, urls)
         
         data = parse_products(urls, ftm)
-        dataJson = []
-        for row, item in enumerate(data, start=0):
-            a = copy.copy(item)
-            a.techs = item.techs.__dict__
-            dataJson.append(a.__dict__)
-
-        if len(dataJson) > 0:
-            scanservice.dump_to_json(jsonfilename, dataJson)
+        scanservice.dumps_to_json(jsonfilename, data)
+        
+        # dataJson = []
+        # for row, item in enumerate(data, start=0):
+        #     a = copy.copy(item)
+        #     a.techs = item.techs.__dict__
+        #     dataJson.append(a.__dict__)
+        # if len(dataJson) > 0:
+        #     scanservice.dump_to_json(jsonfilename, dataJson)
     
     if len(data) > 0:
         dbservice.clear_all_product(ftm['category'])

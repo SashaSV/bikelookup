@@ -3,7 +3,10 @@
   "url": "https://www.amazon.es/dp/B0BJMXBJJJ",
   "name": "Apple 2022 iPad de 10,9 Pulgadas (Wi-Fi, 64 GB) - Azul (10.a generación)",
   "sku": "B0BJMXBJJJ",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 539.0,
@@ -30,19 +33,43 @@
    "https://m.media-amazon.com/images/I/81hPoTDsGWL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61HuhunzpSL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Azul",
-  "year": "2022",
-  "memory": "64 GB",
-  "display": "10,9 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": {
+   "name": "iPad",
+   "id": "64177ecded05c6cb2bdb03ad"
+  },
+  "color": {
+   "name": "Azul",
+   "id": "6482d6a04769aca19d239cfe"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "4 GB",
+   "id": "641a1f3885d3f3eb35bd295b"
+  },
+  "display": {
+   "name": "10,9 Pulgadas",
+   "id": "6482d6ce4769aca19d23aa90"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09G9GBFGS",
   "name": "Apple 2021 iPad (de 10,2 Pulgadas con Wi-Fi, 256 GB) - Gris Espacial (9.a generación)",
   "sku": "B09G9GBFGS",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 578.99,
@@ -72,19 +99,43 @@
    "https://m.media-amazon.com/images/I/71PC+KpfuhL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61DghTkxTiL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Gris espacial",
-  "year": "2021",
-  "memory": "3 GB",
-  "display": "10.2 Pulgadas",
-  "cpu": "",
-  "hdd": "256 GB"
+  "model": {
+   "name": "iPad",
+   "id": "64177ecded05c6cb2bdb03ad"
+  },
+  "color": {
+   "name": "Gris espacial",
+   "id": "640f6593996606d4d5af9925"
+  },
+  "year": {
+   "name": "2021",
+   "id": "64177fafed05c6cb2bdb2399"
+  },
+  "memory": {
+   "name": "6 GB",
+   "id": "6482d6d44769aca19d23abc3"
+  },
+  "display": {
+   "name": "10.2 Pulgadas",
+   "id": "6482d6cf4769aca19d23aac7"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "256 GB",
+   "id": "6418ccd455a4dd4567602c50"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJMXG91S",
   "name": "Apple 2022 iPad Pro de 11 Pulgadas (Wi-Fi, 128 GB) - Plata (4.a generación)",
   "sku": "B0BJMXG91S",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 969.0,
@@ -111,19 +162,49 @@
    "https://m.media-amazon.com/images/I/71A+VovJe3L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61+AZaRJVRL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Plata",
-  "year": "2022",
-  "memory": "8 GB",
-  "display": "11 Pulgadas",
-  "cpu": "",
-  "hdd": "128 GB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Pro",
+    "id": "6485c054126bc6a1fac168dd"
+   }
+  ],
+  "color": {
+   "name": "Plata",
+   "id": "640f6593996606d4d5af98ea"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "8 GB",
+   "id": "6418ccd455a4dd4567602c49"
+  },
+  "display": {
+   "name": "11 Pulgadas",
+   "id": "641a1f5f85d3f3eb35bd2fc9"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "128 GB",
+   "id": "641a1f3d85d3f3eb35bd2a56"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09V4WGX5F",
   "name": "Apple 2022 iPad Air (Wi-Fi, 64 GB) - Blanco Estrella (5.a generación)",
   "sku": "B09V4WGX5F",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 707.99,
@@ -150,19 +231,49 @@
    "https://m.media-amazon.com/images/I/71tJgmlaWaL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61VUlnLzdNL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Blanco estrella",
-  "year": "2022",
-  "memory": "64 GB",
-  "display": "10.9 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Air",
+    "id": "6485bff2126bc6a1fac167f4"
+   }
+  ],
+  "color": {
+   "name": "Blanco estrella",
+   "id": "647e31b3e18b01a681c13ce1"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "4 GB",
+   "id": "641a1f3885d3f3eb35bd295b"
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09G93RKCV",
   "name": "Apple 2021 iPad Mini (de 8,3 Pulgadas con Wi-Fi, 64 GB) - Gris Espacial (6.a generación)",
   "sku": "B09G93RKCV",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 599.0,
@@ -189,19 +300,49 @@
    "https://m.media-amazon.com/images/I/71vN0YySriL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61LvrUzxZLL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Gris espacial",
-  "year": "2021",
-  "memory": "64 GB",
-  "display": "8.3 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "mini",
+    "id": "6485bfe1126bc6a1fac167be"
+   }
+  ],
+  "color": {
+   "name": "Gris espacial",
+   "id": "640f6593996606d4d5af9925"
+  },
+  "year": {
+   "name": "2021",
+   "id": "64177fafed05c6cb2bdb2399"
+  },
+  "memory": {
+   "name": "4 GB",
+   "id": "641a1f3885d3f3eb35bd295b"
+  },
+  "display": {
+   "name": "8.3 Pulgadas",
+   "id": "6482d6d24769aca19d23ab62"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B07DVBRVQM",
   "name": "Apple iPad 9.7 (6.a Generación) 32GB Wi-Fi - Gris Espacial (Reacondicionado)",
   "sku": "B07DVBRVQM",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 227.88,
@@ -221,24 +362,45 @@
    "Peso del producto": "500 Gramos"
   },
   "images": [
-   "https://m.media-amazon.com/images/I/51BWEIp6F3L._AC_SL1000_.jpg",
-   "https://m.media-amazon.com/images/I/510M97ouwaL._AC_SL1000_.jpg",
-   "https://m.media-amazon.com/images/I/31ONHt0WZwL._AC_.jpg",
-   "https://m.media-amazon.com/images/I/51DVPzaqERL._AC_SL1500_.jpg"
+   "https://m.media-amazon.com/images/I/51BWEIp6F3L._AC_SX425_.jpg"
   ],
-  "model": "iPad",
-  "color": "Gris espacial",
-  "year": "",
-  "memory": "32 GB",
-  "display": "9,7 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": {
+   "name": "iPad",
+   "id": "64177ecded05c6cb2bdb03ad"
+  },
+  "color": {
+   "name": "Gris espacial",
+   "id": "640f6593996606d4d5af9925"
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "32 GB",
+   "id": "641a1fc485d3f3eb35bd3b29"
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09V49Z5N3",
   "name": "Apple 2022 iPad Air (Wi-Fi + Cellular, 256 GB) - Gris Espacial (5.a generación)",
   "sku": "B09V49Z5N3",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 1065.0,
@@ -265,19 +427,49 @@
    "https://m.media-amazon.com/images/I/71Il9OV+w7L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61ti2gWOsOL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Gris espacial",
-  "year": "2022",
-  "memory": "6 GB",
-  "display": "10.9 Pulgadas",
-  "cpu": "",
-  "hdd": "256 GB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Air",
+    "id": "6485bff2126bc6a1fac167f4"
+   }
+  ],
+  "color": {
+   "name": "Gris espacial",
+   "id": "640f6593996606d4d5af9925"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "6 GB",
+   "id": "6482d6d44769aca19d23abc3"
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "256 GB",
+   "id": "6418ccd455a4dd4567602c50"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJN7PCKG",
   "name": "Apple 2022 iPad Pro de 12,9 Pulgadas (Wi-Fi, 128 GB) - Gris Espacial (6.a generación)",
   "sku": "B0BJN7PCKG",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 1369.0,
@@ -304,19 +496,49 @@
    "https://m.media-amazon.com/images/I/71A+VovJe3L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/615gTWpzJYL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Gris espacial",
-  "year": "2022",
-  "memory": "8 GB",
-  "display": "12,9 Pulgadas",
-  "cpu": "",
-  "hdd": "128 GB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Pro",
+    "id": "6485c054126bc6a1fac168dd"
+   }
+  ],
+  "color": {
+   "name": "Gris espacial",
+   "id": "640f6593996606d4d5af9925"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "8 GB",
+   "id": "6418ccd455a4dd4567602c49"
+  },
+  "display": {
+   "name": "12,9 Pulgadas",
+   "id": "6482d6d54769aca19d23abee"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "128 GB",
+   "id": "641a1f3d85d3f3eb35bd2a56"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09G943P11",
   "name": "Apple 2021 iPad (de 10,2 Pulgadas con Wi-Fi + Cellular, 64 GB) - Plata (9.a generación)",
   "sku": "B09G943P11",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 564.0,
@@ -346,19 +568,43 @@
    "https://m.media-amazon.com/images/I/71PC+KpfuhL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61Mb2Xs37YL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Plata",
-  "year": "2021",
-  "memory": "64 GB",
-  "display": "10.2 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": {
+   "name": "iPad",
+   "id": "64177ecded05c6cb2bdb03ad"
+  },
+  "color": {
+   "name": "Plata",
+   "id": "640f6593996606d4d5af98ea"
+  },
+  "year": {
+   "name": "2021",
+   "id": "64177fafed05c6cb2bdb2399"
+  },
+  "memory": {
+   "name": "4 GB",
+   "id": "641a1f3885d3f3eb35bd295b"
+  },
+  "display": {
+   "name": "10.2 Pulgadas",
+   "id": "6482d6cf4769aca19d23aac7"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B07NYS898H",
   "name": "Apple iPad 9.7 (6.a Generación) 32GB Wi-Fi - Gris Espacial (Reacondicionado)",
   "sku": "B07NYS898H",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 227.88,
@@ -378,25 +624,45 @@
    "Peso del producto": "469 Gramos"
   },
   "images": [
-   "https://m.media-amazon.com/images/I/514PUxVxmEL._AC_SL1024_.jpg",
-   "https://m.media-amazon.com/images/I/41PJ6BfwEXL._AC_.jpg",
-   "https://m.media-amazon.com/images/I/11MbosiKJvL._AC_.jpg",
-   "https://m.media-amazon.com/images/I/31M4A1czMvL._AC_.jpg",
-   "https://m.media-amazon.com/images/I/51VefZqeu9L._AC_SL1024_.jpg"
+   "https://m.media-amazon.com/images/I/514PUxVxmEL._AC_SY606_.jpg"
   ],
-  "model": "iPad",
-  "color": "Gris espacial",
-  "year": "",
-  "memory": "32 GB",
-  "display": "9,7 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": {
+   "name": "iPad",
+   "id": "64177ecded05c6cb2bdb03ad"
+  },
+  "color": {
+   "name": "Gris espacial",
+   "id": "640f6593996606d4d5af9925"
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "32 GB",
+   "id": "641a1fc485d3f3eb35bd3b29"
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B07GZP1HJM",
   "name": "Apple iPad Air 2 16GB 4G - Gris Espacial - Desbloqueado (Reacondicionado)",
   "sku": "B07GZP1HJM",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 156.88,
@@ -419,19 +685,49 @@
    "https://m.media-amazon.com/images/I/61TlYBubicL._AC_SL1000_.jpg",
    "https://m.media-amazon.com/images/I/51XJEbLTFML._AC_SL1000_.jpg"
   ],
-  "model": "iPad",
-  "color": "Gris espacial",
-  "year": "",
-  "memory": "16 GB",
-  "display": "9,7 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Air",
+    "id": "6485bff2126bc6a1fac167f4"
+   }
+  ],
+  "color": {
+   "name": "Gris espacial",
+   "id": "640f6593996606d4d5af9925"
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "16 GB",
+   "id": "641a1f3085d3f3eb35bd2832"
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B07RWKQDGS",
   "name": "Apple iPad Air 3 (2019) 64GB Wi-Fi - Gris Espacial (Reacondicionado)",
   "sku": "B07RWKQDGS",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 357.0,
@@ -451,25 +747,51 @@
    "Componentes incluidos": "Tablet"
   },
   "images": [
-   "https://m.media-amazon.com/images/I/61G3BfbuUtL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/51uCjo04wnL._AC_SL1024_.jpg",
-   "https://m.media-amazon.com/images/I/41nM9Tx17lL._AC_.jpg",
-   "https://m.media-amazon.com/images/I/11UfLsrsFzL._AC_.jpg",
-   "https://m.media-amazon.com/images/I/51TPzmXb8YL._AC_SL1024_.jpg"
+   "https://m.media-amazon.com/images/I/61G3BfbuUtL._AC_SY550_.jpg"
   ],
-  "model": "iPad",
-  "color": "Gris espacial",
-  "year": "2019",
-  "memory": "64 GB",
-  "display": "10.5 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Air",
+    "id": "6485bff2126bc6a1fac167f4"
+   }
+  ],
+  "color": {
+   "name": "Gris espacial",
+   "id": "640f6593996606d4d5af9925"
+  },
+  "year": {
+   "name": "2019",
+   "id": "64177fa3ed05c6cb2bdb2352"
+  },
+  "memory": {
+   "name": "4 GB",
+   "id": "641a1f3885d3f3eb35bd295b"
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B06XHRCB4X",
   "name": "Apple iPad Pro 9.7 32GB Wi-Fi - Gris Espacial (Reacondicionado)",
   "sku": "B06XHRCB4X",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 243.88,
@@ -496,19 +818,49 @@
    "https://m.media-amazon.com/images/I/414Z6h1aa3L._AC_SL1024_.jpg",
    "https://m.media-amazon.com/images/I/51GjTEPeQCL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Gris espacial",
-  "year": "",
-  "memory": "32 GB",
-  "display": "9,7 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Pro",
+    "id": "6485c054126bc6a1fac168dd"
+   }
+  ],
+  "color": {
+   "name": "Gris espacial",
+   "id": "640f6593996606d4d5af9925"
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "32 GB",
+   "id": "641a1fc485d3f3eb35bd3b29"
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0855DK4Z1",
   "name": "Apple iPad 10.2 (7.a Generación) 128GB Wi-Fi - Oro (Reacondicionado)",
   "sku": "B0855DK4Z1",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 393.88,
@@ -528,27 +880,45 @@
    "Tecnología de móvil": "Wi Fi"
   },
   "images": [
-   "https://m.media-amazon.com/images/I/61R7Pi2HQ1L._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/514eopvptLL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/51VeR9t7MpL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/61dMdtYVfgL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/61iO2nJMvtL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/71hKZrDLyZL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/61-kzqdinNL._AC_SL1500_.jpg"
+   "https://m.media-amazon.com/images/I/61R7Pi2HQ1L._AC_SY550_.jpg"
   ],
-  "model": "iPad",
-  "color": "Oro",
-  "year": "",
-  "memory": "8 GB",
-  "display": "10,2 Pulgadas",
-  "cpu": "",
-  "hdd": "128 GB"
+  "model": {
+   "name": "iPad",
+   "id": "64177ecded05c6cb2bdb03ad"
+  },
+  "color": {
+   "name": "Oro",
+   "id": "6412189af01ce174d348f0f9"
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "8 GB",
+   "id": "6418ccd455a4dd4567602c49"
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "128 GB",
+   "id": "641a1f3d85d3f3eb35bd2a56"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0855KK1MD",
   "name": "Apple iPad 10.2 (7.a Generación) 128GB Wi-Fi - Plata (Reacondicionado)",
   "sku": "B0855KK1MD",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 410.88,
@@ -565,27 +935,45 @@
    "Tecnología de comunicación inalámbrica": "Wi-Fi"
   },
   "images": [
-   "https://m.media-amazon.com/images/I/61zuixvSufL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/71AxgIKBxaL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/71tBVSVByVL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/81SYBRnLouL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/811PsXSPmpL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/91CREzeYoHL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/71Um8vXN8CL._AC_SL1500_.jpg"
+   "https://m.media-amazon.com/images/I/61zuixvSufL._AC_SY550_.jpg"
   ],
-  "model": "iPad",
-  "color": "Plata",
-  "year": "",
-  "memory": "8 GB",
-  "display": "10,2 Pulgadas",
-  "cpu": "",
-  "hdd": "128 GB"
+  "model": {
+   "name": "iPad",
+   "id": "64177ecded05c6cb2bdb03ad"
+  },
+  "color": {
+   "name": "Plata",
+   "id": "640f6593996606d4d5af98ea"
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "8 GB",
+   "id": "6418ccd455a4dd4567602c49"
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "128 GB",
+   "id": "641a1f3d85d3f3eb35bd2a56"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0845WKG2P",
   "name": "Apple iPad 10.2 (7.a Generación) 32GB Wi-Fi + Cellular - Plata - Desbloqueado (Reacondicionado)",
   "sku": "B0845WKG2P",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 350.88,
@@ -603,28 +991,45 @@
    "Tecnología de móvil": "4G"
   },
   "images": [
-   "https://m.media-amazon.com/images/I/61UB2IBlSQL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/719HV3l7ZLL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/71tBVSVByVL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/81wnHnJiSWL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/815k8HbMBDL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/913Un9c0d8L._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/71Um8vXN8CL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/71QJ+Z2vghL._AC_SL1500_.jpg"
+   "https://m.media-amazon.com/images/I/61UB2IBlSQL._AC_SY550_.jpg"
   ],
-  "model": "iPad",
-  "color": "Plata",
-  "year": "",
-  "memory": "32 GB",
-  "display": "10,2 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": {
+   "name": "iPad",
+   "id": "64177ecded05c6cb2bdb03ad"
+  },
+  "color": {
+   "name": "Plata",
+   "id": "640f6593996606d4d5af98ea"
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "32 GB",
+   "id": "641a1fc485d3f3eb35bd3b29"
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B07J4CMSVS",
   "name": "Apple iPad Air 2 64GB Wi-Fi - Gris Espacial (Reacondicionado)",
   "sku": "B07J4CMSVS",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 192.88,
@@ -644,23 +1049,51 @@
    "Año del modelo": "2014"
   },
   "images": [
-   "https://m.media-amazon.com/images/I/61PTrgtxS1L._AC_SL1000_.jpg",
-   "https://m.media-amazon.com/images/I/51HZpLw9phL._AC_SL1000_.jpg",
-   "https://m.media-amazon.com/images/I/51j-qghZ2uL._AC_SL1500_.jpg"
+   "https://m.media-amazon.com/images/I/61PTrgtxS1L._AC_SX679_.jpg"
   ],
-  "model": "iPad",
-  "color": "Gris espacial",
-  "year": "",
-  "memory": "64 GB",
-  "display": "9,7 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Air",
+    "id": "6485bff2126bc6a1fac167f4"
+   }
+  ],
+  "color": {
+   "name": "Gris espacial",
+   "id": "640f6593996606d4d5af9925"
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "4 GB",
+   "id": "641a1f3885d3f3eb35bd295b"
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B07RQ98Y9K",
   "name": "Apple iPad Mini 4 128GB Wi-Fi - Gris Espacial (Reacondicionado)",
   "sku": "B07RQ98Y9K",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 253.88,
@@ -680,25 +1113,51 @@
    "Tecnología de comunicación inalámbrica": "Wi-Fi"
   },
   "images": [
-   "https://m.media-amazon.com/images/I/515dcJmQ+iL._AC_SL1024_.jpg",
-   "https://m.media-amazon.com/images/I/51dQXSPk5TL._AC_SL1000_.jpg",
-   "https://m.media-amazon.com/images/I/212cU-kJ1ML._AC_SL1000_.jpg",
-   "https://m.media-amazon.com/images/I/41Hxz5g7ZKL._AC_SL1000_.jpg",
-   "https://m.media-amazon.com/images/I/51VGaOfFynL._AC_SL1024_.jpg"
+   "https://m.media-amazon.com/images/I/515dcJmQ+iL._AC_SY606_.jpg"
   ],
-  "model": "iPad",
-  "color": "Gris espacial",
-  "year": "",
-  "memory": "8 GB",
-  "display": "7,9 Pulgadas",
-  "cpu": "",
-  "hdd": "128 GB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "mini",
+    "id": "6485bfe1126bc6a1fac167be"
+   }
+  ],
+  "color": {
+   "name": "Gris espacial",
+   "id": "640f6593996606d4d5af9925"
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "8 GB",
+   "id": "6418ccd455a4dd4567602c49"
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "128 GB",
+   "id": "641a1f3d85d3f3eb35bd2a56"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B08J6L3RTT",
   "name": "Apple 2020 iPad Air (de 10,9 Pulgadas, con Wi-Fi + Cellular y 64 GB) - Oro Rosa (4.a generación)",
   "sku": "B08J6L3RTT",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 714.99,
@@ -725,19 +1184,49 @@
    "https://m.media-amazon.com/images/I/81jtzj4UGwL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71aJwY48sSL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Oro",
-  "year": "2020",
-  "memory": "64 GB",
-  "display": "10,9 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Air",
+    "id": "6485bff2126bc6a1fac167f4"
+   }
+  ],
+  "color": {
+   "name": "Oro",
+   "id": "6412189af01ce174d348f0f9"
+  },
+  "year": {
+   "name": "2020",
+   "id": "64177fa9ed05c6cb2bdb2375"
+  },
+  "memory": {
+   "name": "4 GB",
+   "id": "641a1f3885d3f3eb35bd295b"
+  },
+  "display": {
+   "name": "10,9 Pulgadas",
+   "id": "6482d6ce4769aca19d23aa90"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0853BSX66",
   "name": "Apple iPad 10.2 (7.a Generación) 128GB Wi-Fi + Cellular - Gris Espacial - Desbloqueado (Reacondicionado)",
   "sku": "B0853BSX66",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 443.88,
@@ -754,27 +1243,45 @@
    "Tecnología de móvil": "4G"
   },
   "images": [
-   "https://m.media-amazon.com/images/I/61aGna-+l8L._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/71vTIs8tKOL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/71OdhJCqK+L._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/81SYBRnLouL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/811PsXSPmpL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/91CREzeYoHL._AC_SL1500_.jpg",
-   "https://m.media-amazon.com/images/I/71Um8vXN8CL._AC_SL1500_.jpg"
+   "https://m.media-amazon.com/images/I/61aGna-+l8L._AC_SY550_.jpg"
   ],
-  "model": "iPad",
-  "color": "Gris espacial",
-  "year": "",
-  "memory": "8 GB",
-  "display": "10,2 Pulgadas",
-  "cpu": "",
-  "hdd": "128 GB"
+  "model": {
+   "name": "iPad",
+   "id": "64177ecded05c6cb2bdb03ad"
+  },
+  "color": {
+   "name": "Gris espacial",
+   "id": "640f6593996606d4d5af9925"
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "8 GB",
+   "id": "6418ccd455a4dd4567602c49"
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "128 GB",
+   "id": "641a1f3d85d3f3eb35bd2a56"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJMYMT14",
   "name": "Apple 2022 iPad de 10,9 Pulgadas (Wi-Fi + Cellular, 64 GB) - Azul (10.a generación)",
   "sku": "B0BJMYMT14",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 729.0,
@@ -801,19 +1308,43 @@
    "https://m.media-amazon.com/images/I/81hPoTDsGWL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61wQ2CF+DjL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Azul",
-  "year": "2022",
-  "memory": "64 GB",
-  "display": "10,9 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": {
+   "name": "iPad",
+   "id": "64177ecded05c6cb2bdb03ad"
+  },
+  "color": {
+   "name": "Azul",
+   "id": "6482d6a04769aca19d239cfe"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "4 GB",
+   "id": "641a1f3885d3f3eb35bd295b"
+  },
+  "display": {
+   "name": "10,9 Pulgadas",
+   "id": "6482d6ce4769aca19d23aa90"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJMJZ2XV",
   "name": "Apple 2022 iPad de 10,9 Pulgadas (Wi-Fi, 256 GB) - Azul (10.a generación)",
   "sku": "B0BJMJZ2XV",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 715.0,
@@ -840,19 +1371,43 @@
    "https://m.media-amazon.com/images/I/81hPoTDsGWL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61HuhunzpSL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Azul",
-  "year": "2022",
-  "memory": "",
-  "display": "10,9 Pulgadas",
-  "cpu": "",
-  "hdd": "256 GB"
+  "model": {
+   "name": "iPad",
+   "id": "64177ecded05c6cb2bdb03ad"
+  },
+  "color": {
+   "name": "Azul",
+   "id": "6482d6a04769aca19d239cfe"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "6 GB",
+   "id": "6482d6d44769aca19d23abc3"
+  },
+  "display": {
+   "name": "10,9 Pulgadas",
+   "id": "6482d6ce4769aca19d23aa90"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "256 GB",
+   "id": "6418ccd455a4dd4567602c50"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJN3XNWN",
   "name": "Apple 2022 iPad de 10,9 Pulgadas (Wi-Fi, 64 GB) - Plata (10.a generación)",
   "sku": "B0BJN3XNWN",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 539.0,
@@ -879,19 +1434,43 @@
    "https://m.media-amazon.com/images/I/81hPoTDsGWL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/618WzVwFS3L._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Plata",
-  "year": "2022",
-  "memory": "64 GB",
-  "display": "10,9 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": {
+   "name": "iPad",
+   "id": "64177ecded05c6cb2bdb03ad"
+  },
+  "color": {
+   "name": "Plata",
+   "id": "640f6593996606d4d5af98ea"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "4 GB",
+   "id": "641a1f3885d3f3eb35bd295b"
+  },
+  "display": {
+   "name": "10,9 Pulgadas",
+   "id": "6482d6ce4769aca19d23aa90"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJMRV34Y",
   "name": "Apple 2022 iPad de 10,9 Pulgadas (Wi-Fi, 64 GB) - en Amarillo (10.a generación)",
   "sku": "B0BJMRV34Y",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 539.0,
@@ -918,19 +1497,43 @@
    "https://m.media-amazon.com/images/I/81hPoTDsGWL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/618SmWibnKL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "En amarillo",
-  "year": "2022",
-  "memory": "64 GB",
-  "display": "10,9 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": {
+   "name": "iPad",
+   "id": "64177ecded05c6cb2bdb03ad"
+  },
+  "color": {
+   "name": "Amarillo",
+   "id": "6482d6c04769aca19d23a6de"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "4 GB",
+   "id": "641a1f3885d3f3eb35bd295b"
+  },
+  "display": {
+   "name": "10,9 Pulgadas",
+   "id": "6482d6ce4769aca19d23aa90"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09G98SZB8",
   "name": "Apple 2021 iPad (de 10,2 Pulgadas con Wi-Fi, 256 GB) - Plata (9.a generación)",
   "sku": "B09G98SZB8",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 578.99,
@@ -954,19 +1557,43 @@
    "https://m.media-amazon.com/images/I/71PC+KpfuhL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61+72aK6lcL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Plata",
-  "year": "2021",
-  "memory": "",
-  "display": "",
-  "cpu": "",
-  "hdd": "256 GB"
+  "model": {
+   "name": "iPad",
+   "id": "64177ecded05c6cb2bdb03ad"
+  },
+  "color": {
+   "name": "Plata",
+   "id": "640f6593996606d4d5af98ea"
+  },
+  "year": {
+   "name": "2021",
+   "id": "64177fafed05c6cb2bdb2399"
+  },
+  "memory": {
+   "name": "6 GB",
+   "id": "6482d6d44769aca19d23abc3"
+  },
+  "display": {
+   "name": "10.2 Pulgadas",
+   "id": "6482d6cf4769aca19d23aac7"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "256 GB",
+   "id": "6418ccd455a4dd4567602c50"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJMD4YWR",
   "name": "Apple 2022 iPad Pro de 11 Pulgadas (Wi-Fi + Cellular, 128 GB) - Plata (4.a generación)",
   "sku": "B0BJMD4YWR",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 1149.0,
@@ -993,19 +1620,49 @@
    "https://m.media-amazon.com/images/I/71MTE50I01L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61RDkYWCB9L._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Plata",
-  "year": "2022",
-  "memory": "8 GB",
-  "display": "11 Pulgadas",
-  "cpu": "",
-  "hdd": "128 GB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Pro",
+    "id": "6485c054126bc6a1fac168dd"
+   }
+  ],
+  "color": {
+   "name": "Plata",
+   "id": "640f6593996606d4d5af98ea"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "8 GB",
+   "id": "6418ccd455a4dd4567602c49"
+  },
+  "display": {
+   "name": "11 Pulgadas",
+   "id": "641a1f5f85d3f3eb35bd2fc9"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "128 GB",
+   "id": "641a1f3d85d3f3eb35bd2a56"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJMPQD76",
   "name": "Apple 2022 iPad Pro de 11 Pulgadas (Wi-Fi, 1 TB) - Plata (4.a generación)",
   "sku": "B0BJMPQD76",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 1700.1,
@@ -1032,19 +1689,49 @@
    "https://m.media-amazon.com/images/I/71A+VovJe3L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61+AZaRJVRL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Plata",
-  "year": "2022",
-  "memory": "16 GB",
-  "display": "11 Pulgadas",
-  "cpu": "",
-  "hdd": "1 TB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Pro",
+    "id": "6485c054126bc6a1fac168dd"
+   }
+  ],
+  "color": {
+   "name": "Plata",
+   "id": "640f6593996606d4d5af98ea"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "11 Pulgadas",
+   "id": "641a1f5f85d3f3eb35bd2fc9"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "1 TB",
+   "id": "641a1f7685d3f3eb35bd32c5"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJMYNZ1Z",
   "name": "Apple 2022 iPad Pro de 11 Pulgadas (Wi-Fi, 256 GB) - Plata (4.a generación)",
   "sku": "B0BJMYNZ1Z",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 1099.0,
@@ -1071,19 +1758,49 @@
    "https://m.media-amazon.com/images/I/71A+VovJe3L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61+AZaRJVRL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Plata",
-  "year": "2022",
-  "memory": "8 GB",
-  "display": "11 Pulgadas",
-  "cpu": "",
-  "hdd": "256 GB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Pro",
+    "id": "6485c054126bc6a1fac168dd"
+   }
+  ],
+  "color": {
+   "name": "Plata",
+   "id": "640f6593996606d4d5af98ea"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "6 GB",
+   "id": "6482d6d44769aca19d23abc3"
+  },
+  "display": {
+   "name": "11 Pulgadas",
+   "id": "641a1f5f85d3f3eb35bd2fc9"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "256 GB",
+   "id": "6418ccd455a4dd4567602c50"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJMPYTFV",
   "name": "Apple 2022 iPad Pro de 11 Pulgadas (Wi-Fi, 512 GB) - Plata (4.a generación)",
   "sku": "B0BJMPYTFV",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 1349.0,
@@ -1110,19 +1827,49 @@
    "https://m.media-amazon.com/images/I/71A+VovJe3L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61+AZaRJVRL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Plata",
-  "year": "2022",
-  "memory": "8 GB",
-  "display": "11 Pulgadas",
-  "cpu": "",
-  "hdd": "512 GB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Pro",
+    "id": "6485c054126bc6a1fac168dd"
+   }
+  ],
+  "color": {
+   "name": "Plata",
+   "id": "640f6593996606d4d5af98ea"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "11 Pulgadas",
+   "id": "641a1f5f85d3f3eb35bd2fc9"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "512 GB",
+   "id": "641a1f4285d3f3eb35bd2ae3"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJN8T5B5",
   "name": "Apple 2022 iPad Pro de 11 Pulgadas (Wi-Fi, 128 GB) - Gris Espacial (4.a generación)",
   "sku": "B0BJN8T5B5",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 989.0,
@@ -1149,19 +1896,49 @@
    "https://m.media-amazon.com/images/I/71A+VovJe3L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61N0wi1FdUL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Gris espacial",
-  "year": "2022",
-  "memory": "8 GB",
-  "display": "11 Pulgadas",
-  "cpu": "",
-  "hdd": "128 GB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Pro",
+    "id": "6485c054126bc6a1fac168dd"
+   }
+  ],
+  "color": {
+   "name": "Gris espacial",
+   "id": "640f6593996606d4d5af9925"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "8 GB",
+   "id": "6418ccd455a4dd4567602c49"
+  },
+  "display": {
+   "name": "11 Pulgadas",
+   "id": "641a1f5f85d3f3eb35bd2fc9"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "128 GB",
+   "id": "641a1f3d85d3f3eb35bd2a56"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09V4R652K",
   "name": "Apple 2022 iPad Air (Wi-Fi, 256 GB) - Blanco Estrella (5.a generación)",
   "sku": "B09V4R652K",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 885.0,
@@ -1188,19 +1965,49 @@
    "https://m.media-amazon.com/images/I/71tJgmlaWaL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61VUlnLzdNL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Blanco estrella",
-  "year": "2022",
-  "memory": "6 GB",
-  "display": "10.9 Pulgadas",
-  "cpu": "",
-  "hdd": "256 GB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Air",
+    "id": "6485bff2126bc6a1fac167f4"
+   }
+  ],
+  "color": {
+   "name": "Blanco estrella",
+   "id": "647e31b3e18b01a681c13ce1"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "6 GB",
+   "id": "6482d6d44769aca19d23abc3"
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "256 GB",
+   "id": "6418ccd455a4dd4567602c50"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09V4GLCC2",
   "name": "Apple 2022 iPad Air (Wi-Fi, 64 GB) - Azul (5.a generación)",
   "sku": "B09V4GLCC2",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 705.99,
@@ -1227,19 +2034,49 @@
    "https://m.media-amazon.com/images/I/71tJgmlaWaL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61-D5GDXrSL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Azul",
-  "year": "2022",
-  "memory": "64 GB",
-  "display": "10.9 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Air",
+    "id": "6485bff2126bc6a1fac167f4"
+   }
+  ],
+  "color": {
+   "name": "Azul",
+   "id": "6482d6a04769aca19d239cfe"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "4 GB",
+   "id": "641a1f3885d3f3eb35bd295b"
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09V4J39QY",
   "name": "Apple 2022 iPad Air (Wi-Fi, 64 GB) - Gris Espacial (5.a generación)",
   "sku": "B09V4J39QY",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 719.0,
@@ -1266,19 +2103,49 @@
    "https://m.media-amazon.com/images/I/71tJgmlaWaL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61fQc-cQsdL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Gris espacial",
-  "year": "2022",
-  "memory": "64 GB",
-  "display": "10.9 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Air",
+    "id": "6485bff2126bc6a1fac167f4"
+   }
+  ],
+  "color": {
+   "name": "Gris espacial",
+   "id": "640f6593996606d4d5af9925"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "4 GB",
+   "id": "641a1f3885d3f3eb35bd295b"
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09G9PYR5R",
   "name": "Apple 2021 iPad Mini (de 8,3 Pulgadas con Wi-Fi, 64 GB) - de en Malva (6.a generación)",
   "sku": "B09G9PYR5R",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 599.0,
@@ -1305,19 +2172,49 @@
    "https://m.media-amazon.com/images/I/71vN0YySriL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61oLOa3kngL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "De en malva",
-  "year": "2021",
-  "memory": "64 GB",
-  "display": "8.3 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "mini",
+    "id": "6485bfe1126bc6a1fac167be"
+   }
+  ],
+  "color": {
+   "name": "Malva",
+   "id": "6482d6a04769aca19d239d2a"
+  },
+  "year": {
+   "name": "2021",
+   "id": "64177fafed05c6cb2bdb2399"
+  },
+  "memory": {
+   "name": "4 GB",
+   "id": "641a1f3885d3f3eb35bd295b"
+  },
+  "display": {
+   "name": "8.3 Pulgadas",
+   "id": "6482d6d24769aca19d23ab62"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09G99VPH6",
   "name": "Apple 2021 iPad Mini (de 8,3 Pulgadas con Wi-Fi, 256 GB) - Gris Espacial (6.a generación)",
   "sku": "B09G99VPH6",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 775.0,
@@ -1344,19 +2241,49 @@
    "https://m.media-amazon.com/images/I/71vN0YySriL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61LvrUzxZLL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Gris espacial",
-  "year": "2021",
-  "memory": "6 GB",
-  "display": "8.3 Pulgadas",
-  "cpu": "",
-  "hdd": "256 GB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "mini",
+    "id": "6485bfe1126bc6a1fac167be"
+   }
+  ],
+  "color": {
+   "name": "Gris espacial",
+   "id": "640f6593996606d4d5af9925"
+  },
+  "year": {
+   "name": "2021",
+   "id": "64177fafed05c6cb2bdb2399"
+  },
+  "memory": {
+   "name": "6 GB",
+   "id": "6482d6d44769aca19d23abc3"
+  },
+  "display": {
+   "name": "8.3 Pulgadas",
+   "id": "6482d6d24769aca19d23ab62"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "256 GB",
+   "id": "6418ccd455a4dd4567602c50"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09V4LKT78",
   "name": "Apple 2022 iPad Air (Wi-Fi + Cellular, 64 GB) - Gris Espacial (5.a generación)",
   "sku": "B09V4LKT78",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 889.0,
@@ -1376,19 +2303,49 @@
    "https://m.media-amazon.com/images/I/71Il9OV+w7L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61ti2gWOsOL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Gris espacial",
-  "year": "2022",
-  "memory": "64 GB",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Air",
+    "id": "6485bff2126bc6a1fac167f4"
+   }
+  ],
+  "color": {
+   "name": "Gris espacial",
+   "id": "640f6593996606d4d5af9925"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "4 GB",
+   "id": "641a1f3885d3f3eb35bd295b"
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09V4Q77GH",
   "name": "Apple 2022 iPad Air (Wi-Fi + Cellular, 256 GB) - Azul (5.a generación)",
   "sku": "B09V4Q77GH",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 1065.0,
@@ -1414,19 +2371,49 @@
    "https://m.media-amazon.com/images/I/71sF9yNDZ8L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61-D5GDXrSL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Azul",
-  "year": "2022",
-  "memory": "6 GB",
-  "display": "10.9 Pulgadas",
-  "cpu": "",
-  "hdd": "256 GB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Air",
+    "id": "6485bff2126bc6a1fac167f4"
+   }
+  ],
+  "color": {
+   "name": "Azul",
+   "id": "6482d6a04769aca19d239cfe"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "6 GB",
+   "id": "6482d6d44769aca19d23abc3"
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "256 GB",
+   "id": "6418ccd455a4dd4567602c50"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09V4LJF9G",
   "name": "Apple 2022 iPad Air (Wi-Fi + Cellular, 256 GB) - Blanco Estrella (5.a generación)",
   "sku": "B09V4LJF9G",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 1065.0,
@@ -1453,19 +2440,49 @@
    "https://m.media-amazon.com/images/I/71Il9OV+w7L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61+wEsSjC6L._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Blanco estrella",
-  "year": "2022",
-  "memory": "6 GB",
-  "display": "10.9 Pulgadas",
-  "cpu": "",
-  "hdd": "256 GB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Air",
+    "id": "6485bff2126bc6a1fac167f4"
+   }
+  ],
+  "color": {
+   "name": "Blanco estrella",
+   "id": "647e31b3e18b01a681c13ce1"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "6 GB",
+   "id": "6482d6d44769aca19d23abc3"
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "256 GB",
+   "id": "6418ccd455a4dd4567602c50"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09V4ZJQ6V",
   "name": "Apple 2022 iPad Air (Wi-Fi + Cellular, 256 GB) - de en Malva (5.a generación)",
   "sku": "B09V4ZJQ6V",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 1065.0,
@@ -1492,19 +2509,49 @@
    "https://m.media-amazon.com/images/I/71tJgmlaWaL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61KmkNxe+eL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "De en malva",
-  "year": "2022",
-  "memory": "6 GB",
-  "display": "10.9 Pulgadas",
-  "cpu": "",
-  "hdd": "256 GB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Air",
+    "id": "6485bff2126bc6a1fac167f4"
+   }
+  ],
+  "color": {
+   "name": "Malva",
+   "id": "6482d6a04769aca19d239d2a"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "6 GB",
+   "id": "6482d6d44769aca19d23abc3"
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "256 GB",
+   "id": "6418ccd455a4dd4567602c50"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJMF3Q9L",
   "name": "Apple 2022 iPad Pro de 12,9 Pulgadas (Wi-Fi + Cellular, 128 GB) - Gris Espacial (6.a generación)",
   "sku": "B0BJMF3Q9L",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 1559.0,
@@ -1531,19 +2578,49 @@
    "https://m.media-amazon.com/images/I/71MTE50I01L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/615gTWpzJYL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Gris espacial",
-  "year": "2022",
-  "memory": "8 GB",
-  "display": "12,9 Pulgadas",
-  "cpu": "",
-  "hdd": "128 GB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Pro",
+    "id": "6485c054126bc6a1fac168dd"
+   }
+  ],
+  "color": {
+   "name": "Gris espacial",
+   "id": "640f6593996606d4d5af9925"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "8 GB",
+   "id": "6418ccd455a4dd4567602c49"
+  },
+  "display": {
+   "name": "12,9 Pulgadas",
+   "id": "6482d6d54769aca19d23abee"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "128 GB",
+   "id": "641a1f3d85d3f3eb35bd2a56"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJMRVQFT",
   "name": "Apple 2022 iPad Pro de 12,9 Pulgadas (Wi-Fi, 1 TB) - Gris Espacial (6.a generación)",
   "sku": "B0BJMRVQFT",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 2279.0,
@@ -1570,19 +2647,49 @@
    "https://m.media-amazon.com/images/I/71A+VovJe3L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/615gTWpzJYL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Gris espacial",
-  "year": "2022",
-  "memory": "16 GB",
-  "display": "12,9 Pulgadas",
-  "cpu": "",
-  "hdd": "1 TB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Pro",
+    "id": "6485c054126bc6a1fac168dd"
+   }
+  ],
+  "color": {
+   "name": "Gris espacial",
+   "id": "640f6593996606d4d5af9925"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "12,9 Pulgadas",
+   "id": "6482d6d54769aca19d23abee"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "1 TB",
+   "id": "641a1f7685d3f3eb35bd32c5"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJMZB286",
   "name": "Apple 2022 iPad Pro de 12,9 Pulgadas (Wi-Fi, 2 TB) - Gris Espacial (6.a generación)",
   "sku": "B0BJMZB286",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 2704.99,
@@ -1609,19 +2716,49 @@
    "https://m.media-amazon.com/images/I/71A+VovJe3L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/615gTWpzJYL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Gris espacial",
-  "year": "2022",
-  "memory": "16 GB",
-  "display": "12,9 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Pro",
+    "id": "6485c054126bc6a1fac168dd"
+   }
+  ],
+  "color": {
+   "name": "Gris espacial",
+   "id": "640f6593996606d4d5af9925"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "12,9 Pulgadas",
+   "id": "6482d6d54769aca19d23abee"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJMMYR1X",
   "name": "Apple 2022 iPad Pro de 12,9 Pulgadas (Wi-Fi, 512 GB) - Gris Espacial (6.a generación)",
   "sku": "B0BJMMYR1X",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 1679.0,
@@ -1648,19 +2785,49 @@
    "https://m.media-amazon.com/images/I/71A+VovJe3L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/615gTWpzJYL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Gris espacial",
-  "year": "2022",
-  "memory": "8 GB",
-  "display": "12,9 Pulgadas",
-  "cpu": "",
-  "hdd": "512 GB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Pro",
+    "id": "6485c054126bc6a1fac168dd"
+   }
+  ],
+  "color": {
+   "name": "Gris espacial",
+   "id": "640f6593996606d4d5af9925"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "12,9 Pulgadas",
+   "id": "6482d6d54769aca19d23abee"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "512 GB",
+   "id": "641a1f4285d3f3eb35bd2ae3"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJMDXRCT",
   "name": "Apple 2022 iPad Pro de 12,9 Pulgadas (Wi-Fi, 128 GB) - Plata (6.a generación)",
   "sku": "B0BJMDXRCT",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 1354.0,
@@ -1687,19 +2854,49 @@
    "https://m.media-amazon.com/images/I/71A+VovJe3L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/615QPEk5aSL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Plata",
-  "year": "2022",
-  "memory": "8 GB",
-  "display": "12,9 Pulgadas",
-  "cpu": "",
-  "hdd": "128 GB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Pro",
+    "id": "6485c054126bc6a1fac168dd"
+   }
+  ],
+  "color": {
+   "name": "Plata",
+   "id": "640f6593996606d4d5af98ea"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "8 GB",
+   "id": "6418ccd455a4dd4567602c49"
+  },
+  "display": {
+   "name": "12,9 Pulgadas",
+   "id": "6482d6d54769aca19d23abee"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "128 GB",
+   "id": "641a1f3d85d3f3eb35bd2a56"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09G9HTBFH",
   "name": "Apple 2021 iPad (de 10,2 Pulgadas con Wi-Fi + Cellular, 256 GB) - Plata (9.a generación)",
   "sku": "B09G9HTBFH",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 677.0,
@@ -1729,19 +2926,43 @@
    "https://m.media-amazon.com/images/I/71PC+KpfuhL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61Mb2Xs37YL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Plata",
-  "year": "2021",
-  "memory": "3 GB",
-  "display": "10.2 Pulgadas",
-  "cpu": "",
-  "hdd": "256 GB"
+  "model": {
+   "name": "iPad",
+   "id": "64177ecded05c6cb2bdb03ad"
+  },
+  "color": {
+   "name": "Plata",
+   "id": "640f6593996606d4d5af98ea"
+  },
+  "year": {
+   "name": "2021",
+   "id": "64177fafed05c6cb2bdb2399"
+  },
+  "memory": {
+   "name": "6 GB",
+   "id": "6482d6d44769aca19d23abc3"
+  },
+  "display": {
+   "name": "10.2 Pulgadas",
+   "id": "6482d6cf4769aca19d23aac7"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "256 GB",
+   "id": "6418ccd455a4dd4567602c50"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B07HJ2XTVS",
   "name": "2014 Apple iPad Air 2 64GB Wi-Fi + Cellular - Gris Espacial - Desbloqueado (Reacondicionado)",
   "sku": "B07HJ2XTVS",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 204.88,
@@ -1763,19 +2984,49 @@
   "images": [
    "https://m.media-amazon.com/images/I/51g7OCR8EpL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Gris espacial",
-  "year": "2014",
-  "memory": "64 GB",
-  "display": "9,7 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Air",
+    "id": "6485bff2126bc6a1fac167f4"
+   }
+  ],
+  "color": {
+   "name": "Gris espacial",
+   "id": "640f6593996606d4d5af9925"
+  },
+  "year": {
+   "name": "2014",
+   "id": "64177f81ed05c6cb2bdb22b0"
+  },
+  "memory": {
+   "name": "4 GB",
+   "id": "641a1f3885d3f3eb35bd295b"
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B01KAKPD2E",
   "name": "Apple iPad Pro 9.7 128GB Wi-Fi - Oro (Reacondicionado)",
   "sku": "B01KAKPD2E",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 414.88,
@@ -1800,19 +3051,49 @@
    "https://m.media-amazon.com/images/I/617DE10+uYL._AC_SL1040_.jpg",
    "https://m.media-amazon.com/images/I/61jqarTQHrL._AC_SL1000_.jpg"
   ],
-  "model": "iPad",
-  "color": "Oro",
-  "year": "",
-  "memory": "8 GB",
-  "display": "9,7 Pulgadas",
-  "cpu": "",
-  "hdd": "128 GB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Pro",
+    "id": "6485c054126bc6a1fac168dd"
+   }
+  ],
+  "color": {
+   "name": "Oro",
+   "id": "6412189af01ce174d348f0f9"
+  },
+  "year": {
+   "name": "",
+   "id": ""
+  },
+  "memory": {
+   "name": "8 GB",
+   "id": "6418ccd455a4dd4567602c49"
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "128 GB",
+   "id": "641a1f3d85d3f3eb35bd2a56"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B08J6LW4PR",
   "name": "Apple 2020 iPad Air (de 10,9 Pulgadas, con Wi-Fi + Cellular y 64 GB) - Azul Cielo (4.a generación)",
   "sku": "B08J6LW4PR",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 894.41,
@@ -1839,19 +3120,49 @@
    "https://m.media-amazon.com/images/I/81jtzj4UGwL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71pTD9rsMbL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Azul cielo",
-  "year": "2020",
-  "memory": "64 GB",
-  "display": "10,9 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Air",
+    "id": "6485bff2126bc6a1fac167f4"
+   }
+  ],
+  "color": {
+   "name": "Azul cielo",
+   "id": "6482d669b485477a26a499c5"
+  },
+  "year": {
+   "name": "2020",
+   "id": "64177fa9ed05c6cb2bdb2375"
+  },
+  "memory": {
+   "name": "4 GB",
+   "id": "641a1f3885d3f3eb35bd295b"
+  },
+  "display": {
+   "name": "10,9 Pulgadas",
+   "id": "6482d6ce4769aca19d23aa90"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B08J6RQC3Q",
   "name": "Apple 2020 iPad Air (de 10,9 Pulgadas, con Wi-Fi + Cellular y 64 GB) - Gris Espacial (4.a generación)",
   "sku": "B08J6RQC3Q",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 445.2,
@@ -1878,19 +3189,49 @@
    "https://m.media-amazon.com/images/I/81jtzj4UGwL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71XHiq8C4jL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Gris espacial",
-  "year": "2020",
-  "memory": "64 GB",
-  "display": "10,9 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Air",
+    "id": "6485bff2126bc6a1fac167f4"
+   }
+  ],
+  "color": {
+   "name": "Gris espacial",
+   "id": "640f6593996606d4d5af9925"
+  },
+  "year": {
+   "name": "2020",
+   "id": "64177fa9ed05c6cb2bdb2375"
+  },
+  "memory": {
+   "name": "4 GB",
+   "id": "641a1f3885d3f3eb35bd295b"
+  },
+  "display": {
+   "name": "10,9 Pulgadas",
+   "id": "6482d6ce4769aca19d23aa90"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B08J6XJPR8",
   "name": "Apple 2020 iPad Air (de 10,9 Pulgadas, con Wi-Fi + Cellular y 64 GB) - Plata (4.a generación)",
   "sku": "B08J6XJPR8",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 849.88,
@@ -1917,19 +3258,49 @@
    "https://m.media-amazon.com/images/I/81jtzj4UGwL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71Wyj2GLPTL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Plata",
-  "year": "2020",
-  "memory": "64 GB",
-  "display": "10,9 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Air",
+    "id": "6485bff2126bc6a1fac167f4"
+   }
+  ],
+  "color": {
+   "name": "Plata",
+   "id": "640f6593996606d4d5af98ea"
+  },
+  "year": {
+   "name": "2020",
+   "id": "64177fa9ed05c6cb2bdb2375"
+  },
+  "memory": {
+   "name": "4 GB",
+   "id": "641a1f3885d3f3eb35bd295b"
+  },
+  "display": {
+   "name": "10,9 Pulgadas",
+   "id": "6482d6ce4769aca19d23aa90"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B08J6NGQ6M",
   "name": "Apple 2020 iPad Air (de 10,9 Pulgadas, con Wi-Fi + Cellular y 64 GB) - de en Verde (4.a generación)",
   "sku": "B08J6NGQ6M",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 581.55,
@@ -1956,19 +3327,49 @@
    "https://m.media-amazon.com/images/I/81jtzj4UGwL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/713jTcff61L._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "De en verde",
-  "year": "2020",
-  "memory": "64 GB",
-  "display": "10,9 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Air",
+    "id": "6485bff2126bc6a1fac167f4"
+   }
+  ],
+  "color": {
+   "name": "Verde",
+   "id": "6482d66eb485477a26a49a91"
+  },
+  "year": {
+   "name": "2020",
+   "id": "64177fa9ed05c6cb2bdb2375"
+  },
+  "memory": {
+   "name": "4 GB",
+   "id": "641a1f3885d3f3eb35bd295b"
+  },
+  "display": {
+   "name": "10,9 Pulgadas",
+   "id": "6482d6ce4769aca19d23aa90"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJN4PSQR",
   "name": "Apple 2022 iPad de 10,9 Pulgadas (Wi-Fi + Cellular, 256 GB) - Azul (10.a generación)",
   "sku": "B0BJN4PSQR",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 895.0,
@@ -1995,19 +3396,43 @@
    "https://m.media-amazon.com/images/I/81hPoTDsGWL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61wQ2CF+DjL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Azul",
-  "year": "2022",
-  "memory": "",
-  "display": "8 Pulgadas",
-  "cpu": "",
-  "hdd": "256 GB"
+  "model": {
+   "name": "iPad",
+   "id": "64177ecded05c6cb2bdb03ad"
+  },
+  "color": {
+   "name": "Azul",
+   "id": "6482d6a04769aca19d239cfe"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "6 GB",
+   "id": "6482d6d44769aca19d23abc3"
+  },
+  "display": {
+   "name": "10,9 Pulgadas",
+   "id": "6482d6ce4769aca19d23aa90"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "256 GB",
+   "id": "6418ccd455a4dd4567602c50"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJMQ2MFH",
   "name": "Apple 2022 iPad de 10,9 Pulgadas (Wi-Fi + Cellular, 64 GB) - Plata (10.a generación)",
   "sku": "B0BJMQ2MFH",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 727.0,
@@ -2034,19 +3459,43 @@
    "https://m.media-amazon.com/images/I/81hPoTDsGWL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61-y+gI6UfL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Plata",
-  "year": "2022",
-  "memory": "64 GB",
-  "display": "10,9 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": {
+   "name": "iPad",
+   "id": "64177ecded05c6cb2bdb03ad"
+  },
+  "color": {
+   "name": "Plata",
+   "id": "640f6593996606d4d5af98ea"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "4 GB",
+   "id": "641a1f3885d3f3eb35bd295b"
+  },
+  "display": {
+   "name": "10,9 Pulgadas",
+   "id": "6482d6ce4769aca19d23aa90"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJN24WX7",
   "name": "Apple 2022 iPad de 10,9 Pulgadas (Wi-Fi + Cellular, 64 GB) - Rosa (10.a generación)",
   "sku": "B0BJN24WX7",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 735.0,
@@ -2073,19 +3522,43 @@
    "https://m.media-amazon.com/images/I/81hPoTDsGWL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61Z8t9xSRUL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Rosa",
-  "year": "2022",
-  "memory": "64 GB",
-  "display": "10,9 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": {
+   "name": "iPad",
+   "id": "64177ecded05c6cb2bdb03ad"
+  },
+  "color": {
+   "name": "Rosa",
+   "id": "6482d66eb485477a26a49abb"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "4 GB",
+   "id": "641a1f3885d3f3eb35bd295b"
+  },
+  "display": {
+   "name": "10,9 Pulgadas",
+   "id": "6482d6ce4769aca19d23aa90"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJMJXCKK",
   "name": "Apple 2022 iPad de 10,9 Pulgadas (Wi-Fi + Cellular, 64 GB) - en Amarillo (10.a generación)",
   "sku": "B0BJMJXCKK",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 729.0,
@@ -2112,19 +3585,43 @@
    "https://m.media-amazon.com/images/I/81hPoTDsGWL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71Y89YFOcNL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "En amarillo",
-  "year": "2022",
-  "memory": "64 GB",
-  "display": "10,9 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": {
+   "name": "iPad",
+   "id": "64177ecded05c6cb2bdb03ad"
+  },
+  "color": {
+   "name": "Amarillo",
+   "id": "6482d6c04769aca19d23a6de"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "4 GB",
+   "id": "641a1f3885d3f3eb35bd295b"
+  },
+  "display": {
+   "name": "10,9 Pulgadas",
+   "id": "6482d6ce4769aca19d23aa90"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJMBTYZB",
   "name": "Apple 2022 iPad de 10,9 Pulgadas (Wi-Fi, 256 GB) - Plata (10.a generación)",
   "sku": "B0BJMBTYZB",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 715.0,
@@ -2151,19 +3648,43 @@
    "https://m.media-amazon.com/images/I/81hPoTDsGWL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/618WzVwFS3L._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Plata",
-  "year": "2022",
-  "memory": "",
-  "display": "10,9 Pulgadas",
-  "cpu": "",
-  "hdd": "256 GB"
+  "model": {
+   "name": "iPad",
+   "id": "64177ecded05c6cb2bdb03ad"
+  },
+  "color": {
+   "name": "Plata",
+   "id": "640f6593996606d4d5af98ea"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "6 GB",
+   "id": "6482d6d44769aca19d23abc3"
+  },
+  "display": {
+   "name": "10,9 Pulgadas",
+   "id": "6482d6ce4769aca19d23aa90"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "256 GB",
+   "id": "6418ccd455a4dd4567602c50"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJN1JLNB",
   "name": "Apple 2022 iPad de 10,9 Pulgadas (Wi-Fi, 256 GB) - Rosa (10.a generación)",
   "sku": "B0BJN1JLNB",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 719.0,
@@ -2190,19 +3711,43 @@
    "https://m.media-amazon.com/images/I/81hPoTDsGWL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/613Cew0VpXL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Rosa",
-  "year": "2022",
-  "memory": "",
-  "display": "10,9 Pulgadas",
-  "cpu": "",
-  "hdd": "256 GB"
+  "model": {
+   "name": "iPad",
+   "id": "64177ecded05c6cb2bdb03ad"
+  },
+  "color": {
+   "name": "Rosa",
+   "id": "6482d66eb485477a26a49abb"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "6 GB",
+   "id": "6482d6d44769aca19d23abc3"
+  },
+  "display": {
+   "name": "10,9 Pulgadas",
+   "id": "6482d6ce4769aca19d23aa90"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "256 GB",
+   "id": "6418ccd455a4dd4567602c50"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJMLKJM1",
   "name": "Apple 2022 iPad de 10,9 Pulgadas (Wi-Fi, 256 GB) - en Amarillo (10.a generación)",
   "sku": "B0BJMLKJM1",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 714.0,
@@ -2229,19 +3774,43 @@
    "https://m.media-amazon.com/images/I/81hPoTDsGWL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/618SmWibnKL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "En amarillo",
-  "year": "2022",
-  "memory": "",
-  "display": "10,9 Pulgadas",
-  "cpu": "",
-  "hdd": "256 GB"
+  "model": {
+   "name": "iPad",
+   "id": "64177ecded05c6cb2bdb03ad"
+  },
+  "color": {
+   "name": "Amarillo",
+   "id": "6482d6c04769aca19d23a6de"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "6 GB",
+   "id": "6482d6d44769aca19d23abc3"
+  },
+  "display": {
+   "name": "10,9 Pulgadas",
+   "id": "6482d6ce4769aca19d23aa90"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "256 GB",
+   "id": "6418ccd455a4dd4567602c50"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJMBX7W2",
   "name": "Apple 2022 iPad Pro de 11 Pulgadas (Wi-Fi + Cellular, 1 TB) - Plata (4.a generación)",
   "sku": "B0BJMBX7W2",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 2129.0,
@@ -2268,19 +3837,49 @@
    "https://m.media-amazon.com/images/I/71MTE50I01L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61RDkYWCB9L._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Plata",
-  "year": "2022",
-  "memory": "16 GB",
-  "display": "11 Pulgadas",
-  "cpu": "",
-  "hdd": "1 TB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Pro",
+    "id": "6485c054126bc6a1fac168dd"
+   }
+  ],
+  "color": {
+   "name": "Plata",
+   "id": "640f6593996606d4d5af98ea"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "11 Pulgadas",
+   "id": "641a1f5f85d3f3eb35bd2fc9"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "1 TB",
+   "id": "641a1f7685d3f3eb35bd32c5"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJMZM5VV",
   "name": "Apple 2022 iPad Pro de 11 Pulgadas (Wi-Fi + Cellular, 2 TB) - Plata (4.a generación)",
   "sku": "B0BJMZM5VV",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 2629.0,
@@ -2307,19 +3906,49 @@
    "https://m.media-amazon.com/images/I/71MTE50I01L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61RDkYWCB9L._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Plata",
-  "year": "2022",
-  "memory": "16 GB",
-  "display": "11 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Pro",
+    "id": "6485c054126bc6a1fac168dd"
+   }
+  ],
+  "color": {
+   "name": "Plata",
+   "id": "640f6593996606d4d5af98ea"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "11 Pulgadas",
+   "id": "641a1f5f85d3f3eb35bd2fc9"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJMFL5PR",
   "name": "Apple 2022 iPad Pro de 11 Pulgadas (Wi-Fi + Cellular, 256 GB) - Plata (4.a generación)",
   "sku": "B0BJMFL5PR",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 1309.0,
@@ -2346,19 +3975,49 @@
    "https://m.media-amazon.com/images/I/71MTE50I01L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61RDkYWCB9L._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Plata",
-  "year": "2022",
-  "memory": "8 GB",
-  "display": "11 Pulgadas",
-  "cpu": "",
-  "hdd": "256 GB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Pro",
+    "id": "6485c054126bc6a1fac168dd"
+   }
+  ],
+  "color": {
+   "name": "Plata",
+   "id": "640f6593996606d4d5af98ea"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "6 GB",
+   "id": "6482d6d44769aca19d23abc3"
+  },
+  "display": {
+   "name": "11 Pulgadas",
+   "id": "641a1f5f85d3f3eb35bd2fc9"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "256 GB",
+   "id": "6418ccd455a4dd4567602c50"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJMRWGP7",
   "name": "Apple 2022 iPad Pro de 11 Pulgadas (Wi-Fi + Cellular, 512 GB) - Plata (4.a generación)",
   "sku": "B0BJMRWGP7",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 1549.0,
@@ -2385,19 +4044,49 @@
    "https://m.media-amazon.com/images/I/71MTE50I01L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61RDkYWCB9L._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Plata",
-  "year": "2022",
-  "memory": "8 GB",
-  "display": "11 Pulgadas",
-  "cpu": "",
-  "hdd": "512 GB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Pro",
+    "id": "6485c054126bc6a1fac168dd"
+   }
+  ],
+  "color": {
+   "name": "Plata",
+   "id": "640f6593996606d4d5af98ea"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "11 Pulgadas",
+   "id": "641a1f5f85d3f3eb35bd2fc9"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "512 GB",
+   "id": "641a1f4285d3f3eb35bd2ae3"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJMD2YGH",
   "name": "Apple 2022 iPad Pro de 11 Pulgadas (Wi-Fi + Cellular, 128 GB) - Gris Espacial (4.a generación)",
   "sku": "B0BJMD2YGH",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 1159.0,
@@ -2424,19 +4113,49 @@
    "https://m.media-amazon.com/images/I/71MTE50I01L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61JDANwALlL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Gris espacial",
-  "year": "2022",
-  "memory": "8 GB",
-  "display": "11 Pulgadas",
-  "cpu": "",
-  "hdd": "128 GB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Pro",
+    "id": "6485c054126bc6a1fac168dd"
+   }
+  ],
+  "color": {
+   "name": "Gris espacial",
+   "id": "640f6593996606d4d5af9925"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "8 GB",
+   "id": "6418ccd455a4dd4567602c49"
+  },
+  "display": {
+   "name": "11 Pulgadas",
+   "id": "641a1f5f85d3f3eb35bd2fc9"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "128 GB",
+   "id": "641a1f3d85d3f3eb35bd2a56"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJMM1BDD",
   "name": "Apple 2022 iPad Pro de 11 Pulgadas (Wi-Fi, 1 TB) - Gris Espacial (4.a generación)",
   "sku": "B0BJMM1BDD",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 1774.0,
@@ -2452,19 +4171,49 @@
    "https://m.media-amazon.com/images/I/71A+VovJe3L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61N0wi1FdUL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Gris espacial",
-  "year": "2022",
-  "memory": "",
-  "display": "11 Pulgadas",
-  "cpu": "",
-  "hdd": "1 TB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Pro",
+    "id": "6485c054126bc6a1fac168dd"
+   }
+  ],
+  "color": {
+   "name": "Gris espacial",
+   "id": "640f6593996606d4d5af9925"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "11 Pulgadas",
+   "id": "641a1f5f85d3f3eb35bd2fc9"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "1 TB",
+   "id": "641a1f7685d3f3eb35bd32c5"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJMZ9C35",
   "name": "Apple 2022 iPad Pro de 11 Pulgadas (Wi-Fi, 256 GB) - Gris Espacial (4.a generación)",
   "sku": "B0BJMZ9C35",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 1119.0,
@@ -2491,19 +4240,49 @@
    "https://m.media-amazon.com/images/I/71A+VovJe3L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61N0wi1FdUL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Gris espacial",
-  "year": "2022",
-  "memory": "8 GB",
-  "display": "11 Pulgadas",
-  "cpu": "",
-  "hdd": "256 GB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Pro",
+    "id": "6485c054126bc6a1fac168dd"
+   }
+  ],
+  "color": {
+   "name": "Gris espacial",
+   "id": "640f6593996606d4d5af9925"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "6 GB",
+   "id": "6482d6d44769aca19d23abc3"
+  },
+  "display": {
+   "name": "11 Pulgadas",
+   "id": "641a1f5f85d3f3eb35bd2fc9"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "256 GB",
+   "id": "6418ccd455a4dd4567602c50"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJMNS6T3",
   "name": "Apple 2022 iPad Pro de 11 Pulgadas (Wi-Fi, 512 GB) - Gris Espacial (4.a generación)",
   "sku": "B0BJMNS6T3",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 1399.0,
@@ -2530,19 +4309,49 @@
    "https://m.media-amazon.com/images/I/71A+VovJe3L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61N0wi1FdUL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Gris espacial",
-  "year": "2022",
-  "memory": "8 GB",
-  "display": "11 Pulgadas",
-  "cpu": "",
-  "hdd": "512 GB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Pro",
+    "id": "6485c054126bc6a1fac168dd"
+   }
+  ],
+  "color": {
+   "name": "Gris espacial",
+   "id": "640f6593996606d4d5af9925"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "11 Pulgadas",
+   "id": "641a1f5f85d3f3eb35bd2fc9"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "512 GB",
+   "id": "641a1f4285d3f3eb35bd2ae3"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJM89DNG",
   "name": "Apple 2022 iPad Pro de 11 Pulgadas (Wi-Fi, 2 TB) - Gris Espacial (4.a generación)",
   "sku": "B0BJM89DNG",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 2429.0,
@@ -2558,19 +4367,49 @@
    "https://m.media-amazon.com/images/I/71A+VovJe3L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61N0wi1FdUL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Gris espacial",
-  "year": "2022",
-  "memory": "",
-  "display": "11 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Pro",
+    "id": "6485c054126bc6a1fac168dd"
+   }
+  ],
+  "color": {
+   "name": "Gris espacial",
+   "id": "640f6593996606d4d5af9925"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "11 Pulgadas",
+   "id": "641a1f5f85d3f3eb35bd2fc9"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09V4LJ1XR",
   "name": "Apple 2022 iPad Air (Wi-Fi, 256 GB) - Azul (5.a generación)",
   "sku": "B09V4LJ1XR",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 885.0,
@@ -2597,19 +4436,49 @@
    "https://m.media-amazon.com/images/I/71tJgmlaWaL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61-D5GDXrSL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Azul",
-  "year": "2022",
-  "memory": "6 GB",
-  "display": "10.9 Pulgadas",
-  "cpu": "",
-  "hdd": "256 GB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Air",
+    "id": "6485bff2126bc6a1fac167f4"
+   }
+  ],
+  "color": {
+   "name": "Azul",
+   "id": "6482d6a04769aca19d239cfe"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "6 GB",
+   "id": "6482d6d44769aca19d23abc3"
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "256 GB",
+   "id": "6418ccd455a4dd4567602c50"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09V4LHHJ8",
   "name": "Apple 2022 iPad Air (Wi-Fi, 256 GB) - Gris Espacial (5.a generación)",
   "sku": "B09V4LHHJ8",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 885.0,
@@ -2636,19 +4505,49 @@
    "https://m.media-amazon.com/images/I/71tJgmlaWaL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61fQc-cQsdL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Gris espacial",
-  "year": "2022",
-  "memory": "6 GB",
-  "display": "10.9 Pulgadas",
-  "cpu": "",
-  "hdd": "256 GB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Air",
+    "id": "6485bff2126bc6a1fac167f4"
+   }
+  ],
+  "color": {
+   "name": "Gris espacial",
+   "id": "640f6593996606d4d5af9925"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "6 GB",
+   "id": "6482d6d44769aca19d23abc3"
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "256 GB",
+   "id": "6418ccd455a4dd4567602c50"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09V4XXZT8",
   "name": "Apple 2022 iPad Air (Wi-Fi, 256 GB) - Rosa (5.a generación)",
   "sku": "B09V4XXZT8",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 885.0,
@@ -2672,19 +4571,49 @@
    "https://m.media-amazon.com/images/I/71tJgmlaWaL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61PyExEdAzL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Rosa",
-  "year": "2022",
-  "memory": "",
-  "display": "",
-  "cpu": "",
-  "hdd": "256 GB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Air",
+    "id": "6485bff2126bc6a1fac167f4"
+   }
+  ],
+  "color": {
+   "name": "Rosa",
+   "id": "6482d66eb485477a26a49abb"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "6 GB",
+   "id": "6482d6d44769aca19d23abc3"
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "256 GB",
+   "id": "6418ccd455a4dd4567602c50"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09V4NT36X",
   "name": "Apple 2022 iPad Air (Wi-Fi, 256 GB) - de en Malva (5.a generación)",
   "sku": "B09V4NT36X",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 885.0,
@@ -2710,19 +4639,49 @@
    "https://m.media-amazon.com/images/I/71sF9yNDZ8L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61KmkNxe+eL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "De en malva",
-  "year": "2022",
-  "memory": "6 GB",
-  "display": "10.9 Pulgadas",
-  "cpu": "",
-  "hdd": "256 GB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Air",
+    "id": "6485bff2126bc6a1fac167f4"
+   }
+  ],
+  "color": {
+   "name": "Malva",
+   "id": "6482d6a04769aca19d239d2a"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "6 GB",
+   "id": "6482d6d44769aca19d23abc3"
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "256 GB",
+   "id": "6418ccd455a4dd4567602c50"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09V4MGPGV",
   "name": "Apple 2022 iPad Air (Wi-Fi, 64 GB) - Rosa (5.a generación)",
   "sku": "B09V4MGPGV",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 708.99,
@@ -2749,19 +4708,49 @@
    "https://m.media-amazon.com/images/I/71tJgmlaWaL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61PyExEdAzL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Rosa",
-  "year": "2022",
-  "memory": "64 GB",
-  "display": "10.9 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Air",
+    "id": "6485bff2126bc6a1fac167f4"
+   }
+  ],
+  "color": {
+   "name": "Rosa",
+   "id": "6482d66eb485477a26a49abb"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "4 GB",
+   "id": "641a1f3885d3f3eb35bd295b"
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09V49DPBF",
   "name": "Apple 2022 iPad Air (Wi-Fi, 64 GB) - de en Malva (5.a generación)",
   "sku": "B09V49DPBF",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 719.0,
@@ -2783,19 +4772,49 @@
    "https://m.media-amazon.com/images/I/71tJgmlaWaL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61p6uSlg4JL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "De en malva",
-  "year": "2022",
-  "memory": "64 GB",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Air",
+    "id": "6485bff2126bc6a1fac167f4"
+   }
+  ],
+  "color": {
+   "name": "Malva",
+   "id": "6482d6a04769aca19d239d2a"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "4 GB",
+   "id": "641a1f3885d3f3eb35bd295b"
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09G9LK9GR",
   "name": "Apple 2021 iPad Mini (de 8,3 Pulgadas con Wi-Fi, 64 GB) - en Blanco Estrella (6.a generación)",
   "sku": "B09G9LK9GR",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 584.59,
@@ -2822,19 +4841,49 @@
    "https://m.media-amazon.com/images/I/71vN0YySriL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61+3uCWLqfL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Blanco estrella",
-  "year": "2021",
-  "memory": "64 GB",
-  "display": "8.3 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "mini",
+    "id": "6485bfe1126bc6a1fac167be"
+   }
+  ],
+  "color": {
+   "name": "Blanco estrella",
+   "id": "647e31b3e18b01a681c13ce1"
+  },
+  "year": {
+   "name": "2021",
+   "id": "64177fafed05c6cb2bdb2399"
+  },
+  "memory": {
+   "name": "4 GB",
+   "id": "641a1f3885d3f3eb35bd295b"
+  },
+  "display": {
+   "name": "8.3 Pulgadas",
+   "id": "6482d6d24769aca19d23ab62"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09G9HVF6R",
   "name": "Apple 2021 iPad Mini (de 8,3 Pulgadas con Wi-Fi, 256 GB) - de en Malva (6.a generación)",
   "sku": "B09G9HVF6R",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 775.0,
@@ -2861,19 +4910,49 @@
    "https://m.media-amazon.com/images/I/71vN0YySriL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61oLOa3kngL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "De en malva",
-  "year": "2021",
-  "memory": "6 GB",
-  "display": "8.3 Pulgadas",
-  "cpu": "",
-  "hdd": "256 GB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "mini",
+    "id": "6485bfe1126bc6a1fac167be"
+   }
+  ],
+  "color": {
+   "name": "Malva",
+   "id": "6482d6a04769aca19d239d2a"
+  },
+  "year": {
+   "name": "2021",
+   "id": "64177fafed05c6cb2bdb2399"
+  },
+  "memory": {
+   "name": "6 GB",
+   "id": "6482d6d44769aca19d23abc3"
+  },
+  "display": {
+   "name": "8.3 Pulgadas",
+   "id": "6482d6d24769aca19d23ab62"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "256 GB",
+   "id": "6418ccd455a4dd4567602c50"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09G9F85LQ",
   "name": "Apple 2021 iPad Mini (de 8,3 Pulgadas con Wi-Fi + Cellular, 64 GB) - de en Malva (6.a generación)",
   "sku": "B09G9F85LQ",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 771.0,
@@ -2900,19 +4979,49 @@
    "https://m.media-amazon.com/images/I/71r6Tr1NiKL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61ocJKQWH6L._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "De en malva",
-  "year": "2021",
-  "memory": "64 GB",
-  "display": "8.3 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "mini",
+    "id": "6485bfe1126bc6a1fac167be"
+   }
+  ],
+  "color": {
+   "name": "Malva",
+   "id": "6482d6a04769aca19d239d2a"
+  },
+  "year": {
+   "name": "2021",
+   "id": "64177fafed05c6cb2bdb2399"
+  },
+  "memory": {
+   "name": "4 GB",
+   "id": "641a1f3885d3f3eb35bd295b"
+  },
+  "display": {
+   "name": "8.3 Pulgadas",
+   "id": "6482d6d24769aca19d23ab62"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09G9KP9NK",
   "name": "Apple 2021 iPad Mini (de 8,3 Pulgadas con Wi-Fi, 256 GB) - en Blanco Estrella (6.a generación)",
   "sku": "B09G9KP9NK",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 779.0,
@@ -2940,19 +5049,49 @@
    "https://m.media-amazon.com/images/I/61+3uCWLqfL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61iZvhlUAdL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Blanco estrella",
-  "year": "2021",
-  "memory": "6 GB",
-  "display": "8.3 Pulgadas",
-  "cpu": "",
-  "hdd": "256 GB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "mini",
+    "id": "6485bfe1126bc6a1fac167be"
+   }
+  ],
+  "color": {
+   "name": "Blanco estrella",
+   "id": "647e31b3e18b01a681c13ce1"
+  },
+  "year": {
+   "name": "2021",
+   "id": "64177fafed05c6cb2bdb2399"
+  },
+  "memory": {
+   "name": "6 GB",
+   "id": "6482d6d44769aca19d23abc3"
+  },
+  "display": {
+   "name": "8.3 Pulgadas",
+   "id": "6482d6d24769aca19d23ab62"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "256 GB",
+   "id": "6418ccd455a4dd4567602c50"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09G9DN38J",
   "name": "Apple 2021 iPad Mini (de 8,3 Pulgadas con Wi-Fi, 256 GB) - Rosa (6.a generación)",
   "sku": "B09G9DN38J",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 775.0,
@@ -2979,19 +5118,49 @@
    "https://m.media-amazon.com/images/I/71vN0YySriL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61AxzBqqqgL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Rosa",
-  "year": "2021",
-  "memory": "6 GB",
-  "display": "8.3 Pulgadas",
-  "cpu": "",
-  "hdd": "256 GB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "mini",
+    "id": "6485bfe1126bc6a1fac167be"
+   }
+  ],
+  "color": {
+   "name": "Rosa",
+   "id": "6482d66eb485477a26a49abb"
+  },
+  "year": {
+   "name": "2021",
+   "id": "64177fafed05c6cb2bdb2399"
+  },
+  "memory": {
+   "name": "6 GB",
+   "id": "6482d6d44769aca19d23abc3"
+  },
+  "display": {
+   "name": "8.3 Pulgadas",
+   "id": "6482d6d24769aca19d23ab62"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "256 GB",
+   "id": "6418ccd455a4dd4567602c50"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09V4GQM7L",
   "name": "Apple 2022 iPad Air (Wi-Fi + Cellular, 64 GB) - Azul (5.a generación)",
   "sku": "B09V4GQM7L",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 885.0,
@@ -3011,19 +5180,49 @@
    "https://m.media-amazon.com/images/I/71Il9OV+w7L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/614MgFBDJNL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Azul",
-  "year": "2022",
-  "memory": "64 GB",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Air",
+    "id": "6485bff2126bc6a1fac167f4"
+   }
+  ],
+  "color": {
+   "name": "Azul",
+   "id": "6482d6a04769aca19d239cfe"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "4 GB",
+   "id": "641a1f3885d3f3eb35bd295b"
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09V4VNT4W",
   "name": "Apple 2022 iPad Air (Wi-Fi + Cellular, 64 GB) - Blanco Estrella (5.a generación)",
   "sku": "B09V4VNT4W",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 893.99,
@@ -3042,19 +5241,49 @@
    "https://m.media-amazon.com/images/I/71tJgmlaWaL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61VUlnLzdNL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Blanco estrella",
-  "year": "2022",
-  "memory": "64 GB",
-  "display": "",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Air",
+    "id": "6485bff2126bc6a1fac167f4"
+   }
+  ],
+  "color": {
+   "name": "Blanco estrella",
+   "id": "647e31b3e18b01a681c13ce1"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "4 GB",
+   "id": "641a1f3885d3f3eb35bd295b"
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09V4T2JGZ",
   "name": "Apple 2022 iPad Air (Wi-Fi + Cellular, 64 GB) - de en Malva (5.a generación)",
   "sku": "B09V4T2JGZ",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 842.53,
@@ -3080,19 +5309,49 @@
    "https://m.media-amazon.com/images/I/71sF9yNDZ8L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61KmkNxe+eL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "De en malva",
-  "year": "2022",
-  "memory": "64 GB",
-  "display": "10.9 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Air",
+    "id": "6485bff2126bc6a1fac167f4"
+   }
+  ],
+  "color": {
+   "name": "Malva",
+   "id": "6482d6a04769aca19d239d2a"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "4 GB",
+   "id": "641a1f3885d3f3eb35bd295b"
+  },
+  "display": {
+   "name": "",
+   "id": ""
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJMWJJMN",
   "name": "Apple 2022 iPad Pro de 12,9 Pulgadas (Wi-Fi + Cellular, 1 TB) - Gris Espacial (6.a generación)",
   "sku": "B0BJMWJJMN",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 2404.99,
@@ -3119,19 +5378,49 @@
    "https://m.media-amazon.com/images/I/71MTE50I01L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/615gTWpzJYL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Gris espacial",
-  "year": "2022",
-  "memory": "16 GB",
-  "display": "12,9 Pulgadas",
-  "cpu": "",
-  "hdd": "1 TB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Pro",
+    "id": "6485c054126bc6a1fac168dd"
+   }
+  ],
+  "color": {
+   "name": "Gris espacial",
+   "id": "640f6593996606d4d5af9925"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "12,9 Pulgadas",
+   "id": "6482d6d54769aca19d23abee"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "1 TB",
+   "id": "641a1f7685d3f3eb35bd32c5"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJN37GBN",
   "name": "Apple 2022 iPad Pro de 12,9 Pulgadas (Wi-Fi + Cellular, 2 TB) - Gris Espacial (6.a generación)",
   "sku": "B0BJN37GBN",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 3024.0,
@@ -3158,19 +5447,49 @@
    "https://m.media-amazon.com/images/I/71MTE50I01L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/615gTWpzJYL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Gris espacial",
-  "year": "2022",
-  "memory": "16 GB",
-  "display": "12,9 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Pro",
+    "id": "6485c054126bc6a1fac168dd"
+   }
+  ],
+  "color": {
+   "name": "Gris espacial",
+   "id": "640f6593996606d4d5af9925"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "12,9 Pulgadas",
+   "id": "6482d6d54769aca19d23abee"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJMXJTFQ",
   "name": "Apple 2022 iPad Pro de 12,9 Pulgadas (Wi-Fi + Cellular, 256 GB) - Gris Espacial (6.a generación)",
   "sku": "B0BJMXJTFQ",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 1689.0,
@@ -3197,19 +5516,49 @@
    "https://m.media-amazon.com/images/I/71MTE50I01L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/615gTWpzJYL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Gris espacial",
-  "year": "2022",
-  "memory": "8 GB",
-  "display": "12,9 Pulgadas",
-  "cpu": "",
-  "hdd": "256 GB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Pro",
+    "id": "6485c054126bc6a1fac168dd"
+   }
+  ],
+  "color": {
+   "name": "Gris espacial",
+   "id": "640f6593996606d4d5af9925"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "6 GB",
+   "id": "6482d6d44769aca19d23abc3"
+  },
+  "display": {
+   "name": "12,9 Pulgadas",
+   "id": "6482d6d54769aca19d23abee"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "256 GB",
+   "id": "6418ccd455a4dd4567602c50"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJN34NF6",
   "name": "Apple 2022 iPad Pro de 12,9 Pulgadas (Wi-Fi + Cellular, 512 GB) - Gris Espacial (6.a generación)",
   "sku": "B0BJN34NF6",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 1929.0,
@@ -3236,19 +5585,49 @@
    "https://m.media-amazon.com/images/I/71MTE50I01L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/615gTWpzJYL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Gris espacial",
-  "year": "2022",
-  "memory": "8 GB",
-  "display": "12,9 Pulgadas",
-  "cpu": "",
-  "hdd": "512 GB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Pro",
+    "id": "6485c054126bc6a1fac168dd"
+   }
+  ],
+  "color": {
+   "name": "Gris espacial",
+   "id": "640f6593996606d4d5af9925"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "12,9 Pulgadas",
+   "id": "6482d6d54769aca19d23abee"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "512 GB",
+   "id": "641a1f4285d3f3eb35bd2ae3"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJMC2W24",
   "name": "Apple 2022 iPad Pro de 12,9 Pulgadas (Wi-Fi + Cellular, 128 GB) - Plata (6.a generación)",
   "sku": "B0BJMC2W24",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 1559.0,
@@ -3275,19 +5654,49 @@
    "https://m.media-amazon.com/images/I/71MTE50I01L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/615QPEk5aSL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Plata",
-  "year": "2022",
-  "memory": "8 GB",
-  "display": "12,9 Pulgadas",
-  "cpu": "",
-  "hdd": "128 GB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Pro",
+    "id": "6485c054126bc6a1fac168dd"
+   }
+  ],
+  "color": {
+   "name": "Plata",
+   "id": "640f6593996606d4d5af98ea"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "8 GB",
+   "id": "6418ccd455a4dd4567602c49"
+  },
+  "display": {
+   "name": "12,9 Pulgadas",
+   "id": "6482d6d54769aca19d23abee"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "128 GB",
+   "id": "641a1f3d85d3f3eb35bd2a56"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJMPX68Q",
   "name": "Apple 2022 iPad Pro de 12,9 Pulgadas (Wi-Fi, 2 TB) - Plata (6.a generación)",
   "sku": "B0BJMPX68Q",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 2829.0,
@@ -3314,19 +5723,49 @@
    "https://m.media-amazon.com/images/I/71A+VovJe3L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/615QPEk5aSL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Plata",
-  "year": "2022",
-  "memory": "16 GB",
-  "display": "12,9 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Pro",
+    "id": "6485c054126bc6a1fac168dd"
+   }
+  ],
+  "color": {
+   "name": "Plata",
+   "id": "640f6593996606d4d5af98ea"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "12,9 Pulgadas",
+   "id": "6482d6d54769aca19d23abee"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09G95FQW1",
   "name": "Apple 2021 iPad (de 10,2 Pulgadas con Wi-Fi + Cellular, 256 GB) - Gris Espacial (9.a generación)",
   "sku": "B09G95FQW1",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 704.99,
@@ -3356,19 +5795,43 @@
    "https://m.media-amazon.com/images/I/71PC+KpfuhL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61aOgleXEhL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Gris espacial",
-  "year": "2021",
-  "memory": "3 GB",
-  "display": "10.2 Pulgadas",
-  "cpu": "",
-  "hdd": "256 GB"
+  "model": {
+   "name": "iPad",
+   "id": "64177ecded05c6cb2bdb03ad"
+  },
+  "color": {
+   "name": "Gris espacial",
+   "id": "640f6593996606d4d5af9925"
+  },
+  "year": {
+   "name": "2021",
+   "id": "64177fafed05c6cb2bdb2399"
+  },
+  "memory": {
+   "name": "6 GB",
+   "id": "6482d6d44769aca19d23abc3"
+  },
+  "display": {
+   "name": "10.2 Pulgadas",
+   "id": "6482d6cf4769aca19d23aac7"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "256 GB",
+   "id": "6418ccd455a4dd4567602c50"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B08J6KQKCZ",
   "name": "Apple 2020 iPad Air (de 10,9 Pulgadas, con Wi-Fi y 64 GB) - Azul Cielo (4.a generación)",
   "sku": "B08J6KQKCZ",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 540.57,
@@ -3395,19 +5858,49 @@
    "https://m.media-amazon.com/images/I/81jtzj4UGwL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/716Ipia-lSL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Azul cielo",
-  "year": "2020",
-  "memory": "64 GB",
-  "display": "10,9 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Air",
+    "id": "6485bff2126bc6a1fac167f4"
+   }
+  ],
+  "color": {
+   "name": "Azul cielo",
+   "id": "6482d669b485477a26a499c5"
+  },
+  "year": {
+   "name": "2020",
+   "id": "64177fa9ed05c6cb2bdb2375"
+  },
+  "memory": {
+   "name": "4 GB",
+   "id": "641a1f3885d3f3eb35bd295b"
+  },
+  "display": {
+   "name": "10,9 Pulgadas",
+   "id": "6482d6ce4769aca19d23aa90"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B08J6DKCQW",
   "name": "Apple 2020 iPad Air (de 10,9 Pulgadas, con Wi-Fi y 64 GB) - Gris Espacial (4.a generación)",
   "sku": "B08J6DKCQW",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 670.85,
@@ -3434,19 +5927,49 @@
    "https://m.media-amazon.com/images/I/81jtzj4UGwL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71cQcbCT2kL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Gris espacial",
-  "year": "2020",
-  "memory": "64 GB",
-  "display": "10,9 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Air",
+    "id": "6485bff2126bc6a1fac167f4"
+   }
+  ],
+  "color": {
+   "name": "Gris espacial",
+   "id": "640f6593996606d4d5af9925"
+  },
+  "year": {
+   "name": "2020",
+   "id": "64177fa9ed05c6cb2bdb2375"
+  },
+  "memory": {
+   "name": "4 GB",
+   "id": "641a1f3885d3f3eb35bd295b"
+  },
+  "display": {
+   "name": "10,9 Pulgadas",
+   "id": "6482d6ce4769aca19d23aa90"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B08J6S27LG",
   "name": "Apple 2020 iPad Air (de 10,9 Pulgadas, con Wi-Fi y 64 GB) - de en Verde (4.a generación)",
   "sku": "B08J6S27LG",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 596.23,
@@ -3473,19 +5996,49 @@
    "https://m.media-amazon.com/images/I/81jtzj4UGwL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71nEEHCl0tL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "De en verde",
-  "year": "2020",
-  "memory": "64 GB",
-  "display": "10,9 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Air",
+    "id": "6485bff2126bc6a1fac167f4"
+   }
+  ],
+  "color": {
+   "name": "Verde",
+   "id": "6482d66eb485477a26a49a91"
+  },
+  "year": {
+   "name": "2020",
+   "id": "64177fa9ed05c6cb2bdb2375"
+  },
+  "memory": {
+   "name": "4 GB",
+   "id": "641a1f3885d3f3eb35bd295b"
+  },
+  "display": {
+   "name": "10,9 Pulgadas",
+   "id": "6482d6ce4769aca19d23aa90"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJMMR536",
   "name": "Apple 2022 iPad de 10,9 Pulgadas (Wi-Fi + Cellular, 256 GB) - Plata (10.a generación)",
   "sku": "B0BJMMR536",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 939.0,
@@ -3512,19 +6065,43 @@
    "https://m.media-amazon.com/images/I/81hPoTDsGWL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61-y+gI6UfL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Plata",
-  "year": "2022",
-  "memory": "",
-  "display": "10,9 Pulgadas",
-  "cpu": "",
-  "hdd": "256 GB"
+  "model": {
+   "name": "iPad",
+   "id": "64177ecded05c6cb2bdb03ad"
+  },
+  "color": {
+   "name": "Plata",
+   "id": "640f6593996606d4d5af98ea"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "6 GB",
+   "id": "6482d6d44769aca19d23abc3"
+  },
+  "display": {
+   "name": "10,9 Pulgadas",
+   "id": "6482d6ce4769aca19d23aa90"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "256 GB",
+   "id": "6418ccd455a4dd4567602c50"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJMPTX68",
   "name": "Apple 2022 iPad de 10,9 Pulgadas (Wi-Fi + Cellular, 256 GB) - Rosa (10.a generación)",
   "sku": "B0BJMPTX68",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 895.0,
@@ -3551,19 +6128,43 @@
    "https://m.media-amazon.com/images/I/81hPoTDsGWL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61Z8t9xSRUL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Rosa",
-  "year": "2022",
-  "memory": "",
-  "display": "10,9 Pulgadas",
-  "cpu": "",
-  "hdd": "256 GB"
+  "model": {
+   "name": "iPad",
+   "id": "64177ecded05c6cb2bdb03ad"
+  },
+  "color": {
+   "name": "Rosa",
+   "id": "6482d66eb485477a26a49abb"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "6 GB",
+   "id": "6482d6d44769aca19d23abc3"
+  },
+  "display": {
+   "name": "10,9 Pulgadas",
+   "id": "6482d6ce4769aca19d23aa90"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "256 GB",
+   "id": "6418ccd455a4dd4567602c50"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJN1NH1H",
   "name": "Apple 2022 iPad de 10,9 Pulgadas (Wi-Fi + Cellular, 256 GB) - en Amarillo (10.a generación)",
   "sku": "B0BJN1NH1H",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 899.0,
@@ -3590,19 +6191,43 @@
    "https://m.media-amazon.com/images/I/81hPoTDsGWL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/71Y89YFOcNL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "En amarillo",
-  "year": "2022",
-  "memory": "",
-  "display": "10,9 Pulgadas",
-  "cpu": "",
-  "hdd": "256 GB"
+  "model": {
+   "name": "iPad",
+   "id": "64177ecded05c6cb2bdb03ad"
+  },
+  "color": {
+   "name": "Amarillo",
+   "id": "6482d6c04769aca19d23a6de"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "6 GB",
+   "id": "6482d6d44769aca19d23abc3"
+  },
+  "display": {
+   "name": "10,9 Pulgadas",
+   "id": "6482d6ce4769aca19d23aa90"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "256 GB",
+   "id": "6418ccd455a4dd4567602c50"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJMV9SGF",
   "name": "Apple 2022 iPad Pro de 11 Pulgadas (Wi-Fi + Cellular, 1 TB) - Gris Espacial (4.a generación)",
   "sku": "B0BJMV9SGF",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 2019.0,
@@ -3629,19 +6254,49 @@
    "https://m.media-amazon.com/images/I/71MTE50I01L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61JDANwALlL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Gris espacial",
-  "year": "2022",
-  "memory": "16 GB",
-  "display": "11 Pulgadas",
-  "cpu": "",
-  "hdd": "1 TB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Pro",
+    "id": "6485c054126bc6a1fac168dd"
+   }
+  ],
+  "color": {
+   "name": "Gris espacial",
+   "id": "640f6593996606d4d5af9925"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "11 Pulgadas",
+   "id": "641a1f5f85d3f3eb35bd2fc9"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "1 TB",
+   "id": "641a1f7685d3f3eb35bd32c5"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJMHNJ1R",
   "name": "Apple 2022 iPad Pro de 11 Pulgadas (Wi-Fi + Cellular, 2 TB) - Gris Espacial (4.a generación)",
   "sku": "B0BJMHNJ1R",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 2449.0,
@@ -3668,19 +6323,49 @@
    "https://m.media-amazon.com/images/I/71MTE50I01L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61JDANwALlL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Gris espacial",
-  "year": "2022",
-  "memory": "16 GB",
-  "display": "11 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Pro",
+    "id": "6485c054126bc6a1fac168dd"
+   }
+  ],
+  "color": {
+   "name": "Gris espacial",
+   "id": "640f6593996606d4d5af9925"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "11 Pulgadas",
+   "id": "641a1f5f85d3f3eb35bd2fc9"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJMHSWQV",
   "name": "Apple 2022 iPad Pro de 11 Pulgadas (Wi-Fi + Cellular, 256 GB) - Gris Espacial (4.a generación)",
   "sku": "B0BJMHSWQV",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 1309.0,
@@ -3707,19 +6392,49 @@
    "https://m.media-amazon.com/images/I/71MTE50I01L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61JDANwALlL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Gris espacial",
-  "year": "2022",
-  "memory": "8 GB",
-  "display": "11 Pulgadas",
-  "cpu": "",
-  "hdd": "256 GB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Pro",
+    "id": "6485c054126bc6a1fac168dd"
+   }
+  ],
+  "color": {
+   "name": "Gris espacial",
+   "id": "640f6593996606d4d5af9925"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "6 GB",
+   "id": "6482d6d44769aca19d23abc3"
+  },
+  "display": {
+   "name": "11 Pulgadas",
+   "id": "641a1f5f85d3f3eb35bd2fc9"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "256 GB",
+   "id": "6418ccd455a4dd4567602c50"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJN37T9X",
   "name": "Apple 2022 iPad Pro de 11 Pulgadas (Wi-Fi + Cellular, 512 GB) - Gris Espacial (4.a generación)",
   "sku": "B0BJN37T9X",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 1529.0,
@@ -3746,19 +6461,49 @@
    "https://m.media-amazon.com/images/I/71MTE50I01L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61JDANwALlL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Gris espacial",
-  "year": "2022",
-  "memory": "8 GB",
-  "display": "11 Pulgadas",
-  "cpu": "",
-  "hdd": "512 GB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Pro",
+    "id": "6485c054126bc6a1fac168dd"
+   }
+  ],
+  "color": {
+   "name": "Gris espacial",
+   "id": "640f6593996606d4d5af9925"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "11 Pulgadas",
+   "id": "641a1f5f85d3f3eb35bd2fc9"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "512 GB",
+   "id": "641a1f4285d3f3eb35bd2ae3"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09G9CSZ7L",
   "name": "Apple 2021 iPad Mini (de 8,3 Pulgadas con Wi-Fi + Cellular, 64 GB) - en Blanco Estrella (6.a generación)",
   "sku": "B09G9CSZ7L",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 697.0,
@@ -3785,19 +6530,49 @@
    "https://m.media-amazon.com/images/I/713AaqtVfUL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61GdtUPryfL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Blanco estrella",
-  "year": "2021",
-  "memory": "64 GB",
-  "display": "8.3 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "mini",
+    "id": "6485bfe1126bc6a1fac167be"
+   }
+  ],
+  "color": {
+   "name": "Blanco estrella",
+   "id": "647e31b3e18b01a681c13ce1"
+  },
+  "year": {
+   "name": "2021",
+   "id": "64177fafed05c6cb2bdb2399"
+  },
+  "memory": {
+   "name": "4 GB",
+   "id": "641a1f3885d3f3eb35bd295b"
+  },
+  "display": {
+   "name": "8.3 Pulgadas",
+   "id": "6482d6d24769aca19d23ab62"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09G9D9TVR",
   "name": "Apple 2021 iPad Mini (de 8,3 Pulgadas con Wi-Fi + Cellular, 256 GB) - de en Malva (6.a generación)",
   "sku": "B09G9D9TVR",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 955.0,
@@ -3824,19 +6599,49 @@
    "https://m.media-amazon.com/images/I/71r6Tr1NiKL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61ocJKQWH6L._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "De en malva",
-  "year": "2021",
-  "memory": "6 GB",
-  "display": "8.3 Pulgadas",
-  "cpu": "",
-  "hdd": "256 GB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "mini",
+    "id": "6485bfe1126bc6a1fac167be"
+   }
+  ],
+  "color": {
+   "name": "Malva",
+   "id": "6482d6a04769aca19d239d2a"
+  },
+  "year": {
+   "name": "2021",
+   "id": "64177fafed05c6cb2bdb2399"
+  },
+  "memory": {
+   "name": "6 GB",
+   "id": "6482d6d44769aca19d23abc3"
+  },
+  "display": {
+   "name": "8.3 Pulgadas",
+   "id": "6482d6d24769aca19d23ab62"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "256 GB",
+   "id": "6418ccd455a4dd4567602c50"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09G915T4N",
   "name": "Apple 2021 iPad Mini (de 8,3 Pulgadas con Wi-Fi + Cellular, 64 GB) - Rosa (6.a generación)",
   "sku": "B09G915T4N",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 771.0,
@@ -3863,19 +6668,49 @@
    "https://m.media-amazon.com/images/I/71r6Tr1NiKL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61pPZZU1UoL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Rosa",
-  "year": "2021",
-  "memory": "64 GB",
-  "display": "8.3 Pulgadas",
-  "cpu": "",
-  "hdd": ""
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "mini",
+    "id": "6485bfe1126bc6a1fac167be"
+   }
+  ],
+  "color": {
+   "name": "Rosa",
+   "id": "6482d66eb485477a26a49abb"
+  },
+  "year": {
+   "name": "2021",
+   "id": "64177fafed05c6cb2bdb2399"
+  },
+  "memory": {
+   "name": "4 GB",
+   "id": "641a1f3885d3f3eb35bd295b"
+  },
+  "display": {
+   "name": "8.3 Pulgadas",
+   "id": "6482d6d24769aca19d23ab62"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "",
+   "id": ""
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B09G9Q3Z77",
   "name": "Apple 2021 iPad Mini (de 8,3 Pulgadas con Wi-Fi + Cellular, 256 GB) - Rosa (6.a generación)",
   "sku": "B09G9Q3Z77",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 889.0,
@@ -3902,19 +6737,49 @@
    "https://m.media-amazon.com/images/I/71r6Tr1NiKL._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/61pPZZU1UoL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Rosa",
-  "year": "2021",
-  "memory": "6 GB",
-  "display": "8.3 Pulgadas",
-  "cpu": "",
-  "hdd": "256 GB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "mini",
+    "id": "6485bfe1126bc6a1fac167be"
+   }
+  ],
+  "color": {
+   "name": "Rosa",
+   "id": "6482d66eb485477a26a49abb"
+  },
+  "year": {
+   "name": "2021",
+   "id": "64177fafed05c6cb2bdb2399"
+  },
+  "memory": {
+   "name": "6 GB",
+   "id": "6482d6d44769aca19d23abc3"
+  },
+  "display": {
+   "name": "8.3 Pulgadas",
+   "id": "6482d6d24769aca19d23ab62"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "256 GB",
+   "id": "6418ccd455a4dd4567602c50"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJNJC9C9",
   "name": "Apple 2022 iPad Pro de 12,9 Pulgadas (Wi-Fi + Cellular, 1 TB) - Plata (6.a generación)",
   "sku": "B0BJNJC9C9",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 2469.01,
@@ -3941,19 +6806,49 @@
    "https://m.media-amazon.com/images/I/71MTE50I01L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/615QPEk5aSL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Plata",
-  "year": "2022",
-  "memory": "16 GB",
-  "display": "12,9 Pulgadas",
-  "cpu": "",
-  "hdd": "1 TB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Pro",
+    "id": "6485c054126bc6a1fac168dd"
+   }
+  ],
+  "color": {
+   "name": "Plata",
+   "id": "640f6593996606d4d5af98ea"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "12,9 Pulgadas",
+   "id": "6482d6d54769aca19d23abee"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "1 TB",
+   "id": "641a1f7685d3f3eb35bd32c5"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJN17J5Q",
   "name": "Apple 2022 iPad Pro de 12,9 Pulgadas (Wi-Fi + Cellular, 256 GB) - Plata (6.a generación)",
   "sku": "B0BJN17J5Q",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 1689.0,
@@ -3980,19 +6875,49 @@
    "https://m.media-amazon.com/images/I/71MTE50I01L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/615QPEk5aSL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Plata",
-  "year": "2022",
-  "memory": "8 GB",
-  "display": "12,9 Pulgadas",
-  "cpu": "",
-  "hdd": "256 GB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Pro",
+    "id": "6485c054126bc6a1fac168dd"
+   }
+  ],
+  "color": {
+   "name": "Plata",
+   "id": "640f6593996606d4d5af98ea"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "6 GB",
+   "id": "6482d6d44769aca19d23abc3"
+  },
+  "display": {
+   "name": "12,9 Pulgadas",
+   "id": "6482d6d54769aca19d23abee"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "256 GB",
+   "id": "6418ccd455a4dd4567602c50"
+  }
  },
  {
   "url": "https://www.amazon.es/dp/B0BJMSZ4G3",
   "name": "Apple 2022 iPad Pro de 12,9 Pulgadas (Wi-Fi + Cellular, 512 GB) - Plata (6.a generación)",
   "sku": "B0BJMSZ4G3",
-  "manufacturer": "Apple",
+  "manufacturer": {
+   "name": "Apple",
+   "id": "6418cbfc36f134df58935c57"
+  },
   "category": "iPad",
   "subcategory": [],
   "price": 1929.0,
@@ -4019,12 +6944,39 @@
    "https://m.media-amazon.com/images/I/71MTE50I01L._AC_SL1500_.jpg",
    "https://m.media-amazon.com/images/I/615QPEk5aSL._AC_SL1500_.jpg"
   ],
-  "model": "iPad",
-  "color": "Plata",
-  "year": "2022",
-  "memory": "8 GB",
-  "display": "12,9 Pulgadas",
-  "cpu": "",
-  "hdd": "512 GB"
+  "model": [
+   {
+    "name": "iPad",
+    "id": "64177ecded05c6cb2bdb03ad"
+   },
+   {
+    "name": "Pro",
+    "id": "6485c054126bc6a1fac168dd"
+   }
+  ],
+  "color": {
+   "name": "Plata",
+   "id": "640f6593996606d4d5af98ea"
+  },
+  "year": {
+   "name": "2022",
+   "id": "64177fb5ed05c6cb2bdb23be"
+  },
+  "memory": {
+   "name": "",
+   "id": ""
+  },
+  "display": {
+   "name": "12,9 Pulgadas",
+   "id": "6482d6d54769aca19d23abee"
+  },
+  "cpu": {
+   "name": "",
+   "id": ""
+  },
+  "hdd": {
+   "name": "512 GB",
+   "id": "641a1f4285d3f3eb35bd2ae3"
+  }
  }
 ]

@@ -10,12 +10,12 @@ h6{
 }
 
 .prod-controls {
-    position: absolute;
+    position: relative;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     padding-bottom: 5px;
-    visibility: hidden;
+    visibility: visible;
     z-index: 10;
 }
 
@@ -854,40 +854,61 @@ input:checked ~ .color-container .color::before {
     margin: auto;
     width:auto;
 }
+
+.product-box .main-product-img {
+    opacity: 1;
+    max-width: 100%!important;
+    max-height: 100%!important;
+    -webkit-transition: all 0.3s ease-out 0.3s;
+    -moz-transition: all 0.3s ease-out 0.3s;
+    -o-transition: all 0.3s ease-out 0.3s;
+    transition: all 0.3s ease-out 0.3s;
+}
+
 .product-box .hover-img {
     position: absolute;
     top: 0;
     right: 0;
     opacity: 0;
-    visibility: hidden;
-    -webkit-transition: all .1s ease-in-out;
-    transition: all .1s ease-in-out;
+    max-width: 100%!important;
+    max-height: 100%!important;
+    /*visibility: hidden;*/
+    -webkit-transition: all 0.3s ease-out 0.3s;
+    -moz-transition: all 0.3s ease-out 0.3s;
+    -o-transition: all 0.3s ease-out 0.3s;
+    transition: all 0.3s ease-out 0.3s;
 }
 
 .product-box:hover .hover-img {
     opacity: 1;
-    visibility: visible;
+    /*visibility: visible;*/
     /*width: 120%;
     height:150px;
     min-height:150px;
     max-height:150px;*/
+    max-width: 90%!important;
+    max-height: 90%!important;
     background-size: contain;
     background-position: center;
-    /*-webkit-transition: all 0.2s ease-out 0.2s;
-    -moz-transition: all 0.2s ease-out 0.2s;
-    -o-transition: all 0.2s ease-out 0.2s;
-    transition: all 0.2s ease-out 0.2s;*/
+    -webkit-transition: all 0.3s ease-out 0.3s;
+    -moz-transition: all 0.3s ease-out 0.3s;
+    -o-transition: all 0.3s ease-out 0.3s;
+    transition: all 0.3s ease-out 0.3s;
 }
 
 .product-box:hover .main-product-img {
-    /*opacity: 0;*/
-    visibility: hidden;
+    opacity: 0;
+    /*visibility: hidden;*/
     /*width: auto;*/
     /*height:150px;
     min-height:150px;
     max-height:150px;*/
     background-size: contain;
     background-position: center;
+    -webkit-transition: all 0.3s ease-out 0.3s;
+    -moz-transition: all 0.3s ease-out 0.3s;
+    -o-transition: all 0.3s ease-out 0.3s;
+    transition: all 0.3s ease-out 0.3s;
 }
 
 .product-box .hover-img.img-second {

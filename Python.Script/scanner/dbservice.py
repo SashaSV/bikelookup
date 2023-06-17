@@ -58,46 +58,36 @@ class DataScraps:
         for word in deletewords:
             name = name.replace(word, '').strip()
 
+        self.year = chek_so_name(name, 'year')
+        self.cpu = chek_so_name(name, 'cpu')
+        self.manufacturer = chek_so_name(name, 'manufacturer')
+
         for n in name.split(' '):
-            manufacturer = chek_so_name(n, 'manufacturer')
-            if len(manufacturer) > 0:
-                self.manufacturer = manufacturer
+            #manufacturer = chek_so_name(n, 'manufacturer')
+            #if len(manufacturer) > 0:
+            #    self.manufacturer = manufacturer
                 
-            year = chek_so_name(n, 'year')
+            #year = chek_so_name(n, 'year')
             
-            if len(year) == 0:
+            if self.year.name in (None,''):
                 curyear = datetime.now().year+1
                 y = curyear
-
+                year = None
                 while y >= curyear - 15:
                     if name.find(str(y)) > 0:
                         year = str(y)
                         
                     y = y - 1
 
-            if len(year) > 0:
-                self.year = year
+                if year:
+                    self.year = Spec(year)
             
-            cpu = chek_so_name(n, 'cpu')
-            if len(cpu) > 0:
-                self.cpu = cpu
+            self.cpu = chek_so_name(n, 'cpu')
         
-        display = chek_so_name(name, 'display')
-        if len(display) > 0:
-            self.display = display
-
-        memory = chek_so_name(name, 'memory')
-        if len(memory) > 0:
-            self.memory = memory
-
-        hdd = chek_so_name(name, 'hdd')
-        if len(hdd) > 0:
-            self.hdd = hdd
-
-        color = chek_so_name(name, 'color')
-        if len(color) > 0:
-            self.color = color
-
+        self.display = chek_so_name(name, 'display')
+        self.memory = chek_so_name(name, 'memory')
+        self.hdd = chek_so_name(name, 'hdd')
+        self.color = chek_so_name(name, 'color')       
         self.model = chek_so_name(name, 'model')
 
 class DataScrapsEncoder(json.JSONEncoder):
@@ -110,6 +100,11 @@ class obj(object):
 
 def dict2obj(d):
     return json.loads(json.dumps(d), object_hook=obj)
+
+class Spec:
+   def __init__(self, name = '', id = ''):
+       self.id = id
+       self.name = name
 
 def check_product(data:list[DataScraps]):
 
@@ -141,6 +136,7 @@ def check_product(data:list[DataScraps]):
         add_spec_to_product(new_p, 'available', d.available)
 
         for f in _filteringAtribute:
+            #aa = Spec(**d.__dict__.get(f))
             add_spec_to_product(p_main, f, d.__dict__.get(f))
 
         print('     Подгрузка характеристик')
@@ -157,6 +153,9 @@ def check_product(data:list[DataScraps]):
             for urlimage in d.images:
                 check_image_to_product(p_main, urlimage)
         
+        if d.sku == 'B09V4WGX5F':
+            aa = 1
+            
         find_categories(p_main)
         p_main.commit()
 
@@ -199,12 +198,16 @@ def find_categories(product):
 import sys
 sys.setrecursionlimit(1500)
 
-def add_spec_to_product(p_main, prop_name, prop_val):
-    if not prop_val in (None, ''):
-        if type(prop_val) is list:
-            for pv in prop_val:
-                add_spec_to_product(p_main, prop_name, pv)
-        else:
+def add_spec_to_product(p_main, prop_name, prop_val:Spec):
+    
+    if type(prop_val) is str:
+        prop_val = Spec(prop_val)
+
+    if type(prop_val) is list:
+        for pv in prop_val:
+            add_spec_to_product(p_main, prop_name, pv)
+    else:
+        if not prop_val.name in (None, ''):
             sao = check_specificationattributeoption_by_name(prop_name, prop_val)
             sa = check_specificationattribute_by_name(prop_name)
             check_productspecificationattributeoption(p_main, sa, sao)
@@ -228,7 +231,7 @@ class Options:
         self._trees(self.alltrees)
 
     def find_childs(self, tree:Option) -> list[Option]:
-        
+        self.allchilds = []
         if len(tree.childs) > 0:
             self._childs(tree.childs)
         else:
@@ -251,29 +254,33 @@ class Options:
             self.alloptions.append(option)
 
             if  option.parentId in (None, ''):
-                option.names.append(option.name)
+                option.names.append(Spec(name=option.name,id=option.id))
                 self.alltrees.append(option)
 
     def _trees(self, parents:list[Option]):
         #economicalCars = [car for car in carsList if car.price <= 1000000]
         for tree in parents:
+            if tree.name == 'iPad':
+                aa = 1
+                
             childs = [child for child in self.alloptions if child.parentId == tree.id]
             
             if not childs:
-                return None
+                #return None
+                continue
             
             for child in childs:
                 child.parent = tree
                 child.names = tree.names.copy()
-                child.names.append(child.name)
+                child.names.append(Spec(name=child.name,id=child.id))
                 child.name = tree.name + ' ' + child.name
 
             tree.childs = childs
             self._trees(tree.childs)
 
-def chek_so_name(name, soname):
+def chek_so_name(name, soname)->Spec:
     sa = check_specificationattribute_by_name(soname)
-    retSoName = ''
+    retSoName = Spec()
     seret = ''
 
     specificationAttributeOptions = sa.SpecificationAttributeOptions
@@ -281,14 +288,26 @@ def chek_so_name(name, soname):
     #trees = createTree(specificationAttributeOptions)
 
     for tree in trees.alltrees:
+        sename = get_sename(name.replace(' ', ''))
         for a in trees.find_childs(tree):
             seson = get_sename(a.name.replace(' ', ''))
-            sename = get_sename(name.replace(' ', ''))
             if sename.find(seson) >= 0:
                 if len(seson) > len(seret):
                     seret = seson
-                    retSoName = a.name if len(a.names) < 2 else a.names 
+                    retSoName.name = a.name
+                    retSoName.id = a.id
+                    retSoName = retSoName if len(a.names) < 2 else a.names 
+                    return retSoName
         
+        seson = get_sename(tree.name.replace(' ', ''))
+        if sename.find(seson) >= 0:
+            if len(seson) > len(seret):
+                seret = seson
+                #retSoName = Spec(name=tree.name,id=tree.id)
+                retSoName.name = tree.name
+                retSoName.id = tree.id
+                return retSoName
+    
     return retSoName
 
 def sorted_sa(f):
@@ -305,17 +324,21 @@ def check_vendor(vendorName):
 
     return new_v
 
-def check_specificationattributeoption_by_name(prop_name, prop_value, color_hex = None, parentSPO = None):
+def check_specificationattributeoption_by_name(prop_name, prop_value:Spec, color_hex = None, parentSPO = None):
     sa = check_specificationattribute_by_name(prop_name)
     
     sao_ret = None
     if sa.SpecificationAttributeOptions:
         for ind, a in enumerate(sa.SpecificationAttributeOptions):
-            if a.Name.lower().strip() == prop_value.lower().strip():
-                sao_ret = sa.SpecificationAttributeOptions[ind]
+            if prop_value.id in (None,''):
+                if a.Name.lower().strip() == prop_value.name.lower().strip():
+                    sao_ret = sa.SpecificationAttributeOptions[ind]
+            else:
+                if a._id == prop_value.id:
+                    sao_ret = sa.SpecificationAttributeOptions[ind]
 
     if not sao_ret:
-        sao_ret = SpecificationAttributeOption(_id = str(ObjectId()), Name = prop_value, ParentSpecificationAttrOptionId = '' if parentSPO == None else parentSPO)
+        sao_ret = SpecificationAttributeOption(_id = str(ObjectId()), Name = prop_value.name, ParentSpecificationAttrOptionId = '' if parentSPO == None else parentSPO)
         sao_ret.SeName = get_sename(prop_value, sao_ret._id, 'SpecificationAttributeOption', '')
 
         if not color_hex is None:
@@ -331,7 +354,7 @@ def check_productspecificationattributeoption(p, sa, sao):
     for ind, a in enumerate(p.ProductSpecificationAttributes):
         if a.SpecificationAttributeId == sa._id and a.SpecificationAttributeOptionId == sao._id:
             psao_ret = p.ProductSpecificationAttributes[ind]
-            spOption = sa.Name
+            #spOption = sa.Name
 
             do = 99 #if spOption.get('displayOrderOnTabProduct') is None else spOption.get('displayOrderOnTabProduct')
 
@@ -533,14 +556,20 @@ def check_rel_manufacturers_to_product(p, m_name):
     mun_ret = None
     man = p.ProductManufacturers
     man = man if not man is None else []
-    m = check_manufacturers(m_name)
+    m_id = m_name.id
+    
+    if not m_id:
+        name = m_name.name
+        if name:
+            m = check_manufacturers()
+            m_id = m._id
 
     for ind, mr in enumerate(man):
-        if mr.ManufacturerId == m._id:
+        if mr.ManufacturerId == m_id:
             mun_ret = man[ind]
 
     if mun_ret is None:
-        new_rel = ProductManufacturerRel(_id = str(ObjectId()),ManufacturerId = m._id)
+        new_rel = ProductManufacturerRel(_id = str(ObjectId()), ManufacturerId = m_id)
         p.ProductManufacturers.append(new_rel) 
 
 def create_product(d:DataScraps):
