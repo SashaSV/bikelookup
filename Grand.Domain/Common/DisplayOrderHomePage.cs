@@ -38,19 +38,19 @@ namespace Grand.Domain.Common
 
         //Home page products
         public int HomePageProducts { get; set; } 
-        public int Hp_Xl { get; set; } = 3; //default 3
+        public int Hp_Xl { get; set; } = 4; //default 3
         public int Hp_Lg { get; set; } = 4; //default 4
         public int Hp_Md { get; set; } = 4; //default 4
         public int Hp_Sm { get; set; } = 6; //default 6
-        public int Hp_Col { get; set; } = 6; //default 6
+        public int Hp_Col { get; set; } = 12; //default 6
 
         //Home page new products
         public int HomePageNewProducts { get; set; }
-        public int Np_Xl { get; set; } = 3; //default 3
+        public int Np_Xl { get; set; } = 4; //default 3
         public int Np_Lg { get; set; } = 4; //default 4
         public int Np_Md { get; set; } = 4; //default 4
         public int Np_Sm { get; set; } = 6; //default 6
-        public int Np_Col { get; set; } = 6; //default 6
+        public int Np_Col { get; set; } = 12; //default 6
 
         //Category featured products
         public int CategoryFeaturedProducts { get; set; }
@@ -72,11 +72,11 @@ namespace Grand.Domain.Common
 
         //Home page best sellers
         public int HomePageBestSellers { get; set; }
-        public int Bs_Xl { get; set; } = 3; //default 3
+        public int Bs_Xl { get; set; } = 4; //default 3
         public int Bs_Lg { get; set; } = 4; //default 4
         public int Bs_Md { get; set; } = 4; //default 4
         public int Bs_Sm { get; set; } = 6; //default 6
-        public int Bs_Col { get; set; } = 6; //default 6
+        public int Bs_Col { get; set; } = 12; //default 6
 
         //Home page manufacturers
         public int HomePageManufacturers { get; set; }

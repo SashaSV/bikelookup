@@ -91,7 +91,7 @@
         </b-link>
     </div>
     <div class="product-info">
-        <div class="top">
+        <b-card-body>
                 <div class="prices-rating">
                     @if (Model.ReviewOverviewModel.AllowCustomerReviews)
                     {
@@ -140,7 +140,7 @@
                 }
                 <h3 class="card-title mb-0">
                     <a href="@Url.RouteUrl("Product", new {SeName = Model.SeName})">
-                        @(Model.Name.Length > 120 && false ? Model.Name.Substring(0, 120) + "..." : Model.Name)
+                        @(Model.Name.Length > 120 ? Model.Name.Substring(0, 120) + "..." : Model.Name)
                     </a>
                 </h3>
 
@@ -208,8 +208,8 @@
                         @T(inclTax ? "Products.Price.TaxShipping.InclTax" : "Products.Price.TaxShipping.ExclTax", Url.RouteUrl("Topic", new { SeName = TopicSeNameConstants.Shippinginfo }))
                     </div>
                 }
-        </div>
-        <div class="bottom">
+        </b-card-body>
+        <div class="card-footer">
             @*<svg class = "line" width="268" height="3" viewBox="0 0 268 3" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M0 3H268" stroke="#444444"/>
             </svg>*@
@@ -220,63 +220,6 @@
                 <input class="form-control input-group-addon catalog-quantity" type="number" id="@qtyId" name="@qtyId" value="1">
             }
             @if (Model.AssociatedProducts.Any())
-            {
-                var countVendor = 0;
-                <div class="spec-container">
-                    <table>
-                        <tbody>
-                            @foreach (var assocProduct in Model.AssociatedProducts)
-                            {
-                                countVendor++;
-                                @if (assocProduct.Vendor == null)
-                                {
-                                    continue;
-                                }
-
-                                if (countVendor > countVendorOnTitle)
-                                {
-                                    break;
-                                }
-                                
-                                var url = !string.IsNullOrEmpty(assocProduct.AdId) ? Url.RouteUrl("ViewAd", new { adId = assocProduct.AdId }) : assocProduct.Url;
-
-                                <tr class="spec">
-                                    <td>
-                                        <div class="spec-name">
-                                            <a href="@url">
-                                                @assocProduct.Vendor.Name
-                                            </a>
-                                            <div v-b-tooltip.hover.left title="@T("Vendor.PriceUpdate")" class="proposal-update-date">
-                                                @assocProduct.UpdatedOnUtc.Value.ToString()
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="spec-value">
-                                            <a href="@url">
-                                                <div class="proposal-value-cur-price">
-                                                    @assocProduct.ProductPrice.Price
-                                                </div>
-                                            </a>
-
-                                            <div class="proposal-value-old-price">
-                                                @assocProduct.ProductPrice.OldPrice
-                                            </div>
-                                            <div class="spec-avaliable">
-                                                @*@assocProduct.SpecificationAttributeModels.FirstOrDefault(a => a.SpecificationAttributeCode == "sp_available").ValueRaw*@
-                                                @assocProduct.IsAvailable
-                                            </div>
-                                        </div>
-                                    </td>
-
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            }
-
-            @* @if (Model.AssociatedProducts.Any())
             {
                 var countVendor = 0;
                 <div class="proposals">
@@ -327,13 +270,17 @@
                                     @assocProduct.ProductPrice.OldPrice
                                 </div>
                                 <div class="spec-avaliable">
+                                    @*@assocProduct.SpecificationAttributeModels.FirstOrDefault(a => a.SpecificationAttributeCode == "sp_available").ValueRaw*@
                                     @assocProduct.IsAvailable
                                 </div>
                             </div>
+                            @*<div class="proposal-value-old-price">
+                                //@assocProduct.SpecificationAttributeModels.
+                            </div>*@
                         </div>
                     }
                 </div>
-            } *@
+            }
             @if (Model.AssociatedProducts.Count() > countVendorOnTitle)
             {
                 <b-link class="other-vendors" href="@Url.RouteUrl("Product", new { SeName = Model.SeName})">

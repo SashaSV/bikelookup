@@ -17,7 +17,8 @@
         pagebuilder.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/css/common/common.css", themeName));
         pagebuilder.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/css/newslider.css", themeName));
     }
-
+    pagebuilder.AppendCssFileParts(ResourceLocation.Head, "~/content/swiper/swiper-bundle.css");
+    pagebuilder.AppendCssFileParts(ResourceLocation.Head, "~/content/swiper/swiper-bundle.min.css");
     pagebuilder.AppendCssFileParts(ResourceLocation.Head, "~/content/custom/style.css");
     //pagebuilder.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/css/custom.css", themeName));
     //pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/jquery-ui-1.12.1.custom/jquery-ui.min.js", excludeFromBundle: true);
@@ -35,7 +36,9 @@
     pagebuilder.AppendScriptParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/vue/portal-vue.umd.min.js", themeName));
     pagebuilder.AppendScriptParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/vue/vue.min.js", themeName));
     pagebuilder.AppendScriptParts(ResourceLocation.Footer, string.Format("~/Themes/{0}/Content/script/menu.js", themeName));
-
+    
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/content/swiper/swiper-bundle.js");
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/content/swiper/swiper-bundle.min.js");
     pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/content/custom/script.js");
     pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/jquery.magnific-popup.min.js");
     pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/scripts/public.actions.js");

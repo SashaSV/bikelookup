@@ -1,7 +1,7 @@
 ﻿@model IList<ProductOverviewModel>
 @inject DisplayOrderHomePage order
 
-<b-container class="text-center my-3">
+@* <b-container class="text-center my-3">
     <h2 class="font-weight-light">Bootstrap 4 - Multi Item Carousel</h2>
     <b-row class="mx-auto my-auto">
         <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
@@ -48,9 +48,6 @@
         </div>
     </b-row>
 
-    @* <script asp-location="Footer" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script asp-location="Footer" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script> *@
-
     <script asp-location="Footer">
 
         $(function () {
@@ -60,7 +57,7 @@
             //debuging
             $('.carousel .carousel-item-new').each(function () {
                 var minPerSlide = 3;
-                debugger
+                //debugger
                 var next = $(this).next();
                 if (!next.length) {
                     next = $(this).siblings(':first');
@@ -79,4 +76,47 @@
     </script>
 
     <h5 class="mt-2">Advances one slide at a time</h5>
+</b-container> *@
+
+<b-container class="text-center my-3">
+    <h2 class="font-weight-light">Swiper Carousel</h2>
+
+    <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+            @foreach (var item in Model)
+            {
+                <div class="swiper-slide">
+                    <partial name="_ProductBoxCarousel" model="item" />
+                </div>
+            }
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+    </div>
+    
+    @* <script asp-location="Footer" src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script> *@
+    
+    <script asp-location="Footer">
+
+        var swiper = new Swiper(".mySwiper", {
+            slidesPerView: 3,
+            spaceBetween: 30,
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            /*autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+            },
+            mousewheel: true,
+            keyboard: true,*/
+            freeMode: true,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+        });
+    </script>
 </b-container>

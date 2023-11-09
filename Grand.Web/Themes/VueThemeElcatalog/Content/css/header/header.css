@@ -307,7 +307,7 @@
 .header-nav__fixed{
     /*padding-top: 50px;*/
     position: fixed;
-    z-index: 50;
+    z-index: 150;
     width: 100%;
     left: 0;
     top: 0;
